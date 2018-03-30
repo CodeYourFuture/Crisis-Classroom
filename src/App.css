@@ -4,7 +4,7 @@
 
 .App-logo {
   position: static;
-  border: 22px solid #73AD21;
+  border: 3px solid #73AD21;
   height: 80px;
 }
 
@@ -24,6 +24,9 @@
 }
 .sub-footer{
   background-color: rgb(1, 151, 248);
+}
+.search{
+  padding: 20px;
 }
 
 

@@ -11,10 +11,15 @@ class Header extends Component {
           <div className="navbar-header">
             <form className="navbar-form navbar-left search form-group" action="/action_page.php">
               <div className="input-group">
-                <input type="text" className="form-control" placeholder="Search" name="search" />
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search"
+                  name="search"
+                />
                 <div className="input-group-btn">
                   <button className="btn btn-default" type="submit">
-                    <i className="glyphicon glyphicon-search"></i>
+                    <i className="glyphicon glyphicon-search" />
                   </button>
                 </div>
               </div>
@@ -63,11 +68,7 @@ class Header extends Component {
 
           </div>
         </nav>
-
-
-
       </div>
-
     );
   }
 }

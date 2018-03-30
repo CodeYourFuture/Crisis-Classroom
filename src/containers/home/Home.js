@@ -18,6 +18,7 @@ class Home extends Component {
             </Link>
           </div>
         </Route>
+        <img src="src/image/crisis.jpg" alt="crisis image" className="crisis-image"/>
         <Usesrs />
       </div>
     );

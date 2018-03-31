@@ -11,8 +11,10 @@ class Header extends Component {
       <div className="row">
         <Logo />
         <NavbarFeatures />
+        <div>
         <Search />
         <SocialMedia />
+        </div>
       </div>
     );
   }

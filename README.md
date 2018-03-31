@@ -2,3 +2,4 @@
 
 npm install react-router-dom --save
 npm install react-scripts
+npm install

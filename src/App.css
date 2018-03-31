@@ -25,29 +25,9 @@
 .sub-footer{
   background-color: rgb(207, 224, 47);
 }
-.search{
-  padding: 20px;
-}
-.nav-facebook {
-  padding: 5px;
-}
-.nav-instagram {
-  padding: 5px;
-}
-.nav-tweeter {
-  padding: 5px;
-}
-.tr{
-  background-color: rgb(185, 199, 33);
-  border: 2px dotted rgb(3, 82, 5);
-  padding: 20px;
-}
-.tm{
-  padding: 5px;
-}
-.nav-1{
-  background-color: rgb(207, 224, 47);
-}
+
+
+
 body{
   background-image: url("image/test.jpg");
   background-repeat: no-repeat, repeat;
@@ -55,6 +35,19 @@ body{
 .crisis-image{
   width: 500px;
 }
+.header-1{
+  background-color: rgb(207, 224, 47);
+  width: 1100px;
+  padding: 20px;
+  border: 2px dotted rgb(255, 255, 255);
+  margin: 20px;
+}
+.crisis-image{
+  width: 800px;
+  margin: 20px;
+  border: 3px solid rgb(8, 3, 3);
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

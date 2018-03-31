@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import "../../App.css";
 
 class Footer extends Component {
   render() {
     return (
-      <div className="footer sub-footer">
+      <div className="footer sub-footer header-1">
         <footer className="container page-footer font-small blue pt-4 mt-4">
           <div className="container-fluid text-center text-md-left">
             <div className="row">

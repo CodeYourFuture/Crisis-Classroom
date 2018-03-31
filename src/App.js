@@ -16,8 +16,6 @@ class CrisisClassrom extends Component {
               <div className="col">
                 <Header />
                 <Home />
-               
-
                 <Footer />
               </div>
             </div>

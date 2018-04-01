@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 
 import Header from "../src/containers/header/Header";
-import Home from "../src/containers/home/Home";
+import Body from "../src/containers/Body";
 import Footer from "../src/containers/footer/Footer";
 
 class CrisisClassrom extends Component {
@@ -12,13 +12,9 @@ class CrisisClassrom extends Component {
       <Router>
         <div className="App">
           <div className="container">
-            <div className="row">
-              <div className="col">
-                <Header />
-                <Home />
-                <Footer />
-              </div>
-            </div>
+            <Header />
+            <Body />
+            <Footer />
           </div>
         </div>
       </Router>

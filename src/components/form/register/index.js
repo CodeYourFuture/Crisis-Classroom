@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Form from "./form";
 
-export default class Register extends Component {
+export default class RegisterIndex extends Component {
   state = {
     fields: {}
   };
@@ -19,6 +19,7 @@ export default class Register extends Component {
   render() {
     return (
       <div className="App">
+        <h1>Register</h1>
         <Form onChange={fields => this.onChange(fields)} />
         <p>{JSON.stringify(this.state.fields, null, 2)}</p>
       </div>

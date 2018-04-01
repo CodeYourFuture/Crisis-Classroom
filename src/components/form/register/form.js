@@ -38,55 +38,52 @@ export default class RegisterForm extends React.Component {
   render() {
     return (
       <div>
-      <form>
-        <input
-          className="form-control"
-          name="firstName"
-          placeholder="First name"
-          value={this.state.firstName}
-          onChange={e => this.change(e)}
-        />
-        <br />
-        <input
-          className="form-control"
-          name="lastName"
-          placeholder="Last name"
-          value={this.state.lastName}
-          onChange={e => this.change(e)}
-        />
-        <br />
-        <input
-          className="form-control"
-          name="username"
-          placeholder="Username"
-          value={this.state.username}
-          onChange={e => this.change(e)}
-        />
-        <br />
-        <input
-          className="form-control"
-          name="email"
-          placeholder="Email"
-          value={this.state.email}
-          onChange={e => this.change(e)}
-        />
-        <br />
-        <input
-          className="form-control"
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={this.state.password}
-          onChange={e => this.change(e)}
-        />
-        <br />
-        <button
-          className="btn btn-primary"
-          onClick={e => this.onSubmit(e)}
-        >
-          Register
-        </button>
-      </form>
+        <form>
+          <input
+            className="form-control"
+            name="firstName"
+            placeholder="First name"
+            value={this.state.firstName}
+            onChange={e => this.change(e)}
+          />
+          <br />
+          <input
+            className="form-control"
+            name="lastName"
+            placeholder="Last name"
+            value={this.state.lastName}
+            onChange={e => this.change(e)}
+          />
+          <br />
+          <input
+            className="form-control"
+            name="username"
+            placeholder="Username"
+            value={this.state.username}
+            onChange={e => this.change(e)}
+          />
+          <br />
+          <input
+            className="form-control"
+            name="email"
+            placeholder="Email"
+            value={this.state.email}
+            onChange={e => this.change(e)}
+          />
+          <br />
+          <input
+            className="form-control"
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={this.state.password}
+            onChange={e => this.change(e)}
+          />
+          <br />
+          <button className="btn btn-primary" onClick={e => this.onSubmit(e)}>
+            Register
+          </button>
+        </form>
       </div>
     );
   }

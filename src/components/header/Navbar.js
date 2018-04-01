@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 
-import { Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
+import "./Style.css";
 
 export default class NavbarFeatures extends Component {
   render() {
     return (
       <Route>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg nb">
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarTogglerDemo03"
@@ -16,55 +17,75 @@ export default class NavbarFeatures extends Component {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon" />
+            <span className="navbar-toggler-icon" />
           </button>
-
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-              <li class="nav-item active">
+          <div
+            classNameName="collapse navbar-collapse"
+            id="navbarSupportedContent"
+          >
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item tm">
+                <Link to="/">
+                  <a
+                    className="py-2 d-none d-md-inline-block tr"
+                    href="https://www.crisisclassroom.com/training"
+                  >
+                    Home
+                  </a>
+                </Link>
+              </li>
+              <li className="nav-item tm">
                 <a
-                  class="nav-link"
+                  className="py-2 d-none d-md-inline-block tr"
                   href="https://www.crisisclassroom.com/training"
                 >
-                  Training <span class="sr-only">(current)</span>
+                  Training
                 </a>
               </li>
-              <li class="nav-item">
+              <li className="nav-item tm">
                 <a
-                  class="nav-link"
+                  className="py-2 d-none d-md-inline-block tr"
                   href="https://www.crisisclassroom.com/teachers"
                 >
-                  Teacher
+                  Teachers
                 </a>
               </li>
-              <li class="nav-item">
+              <li className="nav-item tm">
                 <a
-                  class="nav-link"
+                  className="py-2 d-none d-md-inline-block tr"
                   href="https://www.crisisclassroom.com/projects"
                 >
                   Projects
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="https://www.crisisclassroom.com/news">
-                  News
-                </a>
-              </li>
-              <li class="nav-item">
+              <li className="nav-item dropdown tm">
                 <a
-                  class="nav-link"
-                  href="https://www.crisisclassroom.com/about"
+                  className="py-2 d-none d-md-inline-block dropdown-toggle tr"
+                  href="/"
+                  data-toggle="dropdown"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
                 >
                   About
                 </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="https://www.crisisclassroom.com/contact"
-                >
-                  Contact
-                </a>
+                <ul className="dropdown-menu tr">
+                  <li className="li">
+                    <a href="https://www.crisisclassroom.com/about/meet-the-team">
+                      Meet the team
+                    </a>
+                  </li>
+                  <li className="li">
+                    <a href="https://www.crisisclassroom.com/about/what-we-do">
+                      What we do
+                    </a>
+                  </li>
+                  <li className="li">
+                    <a href="https://www.crisisclassroom.com/about/our-supporters">
+                      Our supporters
+                    </a>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>

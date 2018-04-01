@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import Form from "./form";
+import LoginForm from "./form";
 
-export default class Login extends Component {
+export default class LoginIndex extends Component {
   render() {
     return (
-      <div className="App">
-        <Form/>
+      <div>
+        <h1>Log In</h1>
+        <LoginForm />
       </div>
     );
   }

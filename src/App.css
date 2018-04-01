@@ -10,7 +10,7 @@
 
 .App-header {
   background-color: rgb(255, 255, 255);
-  height: 250px;
+  height: 300px;
   padding: 20px;
   color: white;
 }
@@ -23,12 +23,30 @@
   font-size: large;
 }
 .sub-footer{
-  background-color: rgb(1, 151, 248);
-}
-.search{
-  padding: 20px;
+  background-color: rgb(207, 224, 47);
 }
 
+
+
+body{
+  background-image: url("image/test.jpg");
+  background-repeat: no-repeat, repeat;
+}
+
+.header-1{
+  background-color: rgb(207, 224, 47);
+  width: 100%;
+  padding: 20px;
+  border: 2px dotted rgb(255, 255, 255);
+}
+.crisis-image{
+  width: 800px;
+  margin: 20px;
+  border: 3px solid rgb(8, 3, 3);
+}
+.getstart{
+  margin: 20px;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

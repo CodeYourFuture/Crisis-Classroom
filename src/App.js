@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 
-import Header from "../src/containers/header/Header";
-import Body from "../src/containers/Body";
-import Footer from "../src/containers/footer/Footer";
+import Header from "../src/components/header/Index";
+import Body from "../src/containers/index";
+import Footer from "../src/components/Footer";
 
 class CrisisClassrom extends Component {
   render() {

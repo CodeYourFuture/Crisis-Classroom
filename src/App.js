@@ -4,7 +4,7 @@ import "./App.css";
 
 import Header from "../src/components/header/Index";
 import Body from "../src/containers/index";
-import Footer from "../src/components/Footer";
+// import Footer from "../src/components/Footer";
 
 class CrisisClassrom extends Component {
   render() {
@@ -14,7 +14,7 @@ class CrisisClassrom extends Component {
           <div className="container">
             <Header />
             <Body />
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </div>
       </Router>

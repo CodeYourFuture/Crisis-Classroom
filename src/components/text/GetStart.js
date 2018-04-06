@@ -1,11 +1,11 @@
 import React from "react";
-import crisis from "../../image/crisis.jpg";
+
 import "../../App.css";
 
 const GetStart = () => {
   return (
     <div>
-      <img src={crisis} alt="crisis" className="img-responsive crisis-image " />
+      <img src={require("../../image/crisis.jpg")} alt="crisis" className="img-responsive crisis-image " />
       <h2>EMPOWERMENT THROUGH EDUCATION FOR ALL REFUGEES</h2>
       <p>
         No matter who you are, how old you are or where in the world you are, we
@@ -23,7 +23,7 @@ const GetStart = () => {
         https://chuffed.org/project/crisis-classroom
       </a>
       <a href="">
-        <button type="button" class="btn btn-primary btn-block getstart">
+        <button type="button" className="btn btn-primary btn-block getstart">
           Get start
         </button>
       </a>

@@ -20,18 +20,17 @@ export default class NavbarFeatures extends Component {
             <span className="navbar-toggler-icon" />
           </button>
           <div
-            classNameName="collapse navbar-collapse"
+            className="collapse navbar-collapse"
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav mr-auto">
               <li className="nav-item tm">
                 <Link to="/">
-                  <a
+                  <div
                     className="py-2 d-none d-md-inline-block tr"
-                    href="https://www.crisisclassroom.com/training"
                   >
                     Home
-                  </a>
+                  </div>
                 </Link>
               </li>
               <li className="nav-item tm">

@@ -4,7 +4,6 @@ import Home from "./Home";
 import Login from "./LogIn";
 import Register from "./Register";
 // import Link from "../components/uploads/upload";
-// import { link } from "fs";
 import Template from "./Templates";
 
 class Body extends Component {

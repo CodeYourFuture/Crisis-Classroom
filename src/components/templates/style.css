@@ -1,0 +1,11 @@
+.templets{
+    display: flex;
+    align-content: flex-start;
+    width: 100%;
+}
+.templetsItem{
+     width: 20%;
+}
+.templetsItemImg {
+    width: 100%;
+}

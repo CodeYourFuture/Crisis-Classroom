@@ -14,7 +14,7 @@ class Body extends Component {
         <Route path="/login" component={Login} />
         <Route path="/Register" component={Register} />
         {/* <Route path="/uploads" component= {Link} /> */}
-        <Route path="/templates" component={Template} />
+        <Route path="/templates/" component={Template} />
       </div>
     );
   }

@@ -8,19 +8,20 @@ export default class TemplatIndex extends Component {
   render() {
     return (
       <div>
-        <div>
+        <h1>Templates</h1>
+        <div className="templets">
           {Fakedb.map((e, i) => (
-            <Route exact path="/templates/temp" className="templets" key={i}>
-              <Link to={`/templates/temp/${e.lessons.id}`} key={i}>
-                <div className="templetsItem">
+            <Route exact path="/templates/temp" key={i}>
+              <div className="templetsItem">
+                <Link to={`/templates/temp/${e.lessons.id}`} key={i}>
                   {e.lessons.lessonTitle || "[no description]"}
                   <img
                     className="templetsItemImg"
                     src={require(`../../image/archive/${e.lessons.lessonImg}`)}
                     alt={e.lessons.lessonTitle}
                   />
-                </div>
-              </Link>
+                </Link>
+              </div>
             </Route>
           ))}
         </div>
@@ -28,7 +29,9 @@ export default class TemplatIndex extends Component {
           path="/templates/temp/:eId"
           render={({ match }) => (
             <FirstPage
-              lesson={Fakedb.find(g => g.lessons.id === parseInt(match.params.eId, 10))}
+              lesson={Fakedb.find(
+                g => g.lessons.id === parseInt(match.params.eId, 10)
+              )}
             />
           )}
         />

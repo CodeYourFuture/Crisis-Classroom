@@ -14,7 +14,6 @@ import "./style.css";
 export default class FirstPage extends React.Component {
   render() {
     const lesson = [this.props.lesson];
-    console.log(lesson)
     return (
       <div>
         {lesson.map((e, i) => {

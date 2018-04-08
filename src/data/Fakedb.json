@@ -203,7 +203,7 @@
   },
   {
     "lessons": {
-      "id": 1,
+      "id": 4,
       "lessonTitle": "Kabab one",
       "lessonImg": "Lamb-Kebabs.jpg",
       "timeToPrepair": "2 houres",
@@ -271,7 +271,7 @@
   },
   {
     "lessons": {
-      "id": 1,
+      "id": 5,
       "lessonTitle": "Kabab one",
       "lessonImg": "Lamb-Kebabs.jpg",
       "timeToPrepair": "2 houres",
@@ -339,7 +339,7 @@
   },
   {
     "lessons": {
-      "id": 1,
+      "id": 6,
       "lessonTitle": "Kabab one",
       "lessonImg": "Lamb-Kebabs.jpg",
       "timeToPrepair": "2 houres",
@@ -407,7 +407,7 @@
   },
   {
     "lessons": {
-      "id": 1,
+      "id": 7,
       "lessonTitle": "Kabab one",
       "lessonImg": "Lamb-Kebabs.jpg",
       "timeToPrepair": "2 houres",

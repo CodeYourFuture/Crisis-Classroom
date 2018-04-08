@@ -1,11 +1,15 @@
-
-  .tr{
-    background-color: rgb(185, 199, 33);
-    border: 1px dotted rgb(3, 82, 5);
-    padding: 20px;
-  }
-  .tm{
-    padding: 5px;
-  }
-
-  
+.header {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  background-color: rgb(56, 56, 66);
+}
+.navbar{
+  width: 90%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.form{
+  display: flex;
+  flex-wrap: nowrap;
+}

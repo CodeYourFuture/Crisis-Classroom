@@ -4,10 +4,10 @@ import './Style.css';
 class Logo extends Component {
   render() {
     return (
-      <div classname="App-logo">
+      <div className="App-logo">
         <img
           alt="Logo crisis classroom"
-          height="110"
+          height="60"
           src="https://www.crisisclassroom.com/img/crisis-logo.svg"
         />
       </div>

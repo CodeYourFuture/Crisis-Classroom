@@ -7,6 +7,7 @@ class User extends Component {
       <div>
         <Link to='/login'><button className="btn btn-primary">Login</button></Link>
         <Link to='/register'><button className="btn btn-primary">Register</button></Link>
+        <Link to="/Uploads"> <button >Uploads </button> </Link>
       </div>
     );
   }

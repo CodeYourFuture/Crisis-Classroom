@@ -20,7 +20,7 @@ export default class Ingredients extends React.Component {
                   <img
                     className="Symbole"
                     src={require(`../../../image/ingredients/${
-                      e.ingridientsSymbole
+                      e.ingridientsSymbole 
                     }`)}
                     alt={e.toolName}
                   />

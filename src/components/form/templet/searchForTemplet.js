@@ -2,7 +2,6 @@ import React from "react";
 
 export default class SearchForInpud extends React.Component {
 
-
   render() {
     return (
       <div>

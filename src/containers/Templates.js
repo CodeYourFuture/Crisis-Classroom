@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TemplatIndex from "../components/templates/index"
+import TemplatIndex from "../components/templates/index";
 
 export default class Template extends Component {
   render() {

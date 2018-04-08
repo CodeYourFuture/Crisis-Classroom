@@ -1,49 +1,15 @@
 .App {
+  align-items: center;
   text-align: center;
+  width: 100%;
 }
-
-.App-logo {
-  position: static;
-  border: 3px solid #73AD21;
-  height: 80px;
-}
-
-.App-header {
-  background-color: rgb(255, 255, 255);
-  height: 300px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-.sub-footer{
-  background-color: rgb(207, 224, 47);
-}
-
-
 
 body{
   background-image: url("image/test.jpg");
   background-repeat: no-repeat, repeat;
 }
 
-.header-1{
-  background-color: rgb(207, 224, 47);
-  width: 100%;
-  padding: 20px;
-  border: 2px dotted rgb(255, 255, 255);
-}
-.crisis-image{
-  width: 800px;
-  margin: 20px;
-  border: 3px solid rgb(8, 3, 3);
-}
+
 .getstart{
   margin: 20px;
 }

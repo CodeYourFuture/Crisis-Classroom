@@ -6,19 +6,21 @@ import NumberOfPeople from "./numberOfPeople";
 import LessonTitle from "./lessonTitle";
 import Ingredients from "./ingredients";
 import Instructions from "./insturctions";
-import Instructionsparttwo from "./instructionsparttwo"
+import Instructionsparttwo from "./instructionsparttwo";
+// import FakeData from "../../../data/Fakedb.json";
 
 import "./style.css";
 
 export default class FirstPage extends React.Component {
   render() {
+    const lesson = [this.props.lesson];
     return (
       <div>
-        {this.props.data.map((e, i) => {
+        {lesson.map((e, i) => {
           return (
-            <Grid fluid className="container">
+            <Grid fluid className="container" key={i}>
               <Row className="minrow">
-                <Col className="box1" lg={3} {...this.props} key={i}>
+                <Col className="box1" lg={3} {...this.props}>
                   <LessonTitle
                     lessonTitle={e.lessons.lessonTitle}
                     lessonImg={e.lessons.lessonImg}
@@ -37,29 +39,25 @@ export default class FirstPage extends React.Component {
                     toolsItem={e.lessons.toolsItem}
                   />
                 </Col>
-                <Col className="box1" lg={3} {...this.props} key={i}>
+                <Col className="box1" lg={3} {...this.props}>
                   <Ingredients
                     ingredient={e.lessons.ingredient}
                     ingredients={e.lessons.ingredients}
                   />
                 </Col>
-                <Col className="box1" lg={3} {...this.props} key={i}>
+                <Col className="box1" lg={3} {...this.props}>
                   <Instructions
                     instruction={e.lessons.instruction}
                     instructions={e.lessons.instructions}
                   />
                 </Col>
-                <Col className="box1" lg={3} {...this.props} key={i}>
-                  <Instructionsparttwo
-                    instructions={e.lessons.instructions}
-                  />
+                <Col className="box1" lg={3} {...this.props}>
+                  <Instructionsparttwo instructions={e.lessons.instructions} />
                 </Col>
-                
               </Row>
             </Grid>
           );
         })}
-        
       </div>
     );
   }

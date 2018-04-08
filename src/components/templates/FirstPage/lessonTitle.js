@@ -5,7 +5,7 @@ export default class LessonTitle extends React.Component {
   render() {
     return (
       <div>
-        <h1>{this.props.lessonTitle}</h1>
+        <h2>{this.props.lessonTitle}</h2>
         <img
           className="lessonImg"
           src={require(`../../../image/archive/${this.props.lessonImg}`)}

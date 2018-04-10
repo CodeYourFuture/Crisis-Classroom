@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, Link } from "react-router-dom";
-import Fakedb from "../../data/Fakedb.json";
+import { Switch, Route } from "react-router-dom";
 import TemplatesList from './TemplatesList'
 import FirstPage from './FirstPage'
 import "./style.css";

@@ -29,23 +29,27 @@ export default class TemplatIndex extends Component {
   render() {
     let searchResult = Fakedb.filter(searchingFor(this.state.term));
     return (
-      <div >
+      <div>
         <h1>Templates</h1>
-        <SearchForInpud searchHandler={this.searchHandler} />
-        <div >
-        {searchResult.map((e, i) => (
-          <div className="templetsItem">
-            <Link to={`/templates/${e.lessons.id}`} key={i}>
-              {e.lessons.lessonTitle || "[no description]"}
-              <img
-                className="templetsItemImg"
-                src={require(`../../image/archive/${e.lessons.lessonImg}`)}
-                alt={e.lessons.lessonTitle}
-              />
-            </Link>
-          </div>
-          
-        ))}
+        <div className="templets">
+          <SearchForInpud searchHandler={this.searchHandler} />
+          <Link to="/add-new-templet">
+            <button className="btn btn-primary">Add One</button>
+          </Link>
+        </div>
+        <div className="templets">
+          {searchResult.map((e, i) => (
+            <div className="templetsItem">
+              <Link to={`/templates/${e.lessons.id}`} key={i}>
+                {e.lessons.lessonTitle || "[no description]"}
+                <img
+                  className="templetsItemImg"
+                  src={require(`../../image/archive/${e.lessons.lessonImg}`)}
+                  alt={e.lessons.lessonTitle}
+                />
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     );

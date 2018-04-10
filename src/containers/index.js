@@ -7,6 +7,7 @@ import Home from "./Home";
 import Login from "./LogIn";
 import Register from "./Register";
 import Template from "./Templates";
+import LessonForm from "../components/form/templet/newTemplet";
 import "./style.css";
 
 class Body extends Component {
@@ -19,7 +20,8 @@ class Body extends Component {
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/templates/" component={Template} />
+            <Route path="/templates" component={Template} />
+            <Route path="/add-new-templet" component={LessonForm} />
             <Footer />
           </div>
         </Router>

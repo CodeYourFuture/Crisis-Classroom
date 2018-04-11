@@ -39,7 +39,7 @@ export default class TemplatIndex extends Component {
         </div>
         <div className="templets">
           {searchResult.map((e, i) => (
-            <div className="templetsItem">
+            <div className="templetsItem" key={i}>
               <Link to={`/templates/${e.lessons.id}`} key={i}>
                 {e.lessons.lessonTitle || "[no description]"}
                 <img

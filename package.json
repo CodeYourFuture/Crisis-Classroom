@@ -15,6 +15,7 @@
     "react-images-uploader": "^1.2.0-rc1",
     "react-mad-navbar": "^0.2.0",
     "react-router-dom": "^4.2.2",
+    "react-s3": "^1.2.4",
     "react-scripts": "^1.1.1",
     "react-social-media-bar": "0.0.4"
   },

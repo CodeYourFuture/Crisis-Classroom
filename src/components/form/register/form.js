@@ -3,16 +3,19 @@ import Input from "../../input";
 import Button from "../../button";
 import Label from "../../label";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default class RegisterForm extends React.Component {
-  state = {
-    firstName: "",
-    lastName: "",
-    username: "",
-    email: "",
-    password: ""
-  };
-
+  constructor() {
+    super();
+    this.state = {
+      firstName: "",
+      surName: "",
+      userName: "",
+      email: "",
+      password: ""
+    };
+  }
   change = e => {
     this.props.onChange({ [e.target.name]: e.target.value });
     this.setState({
@@ -21,66 +24,64 @@ export default class RegisterForm extends React.Component {
   };
 
   onSubmit = e => {
-    e.preventDefault();
-    // this.props.onSubmit(this.state);
-    this.setState({
-      firstName: "",
-      lastName: "",
-      username: "",
-      email: "",
-      password: ""
-    });
-    this.props.onChange({
-      firstName: "",
-      lastName: "",
-      username: "",
-      email: "",
-      password: ""
+    e.preventDefault(); 
+    const { firstName, surName, userName, email, password  } = this.state;
+
+    axios.post("http://localhost:8001/api/register", 
+    { firstName, surName, userName, email, password   })
+    .then(result => {
+      console.log(result)
     });
   };
 
   render() {
+    const { firstName, surName, userName, email, password  } = this.state;
+    const isEnabled = email.length > 0 && password.length > 0 && firstName.length > 0 && surName > 0 && userName > 0;
     return (
       <div className="lesson-form">
         <h1>Register</h1>
         <form>
-          <div class="form-group">
+          <div className="form-group">
             <Label value="Full Name" />
             <div>
               <Input
                 name="firstName"
+                type="text"
                 placeholder="First name"
                 value={this.state.firstName}
                 onChange={e => this.change(e)}
+                required
               />
               <Input
-                name="lastName"
+                name="surName"
+                type="text"
                 placeholder="Last name"
-                value={this.state.lastName}
+                value={this.state.surName}
                 onChange={e => this.change(e)}
               />
             </div>
           </div>
-
-          <div class="form-group">
+          <div className="form-group">
             <Label value="User Name" />
             <Input
-              name="username"
-              placeholder="Username"
-              value={this.state.username}
+              name="userName"
+              type="text"
+              placeholder="UserName"
+              value={this.state.userName}
               onChange={e => this.change(e)}
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <Label value="Email" />
             <Input
               name="email"
+              type="email"
               placeholder="Email"
               value={this.state.email}
               onChange={e => this.change(e)}
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <Label value="Password" />
             <Input
               name="password"
@@ -90,11 +91,12 @@ export default class RegisterForm extends React.Component {
               onChange={e => this.change(e)}
             />
           </div>
-          <Link to="/register">
+          <Link to="/">
             <Button
               className="btn btn-primary"
               onClick={e => this.onSubmit(e)}
               value={"Register"}
+              disabled={!isEnabled}
             />
           </Link>
         </form>

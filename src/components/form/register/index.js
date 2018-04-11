@@ -20,7 +20,6 @@ export default class RegisterIndex extends Component {
     return (
       <div>
         <Form onChange={fields => this.onChange(fields)} />
-        <p>{JSON.stringify(this.state.fields, null, 2)}</p>
       </div>
     );
   }

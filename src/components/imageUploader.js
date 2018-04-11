@@ -1,29 +1,55 @@
 import React, { Component } from "react";
+import ReactS3 from "react-s3";
+import "./style.css";
 
-import DropzoneS3Uploader from 'react-dropzone-s3-uploader'
- 
-export default class S3Uploader extends Component {
- 
- 
+const config = {
+  bucketName: "wolfjawan",
+  albumName: "photos",
+  region: "eu-west-2",
+  accessKeyId: "AKIAIOKWZTBO7CVFPNGQ",
+  secretAccessKey: "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"
+};
+
+export default class ImageUploader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      file: null
+    };
+  }
+  fileSelectedHandler = event => {
+    console.log(event.target.files[0]);
+    this.setState({
+      file: event.target.files[0]
+    });
+  };
+
+  upload = () => {
+    const file = this.state.file;
+    ReactS3.upload(file, config)
+      .then(data => {})
+      .catch(err => {
+        alert(err);
+        console.log(err);
+      });
+  };
+
   render() {
-    const uploadOptions = {
-      server: 'http://localhost:3000',
-      signingUrlQueryParams: {uploadType: 'jpg'},
-    }
-    const s3Url = 'https://wolfjawan2.s3.amazonaws.com'  
-    console.log(s3Url)
- 
     return (
-      <DropzoneS3Uploader
-        s3Url={s3Url}
-        maxSize={540 * 540 * 10}
-        upload={uploadOptions}
-      />
-    )
+      <div>
+        <label className="btn btn-primary btn-file">
+        Choose a file
+          <input
+            style={{ display: "none" }}
+            type="file"
+            onChange={this.fileSelectedHandler}
+          />
+        </label>
+        <button onClick={this.upload}>Upload</button>
+      </div>
+    );
   }
 }
-
-
 
 // import React, { Component } from "react";
 
@@ -47,12 +73,12 @@ export default class S3Uploader extends Component {
 //             onChange={this.fileSelectedHandler}
 //             ref={fileInput => (this.fileInput = fileInput)}
 //           />
-//           {/* <button
+//            <button
 //           className="btn btn-info"
 //           onClick={() => this.fileInput.click()}
 //         >
 //           Chose File
-//         </button> */}
+//         </button>
 //           <img
 //             className="templetsItemImg"
 //             src={this.state.selectedFile}

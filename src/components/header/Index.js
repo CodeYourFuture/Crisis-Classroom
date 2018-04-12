@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Logo from "./Logo";
 import NavbarFeatures from "./Navbar";
-// import User from "./User";
+import UserInfo from "./userInfo";
 import "../../App.css";
 
 class Header extends Component {
@@ -13,6 +13,7 @@ class Header extends Component {
           <Logo />
           <NavbarFeatures />
         </div>
+       < UserInfo/>
       </div>
     );
   }

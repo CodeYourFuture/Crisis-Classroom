@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-
 import { Route, Link } from "react-router-dom";
 import "./Style.css";
+// import { Button } from "antd";
 
 export default class NavbarFeatures extends Component {
   render() {
@@ -84,16 +84,6 @@ export default class NavbarFeatures extends Component {
                   </a>
                 </div>
               </li>
-              <li className="nav-item">
-                <Link to="/templates" className="nav-link">
-                  Templates
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="navbar-brand" to="/login">
-                  <div>Login</div>
-                </Link>
-              </li>
             </ul>
             <form className="form-inline my-2 my-lg-0 form">
               <input
@@ -115,3 +105,4 @@ export default class NavbarFeatures extends Component {
     );
   }
 }
+

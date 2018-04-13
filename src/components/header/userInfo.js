@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import "./Style.css";
 import { Button } from "antd";
@@ -10,18 +10,18 @@ class userInfo extends Component {
       <nav className="userInfo navbar navbar-dark bg-dark">
         <div>
           <div >
-            {Cookies.get("password") ? (
+            {/* {Cookies.get("password") ? ( */}
               <div>
                 <ul className="row">
                   <li className="nav-link">
                     <Link to="/templates">Templates</Link>
                   </li>
-                  <li className="nav-link">{Cookies.get("userName")}</li>
+                  {/* <li className="nav-link">{Cookies.get("userName")}</li> */}
                   <li className="nav-link">
                     <Link to="/">
                       <Button
                         className="btn-link"
-                        onClick={() => Cookies.remove("password")}
+                        // onClick={() => Cookies.remove("password")}
                       >
                         log out
                       </Button>

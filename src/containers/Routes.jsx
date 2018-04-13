@@ -7,6 +7,7 @@ import Register from "./Register";
 import Template from "./Templates";
 import LessonForm from "../components/form/templet/newTemplet";
 import Welecome from "../components/text/welecome";
+import NavPages from "../components/text/index";
 import Cookies from "js-cookie";
 import "./style.css";
 
@@ -48,6 +49,7 @@ class Routes extends Component {
             )}
             <Route path="/add-new-templet" component={LessonForm} />
             <Route path="/welecome" component={Welecome} />
+            <NavPages />
           </Fragment>
     )
     

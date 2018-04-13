@@ -18,25 +18,25 @@ export default class ImageUploader extends Component {
       img: ""
     };
   }
-  fileSelectedHandler = event => {
-    console.log(event.target.files[0]);
-    this.setState({
-      file: event.target.files[0]
-    });
-  };
+  // fileSelectedHandler = event => {
+  //   console.log(event.target.files[0]);
+  //   this.setState({
+  //     file: event.target.files[0]
+  //   });
+  // };
   loadFile(event) {
     var reader = new FileReader();
-    reader.onload = ()=> {
-      this.setState({img: reader.result})
+    reader.onload = () => {
+      this.setState({ img: reader.result });
     };
     reader.readAsDataURL(event.target.files[0]);
   }
-  upload = (event) => {
+  upload = event => {
     event.preventDefault();
-    console.log(file)
-    const file = this.state.file;
+    // console.log(img);
+    const img = this.state.img;
 
-    ReactS3.upload(this.files, config)
+    ReactS3.upload(img, config)
       .then(data => {
         // console.log(data)
       })
@@ -50,18 +50,21 @@ export default class ImageUploader extends Component {
     return (
       <div>
         <label className="btn btn-primary btn-file">
-            
-          {this.state.img === '' ? "chose a file" : <img width="50px" src={this.state.img}/> }          
+          {this.state.img === "" ? (
+            "chose a file"
+          ) : (
+            <img width="50px" src={this.state.img}
+            alt="foot"
+            />
+          )}
           <input
             style={{ display: "none" }}
             type="file"
-            onChange={event=>this.loadFile(event)}
-              accept="image/*"
-            
-          /> 
-          
+            onChange={event => this.loadFile(event)}
+            accept="image/*"
+          />
         </label>
-        
+
         {/* <button onClick={this.upload}>Upload</button> */}
       </div>
     );

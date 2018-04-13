@@ -4,12 +4,18 @@ import Input from "../../../input";
 import Button from "../../../button";
 import Label from "../../../label";
 import S3Uploader from "../../../imageUploader";
+import _ from  "lodash"
 // import "./style.css";
 
 export default class LessonTitle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      info: {
+        title: null, 
+        numberOfPeople: null, 
+        duration: null 
+      },
       activeForm: 0,
       steps: [
         {
@@ -39,10 +45,22 @@ export default class LessonTitle extends React.Component {
       };
     });
   };
+  onChange = (event)=>{
+    const {info} = this.state
+    _.set(info, event.target.name, event.target.value)
+    
+    this.setState({
+      
+      info: info
+      
+
+    })
+
+  }
   hanldeSteps = () => {
-    this.setState(prevState => {
-      steps: prevState.steps.concat([{ name: "stpe4", imag: "stpe5" }]);
-    });
+  //   this.setState(prevState => {
+  //   //   steps: prevState.steps.concat([{ name: "stpe4", imag: "stpe5" }]);
+  //   // });
   };
 
   render() {
@@ -53,11 +71,13 @@ export default class LessonTitle extends React.Component {
           <div className="row">
             <Input
               type="text"
-              onChange={e => this.change(e)}
-              value="Inseet title"
+              onChange={ this.onChange}
+              placeholder="Insert title"
+              name="title"
+              value={this.state.info.title}
             />
             &nbsp;
-            <S3Uploader />
+            {/* <S3Uploader /> */}
           </div>
         </div>
         <div className="form-group">
@@ -65,11 +85,13 @@ export default class LessonTitle extends React.Component {
           <div className="row">
             <Input
               type="text"
-              onChange={e => this.change(e)}
-              value="How much time does it require?"
+              name="duration"
+              onChange={ this.onChange}
+              placeholder="How much time does it require?"
+              value={this.state.info.duration}
             />
             &nbsp;
-            <S3Uploader />
+            {/* <S3Uploader /> */}
           </div>
         </div>
         <div className="form-group">
@@ -77,11 +99,13 @@ export default class LessonTitle extends React.Component {
           <div className="row">
             <Input
               type="text"
-              onChange={e => this.change(e)}
-              value="How many people is it for?"
+              name="numberOfPeople"
+              onChange={ this.onChange}
+              placeholder="How many people is it for?"
+              value={this.state.info.numberOfPeople}
             />
             &nbsp;
-            <S3Uploader />
+            {/* <S3Uploader /> */}
           </div>
         </div>
       </form>,

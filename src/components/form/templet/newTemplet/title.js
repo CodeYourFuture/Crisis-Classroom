@@ -4,7 +4,7 @@ import Input from "../../../input";
 import Button from "../../../button";
 import Label from "../../../label";
 import S3Uploader from "../../../imageUploader";
-import _ from  "lodash"
+import _ from "lodash";
 // import "./style.css";
 
 export default class LessonTitle extends React.Component {
@@ -12,9 +12,9 @@ export default class LessonTitle extends React.Component {
     super(props);
     this.state = {
       info: {
-        title: null, 
-        numberOfPeople: null, 
-        duration: null 
+        title: null,
+        numberOfPeople: null,
+        duration: null
       },
       activeForm: 0,
       steps: [
@@ -29,6 +29,7 @@ export default class LessonTitle extends React.Component {
       ]
     };
   }
+  
   nextFormHandler = event => {
     event.preventDefault();
     this.setState(prevState => {
@@ -45,22 +46,18 @@ export default class LessonTitle extends React.Component {
       };
     });
   };
-  onChange = (event)=>{
-    const {info} = this.state
-    _.set(info, event.target.name, event.target.value)
-    
+  onChange = event => {
+    const { info } = this.state;
+    _.set(info, event.target.name, event.target.value);
+
     this.setState({
-      
-      info: info
-      
-
-    })
-
-  }
+      info
+    });
+  };
   hanldeSteps = () => {
-  //   this.setState(prevState => {
-  //   //   steps: prevState.steps.concat([{ name: "stpe4", imag: "stpe5" }]);
-  //   // });
+    //   this.setState(prevState => {
+    //   //   steps: prevState.steps.concat([{ name: "stpe4", imag: "stpe5" }]);
+    //   // });
   };
 
   render() {
@@ -71,7 +68,7 @@ export default class LessonTitle extends React.Component {
           <div className="row">
             <Input
               type="text"
-              onChange={ this.onChange}
+              onChange={this.onChange}
               placeholder="Insert title"
               name="title"
               value={this.state.info.title}
@@ -86,7 +83,7 @@ export default class LessonTitle extends React.Component {
             <Input
               type="text"
               name="duration"
-              onChange={ this.onChange}
+              onChange={this.onChange}
               placeholder="How much time does it require?"
               value={this.state.info.duration}
             />
@@ -100,7 +97,7 @@ export default class LessonTitle extends React.Component {
             <Input
               type="text"
               name="numberOfPeople"
-              onChange={ this.onChange}
+              onChange={this.onChange}
               placeholder="How many people is it for?"
               value={this.state.info.numberOfPeople}
             />

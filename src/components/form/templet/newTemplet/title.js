@@ -3,7 +3,7 @@ import React from "react";
 import Input from "../../../input";
 import Button from "../../../button";
 import Label from "../../../label";
-import S3Uploader from "../../../imageUploader";
+// import S3Uploader from "../../../imageUploader";
 import _ from  "lodash"
 // import "./style.css";
 

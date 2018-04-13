@@ -10,6 +10,7 @@ import Template from "./Templates";
 import LessonForm from "../components/form/templet/newTemplet";
 import Welecome from "../components/text/welecome";
 import Cookies from "js-cookie";
+import NavPages from "../components/text/index";
 import "./style.css";
 
 class Body extends Component {
@@ -53,6 +54,7 @@ class Body extends Component {
             )}
             <Route path="/add-new-templet" component={LessonForm} />
             <Route path="/welecome" component={Welecome} />
+            <NavPages />
             <Footer />
           </div>
         </Router>

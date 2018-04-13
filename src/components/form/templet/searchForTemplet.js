@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class SearchForInpud extends React.Component {
+export default class SearchForInput extends React.Component {
   render() {
     return (
       <input

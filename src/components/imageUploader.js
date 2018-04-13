@@ -6,8 +6,8 @@ const config = {
   bucketName: "wolfjawan",
   albumName: "photos",
   region: "eu-west-2",
-  accessKeyId: "AKIAIOKWZTBO7CVFPNGQ",
-  secretAccessKey: "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"
+  accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
 };
 
 export default class ImageUploader extends Component {

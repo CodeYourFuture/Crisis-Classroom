@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Fakedb from "../../data/Fakedb.json";
-import SearchForInpud from "../form/templet/searchForTemplet";
+import SearchForInput from "../form/templet/searchForTemplet";
 import "./style.css";
 
 function searchingFor(term) {
@@ -32,7 +32,7 @@ export default class TemplatIndex extends Component {
       <div>
         <h1>Templates</h1>
         <div className="templets">
-          <SearchForInpud searchHandler={this.searchHandler} />
+          <SearchForInput searchHandler={this.searchHandler} />
           <Link to="/add-new-templet">
             <button className="btn btn-primary">Add One</button>
           </Link>

@@ -8,7 +8,8 @@ import Login from "./LogIn";
 import Register from "./Register";
 import Template from "./Templates";
 import LessonForm from "../components/form/templet/newTemplet";
-import Welecome from "../components/text/welecome"
+import Welecome from "../components/text/welecome";
+import Cookies from "js-cookie";
 import "./style.css";
 
 class Body extends Component {
@@ -19,16 +20,39 @@ class Body extends Component {
           <div className="mainIndex">
             <Header />
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            {/* {document.cookie ? (
+            {Cookies.get("password") ? (
+              <Route
+                path="/login"
+                render={() => {
+                  return <h1>You are Loged In</h1>;
+                }}
+              />
+            ) : (
+              <Route path="/login" component={Login} />
+            )}
+            {Cookies.get("password") ? (
+              <Route
+                path="/register"
+                render={() => {
+                  return <h1>You are a member</h1>;
+                }}
+              />
+            ) : (
+              <Route path="/register" component={Register} />
+            )}
+
+            {Cookies.get("password") ? (
               <Route path="/templates" component={Template} />
             ) : (
-              <h1>not loged in</h1>
-            )} */}
-            <Route path="/templates" component={Template} />
+              <Route
+                path="/templates"
+                render={() => {
+                  return <h1>Not loged In</h1>;
+                }}
+              />
+            )}
             <Route path="/add-new-templet" component={LessonForm} />
-            <Route path="/welecome" component={Welecome}/>
+            <Route path="/welecome" component={Welecome} />
             <Footer />
           </div>
         </Router>

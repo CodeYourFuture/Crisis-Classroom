@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import Logo from "./Logo";
 import NavbarFeatures from "./Navbar";
 import UserInfo from "./userInfo";
-import "../../App.css";
+import "./Style.css";
 
 class Header extends Component {
   render() {
@@ -13,7 +13,9 @@ class Header extends Component {
           <Logo />
           <NavbarFeatures />
         </div>
-       < UserInfo/>
+        <div>
+          <UserInfo />
+        </div>
       </div>
     );
   }

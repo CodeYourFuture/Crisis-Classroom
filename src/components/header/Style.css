@@ -17,10 +17,12 @@
   display: flex;
   flex-wrap: nowrap;
 }
-.userInfo{
+.user-info{
   display: flex;
-  flex-wrap: nowrap;
-  height: 40px;
+  justify-content: flex-end;
   width: 100%;
-  background-color: rgb(56, 56, 66);
+  border: 5px solid rgba(255, 0, 0, 0);
+}
+.user-info-items{
+display: flex;
 }

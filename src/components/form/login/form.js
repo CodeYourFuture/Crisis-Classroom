@@ -72,10 +72,6 @@ export default class LoginForm extends React.Component {
                   value="LogIn"
                 />
               </Link>
-              <h6 className="btn">OR</h6>
-              <Link to="/register">
-                <Button className="btn btn-primary" value="Register" />
-              </Link>
             </div>
           </div>
         </form>

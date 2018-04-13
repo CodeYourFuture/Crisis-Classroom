@@ -14,7 +14,8 @@ export default class ImageUploader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      file: null
+      file: null,
+      img: ""
     };
   }
   fileSelectedHandler = event => {
@@ -23,11 +24,19 @@ export default class ImageUploader extends Component {
       file: event.target.files[0]
     });
   };
-
+  loadFile(event) {
+    var reader = new FileReader();
+    reader.onload = ()=> {
+      this.setState({img: reader.result})
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  }
   upload = () => {
     const file = this.state.file;
     ReactS3.upload(file, config)
-      .then(data => {})
+      .then(data => {
+        console.log(data)
+      })
       .catch(err => {
         alert(err);
         console.log(err);
@@ -38,53 +47,19 @@ export default class ImageUploader extends Component {
     return (
       <div>
         <label className="btn btn-primary btn-file">
-        Choose a file
+            
+          {this.state.img === '' ? "chose a file" : <img width="50px" src={this.state.img}/> }          
           <input
             style={{ display: "none" }}
             type="file"
-            onChange={this.fileSelectedHandler}
-          />
+            onChange={event=>this.loadFile(event)}
+              accept="image/*"
+            
+          /> 
+          
         </label>
         <button onClick={this.upload}>Upload</button>
       </div>
     );
   }
 }
-
-// import React, { Component } from "react";
-
-// export default class ImageUploader extends Component {
-//   state = {
-//     selectedFile: null
-//   };
-
-//   fileSelectedHandler = event => {
-//     console.log(event.target.files[0])
-//     this.setState({
-//       selectedFile: event.target.files[0]
-//     });
-//   };
-
-//   render() {
-//     return (
-//         <div>
-//           <input
-//             type="file"
-//             onChange={this.fileSelectedHandler}
-//             ref={fileInput => (this.fileInput = fileInput)}
-//           />
-//            <button
-//           className="btn btn-info"
-//           onClick={() => this.fileInput.click()}
-//         >
-//           Chose File
-//         </button>
-//           <img
-//             className="templetsItemImg"
-//             src={this.state.selectedFile}
-//             alt="img"
-//           />
-//         </div>
-//       )
-//   }
-// }

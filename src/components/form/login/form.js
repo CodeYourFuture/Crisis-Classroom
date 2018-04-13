@@ -6,8 +6,8 @@ import Label from "../../label";
 import axios from "axios";
 
 export default class LoginForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       userName: "",
       password: ""
@@ -30,7 +30,8 @@ export default class LoginForm extends React.Component {
         console.log(result.data.status);
         if (result.data.status) {
           document.cookie = `userName=${this.state.userName}`;
-          document.cookie = ` password=${this.state.password}`;
+          document.cookie = `password=${this.state.password}`;
+          console.log(this.props.history.push('/'))
         } else alert("User name and Password is wrong");
       });
   };
@@ -65,13 +66,13 @@ export default class LoginForm extends React.Component {
           <div className="form-group">
             <h3>Forgotten password?</h3>
             <div className="row">
-              <Link to="/welecome">
+              
                 <Button
                   className="btn btn-primary"
                   onClick={e => this.onSubmit(e)}
                   value="LogIn"
                 />
-              </Link>
+              
             </div>
           </div>
         </form>

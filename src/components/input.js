@@ -6,7 +6,7 @@ export default class Input extends Component {
   render() {
     return (
       <input
-        className="form-control"
+        className={this.props.className}
         type={this.props.type}
         name={this.props.name}
         value={this.props.value}

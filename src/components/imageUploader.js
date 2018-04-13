@@ -4,7 +4,6 @@ import "./style.css";
 
 const config = {
   bucketName: "wolfjawan",
-  albumName: "photos",
   region: "eu-west-2",
   accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
   secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
@@ -26,19 +25,21 @@ export default class ImageUploader extends Component {
   // };
   loadFile(event) {
     var reader = new FileReader();
-    reader.onload = () => {
-      this.setState({ img: reader.result });
+    reader.onload = ()=> {
+      this.setState({
+        img: reader.result})
     };
-    reader.readAsDataURL(event.target.files[0]);
+    this.setState({img: event.target.files[0]})
+    // reader.readAsDataURL(event.target.files[0]);
   }
   upload = event => {
     event.preventDefault();
-    // console.log(img);
-    const img = this.state.img;
 
+    const { img } = this.state;
+    // console.log(file)
     ReactS3.upload(img, config)
       .then(data => {
-        // console.log(data)
+        console.log(data)
       })
       .catch(err => {
         alert(err);
@@ -66,6 +67,7 @@ export default class ImageUploader extends Component {
         </label>
 
         {/* <button onClick={this.upload}>Upload</button> */}
+        <button onClick={this.upload}>Upload</button>
       </div>
     );
   }

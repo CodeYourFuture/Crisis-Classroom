@@ -2,46 +2,47 @@ import React, { Component } from "react";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import "./Style.css";
-import { Button } from "antd";
+import Button from "../button";
 
 class userInfo extends Component {
   render() {
     return (
-      <nav className="userInfo navbar navbar-dark bg-dark">
-        <div>
-          <div >
-            {Cookies.get("password") ? (
-              <div>
-                <ul className="row">
-                  <li className="nav-link">
-                    <Link to="/templates">Templates</Link>
-                  </li>
-                  <li className="nav-link">{Cookies.get("userName")}</li>
-                  <li className="nav-link">
-                    <Link to="/">
-                      <Button
-                        className="btn-link"
-                        onClick={() => Cookies.remove("password")}
-                      >
-                        log out
-                      </Button>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              <li className="navbar-brand">
-                <Link className="navbar-brand" to="/login">
-                  <div>Login</div>
-                </Link>
-              </li>
-            )}
+      <div className="user-info">
+        {Cookies.get("password") ? (
+          <div className="user-info-items">
+            <Link to="/templates">
+              <Button className="btn btn-outline-success" value="Templates" />
+            </Link>
+            &nbsp;
+            <Link to="/">
+              <Button
+                className="btn btn-outline-info"
+                value={Cookies.get("userName")}
+              />
+            </Link>
+            &nbsp;
+            <Link to="/">
+              <Button
+                className="btn btn-outline-danger"
+                onClick={() => Cookies.remove("password")}
+                value="log out"
+              />
+            </Link>
           </div>
-        </div>
-      </nav>
+        ) : (
+          <div className="row">
+            <Link to="/login">
+              <Button className="btn btn-outline-dark" value="Login" />
+            </Link>
+            &nbsp;
+            <Link to="/register">
+              <Button className="btn btn-outline-dark" value="Register" />
+            </Link>
+          </div>
+        )}
+      </div>
     );
   }
 }
 
 export default userInfo;
-

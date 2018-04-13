@@ -24,19 +24,30 @@ export default class RegisterForm extends React.Component {
   };
 
   onSubmit = e => {
-    e.preventDefault(); 
-    const { firstName, surName, userName, email, password  } = this.state;
+    e.preventDefault();
+    const { firstName, surName, userName, email, password } = this.state;
 
-    axios.post("http://localhost:8001/api/register", 
-    { firstName, surName, userName, email, password   })
-    .then(result => {
-      console.log(result)
-    });
+    axios
+      .post("http://localhost:8001/api/register", {
+        firstName,
+        surName,
+        userName,
+        email,
+        password
+      })
+      .then(result => {
+        console.log(result);
+      });
   };
 
   render() {
-    const { firstName, surName, userName, email, password  } = this.state;
-    const isEnabled = email.length > 0 && password.length > 0 && firstName.length > 0 && surName > 0 && userName > 0;
+    const { firstName, surName, userName, email, password } = this.state;
+    const isEnabled =
+      email.length > 0 &&
+      password.length > 0 &&
+      firstName.length > 0 &&
+      surName > 0 &&
+      userName > 0;
     return (
       <div className="lesson-form">
         <h1>Register</h1>
@@ -94,8 +105,8 @@ export default class RegisterForm extends React.Component {
           <Link to="/">
             <Button
               className="btn btn-primary"
-              onClick={e => this.onSubmit(e)}
-              value={"Register"}
+              onClick={this.onSubmit}
+              value="Register"
               disabled={!isEnabled}
             />
           </Link>

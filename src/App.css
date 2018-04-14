@@ -7,11 +7,19 @@
 body{
   background-image: url("image/test.jpg");
   background-repeat: no-repeat, repeat;
+  font-family: Roboto Mono
 }
 
 
 .getstart{
   margin: 20px;
+}
+
+.heading {
+  font-weight: 700;
+}
+.subheading {
+  font-weight: 300;
 }
 
 @keyframes App-logo-spin {

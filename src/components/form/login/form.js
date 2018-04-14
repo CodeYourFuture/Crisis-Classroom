@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Input from "../../input";
 import Button from "../../button";
 import Label from "../../label";
@@ -31,7 +31,8 @@ export default class LoginForm extends React.Component {
         if (result.data.status) {
           document.cookie = `userName=${this.state.userName}`;
           document.cookie = `password=${this.state.password}`;
-          console.log(this.props.history.push('/'))
+          console.log(window.location);
+          window.location = `/welecome`;
         } else alert("User name and Password is wrong");
       });
   };
@@ -49,7 +50,7 @@ export default class LoginForm extends React.Component {
               type="text"
               placeholder="UserName"
               value={this.state.userName}
-              onChange={e => this.onChange(e)}
+              onChange={this.onChange}
             />
           </div>
           <div className="form-group">
@@ -60,20 +61,18 @@ export default class LoginForm extends React.Component {
               type="password"
               placeholder="Password"
               value={this.state.password}
-              onChange={e => this.onChange(e)}
+              onChange={this.onChange}
             />
           </div>
           <div className="form-group">
             <h3>Forgotten password?</h3>
-            <div className="row">
-              
-                <Button
-                  className="btn btn-primary"
-                  onClick={e => this.onSubmit(e)}
-                  value="LogIn"
-                />
-              
-            </div>
+            <Link to="/">
+              <Button
+                className="btn btn-primary"
+                onClick={this.onSubmit}
+                value="LogIn"
+              />
+            </Link>
           </div>
         </form>
       </div>

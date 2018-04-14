@@ -5,6 +5,11 @@ import "./Style.css";
 import Button from "../button";
 
 class userInfo extends Component {
+
+  onClick = () =>{
+    Cookies.remove("password")
+    alert("Hop to see you soon")
+  }
   render() {
     return (
       <div className="user-info">
@@ -24,7 +29,7 @@ class userInfo extends Component {
             <Link to="/">
               <Button
                 className="btn btn-outline-danger"
-                onClick={() => Cookies.remove("password")}
+                onClick={this.onClick}
                 value="log out"
               />
             </Link>

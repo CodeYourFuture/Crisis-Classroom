@@ -13,7 +13,8 @@ export default class RegisterForm extends React.Component {
       surName: "",
       userName: "",
       email: "",
-      password: ""
+      password: "",
+      confirmPassword:""
     };
   }
   change = e => {
@@ -25,7 +26,7 @@ export default class RegisterForm extends React.Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { firstName, surName, userName, email, password } = this.state;
+    const { firstName, surName, userName, email, password, confirmPassword } = this.state;
 
     axios
       .post("http://localhost:8001/api/register", {
@@ -33,7 +34,8 @@ export default class RegisterForm extends React.Component {
         surName,
         userName,
         email,
-        password
+        password,
+        confirmPassword
       })
       .then(result => {
         console.log(result);
@@ -41,13 +43,14 @@ export default class RegisterForm extends React.Component {
   };
 
   render() {
-    const { firstName, surName, userName, email, password } = this.state;
+    const { firstName, surName, userName, email, password, confirmPassword } = this.state;
     const isEnabled =
       email.length > 0 &&
       password.length > 0 &&
       firstName.length > 0 &&
-      surName > 0 &&
-      userName > 0;
+      surName.length > 0 &&
+      userName.length > 0 &&
+      confirmPassword > 0;
     return (
       <div className="lesson-form">
         <h1>Register</h1>
@@ -56,50 +59,66 @@ export default class RegisterForm extends React.Component {
             <Label value="Full Name" />
             <div>
               <Input
+                className="form-control"
                 name="firstName"
                 type="text"
                 placeholder="First name"
                 value={this.state.firstName}
-                onChange={e => this.change(e)}
+                onChange={this.change}
                 required
               />
               <Input
+                className="form-control"
                 name="surName"
                 type="text"
                 placeholder="Last name"
                 value={this.state.surName}
-                onChange={e => this.change(e)}
+                onChange={this.change}
               />
             </div>
           </div>
           <div className="form-group">
             <Label value="User Name" />
             <Input
+              className="form-control"
               name="userName"
               type="text"
               placeholder="UserName"
               value={this.state.userName}
-              onChange={e => this.change(e)}
+              onChange={this.change}
             />
           </div>
           <div className="form-group">
             <Label value="Email" />
             <Input
+              className="form-control"
               name="email"
               type="email"
               placeholder="Email"
               value={this.state.email}
-              onChange={e => this.change(e)}
+              onChange={this.change}
             />
           </div>
           <div className="form-group">
             <Label value="Password" />
             <Input
+              className="form-control"
               name="password"
               type="password"
               placeholder="Password"
               value={this.state.password}
-              onChange={e => this.change(e)}
+              onChange={this.change}
+            />
+          </div>
+          <div className="form-group">
+            <Label value="Confirm Your Password" />
+            <Input
+              className="form-control"
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirm Your Password"
+              value={this.state.confirmPassword}
+              onChange={this.change}
             />
           </div>
           <Link to="/">
@@ -107,7 +126,7 @@ export default class RegisterForm extends React.Component {
               className="btn btn-primary"
               onClick={this.onSubmit}
               value="Register"
-              disabled={!isEnabled}
+              disabled={isEnabled}
             />
           </Link>
         </form>

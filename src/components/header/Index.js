@@ -14,7 +14,7 @@ class Header extends Component {
           <NavbarFeatures />
         </div>
         <div>
-          <UserInfo />
+          <UserInfo {...this.props} />
         </div>
       </div>
     );

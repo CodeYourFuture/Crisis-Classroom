@@ -29,7 +29,7 @@ export default class ImageUploader extends Component {
       this.setState({
         img: reader.result})
     };
-    this.setState({img: event.target.files[0]})
+    // this.setState({img: event.target.files[0]})
     reader.readAsDataURL(event.target.files[0]);
   }
   upload = event => {

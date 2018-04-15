@@ -20,7 +20,7 @@ export default class Instructions extends React.Component {
                   <img
                     className="Symbole"
                     src={require(`../../../image/instructions/${
-                      e.instructionsSymbole
+                      e.instructionsSymbol
                     }`)}
                     alt={e.instructionsName}
                   />

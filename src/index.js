@@ -1,7 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Body from './containers/index';
-import registerServiceWorker from './registerServiceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
 
-ReactDOM.render(<Body />, document.getElementById('root'));
+import registerServiceWorker from "./registerServiceWorker";
+import { BrowserRouter as Router } from "react-router-dom";
+
+import Routes from "./routes/Routes";
+import "./index.css"
+
+ReactDOM.render(
+  <Router>
+    <Routes />
+  </Router>,
+  document.getElementById("root")
+);
 registerServiceWorker();

@@ -14,7 +14,7 @@ export default class NumberOfPeople extends React.Component {
             <img
               className="Symbole"
               src={require(`../../../image/symboles/${
-                this.props.peopleSymbole
+                this.props.peopleSymbol
               }`)}
               alt={this.props.numberOfPeople}
             />

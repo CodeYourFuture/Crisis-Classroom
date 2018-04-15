@@ -1,43 +1,89 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
-export default class LoginForm extends React.Component {
-  state = {
-    username: "",
-    password: ""
+import Input from "../../input";
+import Button from "../../button";
+import Label from "../../label";
+import AuthService from "../../../Auth/AuthService";
+
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userName: "",
+      password: ""
+    };
+
+    this.Auth = new AuthService();
+  }
+
+  componentWillMount() {
+    if (this.Auth.loggedIn()) this.props.history.replace("/");
+  }
+  onSubmit = e => {
+    e.preventDefault();
+
+    this.Auth.login(this.state.userName, this.state.password)
+      .then(res => {
+        this.props.history.replace("/");
+      })
+      .catch(err => {
+        alert(err);
+      });
   };
 
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
   render() {
     return (
-      <div>
+      <div className="lesson-form">
+        <h2>To See Templates Please LogIn</h2>
         <form>
-          <input
-            className="form-control"
-            name="username"
-            placeholder="Username"
-            value={this.state.username}
-            onChange={e => this.change(e)}
-          />
-          <br />
-          <input
-            className="form-control"
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={e => this.change(e)}
-          />
-          <br />
-          <h3>Forgotten password?</h3>
-          <br />
-          <button className="btn btn-primary" onClick={e => this.onSubmit(e)}>
-            LogIn
-          </button>
-          &nbsp;
-          <Link to="/register">
-            <button className="btn btn-primary">OR Register</button>
-          </Link>
+          <div className="form-group">
+            <Label value="User Name" />
+            <Input
+              className="form-control"
+              name="userName"
+              type="text"
+              placeholder="UserName"
+              value={this.state.userName}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <Label value="Password" />
+            <Input
+              className="form-control"
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <h5>Forgotten password?</h5>
+
+            <div className="row">
+            &nbsp;
+            &nbsp;
+              <Button
+                className="btn btn-outline-dark"
+                onClick={this.onSubmit}
+                value="LogIn"
+              />
+              &nbsp;
+              <Link to="/register" className="btn btn-outline-dark">
+                Register
+              </Link>
+            </div>
+          </div>
         </form>
       </div>
     );
   }
 }
+
+export default Login;

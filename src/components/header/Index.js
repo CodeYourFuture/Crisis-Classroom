@@ -2,8 +2,8 @@ import React, { Component } from "react";
 
 import Logo from "./Logo";
 import NavbarFeatures from "./Navbar";
-// import User from "./User";
-import "../../App.css";
+import UserInfo from "./userInfo";
+import "./Style.css";
 
 class Header extends Component {
   render() {
@@ -12,6 +12,9 @@ class Header extends Component {
         <div className="header">
           <Logo />
           <NavbarFeatures />
+        </div>
+        <div>
+          <UserInfo {...this.props} />
         </div>
       </div>
     );

@@ -4,6 +4,10 @@
   width: 100%;
   background-color: rgb(56, 56, 66);
 }
+.nav-div{
+  display: flex;
+  flex-wrap: nowrap;
+}
 .navbar{
   width: 90%;
   display: flex;
@@ -12,4 +16,13 @@
 .form{
   display: flex;
   flex-wrap: nowrap;
+}
+.user-info{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  border: 5px solid rgba(255, 0, 0, 0);
+}
+.user-info-items{
+display: flex;
 }

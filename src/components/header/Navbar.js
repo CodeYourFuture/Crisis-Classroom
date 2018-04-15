@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-
 import { Route, Link } from "react-router-dom";
 import "./Style.css";
+// import { Button } from "antd";
 
 export default class NavbarFeatures extends Component {
   render() {
@@ -26,42 +26,34 @@ export default class NavbarFeatures extends Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <a
-                  className="nav-link"
-                  href="https://www.crisisclassroom.com/training"
-                >
-                  Training <span className="sr-only">(current)</span>
-                </a>
+                <Link className="nav-link" to="/training">
+                  Training
+                </Link>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="https://www.crisisclassroom.com/teachers"
-                >
+                <Link className="nav-link" to="/teachers">
                   Teachers
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="https://www.crisisclassroom.com/projects"
-                >
-                  Projects
-                </a>
+                <Link className="nav-link" to="/projects">
+                  projects
+                </Link>
               </li>
 
               <li className="nav-item dropdown">
-                <a
+                <Link
                   className="nav-link dropdown-toggle"
-                  href="https://www.crisisclassroom.com/about"
                   id="navbarDropdown"
                   role="button"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
+                  to="/about"
                 >
                   About
-                </a>
+                </Link>
+
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a
                     className="dropdown-item"
@@ -83,16 +75,6 @@ export default class NavbarFeatures extends Component {
                     Our supporters
                   </a>
                 </div>
-              </li>
-              <li className="nav-item">
-                <Link to="/templates" className="nav-link">
-                  Templates
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="navbar-brand" to="/login">
-                  <div>Login</div>
-                </Link>
               </li>
             </ul>
             <form className="form-inline my-2 my-lg-0 form">

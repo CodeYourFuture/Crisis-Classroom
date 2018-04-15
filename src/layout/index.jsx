@@ -8,12 +8,10 @@ const DefaultLayout = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={matchProps => (
-      <div className="container">
-        <div className="mainIndex">
-          <Header {...matchProps} />
-          <Component {...matchProps} />
-          <Footer />
-        </div>
+      <div>
+        <Header {...matchProps} />
+        <Component {...matchProps} />
+        <Footer />
       </div>
     )}
   />

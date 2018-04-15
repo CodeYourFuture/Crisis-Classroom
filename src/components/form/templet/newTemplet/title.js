@@ -3,18 +3,25 @@ import React from "react";
 import Input from "../../../input";
 import Button from "../../../button";
 import Label from "../../../label";
-// import S3Uploader from "../../../imageUploader";
-import _ from  "lodash"
-// import "./style.css";
+import S3Uploader from "../../../imageUploader";
+import ReactS3 from "react-s3";
+
+import _ from "lodash";
+const config = {
+  bucketName: "wolfjawan",
+  region: "eu-west-2",
+  accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
+};
 
 export default class LessonTitle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       info: {
-        title: null, 
-        numberOfPeople: null, 
-        duration: null 
+        title: null,
+        numberOfPeople: null,
+        duration: null
       },
       activeForm: 0,
       steps: [
@@ -29,6 +36,7 @@ export default class LessonTitle extends React.Component {
       ]
     };
   }
+
   nextFormHandler = event => {
     event.preventDefault();
     this.setState(prevState => {
@@ -45,22 +53,23 @@ export default class LessonTitle extends React.Component {
       };
     });
   };
-  onChange = (event)=>{
-    const {info} = this.state
-    _.set(info, event.target.name, event.target.value)
-    
+  onChange = event => {
+    const { info } = this.state;
+    _.set(info, event.target.name, event.target.value);
+
     this.setState({
-      
-      info: info
-      
-
-    })
-
-  }
+      info
+    });
+  };
+  onChangeImage = event => {
+    // @TODO
+    // Get the image from the vent, then use an helper ot upload it to S3,
+    // Once you got the url, display it somewhere
+  };
   hanldeSteps = () => {
-  //   this.setState(prevState => {
-  //   //   steps: prevState.steps.concat([{ name: "stpe4", imag: "stpe5" }]);
-  //   // });
+    //   this.setState(prevState => {
+    //   //   steps: prevState.steps.concat([{ name: "stpe4", imag: "stpe5" }]);
+    //   // });
   };
 
   render() {
@@ -71,13 +80,13 @@ export default class LessonTitle extends React.Component {
           <div className="row">
             <Input
               type="text"
-              onChange={ this.onChange}
+              onChange={this.onChange}
               placeholder="Insert title"
               name="title"
               value={this.state.info.title}
             />
             &nbsp;
-            {/* <S3Uploader /> */}
+            <S3Uploader />
           </div>
         </div>
         <div className="form-group">
@@ -86,12 +95,20 @@ export default class LessonTitle extends React.Component {
             <Input
               type="text"
               name="duration"
-              onChange={ this.onChange}
+              onChange={this.onChange}
               placeholder="How much time does it require?"
               value={this.state.info.duration}
             />
             &nbsp;
-            {/* <S3Uploader /> */}
+            <S3Uploader />
+          </div>
+        </div>
+        <div className="form-group">
+          <Label value="Image" />
+          <div className="row">
+            <Input type="file" onChange={this.onChangeImage} />
+            &nbsp;
+            <S3Uploader />
           </div>
         </div>
         <div className="form-group">
@@ -100,12 +117,12 @@ export default class LessonTitle extends React.Component {
             <Input
               type="text"
               name="numberOfPeople"
-              onChange={ this.onChange}
+              onChange={this.onChange}
               placeholder="How many people is it for?"
               value={this.state.info.numberOfPeople}
             />
             &nbsp;
-            {/* <S3Uploader /> */}
+            <S3Uploader />
           </div>
         </div>
       </form>,
@@ -127,10 +144,18 @@ export default class LessonTitle extends React.Component {
 
         {forms[this.state.activeForm]}
         {this.state.activeForm < forms.length - 1 && (
-          <Button value="Next" onClick={this.nextFormHandler} />
+          <Button
+            className="btn  btn-link"
+            value="Next"
+            onClick={this.nextFormHandler}
+          />
         )}
         {this.state.activeForm > 0 && (
-          <Button value="previouse" onClick={this.previouseHandler} />
+          <Button
+            className="btn  btn-primary"
+            value="previouse"
+            onClick={this.previouseHandler}
+          />
         )}
       </div>
     );

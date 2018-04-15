@@ -8,7 +8,20 @@
   align-items: center;
   text-align: center;
 }
-.welecome{
-  text-align: center;
-  padding: 30px;
+.training-image{
+  width: 100%;
+  margin: 20px;
+  border: 3px solid rgb(8, 3, 3);
+
 }
+
+.teacher-baner{
+  width: 100%;
+  margin: 20px;
+  border: 3px solid rgb(8, 3, 3);
+}
+.teacher-image-kate{
+  width: 100%;
+  border: 3px solid rgb(8, 3, 3);
+}
+

@@ -14,7 +14,6 @@ export default class NavPages extends Component {
         <Route path="/training" component={Training} />
         <Route path="/about" component={About} />
         <Route path="/projects" component={Projects} />
-
       </Switch>
     );
   }

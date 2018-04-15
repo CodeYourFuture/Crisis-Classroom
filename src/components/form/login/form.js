@@ -1,45 +1,45 @@
-import React from "react";
-// import { Link } from "react-router-dom";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Input from "../../input";
 import Button from "../../button";
 import Label from "../../label";
-import axios from "axios";
+import AuthService from "../../../Auth/AuthService";
 
-export default class LoginForm extends React.Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userName: "",
       password: ""
     };
-  }
-  onChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-    // console.log(e.target.value)
-  };
 
+    this.Auth = new AuthService();
+  }
+
+  componentWillMount() {
+    if (this.Auth.loggedIn()) this.props.history.replace("/");
+  }
   onSubmit = e => {
     e.preventDefault();
-    const { userName, password } = this.state;
-    console.log(userName, password);
-    axios
-      .post("http://localhost:8001/api/login", { userName, password })
-      .then(result => {
-        console.log(result.data.status);
-        if (result.data.status) {
-          document.cookie = `userName=${this.state.userName}`;
-          document.cookie = `password=${this.state.password}`;
-          console.log(this.props.history.push('/'))
-        } else alert("User name and Password is wrong");
+
+    this.Auth.login(this.state.userName, this.state.password)
+      .then(res => {
+        this.props.history.replace("/");
+      })
+      .catch(err => {
+        alert(err);
       });
   };
 
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
   render() {
     return (
       <div className="lesson-form">
-        <h1>LogIn</h1>
+        <h2>To See Templates Please LogIn</h2>
         <form>
           <div className="form-group">
             <Label value="User Name" />
@@ -49,7 +49,7 @@ export default class LoginForm extends React.Component {
               type="text"
               placeholder="UserName"
               value={this.state.userName}
-              onChange={e => this.onChange(e)}
+              onChange={this.handleChange}
             />
           </div>
           <div className="form-group">
@@ -60,19 +60,24 @@ export default class LoginForm extends React.Component {
               type="password"
               placeholder="Password"
               value={this.state.password}
-              onChange={e => this.onChange(e)}
+              onChange={this.handleChange}
             />
           </div>
           <div className="form-group">
-            <h3>Forgotten password?</h3>
+            <h5>Forgotten password?</h5>
+
             <div className="row">
-              
-                <Button
-                  className="btn btn-primary"
-                  onClick={e => this.onSubmit(e)}
-                  value="LogIn"
-                />
-              
+            &nbsp;
+            &nbsp;
+              <Button
+                className="btn btn-outline-dark"
+                onClick={this.onSubmit}
+                value="LogIn"
+              />
+              &nbsp;
+              <Link to="/register" className="btn btn-outline-dark">
+                Register
+              </Link>
             </div>
           </div>
         </form>
@@ -80,3 +85,5 @@ export default class LoginForm extends React.Component {
     );
   }
 }
+
+export default Login;

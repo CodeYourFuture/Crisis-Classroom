@@ -28,33 +28,32 @@ export default class NavbarFeatures extends Component {
               <li className="nav-item active">
                 <Link className="nav-link" to="/training">
                   Training
-              </Link>
+                </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/teachers">
                   Teachers
-              </Link>
+                </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/projects">
                   projects
-              </Link>
+                </Link>
               </li>
 
               <li className="nav-item dropdown">
-              
-                <Link 
-                className="nav-link dropdown-toggle"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-               to="/about">
-                    About
-                 </Link>
+                <Link
+                  className="nav-link dropdown-toggle"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  to="/about"
+                >
+                  About
+                </Link>
 
-              
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a
                     className="dropdown-item"
@@ -98,4 +97,3 @@ export default class NavbarFeatures extends Component {
     );
   }
 }
-

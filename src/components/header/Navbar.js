@@ -50,7 +50,7 @@ export default class NavbarFeatures extends Component {
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
-                className="nav-link" to="/about">
+               to="/about">
                     About
                  </Link>
 

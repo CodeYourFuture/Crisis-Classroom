@@ -30,7 +30,7 @@ export default class ImageUploader extends Component {
         img: reader.result})
     };
     this.setState({img: event.target.files[0]})
-    // reader.readAsDataURL(event.target.files[0]);
+    reader.readAsDataURL(event.target.files[0]);
   }
   upload = event => {
     event.preventDefault();
@@ -40,6 +40,7 @@ export default class ImageUploader extends Component {
     ReactS3.upload(img, config)
       .then(data => {
         console.log(data)
+        // return data.url // find the right property
       })
       .catch(err => {
         alert(err);

@@ -4,8 +4,15 @@ import Input from "../../../input";
 import Button from "../../../button";
 import Label from "../../../label";
 import S3Uploader from "../../../imageUploader";
+import ReactS3 from "react-s3";
+
 import _ from "lodash";
-// import "./style.css";
+const config = {
+  bucketName: "wolfjawan",
+  region: "eu-west-2",
+  accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
+};
 
 export default class LessonTitle extends React.Component {
   constructor(props) {
@@ -29,7 +36,7 @@ export default class LessonTitle extends React.Component {
       ]
     };
   }
-  
+
   nextFormHandler = event => {
     event.preventDefault();
     this.setState(prevState => {
@@ -54,6 +61,11 @@ export default class LessonTitle extends React.Component {
       info
     });
   };
+  onChangeImage = event => {
+    // @TODO
+    // Get the image from the vent, then use an helper ot upload it to S3,
+    // Once you got the url, display it somewhere
+  };
   hanldeSteps = () => {
     //   this.setState(prevState => {
     //   //   steps: prevState.steps.concat([{ name: "stpe4", imag: "stpe5" }]);
@@ -74,7 +86,7 @@ export default class LessonTitle extends React.Component {
               value={this.state.info.title}
             />
             &nbsp;
-            {/* <S3Uploader /> */}
+            <S3Uploader />
           </div>
         </div>
         <div className="form-group">
@@ -88,7 +100,15 @@ export default class LessonTitle extends React.Component {
               value={this.state.info.duration}
             />
             &nbsp;
-            {/* <S3Uploader /> */}
+            <S3Uploader />
+          </div>
+        </div>
+        <div className="form-group">
+          <Label value="Image" />
+          <div className="row">
+            <Input type="file" onChange={this.onChangeImage} />
+            &nbsp;
+            <S3Uploader />
           </div>
         </div>
         <div className="form-group">
@@ -102,7 +122,7 @@ export default class LessonTitle extends React.Component {
               value={this.state.info.numberOfPeople}
             />
             &nbsp;
-            {/* <S3Uploader /> */}
+            <S3Uploader />
           </div>
         </div>
       </form>,
@@ -124,10 +144,18 @@ export default class LessonTitle extends React.Component {
 
         {forms[this.state.activeForm]}
         {this.state.activeForm < forms.length - 1 && (
-          <Button value="Next" onClick={this.nextFormHandler} />
+          <Button
+            className="btn  btn-link"
+            value="Next"
+            onClick={this.nextFormHandler}
+          />
         )}
         {this.state.activeForm > 0 && (
-          <Button value="previouse" onClick={this.previouseHandler} />
+          <Button
+            className="btn  btn-primary"
+            value="previouse"
+            onClick={this.previouseHandler}
+          />
         )}
       </div>
     );

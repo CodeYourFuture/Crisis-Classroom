@@ -19,7 +19,7 @@ export default class Tools extends React.Component {
                 <Col className="colSymbole">
                   <img
                     className="Symbole"
-                    src={require(`../../../image/tools/${e.toolsSymbole}`)}
+                    src={require(`../../../image/tools/${e.toolsSymbol}`)}
                     alt={e.toolName}
                   />
                 </Col>

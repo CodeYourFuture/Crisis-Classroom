@@ -5,6 +5,7 @@ import Button from "../../../button";
 import Label from "../../../label";
 import S3Uploader from "../../../imageUploader";
 import ReactS3 from "react-s3";
+import NextForm from "./NextForm";
 
 import _ from "lodash";
 const config = {
@@ -127,10 +128,7 @@ export default class LessonTitle extends React.Component {
         </div>
       </form>,
 
-      <form value="1">
-        form 1
-        <input type="text" />
-      </form>,
+      <NextForm />,
 
       <form value="1">
         form 2

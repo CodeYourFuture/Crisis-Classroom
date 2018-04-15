@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AuthService from './AuthService';
 
+//https://hptechblogs.com/using-json-web-token-react/
 export default function withAuth(AuthComponent) {
     const Auth = new AuthService('http://localhost:8080/api');
     return class AuthWrapped extends Component {

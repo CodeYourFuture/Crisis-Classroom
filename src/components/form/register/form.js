@@ -123,7 +123,7 @@ export default class RegisterForm extends React.Component {
           </div>
           <Link to="/">
             <Button
-              className="btn btn-primary"
+              className="btn btn-outline-dark"
               onClick={this.onSubmit}
               value="Register"
               disabled={isEnabled}

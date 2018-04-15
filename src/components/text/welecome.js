@@ -18,9 +18,13 @@ const Welecome = () => {
           volunteering opportunities and plan your own amazing projects, trips
           and classes.
         </p>
-        <Link to="/"className="btn btn-outline-info">Go to Home pag</Link>
+        <Link to="/" className="btn btn-outline-info">
+          Go to Home pag
+        </Link>
         <button className="btn btn-light">or</button>
-        <Link to="/templates"className="btn btn-outline-success">Templates</Link>
+        <Link to="/templates" className="btn btn-outline-success">
+          Templates
+        </Link>
       </div>
     </div>
   );

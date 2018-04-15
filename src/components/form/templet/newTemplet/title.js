@@ -118,7 +118,7 @@ export default class LessonTitle extends React.Component {
               type="text"
               name="numberOfPeople"
               onChange={this.onChange}
-              placeholder="How many people is it for?"
+              placeholder="How many people is it for?"pu
               value={this.state.info.numberOfPeople}
             />
             &nbsp;

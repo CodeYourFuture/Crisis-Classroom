@@ -10,10 +10,10 @@ export default class NavPages extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/teachers" component={Teacher} />
-        <Route path="/training" component={Training} />
-        <Route path="/about" component={About} />
-        <Route path="/projects" component={Projects} />
+        {/* <Route exact path="/teachers" component={Teacher} />
+        <Route exact path="/training" component={Training} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/projects" component={Projects} /> */}
       </Switch>
     );
   }

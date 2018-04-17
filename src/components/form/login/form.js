@@ -13,7 +13,8 @@ class Login extends Component {
       password: ""
     };
 
-    this.Auth = new AuthService();
+    // this.Auth = new AuthService();
+    this.Auth = AuthService;
   }
 
   componentWillMount() {

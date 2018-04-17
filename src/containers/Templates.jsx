@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import TemplatesList from './TemplatesList'
-import FirstPage from './FirstPage'
+
+import TemplatesList from "../components/templates/TemplatesList";
+import FirstPage from "../components/templates/FirstPage";
 import "./style.css";
 
-export default class TemplatIndex extends Component {
+export default class Templates extends Component {
   render() {
     return (
       <Switch>

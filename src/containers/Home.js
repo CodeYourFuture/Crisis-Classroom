@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 //  import { Link } from "react-router-dom";
-import GetStart from "../components/text/GetStart";
+import HomePage from "../components/text/HomePage";
 
 class Home extends Component {
   render() {
     return (
-      <div>
-        <div>
-          <GetStart />
-        </div>
-      </div>
+          <HomePage />
     );
   }
 }

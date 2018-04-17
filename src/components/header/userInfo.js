@@ -3,30 +3,36 @@ import { Link } from "react-router-dom";
 import "./Style.css";
 import Button from "../button";
 import AuthService from "../../Auth/AuthService";
-const Auth = new AuthService();
+
+// const Auth = new AuthService();
 
 class userInfo extends Component {
-  constructor(props) {
-    super(props)
-    console.log(props)
-  }
-
-  onLogOut = ()=>{
-    Auth.logout();
+  onLogOut = () => {
+    // console.log(AuthService.)
+    AuthService.logout();
     this.props.history.replace("/");
-  }
+  };
   onClick = () => {
     alert("Hop to see you soon");
   };
   render() {
-    
     return (
       <div className="user-info">
         <div className="user-info-items">
           <Link to="/templates" className="btn btn-outline-success">
             Templates
           </Link>
-          <Button className="btn btn-outline-success" value="Log Out" onClick={this.onLogOut}/>
+          {AuthService.loggedIn() ? (
+            <Button
+              className="btn btn-outline-success"
+              value="Log Out"
+              onClick={this.onLogOut}
+            />
+          ) : (
+            <Link to="/register" className="btn btn-outline-success">
+              Rehister
+            </Link>
+          )}
         </div>
       </div>
     );

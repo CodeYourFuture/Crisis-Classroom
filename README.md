@@ -1,3 +1,3 @@
-* instalations:
+* installations:
 
 npm install

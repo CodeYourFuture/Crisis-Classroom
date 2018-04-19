@@ -24,60 +24,54 @@ export default class FirstPage extends React.Component {
     const lesson = Fakedb.find(
       g => g.lessons.id === parseInt(id, 10)
     );
-    this.setState({ lesson });
+    this.setState({ lesson: lesson.lessons });
   }
 
   render() {
     const { lesson } = this.state;
-  
     if (lesson === null) {
       return <h1>Loading....</h1>;
     }
-  
     return (
       <div>
-        {[lesson].map((e, i) => {
-          return (
-            <Grid fluid className="container" key={i}>
+            <Grid fluid className="container" >
               <Row className="minrow">
                 <Col className="box1" lg={3} {...this.props}>
                   <LessonTitle
-                    lessonTitle={e.lessons.lessonTitle}
-                    lessonImg={e.lessons.lessonImg}
+                    lessonTitle={lesson.lessonTitle}
+                    lessonImg={lesson.lessonImg}
                   />
                   <TimeToPrepair
-                    timeToPrepair={e.lessons.timeToPrepair}
-                    timeToPrepairClock={e.lessons.timeToPrepairClock}
+                    timeToPrepair={lesson.timeToPrepair}
+                    timeToPrepairClock={lesson.timeToPrepairClock}
                   />
                   <NumberOfPeople
-                    numberOfPeople={e.lessons.numberOfPeople}
-                    peopleSymbole={e.lessons.peopleSymbole}
+                    numberOfPeople={lesson.numberOfPeople}
+                    peopleSymbol={lesson.peopleSymbol}
                   />
                   <hr />
                   <Tools
-                    tools={e.lessons.tools}
-                    toolsItem={e.lessons.toolsItem}
+                    tools={lesson.tools}
+                    toolsItem={lesson.toolsItem}
                   />
                 </Col>
                 <Col className="box1" lg={3} {...this.props}>
                   <Ingredients
-                    ingredient={e.lessons.ingredient}
-                    ingredients={e.lessons.ingredients}
+                    ingredient={lesson.ingredient}
+                    ingredients={lesson.ingredients}
                   />
                 </Col>
                 <Col className="box1" lg={3} {...this.props}>
                   <Instructions
-                    instruction={e.lessons.instruction}
-                    instructions={e.lessons.instructions}
+                    instruction={lesson.instruction}
+                    instructions={lesson.instructions}
                   />
                 </Col>
                 <Col className="box1" lg={3} {...this.props}>
-                  <Instructionsparttwo instructions={e.lessons.instructions} />
+                  <Instructionsparttwo instructions={lesson.instructions} />
                 </Col>
               </Row>
             </Grid>
-          );
-        })}
       </div>
     );
   }

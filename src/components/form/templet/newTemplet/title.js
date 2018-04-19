@@ -1,11 +1,10 @@
 import React from "react";
 // import { Link } from "react-router-dom";
-import Input from "../../../input";
 import Button from "../../../button";
-import Label from "../../../label";
-import S3Uploader from "../../../imageUploader";
-import ReactS3 from "react-s3";
-import NextForm from "./NextForm";
+import FirstForm from "./firstForm"
+import SecondForm from "./SecondForm"
+import ThirdForm from "./ThirdForm";
+
 
 import _ from "lodash";
 const config = {
@@ -24,17 +23,7 @@ export default class LessonTitle extends React.Component {
         numberOfPeople: null,
         duration: null
       },
-      activeForm: 0,
-      steps: [
-        {
-          name: "step1",
-          imag: "file"
-        },
-        {
-          name: "step2",
-          imag: "file2"
-        }
-      ]
+      activeForm: 0
     };
   }
 
@@ -74,76 +63,17 @@ export default class LessonTitle extends React.Component {
   };
 
   render() {
-    var forms = [
-      <form>
-        <div className="form-group">
-          <Label value="Title" />
-          <div className="row">
-            <Input
-              type="text"
-              onChange={this.onChange}
-              placeholder="Insert title"
-              name="title"
-              value={this.state.info.title}
-            />
-            &nbsp;
-            <S3Uploader />
-          </div>
-        </div>
-        <div className="form-group">
-          <Label value="Time to perpare" />
-          <div className="row">
-            <Input
-              type="text"
-              name="duration"
-              onChange={this.onChange}
-              placeholder="How much time does it require?"
-              value={this.state.info.duration}
-            />
-            &nbsp;
-            <S3Uploader />
-          </div>
-        </div>
-        <div className="form-group">
-          <Label value="Image" />
-          <div className="row">
-            <Input type="file" onChange={this.onChangeImage} />
-            &nbsp;
-            <S3Uploader />
-          </div>
-        </div>
-        <div className="form-group">
-          <Label value="N. People" />
-          <div className="row">
-            <Input
-              type="text"
-              name="numberOfPeople"
-              onChange={this.onChange}
-              placeholder="How many people is it for?"
-              value={this.state.info.numberOfPeople}
-            />
-            &nbsp;
-            <S3Uploader />
-          </div>
-        </div>
-      </form>,
-
-      <NextForm />,
-
-      <form value="1">
-        form 2
-        <input type="text" />
-      </form>
-    ];
+    var forms = [<FirstForm/>,
+    <SecondForm/>,
+    <ThirdForm />];
 
     return (
       <div className="lesson-form">
-        <h2>Creat New Templete</h2>
 
         {forms[this.state.activeForm]}
         {this.state.activeForm < forms.length - 1 && (
           <Button
-            className="btn  btn-link"
+            className="btn  btn-primary"
             value="Next"
             onClick={this.nextFormHandler}
           />

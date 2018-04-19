@@ -18,9 +18,10 @@ class Routes extends Component {
       <Switch>
         <Layout exact path="/" component={Home} />
         <Layout path="/login" component={Login} />
-        <Layout exact path="/register" component={Register} />
-        <Layout exact path="/templates" component={Template} />
         <Layout exact path="/add-new-templet" component={LessonForm} />
+        <Layout exact path="/register" component={Register} />
+        {/* <Layout exact path="/templates" component={Template} /> */}
+        <Layout component={Template} />
         <Layout exact path="/welecome" component={Welecome} />
         <Layout component={NavPages} />
       </Switch>

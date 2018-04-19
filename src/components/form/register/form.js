@@ -2,12 +2,12 @@ import React from "react";
 import Input from "../../input";
 import Button from "../../button";
 import Label from "../../label";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import axios from "axios";
 
-export default class RegisterForm extends React.Component {
-  constructor() {
-    super();
+export default class Form extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       firstName: "",
       surName: "",
@@ -18,7 +18,6 @@ export default class RegisterForm extends React.Component {
     };
   }
   change = e => {
-    this.props.onChange({ [e.target.name]: e.target.value });
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -40,21 +39,14 @@ export default class RegisterForm extends React.Component {
       .then(result => {
         console.log(result);
       });
+      this.props.history.replace("/");
   };
 
   render() {
-    const { firstName, surName, userName, email, password, confirmPassword } = this.state;
-    const isEnabled =
-      email.length > 0 &&
-      password.length > 0 &&
-      firstName.length > 0 &&
-      surName.length > 0 &&
-      userName.length > 0 &&
-      confirmPassword > 0;
     return (
       <div className="lesson-form">
         <h1>Register</h1>
-        <form>
+        <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <Label value="Full Name" />
             <div>
@@ -65,7 +57,6 @@ export default class RegisterForm extends React.Component {
                 placeholder="First name"
                 value={this.state.firstName}
                 onChange={this.change}
-                required
               />
               <Input
                 className="form-control"
@@ -121,14 +112,10 @@ export default class RegisterForm extends React.Component {
               onChange={this.change}
             />
           </div>
-          <Link to="/">
             <Button
               className="btn btn-outline-dark"
-              onClick={this.onSubmit}
               value="Register"
-              disabled={isEnabled}
             />
-          </Link>
         </form>
       </div>
     );

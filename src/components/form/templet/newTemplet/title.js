@@ -4,16 +4,16 @@ import Input from "../../../input";
 import Button from "../../../button";
 import Label from "../../../label";
 import S3Uploader from "../../../imageUploader";
-import ReactS3 from "react-s3";
+// import ReactS3 from "react-s3";
 import NextForm from "./NextForm";
 
 import _ from "lodash";
-const config = {
-  bucketName: "wolfjawan",
-  region: "eu-west-2",
-  accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
-};
+// const config = {
+//   bucketName: "wolfjawan",
+//   region: "eu-west-2",
+//   accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
+// };
 
 export default class LessonTitle extends React.Component {
   constructor(props) {

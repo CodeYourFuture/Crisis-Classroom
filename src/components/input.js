@@ -12,6 +12,7 @@ export default class Input extends Component {
         value={this.props.value}
         placeholder={this.props.placeholder}
         onChange={this.props.onChange}
+        required
       />
     );
   }

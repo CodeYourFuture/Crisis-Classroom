@@ -9,7 +9,7 @@
   text-align: center;
 }
 .training-image{
-  width: 100%;
+  width: 90%;
   margin: 20px;
   border: 3px solid rgb(8, 3, 3);
 
@@ -24,4 +24,18 @@
   width: 100%;
   border: 3px solid rgb(8, 3, 3);
 }
+.news{
+ color: brown;
+ margin: 40px;
+ font-size: 55px;
+ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+ 
+}
+.img-1{
+  height: 270px;
+}
+.day{
+  height: 270px;
+}
+
 

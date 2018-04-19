@@ -2,7 +2,7 @@ import React from "react";
 
 import "./style.css";
 
-const GetStart = () => {
+const HomePage = () => {
   return (
     <div className="getStart">
       <h1>Welcome to Crisis Classroom</h1>
@@ -31,4 +31,4 @@ const GetStart = () => {
   );
 };
 
-export default GetStart;
+export default HomePage;

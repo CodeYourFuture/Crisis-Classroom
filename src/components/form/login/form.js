@@ -13,7 +13,8 @@ class Login extends Component {
       password: ""
     };
 
-    this.Auth = new AuthService();
+    // this.Auth = new AuthService();
+    this.Auth = AuthService;
   }
 
   componentWillMount() {
@@ -39,8 +40,8 @@ class Login extends Component {
   render() {
     return (
       <div className="lesson-form">
-        <h2>To See Templates Please LogIn</h2>
-        <form>
+        <h3>To See Templates Please LogIn</h3>
+        <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <Label value="User Name" />
             <Input
@@ -71,7 +72,6 @@ class Login extends Component {
             &nbsp;
               <Button
                 className="btn btn-outline-dark"
-                onClick={this.onSubmit}
                 value="LogIn"
               />
               &nbsp;

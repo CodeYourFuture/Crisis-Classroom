@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import SubscribeForm from "./form/subscribe/index";
-import AboutCrisisClassroom from "./text/AboutCrisisClassroom";
+import AboutCrisisClassroom from "./navbarPages/AboutCrisisClassroom";
 import "./style.css";
 
 class Footer extends Component {

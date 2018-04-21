@@ -28,7 +28,7 @@ export default class Form extends React.Component {
     const { firstName, surName, userName, email, password, confirmPassword } = this.state;
 
     axios
-      .post("http://localhost:8001/api/register", {
+      .post("http://localhost:8080/api/register", {
         firstName,
         surName,
         userName,

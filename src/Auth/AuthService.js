@@ -5,6 +5,10 @@ import decode from "jwt-decode";
 class AuthService {
   constructor(domain) {
     this.domain = domain || "http://localhost:8080/api";
+    
+    this.state = {
+      err:null
+    };
   }
 
   login = (userName, password) => {
@@ -21,7 +25,7 @@ class AuthService {
         return Promise.resolve(res);
       })
       .catch(err => {
-        return Promise.reject(err);
+       this.setState({ err});
       });
   };
 
@@ -54,7 +58,6 @@ class AuthService {
 
   logout = () => {
     // Clear user token and profile data from localStorage
-    console.log("hi");
     localStorage.removeItem("id_token");
   };
 

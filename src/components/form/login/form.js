@@ -38,6 +38,7 @@ class Login extends Component {
     });
   };
   render() {
+    console.log(this.Auth.state.err)
     return (
       <div className="lesson-form">
         <h3>To See Templates Please LogIn</h3>

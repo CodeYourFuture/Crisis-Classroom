@@ -13,6 +13,7 @@ import Teacher from "../components/navbarPages/Teacher";
 import Training from "../components/navbarPages/Training";
 import About from "../components/navbarPages/About";
 import Projects from "../components/navbarPages/Projects";
+ 
 import "./style.css";
 
 class Routes extends Component {
@@ -27,6 +28,7 @@ class Routes extends Component {
         <Layout exact path="/about" component={About} />
         <Layout exact path="/projects" component={Projects} />
         <Layout exact path="/add-new-templet" component={LessonForm} />
+        <Layout exact path="/register" component={Register} />
         <Layout exact path="/welecome" component={Welecome} />
         <AuthLayout component={Templates} />
       </Switch>

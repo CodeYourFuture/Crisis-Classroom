@@ -28,6 +28,7 @@ class Routes extends Component {
         <Layout exact path="/about" component={About} />
         <Layout exact path="/projects" component={Projects} />
         <Layout exact path="/add-new-templet" component={LessonForm} />
+        <Layout exact path="/register" component={Register} />
         <Layout exact path="/welecome" component={Welecome} />
         <Layout exact path="/notfound" component={NotFound} />
         <PrivateRoute path="/templates" component={Templates} />

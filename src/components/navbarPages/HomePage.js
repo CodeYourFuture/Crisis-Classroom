@@ -1,8 +1,9 @@
 import React from "react";
+import Survey from "../text/Survey";
 
 import "./style.css";
 
-const GetStart = () => {
+const HomePage = () => {
   return (
     <div className="getStart">
       <h1>Welcome to Crisis Classroom</h1>
@@ -27,9 +28,15 @@ const GetStart = () => {
       <a href="https://chuffed.org/project/crisis-classroom">
         https://chuffed.org/project/crisis-classroom
       </a>
+
+    <Survey />
+
+
+
+
       <hr />
-      <div class="row">
-        <div class="col-xs-12">
+      <div className="row">
+        <div className="col-xs-12">
           <h1 className="text-center text-uppercase">Latest Projects</h1>
           <hr />
           <div className="row">
@@ -131,4 +138,4 @@ const GetStart = () => {
   );
 };
 
-export default GetStart;
+export default HomePage;

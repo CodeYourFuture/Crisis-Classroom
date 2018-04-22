@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
-import Logo from "./Logo";
-import NavbarFeatures from "./Navbar";
-import UserInfo from "./userInfo";
-import "./Style.css";
+import Logo from "../components/header/Logo";
+import Navbar from "../components/header/Navbar";
+import UserInfo from "../components/header/userInfo";
+
 
 class Header extends Component {
   render() {
@@ -11,7 +11,7 @@ class Header extends Component {
       <div>
         <div className="header">
           <Logo />
-          <NavbarFeatures />
+          <Navbar />
         </div>
         <div>
           <UserInfo {...this.props} />

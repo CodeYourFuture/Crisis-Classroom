@@ -41,11 +41,12 @@ export default class Training extends Component {
                             <a href="https://www.crisisclassroom.com/training/day-1--building-you">
                                 <img src="https://www.crisisclassroom.com//media/images/workshops/IMG_0904.jpg" alt="Day 1 - BUILDING YOU" className="img-reponsive day" width="100%" />
                             </a>   
-                            <Link  to="/training/day1">
+                            
                                 <figcaption className="caption text-center">
-                                    <h2>Day 1 - BUILDING YOU</h2>
+                                    <h2><Link  to="/training/123">Day 1 - BUILDING YOU </Link></h2>
+                                    
                                 </figcaption>
-                            </Link>
+                           
                         </figure>
                     </div>
 
@@ -72,7 +73,7 @@ export default class Training extends Component {
 
                 </div>
 
-
+                {this.props.children}
             </div>
         );
     }

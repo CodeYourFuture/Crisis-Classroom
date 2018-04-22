@@ -14,7 +14,8 @@ export default class Form extends React.Component {
       userName: "",
       email: "",
       password: "",
-      confirmPassword:""
+      confirmPassword: "",
+      passwordMach: null
     };
   }
   change = e => {
@@ -25,25 +26,35 @@ export default class Form extends React.Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { firstName, surName, userName, email, password, confirmPassword } = this.state;
-
-    axios
-      .post("http://localhost:8080/register", {
-        firstName,
-        surName,
-        userName,
-        email,
-        password,
-        confirmPassword
-      })
-      .then(result => {
-        console.log(result);
-        this.props.history.replace("/");
-      })
-      .catch(error => {
-        console.log(error)
-      })
-      
+    const {
+      firstName,
+      surName,
+      userName,
+      email,
+      password,
+      confirmPassword
+    } = this.state;
+    this.passVal(this.state.password);
+    if (password === confirmPassword) {
+      axios
+        .post("http://localhost:8080/register", {
+          firstName,
+          surName,
+          userName,
+          email,
+          password,
+          confirmPassword
+        })
+        .then(result => {
+          console.log(result);
+          this.props.history.replace("/");
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {
+      this.setState({ passwordMach: "Password does not mach" });
+    }
   };
 
   render() {
@@ -115,11 +126,9 @@ export default class Form extends React.Component {
               value={this.state.confirmPassword}
               onChange={this.change}
             />
+            <h6>{this.state.passwordMach}</h6>
           </div>
-            <Button
-              className="btn btn-outline-dark"
-              value="Register"
-            />
+          <Button className="btn btn-outline-dark" value="Register" />
         </form>
       </div>
     );

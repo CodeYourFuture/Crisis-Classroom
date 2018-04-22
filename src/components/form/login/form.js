@@ -13,7 +13,6 @@ class Login extends Component {
       password: ""
     };
 
-    // this.Auth = new AuthService();
     this.Auth = AuthService;
   }
 
@@ -38,7 +37,6 @@ class Login extends Component {
     });
   };
   render() {
-    console.log(this.Auth.state.err)
     return (
       <div className="lesson-form">
         <h3>To See Templates Please LogIn</h3>
@@ -69,12 +67,8 @@ class Login extends Component {
             <h5>Forgotten password?</h5>
 
             <div className="row">
-            &nbsp;
-            &nbsp;
-              <Button
-                className="btn btn-outline-dark"
-                value="LogIn"
-              />
+              &nbsp; &nbsp;
+              <Button className="btn btn-outline-dark" value="LogIn" />
               &nbsp;
               <Link to="/register" className="btn btn-outline-dark">
                 Register

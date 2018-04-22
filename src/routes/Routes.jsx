@@ -13,7 +13,7 @@ import Teacher from "../components/navbarPages/Teacher";
 import Training from "../components/navbarPages/Training";
 import About from "../components/navbarPages/About";
 import Projects from "../components/navbarPages/Projects";
-import NotFound from "../components/pages/notFound"
+import NotFound from "../components/pages/notFound";
 import "./style.css";
 
 class Routes extends Component {

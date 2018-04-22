@@ -1,0 +1,10 @@
+
+.welecome{
+  margin: 20px;
+  text-align: center;
+  padding: 1% 20% 10% 10%;
+}
+.not-found{
+  display: flex;
+  padding: 5%;
+}

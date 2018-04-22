@@ -7,13 +7,13 @@ import Register from "../components/form/register/form";
 import Templates from "../containers/Templates.jsx";
 import Login from "../components/form/login/form";
 import LessonForm from "../components/form/templet/newTemplet";
-import Welecome from "../components/navbarPages/welecome";
-import AuthLayout from "../layout/AuthLayout";
+import Welecome from "../components/pages/welecome";
+import PrivateRoute from "../layout/PrivateRoute";
 import Teacher from "../components/navbarPages/Teacher";
 import Training from "../components/navbarPages/Training";
 import About from "../components/navbarPages/About";
 import Projects from "../components/navbarPages/Projects";
- 
+import NotFound from "../components/pages/notFound"
 import "./style.css";
 
 class Routes extends Component {
@@ -30,7 +30,8 @@ class Routes extends Component {
         <Layout exact path="/add-new-templet" component={LessonForm} />
         <Layout exact path="/register" component={Register} />
         <Layout exact path="/welecome" component={Welecome} />
-        <AuthLayout component={Templates} />
+        <Layout exact path="/notfound" component={NotFound} />
+        <PrivateRoute path="/templates" component={Templates} />
       </Switch>
     );
   }

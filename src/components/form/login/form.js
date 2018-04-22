@@ -25,7 +25,7 @@ class Login extends Component {
 
     this.Auth.login(this.state.userName, this.state.password)
       .then(res => {
-        this.props.history.replace("/");
+        this.props.history.replace("/welecome");
       })
       .catch(err => {
         alert(err);

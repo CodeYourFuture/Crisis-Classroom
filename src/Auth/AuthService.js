@@ -4,7 +4,7 @@ import decode from "jwt-decode";
 
 class AuthService {
   constructor(domain) {
-    this.domain = domain || "http://localhost:8080/api";
+    this.domain = domain || "http://localhost:8080";
     
     this.state = {
       err:null

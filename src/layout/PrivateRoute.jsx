@@ -4,7 +4,7 @@ import AuthService from "../Auth/AuthService";
 import Header from "../containers/header";
 import Footer from "../components/Footer";
 
-const AuthLayout = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
@@ -28,4 +28,4 @@ const AuthLayout = ({ component: Component, ...rest }) => {
   );
 };
 
-export default AuthLayout;
+export default  PrivateRoute;

@@ -1,16 +1,9 @@
-const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
-const bodyparser = require("body-parser");
-const cors = require("cors");
 
 const filename = "./database/mydatabase.sqlite";
 let db = new sqlite3.Database(filename);
 
-const router = express.Router();
-router.use(cors());
-router.use(bodyparser.json());
-
-router.get("/lessons", function(req, res) {
+const lessons = (req, res) => {
   var sql = `select 
             *
             from lessons 
@@ -28,22 +21,6 @@ router.get("/lessons", function(req, res) {
       });
     }
   });
-});
+};
 
-module.exports = router;
-
-
-// lessons.id,
-//             lessons.lessonTitle,
-//             lessons.lessonImg,
-//             lessons.timeToPrepair,
-//             lessons.numberOfPeople,
-//             lessons.peopleSymbole,
-//             lessons.ingredients,
-//             lessons.instructions,
-//             tools.toolName,
-//             tools.toolsSymbole,
-//             ingredients.ingredientName,
-//             ingredients.ingredientSymbole,
-//             instructions.instructionsName,
-//             instructions.instructionsSymbole
+module.exports = lessons;

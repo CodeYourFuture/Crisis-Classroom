@@ -1,16 +1,9 @@
-const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
-const bodyparser = require("body-parser");
-const cors = require("cors");
 
 const filename = "./database/crisisdb.sqlit";
 let db = new sqlite3.Database(filename);
 
-const router = express.Router();
-router.use(cors());
-router.use(bodyparser.json());
-
-router.post("/register", function(req, res) {
+const register = (req, res) => {
   var sql = `insert into users
              (firstName, surName, userName, email, password, confirmPassword)
              values (?, ?, ?, ?, ?, ?)`;
@@ -29,12 +22,11 @@ router.post("/register", function(req, res) {
       if (err) {
         res.status(500).end();
       } else {
-        res.st;
-        atus(200).json({
+        res.status(200).json({
           users: rows
         });
       }
     }
   );
-});
-module.exports = router;
+};
+module.exports = register;

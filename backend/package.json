@@ -1,0 +1,35 @@
+{
+  "name": "crisis",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "generate-data": "node assets/data/generate.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "busboy": "^0.2.14",
+    "connect-busboy": "0.0.2",
+    "cors": "^2.8.4",
+    "cors-prefetch-middleware": "^1.0.0",
+    "express": "^4.15.4",
+    "express-handlebars": "^3.0.0",
+    "express-jwt": "^5.3.1",
+    "express-validator": "^4.3.0",
+    "handlebars": "^4.0.11",
+    "images-upload-middleware": "^1.1.1",
+    "jsonwebtoken": "^8.2.1",
+    "knex": "0.13.0",
+    "mongodb": "^3.0.2",
+    "sqlite3": "^3.1.13"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "faker": "^4.1.0",
+    "jsonfile": "^4.0.0",
+    "nodemon": "1.11.0"
+  }
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import Survey from "../text/Survey";
+import Survey from "../pages/Survey";
 
 import "./style.css";
 

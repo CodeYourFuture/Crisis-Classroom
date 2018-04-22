@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
 import "./Style.css";
-// import { Button } from "antd";
+import AuthService from "../../Auth/AuthService";
+import Button from "../button"
 
 export default class NavbarFeatures extends Component {
+  onLogOut = () => {
+    AuthService.logout();
+    this.props.history.replace("/");
+  };
+
   render() {
     return (
       <Route>
@@ -79,6 +85,26 @@ export default class NavbarFeatures extends Component {
                     Our supporters
                   
                 </div>
+              </li>
+
+              <li className="nav-item">
+                <Link to="/templates" className="nav-link">
+                  Templates
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                {AuthService.loggedIn() ? (
+                  <Button
+                  className="btn btn-outline-success"
+                    value="Log Out"
+                    onClick={this.onLogOut}
+                  />
+                ) : (
+                  <Link to="/register"  className="nav-link">
+                    Register
+                  </Link>
+                )}
               </li>
             </ul>
             <form className="form-inline my-2 my-lg-0 form">

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 
 export default class Day1 extends Component {
+    
     render() {
+        console.log("hi mona");
         return (
 
             <div className="row text-center">

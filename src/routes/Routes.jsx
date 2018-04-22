@@ -7,29 +7,26 @@ import Register from "../components/form/register/form";
 import Templates from "../containers/Templates.jsx";
 import Login from "../components/form/login/form";
 import LessonForm from "../components/form/templet/newTemplet";
-import Welecome from "../components/navbarPages/welecome";
-import Teacher from "../../src/components/navbarPages/Teacher";
-import Training from "../../src/components/navbarPages/Training";
-import About from "../../src/components/navbarPages/About";
-import Projects from "../../src/components/navbarPages/Projects";
-import News from "../../src/components/text/News";
+import News from "../../src/components/pages/News";
 import AuthLayout from "../../src/routes/Routes";
-import Meet from "../../src/components/text/Meet";
-import Day1 from "../../src/components/text/Day1";
-
-
+import Meet from "../../src/components/pages/Meet";
+import Day1 from "../../src/components/pages/Day1";
+import Welecome from "../components/pages/welecome";
+import PrivateRoute from "../layout/PrivateRoute";
+import Teacher from "../components/navbarPages/Teacher";
+import Training from "../components/navbarPages/Training";
+import About from "../components/navbarPages/About";
+import Projects from "../components/navbarPages/Projects";
+import NotFound from "../components/pages/notFound"
 import "./style.css";
 
 class Routes extends Component {
   render() {
-    return (<div>
+    return (
       <Switch>
         <Layout exact path="/teachers" component={Teacher} />
-        <Layout path="/training" component={Training}>
-        <Layout path="/training/123" component={Day1} />
-
-        </Layout>
-
+        <Layout exact path="/training" component={Training} />
+        <Layout path="/training/day-one" component={Day1} />
         <Layout path="/news" component={News} />
         <Layout path="/about" component={About} />
         <Layout path="/meettheteam" component={Meet} />
@@ -38,9 +35,11 @@ class Routes extends Component {
         <Layout exact path="/login" component={Login} />
         <Layout exact path="/register" component={Register} />
         <Layout exact path="/add-new-templet" component={LessonForm} />
+        <Layout exact path="/register" component={Register} />
         <Layout exact path="/welecome" component={Welecome} />
-        <AuthLayout component={Templates} />
-      </Switch></div>
+        <Layout exact path="/notfound" component={NotFound} />
+        <PrivateRoute path="/templates" component={Templates} />
+      </Switch>
     );
   }
 }

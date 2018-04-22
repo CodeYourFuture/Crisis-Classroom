@@ -40,13 +40,13 @@ export default class Training extends Component {
                         <figure className="thumbnail">
                             <a href="https://www.crisisclassroom.com/training/day-1--building-you">
                                 <img src="https://www.crisisclassroom.com//media/images/workshops/IMG_0904.jpg" alt="Day 1 - BUILDING YOU" className="img-reponsive day" width="100%" />
-                            </a>   
-                            
-                                <figcaption className="caption text-center">
-                                    <h2><Link  to="/training/123">Day 1 - BUILDING YOU </Link></h2>
-                                    
-                                </figcaption>
-                           
+                            </a>
+
+                            <figcaption className="caption text-center">
+                                <h2><Link to="/training/day-one">Day 1 - BUILDING YOU </Link></h2>
+
+                            </figcaption>
+
                         </figure>
                     </div>
 

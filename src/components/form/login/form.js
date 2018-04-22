@@ -25,7 +25,7 @@ class Login extends Component {
 
     this.Auth.login(this.state.userName, this.state.password)
       .then(res => {
-        this.props.history.replace("/");
+        this.props.history.replace("/welecome");
       })
       .catch(err => {
         alert(err);
@@ -38,6 +38,7 @@ class Login extends Component {
     });
   };
   render() {
+    console.log(this.Auth.state.err)
     return (
       <div className="lesson-form">
         <h3>To See Templates Please LogIn</h3>

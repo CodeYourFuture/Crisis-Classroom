@@ -5,18 +5,16 @@ let db = new sqlite3.Database(filename);
 
 const survey = (req, res) => {
   var sql = `insert into users
-             (firstName, surName, userName, email, password, confirmPassword)
-             values (?, ?, ?, ?, ?, ?)`;
+             (studentName, answer1, answer2, answer3)
+             values (?, ?, ?, ?)`;
   console.log(req.body);
   db.run(
     sql,
     [
-      req.body.firstName,
-      req.body.surName,
-      req.body.userName,
-      req.body.email,
-      req.body.password,
-      req.body.confirmPassword
+      req.body.studentName,
+      req.body.answer1,
+      req.body.answer2,
+      req.body.answer3
     ],
     (err, rows) => {
       if (err) {

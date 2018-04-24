@@ -1,12 +1,7 @@
-.lessons-form {
-    width: 100%;
-    align-items: center;
-    
-}
+
 .lesson-form {
-    background-color: rgb(179, 166, 151);
     margin: auto;
-    width: 70%;
+    width: 50%;
     padding: 50px;
 }
 .form-control{
@@ -17,9 +12,6 @@
 }
 
 @media only screen and (max-width: 1200px) {
-    .lessons-form {
-        padding: 1%;
-    }
     .lesson-form {
         margin: auto;
         width: 90%;
@@ -28,7 +20,6 @@
 }
 @media only screen and (max-width: 600px) {
     .lesson-form {
-        margin: auto;
         width: 100%;
         padding: 10px;
     }

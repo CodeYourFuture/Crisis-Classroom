@@ -39,7 +39,7 @@ class Login extends Component {
   render() {
     return (
       <div className="lesson-form">
-        <h3>To See Templates Please LogIn</h3>
+        <h4>To See Templates Please LogIn</h4>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <Label value="User Name" />

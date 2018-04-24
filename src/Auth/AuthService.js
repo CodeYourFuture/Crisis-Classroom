@@ -25,7 +25,7 @@ class AuthService {
         return Promise.resolve(res);
       })
       .catch(err => {
-       this.setState({ err});
+       return err
       });
   };
 

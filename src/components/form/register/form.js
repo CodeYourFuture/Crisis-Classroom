@@ -1,3 +1,4 @@
+import validator from "react-validation";
 import React from "react";
 import Input from "../../input";
 import Button from "../../button";
@@ -34,7 +35,7 @@ export default class Form extends React.Component {
       password,
       confirmPassword
     } = this.state;
-    this.passVal(this.state.password);
+    // this.passVal(this.state.password);
     if (password === confirmPassword) {
       axios
         .post("http://localhost:8080/register", {
@@ -103,6 +104,7 @@ export default class Form extends React.Component {
               placeholder="Email"
               value={this.state.email}
               onChange={this.change}
+              validations={[required, email]}
             />
           </div>
           <div className="form-group">
@@ -114,6 +116,7 @@ export default class Form extends React.Component {
               placeholder="Password"
               value={this.state.password}
               onChange={this.change}
+              validations={[required, password]}
             />
           </div>
           <div className="form-group">
@@ -125,6 +128,7 @@ export default class Form extends React.Component {
               placeholder="Confirm Your Password"
               value={this.state.confirmPassword}
               onChange={this.change}
+              validations={[required, password]}
             />
             <h6>{this.state.passwordMach}</h6>
           </div>
@@ -134,3 +138,31 @@ export default class Form extends React.Component {
     );
   }
 }
+
+const required = value => {
+  if (!value.toString().trim().length) {
+    return "require";
+  }
+};
+
+const email = value => {
+  if (!validator.isEmail(value)) {
+    return `${value} is not a valid email.`;
+  }
+};
+
+// const lt = (value, props) => {
+//   if (!value.toString().trim().length > props.maxLength) {
+//     return (
+//       <span className="error">
+//         The value exceeded {props.maxLength} symbols.
+//       </span>
+//     );
+//   }
+// };
+
+const password = (value, props, components) => {
+  if (value !== components["confirm"][0].value) {
+    return <span className="error">Passwords are not equal.</span>;
+  }
+};

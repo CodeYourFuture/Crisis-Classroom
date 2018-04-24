@@ -11,6 +11,8 @@ import News from "../../src/components/pages/News";
 import AuthLayout from "../../src/routes/Routes";
 import Meet from "../../src/components/pages/Meet";
 import Day1 from "../../src/components/pages/Day1";
+import Day2 from "../../src/components/pages/Day2";
+import Day3 from "../../src/components/pages/Day3";
 import Welecome from "../components/pages/welecome";
 import PrivateRoute from "../layout/PrivateRoute";
 import Teacher from "../components/navbarPages/Teacher";
@@ -27,6 +29,8 @@ class Routes extends Component {
         <Layout exact path="/teachers" component={Teacher} />
         <Layout exact path="/training" component={Training} />
         <Layout path="/training/day-one" component={Day1} />
+        <Layout path="/training/day-two" component={Day2} />
+        <Layout path="/training/day-three" component={Day3} />
         <Layout path="/news" component={News} />
         <Layout path="/about" component={About} />
         <Layout path="/meettheteam" component={Meet} />

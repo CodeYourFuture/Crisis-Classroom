@@ -56,7 +56,7 @@ export default class Training extends Component {
                                 <img src="https://www.crisisclassroom.com//media/images/workshops/IMG_0989.jpg" alt="Day 2 - BUILDING RESOURCES" className="img-reponsive day" width="100%" />
                             </a>
                             <figcaption className="caption text-center">
-                                <h2><a href="https://www.crisisclassroom.com/training/day-2--building-resources">Day 2 - BUILDING RESOURCES</a></h2>
+                                <h2><Link to="/training/day-two">Day 2 - BUILDING RESOURCES</Link></h2>
                             </figcaption>
                         </figure>
                     </div>
@@ -66,7 +66,7 @@ export default class Training extends Component {
                                 <img src="https://www.crisisclassroom.com//media/files/CRISIS-0094-2.jpg" alt="Day 3 - BUILDING COMMUNITY" className="img-reponsive day" width="100%" />
                             </a>
                             <figcaption className="caption text-center">
-                                <h2><a href="https://www.crisisclassroom.com/training/day-3--building-community">Day 3 - BUILDING COMMUNITY</a></h2>
+                                <h2><Link to="/training/day-three">Day 3 - BUILDING COMMUNITY</Link></h2>
                             </figcaption>
                         </figure>
                     </div>

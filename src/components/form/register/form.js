@@ -1,8 +1,9 @@
-import validator from "react-validation";
+// import validator from "react-validation";
 import React from "react";
 import Input from "../../input";
 import Button from "../../button";
 import Label from "../../label";
+import Registration from "./Registration";
 // import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -16,16 +17,36 @@ export default class Form extends React.Component {
       email: "",
       password: "",
       confirmPassword: "",
-      passwordMach: null
+      passwordMach: null,
+      errors: []
     };
   }
-  change = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
-
-  onSubmit = e => {
+  // change = e => {
+  //   const {
+  //     firstName,
+  //     surName,
+  //     userName,
+  //     email,
+  //     password,
+  //     confirmPassword
+  //   } = this.state;
+  //   const errors = validate(
+  //     firstName,
+  //     surName,
+  //     userName,
+  //     email,
+  //     password,
+  //     confirmPassword
+  //   );
+  //   if (errors.length > 0) {
+  //     this.setState({ errors });
+  //     return;
+  //   }
+  //   // this.setState({
+  //   //   [e.target.name]: e.target.value
+  //   // });
+  // };
+  handleSubmit = e => {
     e.preventDefault();
     const {
       firstName,
@@ -35,34 +56,55 @@ export default class Form extends React.Component {
       password,
       confirmPassword
     } = this.state;
-    // this.passVal(this.state.password);
-    if (password === confirmPassword) {
-      axios
-        .post("http://localhost:8080/register", {
-          firstName,
-          surName,
-          userName,
-          email,
-          password,
-          confirmPassword
-        })
-        .then(result => {
-          console.log(result);
-          this.props.history.replace("/");
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    } else {
-      this.setState({ passwordMach: "Password does not mach" });
+    const errors = validate(
+      firstName,
+      surName,
+      userName,
+      email,
+      password,
+      confirmPassword
+    );
+    if (errors.length > 0) {
+      this.setState({ errors });
+      return;
     }
   };
 
+  onSubmit = () => {
+    const {
+      firstName,
+      surName,
+      userName,
+      email,
+      password,
+      confirmPassword
+    } = this.state;
+
+    axios
+      .post("http://localhost:8080/register", {
+        firstName,
+        surName,
+        userName,
+        email,
+        password,
+        confirmPassword
+      })
+      .then(result => {
+        console.log(result);
+        this.props.history.replace("/");
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   render() {
+    const { errors } = this.state;
     return (
       <div className="lesson-form">
+        {errors.map(error => <p key={error}>Error: {error}</p>)}
         <h1>Register</h1>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <Label value="Full Name" />
             <div>
@@ -72,7 +114,7 @@ export default class Form extends React.Component {
                 type="text"
                 placeholder="First name"
                 value={this.state.firstName}
-                onChange={this.change}
+                onChange={evt => this.setState({ firstName: evt.target.value })}
               />
               <Input
                 className="form-control"
@@ -80,7 +122,7 @@ export default class Form extends React.Component {
                 type="text"
                 placeholder="Last name"
                 value={this.state.surName}
-                onChange={this.change}
+                onChange={evt => this.setState({ surName: evt.target.value })}
               />
             </div>
           </div>
@@ -92,7 +134,7 @@ export default class Form extends React.Component {
               type="text"
               placeholder="UserName"
               value={this.state.userName}
-              onChange={this.change}
+              onChange={evt => this.setState({ userName: evt.target.value })}
             />
           </div>
           <div className="form-group">
@@ -103,8 +145,7 @@ export default class Form extends React.Component {
               type="email"
               placeholder="Email"
               value={this.state.email}
-              onChange={this.change}
-              validations={[required, email]}
+              onChange={evt => this.setState({ email: evt.target.value })}
             />
           </div>
           <div className="form-group">
@@ -115,8 +156,7 @@ export default class Form extends React.Component {
               type="password"
               placeholder="Password"
               value={this.state.password}
-              onChange={this.change}
-              validations={[required, password]}
+              onChange={evt => this.setState({ password: evt.target.value })}
             />
           </div>
           <div className="form-group">
@@ -127,42 +167,40 @@ export default class Form extends React.Component {
               type="password"
               placeholder="Confirm Your Password"
               value={this.state.confirmPassword}
-              onChange={this.change}
-              validations={[required, password]}
+              onChange={evt =>
+                this.setState({ confirmPassword: evt.target.value })
+              }
             />
             <h6>{this.state.passwordMach}</h6>
           </div>
           <Button className="btn btn-outline-dark" value="Register" />
         </form>
+        <Registration state={this.state} onSubmit={this.onSubmit}/>
       </div>
     );
   }
 }
 
-const required = value => {
-  if (!value.toString().trim().length) {
-    return "require";
-  }
-};
+function validate(userName, email, password) {
+  const errors = [];
 
-const email = value => {
-  if (!validator.isEmail(value)) {
-    return `${value} is not a valid email.`;
+  if (userName.length === 0) {
+    errors.push("user Name can't be empty");
   }
-};
 
-// const lt = (value, props) => {
-//   if (!value.toString().trim().length > props.maxLength) {
-//     return (
-//       <span className="error">
-//         The value exceeded {props.maxLength} symbols.
-//       </span>
-//     );
-//   }
-// };
-
-const password = (value, props, components) => {
-  if (value !== components["confirm"][0].value) {
-    return <span className="error">Passwords are not equal.</span>;
+  if (email.length < 5) {
+    errors.push("Email should be at least 5 charcters long");
   }
-};
+  // if (email.split("").filter(x => x === "@").length !== 1) {
+  //   errors.push("Email should contain a @");
+  // }
+  // if (email.indexOf(".") === -1) {
+  //   errors.push("Email should contain at least one dot");
+  // }
+
+  if (password.length < 6) {
+    errors.push("Password should be at least 6 characters long");
+  }
+
+  return errors;
+}

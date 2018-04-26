@@ -46,40 +46,44 @@ export default class NavbarFeatures extends Component {
                   projects
                 </Link>
               </li>
-
+              <li className="nav-item">
+                <Link className="nav-link" to="/news">
+                  News
+                </Link>
+              </li>
               <li className="nav-item dropdown">
-                <Link
+                <a
                   className="nav-link dropdown-toggle"
                   id="navbarDropdown"
                   role="button"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
-                  to="/about"
                 >
                   About
-                </Link>
-
+                </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a
-                    className="dropdown-item"
-                    href="https://www.crisisclassroom.com/about/meet-the-team"
-                  >
-                    Meet the team
-                  </a>
-                  <a
-                    className="dropdown-item"
-                    href="https://www.crisisclassroom.com/about/what-we-do"
-                  >
-                    What we do
-                  </a>
-                  <div className="dropdown-divider" />
-                  <a
-                    className="dropdown-item"
-                    href="https://www.crisisclassroom.com/about/our-supporters"
-                  >
+                  
+                  
+                  <Link to="about" className="dropdown-item">
+                    About
+                  </Link>
+
+
+
+
+                  <Link to="meettheteam" className="dropdown-item">
+                      Meet the team
+              
+                  </Link>
+                  <Link to="about" className="dropdown-item">
+                      What we do
+                  
+                  </Link>
+                  <div className="dropdown-divider"className="dropdown-item" />
+                  
                     Our supporters
-                  </a>
+                  
                 </div>
               </li>
 

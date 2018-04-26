@@ -1,11 +1,7 @@
-// import validator from "react-validation";
 import React from "react";
 import Input from "../../input";
 import Button from "../../button";
 import Label from "../../label";
-import Registration from "./Registration";
-// import { Link } from "react-router-dom";
-import axios from "axios";
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -21,31 +17,7 @@ export default class Form extends React.Component {
       errors: []
     };
   }
-  // change = e => {
-  //   const {
-  //     firstName,
-  //     surName,
-  //     userName,
-  //     email,
-  //     password,
-  //     confirmPassword
-  //   } = this.state;
-  //   const errors = validate(
-  //     firstName,
-  //     surName,
-  //     userName,
-  //     email,
-  //     password,
-  //     confirmPassword
-  //   );
-  //   if (errors.length > 0) {
-  //     this.setState({ errors });
-  //     return;
-  //   }
-  //   // this.setState({
-  //   //   [e.target.name]: e.target.value
-  //   // });
-  // };
+
   handleSubmit = e => {
     e.preventDefault();
     const {
@@ -70,34 +42,6 @@ export default class Form extends React.Component {
     }
   };
 
-  onSubmit = () => {
-    const {
-      firstName,
-      surName,
-      userName,
-      email,
-      password,
-      confirmPassword
-    } = this.state;
-
-    axios
-      .post("http://localhost:8080/register", {
-        firstName,
-        surName,
-        userName,
-        email,
-        password,
-        confirmPassword
-      })
-      .then(result => {
-        console.log(result);
-        this.props.history.replace("/");
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
   render() {
     const { errors } = this.state;
     return (
@@ -113,16 +57,16 @@ export default class Form extends React.Component {
                 name="firstName"
                 type="text"
                 placeholder="First name"
-                value={this.state.firstName}
-                onChange={evt => this.setState({ firstName: evt.target.value })}
+                value={this.props.state.firstName}
+                onChange={this.props.handleChange}
               />
               <Input
                 className="form-control"
                 name="surName"
                 type="text"
                 placeholder="Last name"
-                value={this.state.surName}
-                onChange={evt => this.setState({ surName: evt.target.value })}
+                value={this.props.state.surName}
+                onChange={this.props.handleChange}
               />
             </div>
           </div>
@@ -133,8 +77,8 @@ export default class Form extends React.Component {
               name="userName"
               type="text"
               placeholder="UserName"
-              value={this.state.userName}
-              onChange={evt => this.setState({ userName: evt.target.value })}
+              value={this.props.state.userName}
+              onChange={this.props.handleChange}
             />
           </div>
           <div className="form-group">
@@ -144,8 +88,8 @@ export default class Form extends React.Component {
               name="email"
               type="email"
               placeholder="Email"
-              value={this.state.email}
-              onChange={evt => this.setState({ email: evt.target.value })}
+              value={this.props.state.email}
+              onChange={this.props.handleChange}
             />
           </div>
           <div className="form-group">
@@ -155,8 +99,8 @@ export default class Form extends React.Component {
               name="password"
               type="password"
               placeholder="Password"
-              value={this.state.password}
-              onChange={evt => this.setState({ password: evt.target.value })}
+              value={this.props.state.password}
+              onChange={this.props.handleChange}
             />
           </div>
           <div className="form-group">
@@ -166,16 +110,12 @@ export default class Form extends React.Component {
               name="confirmPassword"
               type="password"
               placeholder="Confirm Your Password"
-              value={this.state.confirmPassword}
-              onChange={evt =>
-                this.setState({ confirmPassword: evt.target.value })
-              }
+              value={this.props.state.confirmPassword}
+              onChange={this.props.handleChange}
             />
-            <h6>{this.state.passwordMach}</h6>
           </div>
           <Button className="btn btn-outline-dark" value="Register" />
         </form>
-        <Registration state={this.state} onSubmit={this.onSubmit}/>
       </div>
     );
   }
@@ -184,7 +124,7 @@ export default class Form extends React.Component {
 function validate(userName, email, password) {
   const errors = [];
 
-  if (userName.length === 0) {
+  if (userName.length === 1) {
     errors.push("user Name can't be empty");
   }
 

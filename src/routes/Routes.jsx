@@ -3,7 +3,7 @@ import { Switch } from "react-router-dom";
 
 import Layout from "../layout";
 import Home from "../containers/Home";
-import Register from "../components/form/register/form";
+import Register from "../components/form/register/index";
 import Templates from "../containers/Templates.jsx";
 import Login from "../components/form/login/form";
 import LessonForm from "../components/form/templet/newTemplet";
@@ -22,15 +22,14 @@ class Routes extends Component {
       <Switch>
         <Layout exact path="/" component={Home} />
         <Layout exact path="/login" component={Login} />
-        <Layout exact path="/register" component={Register} />
         <Layout exact path="/teachers" component={Teacher} />
         <Layout exact path="/training" component={Training} />
         <Layout exact path="/about" component={About} />
         <Layout exact path="/projects" component={Projects} />
         <Layout exact path="/add-new-templet" component={LessonForm} />
-        <Layout exact path="/register" component={Register} />
         <Layout exact path="/welecome" component={Welecome} />
         <Layout exact path="/notfound" component={NotFound} />
+        <Layout path="/register" component={Register} />
         <PrivateRoute path="/templates" component={Templates} />
       </Switch>
     );

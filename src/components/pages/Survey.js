@@ -73,16 +73,18 @@ export default class Survey extends Component {
         var studentName;
         var questions;
         if(this.state.studentName === '' && this.state.isSubmitted === false ){
-            studentName = <div>
+            studentName = <div className="text-center n-survey head-survey">
                 <h1>Hey , please type your name !</h1>
+                <div className="input-s">
                 <form onSubmit={this.nameSubmit}>
                     <input className="namy" type="text" placeholder="Enter your name" ref="name"/>
                 </form>
+                </div>
             </div>;
             questions= ""
         } else if(this.state.studentName != "" && this.state.isSubmitted === false){
-            studentName = <h1> Welcome to survey, {this.state.studentName}</h1>;
-            questions = <div>
+            studentName = <h1 className="text-center n-survey head"> Welcome to survey, {this.state.studentName}</h1>;
+            questions = <div className="text-center n-survey">
                 <h2>Here are some questions:</h2>
                 <form onSubmit={this.questionSubmit}>
                     <div className="card">
@@ -116,7 +118,7 @@ export default class Survey extends Component {
                 
             </div>
         } else if(this.state.isSubmitted === true){
-            studentName=<h1>Thanks, {this.state.studentName}</h1>
+            studentName=<h1 className="text-center n-survey head-survey">Thanks, {this.state.studentName} !</h1>
         }
 
 

@@ -21,6 +21,7 @@ import About from "../components/navbarPages/About";
 import Projects from "../components/navbarPages/Projects";
 import NotFound from "../components/pages/notFound"
 import "./style.css";
+import Survey from "../components/pages/Survey";
 
 class Routes extends Component {
   render() {
@@ -36,6 +37,7 @@ class Routes extends Component {
         <Layout path="/meettheteam" component={Meet} />
         <Layout path="/projects" component={Projects} />
         <Layout exact path="/" component={Home} />
+        <Layout exact path="/survey" component={Survey} />
         <Layout exact path="/login" component={Login} />
         <Layout exact path="/register" component={Register} />
         <Layout exact path="/add-new-templet" component={LessonForm} />

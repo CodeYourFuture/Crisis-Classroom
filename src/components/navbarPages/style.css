@@ -38,3 +38,15 @@
   height: 270px;
 }
 
+
+.btn-survey {
+  font-size: 36px;
+  width: 300px;
+  padding: 20px;
+  background-color: #EEFA84;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  margin: 10px auto;
+  opacity: 1;
+  color: #000;
+    line-height: 30px;
+}

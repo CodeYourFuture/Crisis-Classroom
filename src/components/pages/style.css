@@ -91,17 +91,36 @@ input[type="radio"] {
   box-shadow: 0 5px 0 0 rgba(178,49,49,1) ;
 }
 .namy{
-  font-size: 30px;
-  padding: 20px;
+  font-size: 20px;
+  padding: 15px;
 }
 .bton{
   margin: auto;
   width: 10%;
   padding: 20px;
+  
 }
 .my{
   margin: auto 10px;
   background-color: rgba(178,49,49,1);
 }
-
+.n-survey{
+  margin: auto 10px;
+  background-color: rgba(143, 143, 143, 0.646);
+  padding-top: 50px;
+  padding-bottom:300px;
+}
+.head{
+  background-color: rgba(143, 143, 143, 0.646);
+  padding-top: 50px;
+  padding-bottom:0px;
+  margin-top: 50px;
+  margin-bottom: 0px;
+}
+.input-s{
+  padding-top: 20px;
+}
+.head-survey{
+  margin-top: 50px;
+}
 

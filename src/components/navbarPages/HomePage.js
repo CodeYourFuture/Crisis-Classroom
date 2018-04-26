@@ -1,5 +1,6 @@
 import React from "react";
-import Survey from "../pages/Survey";
+import { Route, Link } from "react-router-dom";
+
 
 import "./style.css";
 
@@ -28,8 +29,9 @@ const HomePage = () => {
       <a href="https://chuffed.org/project/crisis-classroom">
         https://chuffed.org/project/crisis-classroom
       </a>
-
-    <Survey />
+      <hr />
+      <button type="button" className="btn btn-primary btn-survey"><Link to="/survey">Survey</Link></button>
+ 
 
 
 

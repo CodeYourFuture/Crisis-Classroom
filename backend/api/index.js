@@ -5,6 +5,7 @@ const exjwt = require("express-jwt");
 const users = require("./users");
 const lessons = require("./lessons");
 const imageUploder = require("./imageUploder");
+const checkUsers = require("./checkUsers");
 const register = require("./register");
 
 const jwtMW = exjwt({
@@ -16,6 +17,7 @@ const api = () => {
   router.post("/register", register);
   router.post("/lessons", lessons);
   router.post("/login", users.login);
+  router.get("/check-users", checkUsers);
 
   return router;
 };

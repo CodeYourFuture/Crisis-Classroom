@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import { Switch, Route } from "react-router-dom";
 import Form from "./form";
 import ConfirmRegistration from "./confirmRegistration";
+import "./style.css"
 
 class Registration extends Component {
   constructor(props) {
@@ -26,13 +27,14 @@ class Registration extends Component {
 
   render() {
     return (
-      //   <Switch>
-      //     <Route path="/register" Component={Form} />
-      //     <Route path="/confirm-registration" Component={ConfirmRegistration} />
-      //   </Switch>
+        // <Switch>
+        //   <Route exact path="/register" Component={Form} />
+        //   <Route path="/confirm-registration" Component={ConfirmRegistration} />
+        // </Switch>
 
-      <div>
-        <Form handleChange={this.handleChange} state={this.state} />
+      <div className="registration">
+        <h3>Registration</h3>
+        <Form handleChange={this.handleChange} state={this.state} history={this.props.history} />
         <ConfirmRegistration state={this.state} onSubmit={this.onSubmit} />
       </div>
     );

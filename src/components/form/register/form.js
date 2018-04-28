@@ -7,15 +7,25 @@ export default class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      surName: "",
-      userName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      passwordMach: null,
-      errors: []
+      error: null,
+      errors: [],
+      checkUser: [],
+      checkUserName: [],
+      checkEmail: ""
     };
+  }
+
+  componentDidMount() {
+    fetch(`http://localhost:8080/check-users`)
+      .then(res => res.json())
+      .then(Data => {
+        this.setState({ checkUser: Data.status });
+      })
+      .catch(error => {
+        this.setState({
+          error
+        });
+      });
   }
 
   handleSubmit = e => {
@@ -27,7 +37,8 @@ export default class Form extends React.Component {
       email,
       password,
       confirmPassword
-    } = this.state;
+    } = this.props.state;
+
     const errors = validate(
       firstName,
       surName,
@@ -36,9 +47,23 @@ export default class Form extends React.Component {
       password,
       confirmPassword
     );
+    const check = this.state.checkUser;
+    check.map(check => {
+      const { userName, email } = this.props.state;
+
+      if (userName === check.userName) {
+        this.setState({ checkUserName: "This user name already taken" });
+      }
+      if (email === check.email) {
+        this.setState({ checkEmail: "This email already exist" });
+      }
+    });
+
     if (errors.length > 0) {
       this.setState({ errors });
       return;
+    } else {
+      this.props.history.replace("/confirm-registration");
     }
   };
 
@@ -46,8 +71,11 @@ export default class Form extends React.Component {
     const { errors } = this.state;
     return (
       <div className="lesson-form">
-        {errors.map(error => <p key={error}>Error: {error}</p>)}
-        <h1>Register</h1>
+        {errors.map(error => (
+          <p className="error" key={error}>
+            {error}
+          </p>
+        ))}
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <Label value="Full Name" />
@@ -86,11 +114,12 @@ export default class Form extends React.Component {
             <Input
               className="form-control"
               name="email"
-              type="email"
+              type="text"
               placeholder="Email"
               value={this.props.state.email}
               onChange={this.props.handleChange}
             />
+            <p className="error">{this.state.checkEmail}</p>
           </div>
           <div className="form-group">
             <Label value="Password" />
@@ -121,25 +150,44 @@ export default class Form extends React.Component {
   }
 }
 
-function validate(userName, email, password) {
+function validate(
+  firstName,
+  surName,
+  userName,
+  email,
+  password,
+  confirmPassword
+) {
   const errors = [];
 
-  if (userName.length === 1) {
+  // if (email === )
+
+  if (firstName.length <= 0) {
+    errors.push("First Name can't be empty");
+  }
+  if (surName.length <= 0) {
+    errors.push("Sure Name can't be empty");
+  }
+
+  if (userName.length <= 0) {
     errors.push("user Name can't be empty");
   }
 
   if (email.length < 5) {
     errors.push("Email should be at least 5 charcters long");
   }
-  // if (email.split("").filter(x => x === "@").length !== 1) {
-  //   errors.push("Email should contain a @");
-  // }
-  // if (email.indexOf(".") === -1) {
-  //   errors.push("Email should contain at least one dot");
-  // }
+  if (email.split("").filter(x => x === "@").length !== 1) {
+    errors.push("Email should contain a @");
+  }
+  if (email.indexOf(".") === -1) {
+    errors.push("Email should contain at least one dot");
+  }
 
   if (password.length < 6) {
     errors.push("Password should be at least 6 characters long");
+  }
+  if (password !== confirmPassword) {
+    errors.push("Passwords does not mach");
   }
 
   return errors;

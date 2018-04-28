@@ -38,44 +38,46 @@ class Login extends Component {
   };
   render() {
     return (
-      <div className="lesson-form">
-        <h4>To See Templates Please LogIn</h4>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <Label value="User Name" />
-            <Input
-              className="form-control"
-              name="userName"
-              type="text"
-              placeholder="UserName"
-              value={this.state.userName}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <Label value="Password" />
-            <Input
-              className="form-control"
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <h5>Forgotten password?</h5>
-
-            <div className="row">
-              &nbsp; &nbsp;
-              <Button className="btn btn-outline-dark" value="LogIn" />
-              &nbsp;
-              <Link to="/register" className="btn btn-outline-dark">
-                Register
-              </Link>
+      <div>
+        <h3>To See Templates Please LogIn</h3>
+        <div className="lesson-form">
+          <form onSubmit={this.onSubmit}>
+            <div className="form-group">
+              <Label value="User Name" />
+              <Input
+                className="form-control"
+                name="userName"
+                type="text"
+                placeholder="UserName"
+                value={this.state.userName}
+                onChange={this.handleChange}
+              />
             </div>
-          </div>
-        </form>
+            <div className="form-group">
+              <Label value="Password" />
+              <Input
+                className="form-control"
+                name="password"
+                type="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <h5>Forgotten password?</h5>
+
+              <div className="row">
+                &nbsp; &nbsp;
+                <Button className="btn btn-outline-dark" value="LogIn" />
+                &nbsp;
+                <Link to="/register" className="btn btn-outline-dark">
+                  Register
+                </Link>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }

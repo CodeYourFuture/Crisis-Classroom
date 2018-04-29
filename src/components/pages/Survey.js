@@ -1,68 +1,61 @@
 import React, { Component } from "react";
 import "./style.css";
-var firebase = require("firebase");
-var uuid=require("uuid");
-var config = {
-    apiKey: "AIzaSyBHnGKmokYexkzQPztbPE_tpG4DSusII28",
-    authDomain: "crisis-classroom.firebaseapp.com",
-    databaseURL: "https://crisis-classroom.firebaseio.com",
-    projectId: "crisis-classroom",
-    storageBucket: "crisis-classroom.appspot.com",
-    messagingSenderId: "670869434346"
-  };
-  firebase.initializeApp(config);
-
+import axios from "axios";
 
 export default class Survey extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            studentName: "",
+                answer1: "",
+                answer2: "",
+                answer3: "",
+            isSubmitted : false
+        };
+    }
    
-    nameSubmit(event){
+    nameSubmit = (event)=>{
         var studentName= this.refs.name.value;
         this.setState({studentName: studentName},function(){
             console.log(this.state);
         })
     }
 
-    answerSelected(event){
-        var answers= this.state.answers;
-        if(event.target.name ==='answer1'){
-            answers.answer1=event.target.value;
-        }else if(event.target.name ==='answer2'){
-            answers.answer2=event.target.value;
-        }else if(event.target.name ==='answer3'){
-            answers.answer3=event.target.value;
-        }
-        this.setState({answers:answers }, function(){
-            console.log(answers);
-        })
-
+    answerSelected=(event)=>{
+        console.log(event.target.value)
+        this.setState({
+            [event.target.name]:event.target.value
+        });
     }
 
-    questionSubmit(){
-        firebase.database().ref("servey"+this.state.uid).set({
-            studentName:this.state.studentName,
-            answers:this.state.answers
-
+    questionSubmit=()=>{
+        const {
+            studentName,
+            answer1,
+            answer2,
+            answer3
+        } =this.state
+        axios
+        .post("http://localhost:8080/survey", {
+            studentName,
+            answer1,
+            answer2,
+            answer3
+        })
+        .then(result => {
+          console.log(result);
+        })
+        .catch(error => {
+          console.log(error);
         });
+       
 
+       
+        console.log(this.state)
         this.setState( {isSubmitted: true} );
     }
 
-    constructor(props){
-        super(props);
-        this.state={
-            uid: uuid.v1(),
-            studentName: "",
-            answers: {
-                answer1: "",
-                answer2: "",
-                answer3: ""
-            },
-            isSubmitted : false
-        };
-        this.nameSubmit=this.nameSubmit.bind(this);
-        this.answerSelected=this.answerSelected.bind(this);
-        this.questionSubmit=this.questionSubmit.bind(this);
-    }
+
 
 
 
@@ -82,7 +75,7 @@ export default class Survey extends Component {
                 </div>
             </div>;
             questions= ""
-        } else if(this.state.studentName != "" && this.state.isSubmitted === false){
+        } else if(this.state.studentName !== "" && this.state.isSubmitted === false){
             studentName = <h1 className="text-center n-survey head"> Welcome to survey, {this.state.studentName}</h1>;
             questions = <div className="text-center n-survey">
                 <h2>Here are some questions:</h2>
@@ -120,9 +113,6 @@ export default class Survey extends Component {
         } else if(this.state.isSubmitted === true){
             studentName=<h1 className="text-center n-survey head-survey">Thanks, {this.state.studentName} !</h1>
         }
-
-
-
         return (<div>
             {studentName}
             {questions}

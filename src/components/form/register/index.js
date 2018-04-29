@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import { Switch, Route } from "react-router-dom";
 import Form from "./form";
 import ConfirmRegistration from "./confirmRegistration";
-import "./style.css"
+import "./style.css";
 
 class Registration extends Component {
   constructor(props) {
@@ -13,8 +13,7 @@ class Registration extends Component {
       userName: "",
       email: "",
       password: "",
-      confirmPassword: "",
-      passwordMach: null,
+      formSubmitted: false,
       errors: []
     };
   }
@@ -24,18 +23,26 @@ class Registration extends Component {
       [e.target.name]: e.target.value
     });
   };
+  onFormSubmit = () => {
+    this.setState({
+      formSubmitted: true
+    });
+  };
 
   render() {
     return (
-        // <Switch>
-        //   <Route exact path="/register" Component={Form} />
-        //   <Route path="/confirm-registration" Component={ConfirmRegistration} />
-        // </Switch>
-
       <div className="registration">
         <h3>Registration</h3>
-        <Form handleChange={this.handleChange} state={this.state} history={this.props.history} />
-        <ConfirmRegistration state={this.state} onSubmit={this.onSubmit} />
+        {!this.state.formSubmitted ? (
+          <Form
+          onFormSubmit={this.onFormSubmit}
+            handleChange={this.handleChange}
+            userData={this.state}
+            history={this.props.history}
+          />
+        ) : (
+          <ConfirmRegistration userData={this.state} onSubmit={this.onSubmit} history={this.props.history}/>
+        )}
       </div>
     );
   }

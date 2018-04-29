@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Switch } from "react-router-dom";
-import Register from "../components/form/register/index";
+
 import Layout from "../layout";
 import Home from "../containers/Home";
 import Register from "../components/form/register/index";

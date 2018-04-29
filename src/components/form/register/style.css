@@ -1,0 +1,10 @@
+.registration{
+    align-items: center;
+}
+h3{
+    padding-top: 20px;
+    text-align: center;
+}
+.error{
+    color: red;
+}

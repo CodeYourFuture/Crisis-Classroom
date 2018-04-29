@@ -3,7 +3,7 @@ import { Switch } from "react-router-dom";
 
 import Layout from "../layout";
 import Home from "../containers/Home";
-import Register from "../components/form/register/form";
+import Register from "../components/form/register/index";
 import Templates from "../containers/Templates.jsx";
 import Login from "../components/form/login/form";
 import LessonForm from "../components/form/templet/newTemplet";

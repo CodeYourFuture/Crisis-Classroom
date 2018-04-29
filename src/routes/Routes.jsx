@@ -21,6 +21,7 @@ class Routes extends Component {
     return (
       <Switch>
         <Layout exact path="/" component={Home} />
+        <Layout path="/register" component={Register} />
         <Layout exact path="/login" component={Login} />
         <Layout exact path="/teachers" component={Teacher} />
         <Layout exact path="/training" component={Training} />
@@ -29,7 +30,6 @@ class Routes extends Component {
         <Layout exact path="/add-new-templet" component={LessonForm} />
         <Layout exact path="/welecome" component={Welecome} />
         <Layout exact path="/notfound" component={NotFound} />
-        <Layout exact path="/register" component={Register} />
         <PrivateRoute path="/templates" component={Templates} />
       </Switch>
     );

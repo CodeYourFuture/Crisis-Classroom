@@ -39,6 +39,16 @@ export default class Form extends React.Component {
       confirmPassword
     } = this.props.state;
 
+    const check = this.state.checkUser;
+    check.forEach(check => {
+      if (userName === check.userName) {
+        this.setState({ checkUserName: "This user name already taken" });
+      }
+      if (email === check.email) {
+        this.setState({ checkEmail: "This email already exist" });
+      }
+    });
+
     const errors = validate(
       firstName,
       surName,
@@ -47,17 +57,6 @@ export default class Form extends React.Component {
       password,
       confirmPassword
     );
-    const check = this.state.checkUser;
-    check.map(check => {
-      const { userName, email } = this.props.state;
-
-      if (userName === check.userName) {
-        this.setState({ checkUserName: "This user name already taken" });
-      }
-      if (email === check.email) {
-        this.setState({ checkEmail: "This email already exist" });
-      }
-    });
 
     if (errors.length > 0) {
       this.setState({ errors });
@@ -108,6 +107,7 @@ export default class Form extends React.Component {
               value={this.props.state.userName}
               onChange={this.props.handleChange}
             />
+            <p className="error">{this.state.checkUserName}</p>
           </div>
           <div className="form-group">
             <Label value="Email" />
@@ -159,8 +159,6 @@ function validate(
   confirmPassword
 ) {
   const errors = [];
-
-  // if (email === )
 
   if (firstName.length <= 0) {
     errors.push("First Name can't be empty");

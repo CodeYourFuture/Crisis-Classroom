@@ -3,6 +3,7 @@ import Button from "../../button";
 import axios from "axios";
 
 class ConfirmRegistration extends Component {
+  
   onSubmit = () => {
     const {
       firstName,
@@ -13,8 +14,7 @@ class ConfirmRegistration extends Component {
       confirmPassword
     } = this.props.state;
 
-    axios
-      .post("http://localhost:8080/register", {
+    axios.post("http://localhost:8080/register", {
         firstName,
         surName,
         userName,

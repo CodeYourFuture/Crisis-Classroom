@@ -12,7 +12,7 @@ class ConfirmRegistration extends Component {
       email,
       password,
       confirmPassword
-    } = this.props.state;
+    } = this.props.userData;
 
     axios.post("http://localhost:8080/register", {
         firstName,
@@ -32,9 +32,9 @@ class ConfirmRegistration extends Component {
   };
 
   render() {
-    const state = this.props.state;
+    const state = this.props.userData;
     return (
-      <div>
+      <div className="lesson-form">
         <h1>{state.userName}</h1>
         <h1>{state.firstName}</h1>
         <h1>{state.surName}</h1>

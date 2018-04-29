@@ -3,16 +3,17 @@ import React, { Component } from "react";
 export default class Teacher extends Component {
     render() {
         return (
-            <div className="row">
+            <div className="getStart">
+            <div className="col-xs-12 col-sm-offset-1 col-sm-10">
+                    <h1 className="the-title text-center welcome">TEACHERS</h1>
+                </div>
                 <img
                     src={require("../../image/archive/teacher.jpg")}
                     alt="teacher"
                     className="img-responsive teacher-baner "
                 />
 
-                <div className="col-xs-12 col-sm-offset-1 col-sm-10">
-                    <h1 className="the-title text-center">TEACHERS</h1>
-                </div>
+                
 
                 <p className="col-xs-12">Meet our amazing volunteer teachers.  Each of them has been on their own journey and has their own story to tell.  Every teacher is part of our global, Crisis classroom patchwork.  Soon we hope to have volunteers in every town and city in the world.  So that everyone who wants an education can receive one.  If you can’t go to school, then school will come to you!</p>
 
@@ -88,6 +89,7 @@ export default class Teacher extends Component {
         </p>
 
 
+<img src="http://www.alet.org.uk/wp-content/uploads/2016/09/swirl-300x300.jpg" alt="teaching" className="teaching"/>
 
 
 

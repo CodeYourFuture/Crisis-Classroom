@@ -4,7 +4,7 @@ const filename = "./database/crisisdb.sqlit";
 let db = new sqlite3.Database(filename);
 
 const survey = (req, res) => {
-  var sql = `insert into users
+  var sql = `insert into survey
              (studentName, answer1, answer2, answer3)
              values (?, ?, ?, ?)`;
   console.log(req.body);
@@ -21,7 +21,7 @@ const survey = (req, res) => {
         res.status(500).end();
       } else {
         res.status(200).json({
-          users: rows
+          status: rows
         });
       }
     }

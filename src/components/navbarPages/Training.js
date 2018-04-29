@@ -1,20 +1,22 @@
 import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class Training extends Component {
     render() {
         return (
-            <div>
+            <div className="getStart">
+                <h1 className="text-center welcome">WHY TRAIN?</h1>
                 <img
                     src={require("../../image/archive/training.jpg")}
                     alt="crisis"
-                    className="img-responsive training-image "
+                    className="img-responsive training-image  "
                 />
                 <div className="col-xs-12 col-sm-offset-2 col-sm-8 text-center">
 
-                    <h1 className="text-center">WHY TRAIN?</h1>
-                    <p>“I know what I’m doing, why do I need to complete training to
+                    
+                    <p className="team-name">“I know what I’m doing, why do I need to complete training to
           volunteer?”</p>
+          <img src="https://www.incimages.com/uploaded_files/image/970x450/getty_152414899_97046097045006_68075.jpg" alt="training" className="tr"/>
                     <p>
                         The more prepared you are before you volunteer the better
           you will be able to do your job, the more you will get out of the
@@ -33,7 +35,7 @@ export default class Training extends Component {
 
 
                 <div className="text-center text-uppercase ">
-                    <h2>TRAINING & WORKSHOPS IN PROGRESS</h2>
+                    <h2 className="he">TRAINING & WORKSHOPS IN PROGRESS</h2>
                 </div>
                 <div className="row">
                     <div className="col-xs-12 col-sm-4 col-md-4">
@@ -72,8 +74,8 @@ export default class Training extends Component {
                     </div>
 
                 </div>
-
-                {this.props.children}
+                <img src="http://www.vesalius.edu/wp-content/uploads/2016/02/photodune-8011412-hand-writing-never-stop-learning-m.jpg" alt="training" className="light"/>
+                
             </div>
         );
     }

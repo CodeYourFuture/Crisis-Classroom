@@ -61,4 +61,14 @@ insert into instructions (lessonId, instructionsName, instructionsSymbole ) valu
 insert into instructions (lessonId, instructionsName, instructionsSymbole ) values(1, "add", "../../../image/add.jpg");
 insert into instructions (lessonId, instructionsName, instructionsSymbole ) values(1, "cook", "../../../image/cook.jpg");
 
+create table survey(
+    id integer primary key,
+    studentName text,
+    answer1 text,
+    answer2 text,
+    answer3 text
+);
+
+insert into survey (studentName, answer1, answer2,answer3 ) values("Mona", "cooking", "teacher", "no");
+
 

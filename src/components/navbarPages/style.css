@@ -1,4 +1,5 @@
 .crisis-image {
+  max-width: 500px;
   width: 80%;
   margin: 20px;
   border: 3px solid rgb(8, 3, 3);
@@ -9,15 +10,18 @@
   text-align: center;
 }
 .training-image{
-  width: 90%;
-  margin: 20px;
+  max-width: 800px;
+  width: 80%;
+  margin: auto;
   border: 3px solid rgb(8, 3, 3);
-
+  align-items: center;
+  text-align: center;
 }
 
 .teacher-baner{
-  width: 100%;
-  margin: 20px;
+  max-width: 800px;
+  width: 80%;
+  margin: auto;
   border: 3px solid rgb(8, 3, 3);
 }
 .teacher-image-kate{
@@ -36,6 +40,10 @@
 }
 .day{
   height: 270px;
+  border-left: 3px solid rgb(155, 155, 155);
+  border-top: 3px solid rgb(155, 155, 155);
+  border-right: 3px solid rgb(155, 155, 155);
+  padding:5px;
 }
 
 
@@ -50,22 +58,13 @@
   color: #000;
     line-height: 30px;
 }
-.crisis-image {
-  width: 80%;
-  margin: 20px;
-  border: 3px solid rgb(8, 3, 3);
-}
+
 .getStart {
   margin: 20px;
   align-items: center;
   text-align: center;
 }
-.training-image{
-  width: 100%;
-  margin: 20px;
-  border: 3px solid rgb(8, 3, 3);
 
-}
 
 .teacher-baner{
   width: 100%;
@@ -76,8 +75,73 @@
   width: 100%;
   border: 3px solid rgb(8, 3, 3);
 }
-.welecome{
-  margin: 20px;
+.welcome{
+  padding: 10px;
+  width:600px;
   text-align: center;
-  padding: 1% 20% 10% 10%;
+  border-bottom: 3px solid rgb(208, 208, 208);
+  font-size: 50px;
+  margin: auto;
+  font-family: 'Patrick Hand', cursive;
+ 
+}
+.empower{
+  font-family: 'Patrick Hand', sans-serif;
+  border-bottom: 3px solid rgb(208, 208, 208);
+  padding: 50px;
+  color: rgb(97, 97, 97);
+}
+.pro{
+padding:50px;
+}
+.pro-1{
+  font-family: 'Patrick Hand', sans-serif;
+  color: rgb(128, 128, 128);
+}
+p{
+  font-family: 'arial', sans-serif;
+  padding-bottom: 50px;
+}
+.he{
+  margin: auto;
+  margin-bottom: 20px;
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 50px;
+  border-bottom: 3px solid rgb(208, 208, 208);
+  width:800px;
+}
+.light{
+  margin: auto;
+  width: 800px;
+  height: 450px; 
+  margin-bottom: -24px;
+  
+}
+.day-b{
+  height: 320px;
+}
+.teaching{
+  margin: auto;
+  width: 300px;
+  height: 300px; 
+  margin-bottom: -24px;
+  
+}
+.img-responsive{
+  height: 270px;
+}
+.tr{
+  margin: auto;
+  width: 800px;
+  padding-bottom: 50px;
+}
+.team{
+  padding-top: 150px;
+}
+.about{
+  margin-top: 130px;
+}
+.team-name{
+  font-family: 'Indie Flower', cursive;
+  font-size: 40px;
 }

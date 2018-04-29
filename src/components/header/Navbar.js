@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
 import "./Style.css";
 import AuthService from "../../Auth/AuthService";
-import Button from "../button"
+import Button from "../button";
 
 export default class NavbarFeatures extends Component {
   onLogOut = () => {
@@ -63,27 +63,17 @@ export default class NavbarFeatures extends Component {
                   About
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  
-                  
                   <Link to="about" className="dropdown-item">
                     About
                   </Link>
-
-
-
-
                   <Link to="meettheteam" className="dropdown-item">
-                      Meet the team
-              
+                    Meet the team
                   </Link>
                   <Link to="about" className="dropdown-item">
-                      What we do
-                  
+                    What we do
                   </Link>
-                  <div className="dropdown-divider"className="dropdown-item" />
-                  
-                    Our supporters
-                  
+                  <div className="dropdown-item dropdown-divider" />
+                  Our supporters
                 </div>
               </li>
 
@@ -96,12 +86,12 @@ export default class NavbarFeatures extends Component {
               <li className="nav-item">
                 {AuthService.loggedIn() ? (
                   <Button
-                  className="btn btn-outline-success"
+                    className="btn btn-outline-success"
                     value="Log Out"
                     onClick={this.onLogOut}
                   />
                 ) : (
-                  <Link to="/register"  className="nav-link">
+                  <Link to="/register" className="nav-link">
                     Register
                   </Link>
                 )}

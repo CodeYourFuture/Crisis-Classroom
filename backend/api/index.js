@@ -7,6 +7,7 @@ const lessons = require("./lessons");
 const imageUploder = require("./imageUploder");
 const checkUsers = require("./checkUsers");
 const register = require("./register");
+const survey = require("./survey");
 
 const jwtMW = exjwt({
   secret: "keyboard cat 4 ever"
@@ -18,6 +19,8 @@ const api = () => {
   router.post("/lessons", lessons);
   router.post("/login", users.login);
   router.get("/check-users", checkUsers);
+  router.post("/survey",survey);
+  
 
   return router;
 };

@@ -18,7 +18,7 @@ const api = () => {
   router.post("/register", register);
   router.post("/lessons", lessons);
   router.post("/login", users.login);
-  router.get("/check-users", checkUsers);
+  router.post("/check-users", checkUsers);
   router.post("/survey",survey);
   
 

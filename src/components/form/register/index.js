@@ -24,6 +24,7 @@ class Registration extends Component {
     });
   };
   onFormSubmit = () => {
+    console.log("hi im here")
     this.setState({
       formSubmitted: true
     });

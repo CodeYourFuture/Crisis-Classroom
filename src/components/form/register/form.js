@@ -2,13 +2,21 @@ import React from "react";
 import Input from "../../input";
 // import Button from "../../button";
 import Label from "../../label";
+import axios from "axios";
 
 export default class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       error: null,
-      errors: [],
+      errors: {
+        firstName: null,
+        surName: null,
+        userName: null,
+        email: null,
+        password: null,
+        confirmPassword: null
+      },
       checkUser: [],
       checkUserName: [],
       checkEmail: "",
@@ -16,11 +24,15 @@ export default class Form extends React.Component {
     };
   }
 
-  componentDidMount() {
-    fetch(`http://localhost:8080/check-users`)
-      .then(res => res.json())
-      .then(Data => {
-        this.setState({ checkUser: Data.status });
+  componentWillReceiveProps() {
+    const { userName, email } = this.props.userData;
+    axios
+      .post("http://localhost:8080/check-users", {
+        userName,
+        email
+      })
+      .then(res => {
+        this.setState({ checkUser: res.data.rows });
       })
       .catch(error => {
         this.setState({
@@ -31,76 +43,95 @@ export default class Form extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-
-
-
-
-    const errors = this.validate()
-    const userChecked = this.state.userChecked;
-    console.log(userChecked);
-    if (errors.length > 0) {
-      this.setState({ errors });
-      return;
-    } else {
-      this.props.onFormSubmit();
+    this.setState({
+      errors: {
+        firstName: null,
+        surName: null,
+        userName: null,
+        email: "",
+        password: null,
+        confirmPassword: null
+      }
+    });
+    const errors = this.validate();
+    let isError = false;
+    for (var key in errors) {
+      if (errors[key] != null) {
+        isError = true;
+      }
+      if (isError) {
+        this.setState({ errors });
+        return;
+      } else {
+        this.props.onFormSubmit();
+      }
     }
   };
 
   validate() {
-    const {firstName, surName, userName, email, password, confirmPassword} = this.props.userData
-    const errors = [];
+    const {
+      firstName,
+      surName,
+      userName,
+      email,
+      password,
+      confirmPassword
+    } = this.props.userData;
 
-    const check = this.state.checkUser;
-    check.forEach(check => {
+    const errors = {
+      surName: null,
+      firstName: null,
+      userName: null,
+      email: "",
+      password: null,
+      confirmPassword: null
+    };
+
+    this.state.checkUser.forEach(check => {
+      console.log(check)
       if (userName === check.userName) {
-        errors.push( "This user name already taken" );
+        errors.userName = `/ This user name already taken .`;
       }
       if (email === check.email) {
-        errors.push( "This email already exist" );
+        errors.email = `/ This email already exist .`;
       }
     });
 
     if (firstName.length <= 0) {
-      errors.push("First Name can't be empty");
+      errors.firstName = `/ First Name can't be empty. `;
     }
     if (surName.length <= 0) {
-      errors.push("Sure Name can't be empty");
+      errors.surName = `/ Sure Name can't be empty. `;
     }
 
     if (userName.length <= 0) {
-      errors.push("user Name can't be empty");
+      errors.userName = `/ user Name can't be empty .`;
     }
 
     if (email.length < 5) {
-      errors.push("Email should be at least 5 charcters long");
+      errors.email =
+        `/  Email should be at least 5 charcters long .` + errors.email;
     }
     if (email.split("").filter(x => x === "@").length !== 1) {
-      errors.push("Email should contain a @");
+      errors.email = `/ Email should contain a @ .` + errors.email;
     }
     if (email.indexOf(".") === -1) {
-      errors.push("Email should contain at least one dot");
+      errors.email = `/ Email should contain at least one dot .` + errors.email;
     }
 
     if (password.length < 6) {
-      errors.push("Password should be at least 6 characters long");
+      errors.password = `/ Password should be at least 6 characters long .`;
     }
     if (password !== confirmPassword) {
-      errors.push("Passwords does not mach");
+      errors.confirmPassword = `/ Passwords does not mach .`;
     }
-
     return errors;
   }
 
   render() {
     const { errors } = this.state;
-    console.log("foorm");
     return (
       <div className="lesson-form">
-        {errors.map(error => (
-          <p className="error" key={error}>
-            {error}
-          </p>
-        ))}
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <Label value="Full Name" />
@@ -113,6 +144,9 @@ export default class Form extends React.Component {
                 value={this.props.userData.firstName}
                 onChange={this.props.handleChange}
               />
+              {errors.firstName !== null && (
+                <span className="error">{errors.firstName}</span>
+              )}
               <Input
                 className="form-control"
                 name="surName"
@@ -121,6 +155,9 @@ export default class Form extends React.Component {
                 value={this.props.userData.surName}
                 onChange={this.props.handleChange}
               />
+              {errors.surName !== null && (
+                <span className="error">{errors.surName}</span>
+              )}
             </div>
           </div>
           <div className="form-group">
@@ -133,7 +170,9 @@ export default class Form extends React.Component {
               value={this.props.userData.userName}
               onChange={this.props.handleChange}
             />
-            <p className="error">{this.state.checkUserName}</p>
+            {errors.userName !== null && (
+              <span className="error">{errors.userName}</span>
+            )}
           </div>
           <div className="form-group">
             <Label value="Email" />
@@ -145,7 +184,9 @@ export default class Form extends React.Component {
               value={this.props.userData.email}
               onChange={this.props.handleChange}
             />
-            <p className="error">{this.state.checkEmail}</p>
+            {errors.email !== "" && (
+              <span className="error">{errors.email}</span>
+            )}
           </div>
           <div className="form-group">
             <Label value="Password" />
@@ -157,6 +198,9 @@ export default class Form extends React.Component {
               value={this.props.userData.password}
               onChange={this.props.handleChange}
             />
+            {errors.password !== null && (
+              <span className="error">{errors.password}</span>
+            )}
           </div>
           <div className="form-group">
             <Label value="Confirm Your Password" />
@@ -168,8 +212,17 @@ export default class Form extends React.Component {
               value={this.props.userData.confirmPassword}
               onChange={this.props.handleChange}
             />
+            {errors.confirmPassword !== null && (
+              <span className="error">{errors.confirmPassword}</span>
+            )}
           </div>
-          <button className="btn btn-outline-dark" value="Register" type="submit">Register</button>
+          <button
+            className="btn btn-outline-dark"
+            value="Register"
+            type="submit"
+          >
+            Register
+          </button>
         </form>
       </div>
     );

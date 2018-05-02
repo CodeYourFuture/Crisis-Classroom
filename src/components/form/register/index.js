@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import { Switch, Route } from "react-router-dom";
 import Form from "./form";
 import ConfirmRegistration from "./confirmRegistration";
 import "./style.css";
@@ -24,9 +23,14 @@ class Registration extends Component {
     });
   };
   onFormSubmit = () => {
-    console.log("hi im here")
     this.setState({
       formSubmitted: true
+    });
+  };
+  onConfirmSubmit = () => {
+    console.log("hi im here");
+    this.setState({
+      formSubmitted: false
     });
   };
 
@@ -36,13 +40,18 @@ class Registration extends Component {
         <h3>Registration</h3>
         {!this.state.formSubmitted ? (
           <Form
-          onFormSubmit={this.onFormSubmit}
+            onFormSubmit={this.onFormSubmit}
             handleChange={this.handleChange}
             userData={this.state}
             history={this.props.history}
           />
         ) : (
-          <ConfirmRegistration userData={this.state} onSubmit={this.onSubmit} history={this.props.history}/>
+          <ConfirmRegistration
+            onConfirmSubmit={this.onConfirmSubmit}
+            userData={this.state}
+            onSubmit={this.onSubmit}
+            history={this.props.history}
+          />
         )}
       </div>
     );

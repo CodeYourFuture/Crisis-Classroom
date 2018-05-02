@@ -1,5 +1,7 @@
 import React from "react";
 import Input from "../../input";
+import PasswordMask from 'react-password-mask';
+
 // import Button from "../../button";
 import Label from "../../label";
 import axios from "axios";
@@ -54,19 +56,11 @@ export default class Form extends React.Component {
       }
     });
     const errors = this.validate();
-    let isError = false;
-    for (var key in errors) {
-      if (errors[key] != null) {
-        isError = true;
-      }
-      if (isError) {
+      if (errors) {
         this.setState({ errors });
-        return;
-      } else {
-        this.props.onFormSubmit();
+        console.log("hi 1")
       }
     }
-  };
 
   validate() {
     const {
@@ -88,7 +82,6 @@ export default class Form extends React.Component {
     };
 
     this.state.checkUser.forEach(check => {
-      console.log(check)
       if (userName === check.userName) {
         errors.userName = `/ This user name already taken .`;
       }
@@ -124,6 +117,9 @@ export default class Form extends React.Component {
     }
     if (password !== confirmPassword) {
       errors.confirmPassword = `/ Passwords does not mach .`;
+    }
+    else {
+      this.props.onFormSubmit();
     }
     return errors;
   }
@@ -190,13 +186,14 @@ export default class Form extends React.Component {
           </div>
           <div className="form-group">
             <Label value="Password" />
-            <Input
+            <PasswordMask
               className="form-control"
               name="password"
               type="password"
               placeholder="Password"
               value={this.props.userData.password}
               onChange={this.props.handleChange}
+              // useVendorStyles={false}
             />
             {errors.password !== null && (
               <span className="error">{errors.password}</span>

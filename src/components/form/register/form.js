@@ -1,10 +1,9 @@
 import React from "react";
 import Input from "../../input";
-import PasswordMask from 'react-password-mask';
+import PasswordMask from "react-password-mask";
 
 // import Button from "../../button";
 import Label from "../../label";
-import axios from "axios";
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -18,29 +17,8 @@ export default class Form extends React.Component {
         email: null,
         password: null,
         confirmPassword: null
-      },
-      checkUser: [],
-      checkUserName: [],
-      checkEmail: "",
-      userChecked: false
+      }
     };
-  }
-
-  componentWillReceiveProps() {
-    const { userName, email } = this.props.userData;
-    axios
-      .post("http://localhost:8080/check-users", {
-        userName,
-        email
-      })
-      .then(res => {
-        this.setState({ checkUser: res.data.rows });
-      })
-      .catch(error => {
-        this.setState({
-          error
-        });
-      });
   }
 
   handleSubmit = e => {
@@ -50,17 +28,32 @@ export default class Form extends React.Component {
         firstName: null,
         surName: null,
         userName: null,
-        email: "",
+        email: null,
         password: null,
         confirmPassword: null
       }
     });
+    // const errors = this.validate();
+    // if (errors) {
+    //   this.setState({ errors });
+    //   return
+    // }    if(!errors.length) {
+    //   this.props.onFormSubmit();
+    // }
     const errors = this.validate();
-      if (errors) {
+    let isError = false;
+    for (var key in errors) {
+      if (errors[key] != null) {
+        isError = true;
+      }
+      if (isError) {
         this.setState({ errors });
-        console.log("hi 1")
+        return;
+      } else {
+        this.props.onFormSubmit();
       }
     }
+  };
 
   validate() {
     const {
@@ -76,19 +69,17 @@ export default class Form extends React.Component {
       surName: null,
       firstName: null,
       userName: null,
-      email: "",
+      email: null,
       password: null,
       confirmPassword: null
     };
 
-    this.state.checkUser.forEach(check => {
-      if (userName === check.userName) {
-        errors.userName = `/ This user name already taken .`;
-      }
-      if (email === check.email) {
-        errors.email = `/ This email already exist .`;
-      }
-    });
+    if (userName === this.props.userData.checkUserName) {
+      errors.userName = `/ This user name already taken .`;
+    }
+    if (email === this.props.userData.checkEmail) {
+      errors.email = `/ This email already exist .`;
+    }
 
     if (firstName.length <= 0) {
       errors.firstName = `/ First Name can't be empty. `;
@@ -117,9 +108,6 @@ export default class Form extends React.Component {
     }
     if (password !== confirmPassword) {
       errors.confirmPassword = `/ Passwords does not mach .`;
-    }
-    else {
-      this.props.onFormSubmit();
     }
     return errors;
   }

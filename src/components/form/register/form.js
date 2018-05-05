@@ -1,8 +1,8 @@
 import React from "react";
 import Input from "../../input";
+import PasswordMask from "react-password-mask";
 // import Button from "../../button";
 import Label from "../../label";
-import axios from "axios";
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -16,55 +16,27 @@ export default class Form extends React.Component {
         email: null,
         password: null,
         confirmPassword: null
-      },
-      checkUser: [],
-      checkUserName: [],
-      checkEmail: "",
-      userChecked: false
+      }
     };
-  }
-
-  componentWillReceiveProps() {
-    const { userName, email } = this.props.userData;
-    axios
-      .post("http://localhost:8080/check-users", {
-        userName,
-        email
-      })
-      .then(res => {
-        this.setState({ checkUser: res.data.rows });
-      })
-      .catch(error => {
-        this.setState({
-          error
-        });
-      });
   }
 
   handleSubmit = e => {
     e.preventDefault();
-    this.setState({
-      errors: {
-        firstName: null,
-        surName: null,
-        userName: null,
-        email: "",
-        password: null,
-        confirmPassword: null
-      }
-    });
     const errors = this.validate();
-    let isError = false;
-    for (var key in errors) {
-      if (errors[key] != null) {
-        isError = true;
-      }
-      if (isError) {
-        this.setState({ errors });
-        return;
-      } else {
-        this.props.onFormSubmit();
-      }
+    if (errors.userName !== null) {
+      this.setState({ errors });
+    } else if (errors.firstName !== null) {
+      this.setState({ errors });
+    } else if (errors.surName !== null) {
+      this.setState({ errors });
+    } else if (errors.email !== null) {
+      this.setState({ errors });
+    } else if (errors.password !== null) {
+      this.setState({ errors });
+    } else if (errors.confirmPassword !== null) {
+      this.setState({ errors });
+    } else {
+      this.props.onFormSubmit();
     }
   };
 
@@ -75,27 +47,26 @@ export default class Form extends React.Component {
       userName,
       email,
       password,
-      confirmPassword
+      confirmPassword,
+      checkUserName,
+      checkEmail
     } = this.props.userData;
 
     const errors = {
-      surName: null,
       firstName: null,
+      surName: null,
       userName: null,
-      email: "",
+      email: null,
       password: null,
       confirmPassword: null
     };
 
-    this.state.checkUser.forEach(check => {
-      console.log(check)
-      if (userName === check.userName) {
-        errors.userName = `/ This user name already taken .`;
-      }
-      if (email === check.email) {
-        errors.email = `/ This email already exist .`;
-      }
-    });
+    if (userName === checkUserName) {
+      errors.userName = `/ This user name already taken .`;
+    }
+    if (email === checkEmail) {
+      errors.email = `/ This email already exist .`;
+    }
 
     if (firstName.length <= 0) {
       errors.firstName = `/ First Name can't be empty. `;
@@ -190,13 +161,14 @@ export default class Form extends React.Component {
           </div>
           <div className="form-group">
             <Label value="Password" />
-            <Input
+            <PasswordMask
               className="form-control"
               name="password"
               type="password"
               placeholder="Password"
               value={this.props.userData.password}
               onChange={this.props.handleChange}
+              // useVendorStyles={null}
             />
             {errors.password !== null && (
               <span className="error">{errors.password}</span>

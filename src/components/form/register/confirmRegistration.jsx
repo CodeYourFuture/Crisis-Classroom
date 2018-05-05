@@ -3,7 +3,6 @@ import Button from "../../button";
 import axios from "axios";
 
 class ConfirmRegistration extends Component {
-  
   onSubmit = () => {
     const {
       firstName,
@@ -14,7 +13,8 @@ class ConfirmRegistration extends Component {
       confirmPassword
     } = this.props.userData;
 
-    axios.post("http://localhost:8080/register", {
+    axios
+      .post("http://localhost:8080/register", {
         firstName,
         surName,
         userName,
@@ -24,7 +24,7 @@ class ConfirmRegistration extends Component {
       })
       .then(result => {
         console.log(result);
-        this.props.history.replace("/");
+        this.props.history.replace("/registration-done");
       })
       .catch(error => {
         console.log(error);
@@ -35,15 +35,29 @@ class ConfirmRegistration extends Component {
     const state = this.props.userData;
     return (
       <div className="lesson-form">
-        <h1>{state.userName}</h1>
-        <h1>{state.firstName}</h1>
-        <h1>{state.surName}</h1>
-        <h1>{state.email}</h1>
-        <Button
-          className="btn btn-outline-dark"
-          value="Register"
-          onClick={this.onSubmit}
-        />
+        <h3>
+          Hello * {state.firstName} *,please check your details and complete your
+          registration
+        </h3>
+        <ul>
+          <li> User name: {state.userName}</li>
+          <li>First name: {state.firstName}</li>
+          <li>Last name: {state.surName}</li>
+          <li>Email: {state.email}</li>
+        </ul>
+        <div className="row">
+          <Button
+            className="btn btn-outline-dark"
+            value="Back"
+            onClick={this.props.onConfirmSubmit}
+          />
+          &nbsp; &nbsp;
+          <Button
+            className="btn btn-outline-dark"
+            value="Looks fine"
+            onClick={this.onSubmit}
+          />
+        </div>
       </div>
     );
   }

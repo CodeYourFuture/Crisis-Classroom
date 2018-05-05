@@ -1,7 +1,6 @@
 import React from "react";
 import Input from "../../input";
 import PasswordMask from "react-password-mask";
-
 // import Button from "../../button";
 import Label from "../../label";
 
@@ -23,35 +22,21 @@ export default class Form extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.setState({
-      errors: {
-        firstName: null,
-        surName: null,
-        userName: null,
-        email: null,
-        password: null,
-        confirmPassword: null
-      }
-    });
-    // const errors = this.validate();
-    // if (errors) {
-    //   this.setState({ errors });
-    //   return
-    // }    if(!errors.length) {
-    //   this.props.onFormSubmit();
-    // }
     const errors = this.validate();
-    let isError = false;
-    for (var key in errors) {
-      if (errors[key] != null) {
-        isError = true;
-      }
-      if (isError) {
-        this.setState({ errors });
-        return;
-      } else {
-        this.props.onFormSubmit();
-      }
+    if (errors.userName !== null) {
+      this.setState({ errors });
+    } else if (errors.firstName !== null) {
+      this.setState({ errors });
+    } else if (errors.surName !== null) {
+      this.setState({ errors });
+    } else if (errors.email !== null) {
+      this.setState({ errors });
+    } else if (errors.password !== null) {
+      this.setState({ errors });
+    } else if (errors.confirmPassword !== null) {
+      this.setState({ errors });
+    } else {
+      this.props.onFormSubmit();
     }
   };
 
@@ -62,22 +47,24 @@ export default class Form extends React.Component {
       userName,
       email,
       password,
-      confirmPassword
+      confirmPassword,
+      checkUserName,
+      checkEmail
     } = this.props.userData;
 
     const errors = {
-      surName: null,
       firstName: null,
+      surName: null,
       userName: null,
       email: null,
       password: null,
       confirmPassword: null
     };
 
-    if (userName === this.props.userData.checkUserName) {
+    if (userName === checkUserName) {
       errors.userName = `/ This user name already taken .`;
     }
-    if (email === this.props.userData.checkEmail) {
+    if (email === checkEmail) {
       errors.email = `/ This email already exist .`;
     }
 
@@ -181,7 +168,7 @@ export default class Form extends React.Component {
               placeholder="Password"
               value={this.props.userData.password}
               onChange={this.props.handleChange}
-              // useVendorStyles={false}
+              // useVendorStyles={null}
             />
             {errors.password !== null && (
               <span className="error">{errors.password}</span>

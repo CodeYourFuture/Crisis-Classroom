@@ -26,8 +26,8 @@ class ConfirmRegistration extends Component {
         console.log(result);
         this.props.history.replace("/registration-done");
       })
-      .catch(error => {
-        console.log(error);
+      .catch(err => {
+        console.log(err);
       });
   };
 

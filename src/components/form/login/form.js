@@ -24,7 +24,7 @@ class Login extends Component {
 
     this.Auth.login(this.state.userName, this.state.password)
       .then(res => {
-        this.props.history.replace("/welecome");
+        if (this.Auth.loggedIn()) this.props.history.replace("/welecome");
       })
       .catch(err => {
         alert(err);
@@ -43,7 +43,7 @@ class Login extends Component {
         <div className="lesson-form">
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
-              <Label value="User Name" />
+              <Label value="User Name *" />
               <Input
                 className="form-control"
                 name="userName"
@@ -54,7 +54,7 @@ class Login extends Component {
               />
             </div>
             <div className="form-group">
-              <Label value="Password" />
+              <Label value="Password *" />
               <Input
                 className="form-control"
                 name="password"

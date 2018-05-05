@@ -23,20 +23,8 @@ export default class Form extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     const errors = this.validate();
-    if (errors.userName !== null) {
+    if (errors) {
       this.setState({ errors });
-    } else if (errors.firstName !== null) {
-      this.setState({ errors });
-    } else if (errors.surName !== null) {
-      this.setState({ errors });
-    } else if (errors.email !== null) {
-      this.setState({ errors });
-    } else if (errors.password !== null) {
-      this.setState({ errors });
-    } else if (errors.confirmPassword !== null) {
-      this.setState({ errors });
-    } else {
-      this.props.onFormSubmit();
     }
   };
 
@@ -62,39 +50,27 @@ export default class Form extends React.Component {
     };
 
     if (userName === checkUserName) {
-      errors.userName = `/ This user name already taken .`;
-    }
-    if (email === checkEmail) {
-      errors.email = `/ This email already exist .`;
-    }
-
-    if (firstName.length <= 0) {
-      errors.firstName = `/ First Name can't be empty. `;
-    }
-    if (surName.length <= 0) {
-      errors.surName = `/ Sure Name can't be empty. `;
-    }
-
-    if (userName.length <= 0) {
-      errors.userName = `/ user Name can't be empty .`;
-    }
-
-    if (email.length < 5) {
-      errors.email =
-        `/  Email should be at least 5 charcters long .` + errors.email;
-    }
-    if (email.split("").filter(x => x === "@").length !== 1) {
-      errors.email = `/ Email should contain a @ .` + errors.email;
-    }
-    if (email.indexOf(".") === -1) {
-      errors.email = `/ Email should contain at least one dot .` + errors.email;
-    }
-
-    if (password.length < 6) {
-      errors.password = `/ Password should be at least 6 characters long .`;
-    }
-    if (password !== confirmPassword) {
-      errors.confirmPassword = `/ Passwords does not mach .`;
+      errors.userName = `This user name already taken .`;
+    } else if (email === checkEmail) {
+      errors.email = `This email already exist .`;
+    } else if (firstName.length <= 0) {
+      errors.firstName = `First Name can't be empty. `;
+    } else if (surName.length <= 0) {
+      errors.surName = `Sure Name can't be empty. `;
+    } else if (userName.length <= 0) {
+      errors.userName = `user Name can't be empty .`;
+    } else if (email.length < 5) {
+      errors.email = ` Email should be at least 5 charcters long .`;
+    } else if (email.split("").filter(x => x === "@").length !== 1) {
+      errors.email = `Email should contain a @ .`;
+    } else if (email.indexOf(".") === -1) {
+      errors.email = `Email should contain at least one dot .`;
+    } else if (password.length < 6) {
+      errors.password = `Password should be at least 6 characters long .`;
+    } else if (password !== confirmPassword) {
+      errors.confirmPassword = `Passwords does not mach .`;
+    } else {
+      this.props.onFormSubmit();
     }
     return errors;
   }
@@ -105,7 +81,7 @@ export default class Form extends React.Component {
       <div className="lesson-form">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <Label value="Full Name" />
+            <Label value="Full Name *" />
             <div>
               <Input
                 className="form-control"
@@ -132,7 +108,7 @@ export default class Form extends React.Component {
             </div>
           </div>
           <div className="form-group">
-            <Label value="User Name" />
+            <Label value="User Name *" />
             <Input
               className="form-control"
               name="userName"
@@ -146,7 +122,7 @@ export default class Form extends React.Component {
             )}
           </div>
           <div className="form-group">
-            <Label value="Email" />
+            <Label value="Email *" />
             <Input
               className="form-control"
               name="email"
@@ -160,7 +136,7 @@ export default class Form extends React.Component {
             )}
           </div>
           <div className="form-group">
-            <Label value="Password" />
+            <Label value="Password *" />
             <PasswordMask
               className="form-control"
               name="password"
@@ -175,7 +151,7 @@ export default class Form extends React.Component {
             )}
           </div>
           <div className="form-group">
-            <Label value="Confirm Your Password" />
+            <Label value="Confirm Your Password *" />
             <Input
               className="form-control"
               name="confirmPassword"

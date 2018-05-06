@@ -6,7 +6,7 @@ import Home from "../containers/Home";
 import Register from "../components/form/register/index";
 import Templates from "../containers/Templates.jsx";
 import Login from "../components/form/login/form";
-import LessonForm from "../components/form/templet/newTemplet";
+import LessonForm from "../components/form/template/newtemplate";
 import News from "../../src/components/pages/News";
 import Meet from "../../src/components/pages/Meet";
 import Day1 from "../../src/components/pages/Day1";

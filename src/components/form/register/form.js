@@ -65,8 +65,14 @@ export default class Form extends React.Component {
       errors.email = `Email should contain a @ .`;
     } else if (email.indexOf(".") === -1) {
       errors.email = `Email should contain at least one dot .`;
+    } else if (password.length === 0) {
+      errors.password = `Password field is required .`;
     } else if (password.length < 6) {
       errors.password = `Password should be at least 6 characters long .`;
+    } else if (confirmPassword.length === 0) {
+      errors.confirmPassword = `Confirm password field is required .`;
+    } else if (confirmPassword.length < 6) {
+      errors.confirmPassword = `Password should be at least 6 characters long .`;
     } else if (password !== confirmPassword) {
       errors.confirmPassword = `Passwords does not mach .`;
     } else {

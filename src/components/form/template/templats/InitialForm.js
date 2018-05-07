@@ -1,36 +1,32 @@
-import React from "react";
-import ImageUploade from "react-image-uploader";
+import React, { Component } from "react";
+import axios from "axios";
 
-export default class FirstForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { pictures: [] };
-  }
+export default class uploadMyFile extends Component {
 
-  onDrop = picture => {
-    console.log(this.state.pictures)
-    this.setState({
-      pictures: this.state.pictures.concat(picture)
-    });
-    
+
+  handleUploadFile = event => {
+    const data = new FormData();
+    data.append("file", event.target.files[0]);
+    data.append("name", "file name");
+    data.append("description", "about file");
+
+    axios
+      .post("http://localhost:8080/files", data)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
-
   render() {
     return (
-      <ImageUploade
-        // withIcon={true}
-        // buttonText="Choose images"
-        // onChange={this.onDrop}
-        // imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-        // maxFileSize={5242880}
-      />
+      <div>
+        <input type="file" onChange={this.handleUploadFile} />
+      </div>
     );
   }
 }
-
-
-
-
 
 // import React from "react";
 // import Input from "../../../input";

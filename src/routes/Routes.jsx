@@ -22,7 +22,6 @@ import NotFound from "../components/pages/notFound";
 import Survey from "../components/pages/Survey";
 import RegistrationDone from "../components/form/register/Registration-done";
 
-import "./style.css";
 
 class Routes extends Component {
   render() {

@@ -1,18 +1,15 @@
 import React from "react";
-import InitialForm from "./InitialForm";
+import LessonTitle from "./lessonTitle";
 import ToolsForm from "./ToolsForm";
-import StepsForm from "./StepsForm";
-import ThirdForm from "./ThirdForm";
-import Button from "../../../button";
+import Ingredients from "./Ingredients";
+import Instructions from "./Instructions";
+import Button from "../../button";
 
 import "./style.css";
-export default class LessonForm extends React.Component {
+export default class FormSteps extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      duration: "",
-      numberOfPeople: "",
       activeForm: 0
     };
   }
@@ -35,24 +32,31 @@ export default class LessonForm extends React.Component {
     });
   };
 
-  onChangehandler = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
-
-  // FormTwoHandler = e => {
-  //   this.setState({
-  //     form2: e.target.value
-  //   });
-  // };
-
   render() {
     var forms = [
-      <InitialForm onChange={this.onChangehandler} />,
-      <ToolsForm {...this.state} />,
-      <StepsForm />,
-      <ThirdForm />
+      <LessonTitle
+        onChangehandler={this.props.onChangehandler}
+        handleUploadFile={this.props.handleUploadFile}
+        userData={this.props.userData}
+      />,
+      <ToolsForm
+        onChangehandler={this.props.onChangehandler}
+        handleUploadFile={this.props.handleUploadFile}
+        userData={this.props.userData}
+        addToolsHandler={this.props.addToolsHandler}
+      />,
+      <Ingredients
+        onChangehandler={this.props.onChangehandler}
+        handleUploadFile={this.props.handleUploadFile}
+        addIngredientsHandler={this.props.addIngredientsHandler}        
+        userData={this.props.userData}
+      />,
+      <Instructions
+        onChangehandler={this.props.onChangehandler}
+        handleUploadFile={this.props.handleUploadFile}
+        addInstructionsHandler={this.props.addInstructionsHandler}        
+        userData={this.props.userData}
+      />
     ];
     return (
       <div>

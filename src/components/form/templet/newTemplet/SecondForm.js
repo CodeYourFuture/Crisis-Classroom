@@ -18,7 +18,7 @@ export default class SecondForm extends React.Component {
     console.log(this.state.fields);
     return (
       <div>
-        <h2> add Step, Tools required</h2>
+        <h2> Add step or required tools here,</h2>
       <div>
         {this.state.fields &&
           this.state.fields.map(fields => {

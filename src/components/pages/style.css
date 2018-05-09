@@ -134,3 +134,11 @@ input[type="radio"] {
   display: flex;
   padding: 5%;
 }
+.block {
+	display: block;
+}
+
+.hidden {
+	display: none;
+}
+

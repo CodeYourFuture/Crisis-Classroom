@@ -1,8 +1,8 @@
 
 .lesson-form {
     margin: auto;
-    width: 50%;
-    padding: 50px;
+    width: 100%;
+    padding: 70px;
     border-style: inset;
 }
 .form-control{
@@ -27,4 +27,27 @@
     .form-control{
         width: 100%;
     }
+}
+.block {
+	display: block;
+}
+
+.hidden {
+	display: none;
+}
+
+.thanks-message,
+.important-message {
+	font-size: 1.5rem;
+}
+
+.link-message {
+	font-size: 1.8rem;
+}
+.mt-2{
+    width: 250px;
+    margin: auto;
+}
+.next{
+    margin-top: 90px;
 }

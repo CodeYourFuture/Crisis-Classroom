@@ -1,9 +1,10 @@
 import React from "react";
 // import { Link } from "react-router-dom";
 import Button from "../../../button";
-import FirstForm from "./firstForm"
-import SecondForm from "./SecondForm"
-import ThirdForm from "./ThirdForm";
+import FirstForm from "./firstForm";
+import SecondForm from "./SecondForm";
+import ThirdForm from "./ThirdForm"; 
+import './style.css';
 
 
 import _ from "lodash";
@@ -70,21 +71,22 @@ export default class LessonTitle extends React.Component {
     return (
       <div className="lesson-form">
 
-        {forms[this.state.activeForm]}
+        {forms[this.state.activeForm]}<div className="colum next">
         {this.state.activeForm < forms.length - 1 && (
           <Button
-            className="btn  btn-primary"
+            className="btn  btn-primary mt-2"
             value="Next"
             onClick={this.nextFormHandler}
           />
         )}
         {this.state.activeForm > 0 && (
+          
           <Button
-            className="btn  btn-primary"
+            className="btn  btn-primary mt-2"
             value="previouse"
             onClick={this.previouseHandler}
           />
-        )}
+        )}</div>
       </div>
     );
   }

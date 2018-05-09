@@ -33,12 +33,11 @@ const HomePage = () => {
       
       <div className="column">
       
-      <img src="http://firststepsnursery.co.uk/wp-content/uploads/2018/02/happy-kids-clipart-transparent.png
-      " alt="kids" />
+      <img src="http://firststepsnursery.co.uk/wp-content/uploads/2018/02/happy-kids-clipart-transparent.png" alt="kids" />
       <hr />
       </div>
       <button type="button" className="btn btn-primary btn-survey"><Link to="/survey">Survey</Link></button>
-      <hr />
+     <hr />
       <div className="row">
         <div className="col-xs-12">
           <h1 className="text-center team-name">Latest Projects</h1>

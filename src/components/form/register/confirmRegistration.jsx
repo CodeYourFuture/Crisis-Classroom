@@ -35,13 +35,13 @@ class ConfirmRegistration extends Component {
     const state = this.props.userData;
     return (
       <div className="lesson-form">
-        <h1>{state.userName}</h1>
-        <h1>{state.firstName}</h1>
-        <h1>{state.surName}</h1>
-        <h1>{state.email}</h1>
+        <h2>Username : <small>{state.userName}</small></h2>
+        <h2>First Name : <small>{state.firstName}</small></h2>
+        <h2>Surname : <small>{state.surName}</small></h2>
+        <h2>Email :<small>{state.email}</small></h2>
         <Button
           className="btn btn-outline-dark"
-          value="Register"
+          value="register"
           onClick={this.onSubmit}
         />
       </div>

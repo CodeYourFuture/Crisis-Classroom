@@ -1,61 +1,106 @@
-import React from "react";
+import React from 'react';
 // import { Link } from "react-router-dom";
-import Input from "../../../input";
-import Label from "../../../label";
-import S3Uploader from "../../../imageUploader";
+import Input from '../../../input';
+import axios from 'axios';
+import Label from '../../../label';
+import S3Uploader from '../../../imageUploader';
+import './style.css';
 
 export default class FirstForm extends React.Component {
-  render() {
-    return (
-      <div>
-              <h2>Creat New Templete</h2>
+	constructor() {
+		super();
+		this.state = {
+			title: '',
+			duration: '',
+      serves: '',
+      submitted: false,
+		};
+	}
 
-      <form>
-        
-        <div className="form-group">
-          <Label value="Title" />
-          <div className="row">
-            <Input
-              type="text"
-              onChange={this.onChange}
-              placeholder="Insert title"
-              name="title"
-            />
-            &nbsp;
-            <S3Uploader />
-          </div>
-        </div>
-        <div className="form-group">
-          <Label value="Time to perpare" />
-          <div className="row">
-            <Input
-              type="text"
-              name="duration"
-              onChange={this.onChange}
-              placeholder="How much time does it require?"
-              value={this.props.duration}
-            />
-            &nbsp;
-            <S3Uploader />
-          </div>
-        </div>
+	onChange = (e) => {
+		this.setState({
+			[e.target.name]: e.target.value
+		});
+	};
 
-        <div className="form-group">
-          <Label value="N. People" />
-          <div className="row">
-            <Input
-              type="text"
-              name="numberOfPeople"
-              onChange={this.onChange}
-              placeholder="How many people is it for?"
-              value={this.props.numberOfPeople}
-            />
-            &nbsp;
-            <S3Uploader />
-          </div>
-        </div>
-      </form>
-      </div>
-    );
-  }
+	handleSubmit = (e) => {
+		e.preventDefault();
+		const { title, duration, serves } = this.state;
+		axios
+			.post('http://localhost:3001/api/template', {
+				title,
+				duration,
+				serves
+			})
+			.then((res) => {
+				console.log(res);
+
+				this.setState({
+					submitted: true
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
+	render() {
+		return (
+			<div className="application-form container">
+				<h1 className="text-center mt-5 pt-4 pb-3 display-5">Please fill the form below:</h1>
+				<form
+					className="mb-4 mt-5"
+					action="http://localhost:3001/api/finalTemplate"
+					onSubmit={this.handleSubmit}
+					method="post"
+				>
+					<div className="form-group  mt-5">
+						<label className="lead">Title</label>
+						<input
+							type="text"
+							name="title"
+							id="title"
+							className="form-control form-control-lg"
+							placeholder="What's the title of your lesson plan?"
+							value={this.state.title}
+							required
+							onChange={this.onChange}
+						/>
+						<small className="form-text text-muted">Foe example "Cooking Kebab"</small>
+					</div>
+					<div className="form-group  mt-5">
+						<label className="lead">Duration</label>
+						<input
+							type="text"
+							name="duration"
+							id="duration"
+							className="form-control form-control-lg"
+							placeholder="How long does it take?"
+							value={this.state.duration}
+							required
+							onChange={this.onChange}
+						/>
+						<small className="form-text text-muted">For example "60 mins"</small>
+					</div>
+
+					<div className="form-group  mt-5">
+						<label htmlFor="fullName" className="lead">
+							Serves
+						</label>
+						<input
+							type="text"
+							name="serves"
+							id="serves"
+							className="form-control form-control-lg"
+							placeholder="How many people does it serve?"
+							value={this.state.serves}
+							required
+							onChange={this.onChange}
+						/>
+						<small className="form-text text-muted">For example "4 or 6"</small>
+					</div>
+				</form>
+			</div>
+		);
+	}
 }

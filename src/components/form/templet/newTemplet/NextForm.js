@@ -5,7 +5,7 @@ import React from "react";
 // import Label from "../../../label";
 // import S3Uploader from "../../../imageUploader";
 // import ReactS3 from "react-s3";
-export default class NexForm extends React.Component {
+export default class NextForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

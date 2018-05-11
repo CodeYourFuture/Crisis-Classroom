@@ -2,18 +2,20 @@ import React from "react";
 import Input from "../../input";
 import Label from "../../label";
 import Button from "../../button";
+import Context from "./context";
 import "./style.css";
 
-export default class ToolsForm extends React.Component {
+
+
+class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tools: [{ id: 1, name: "", image: null }],
-      img: null
+      tools: props.tools
     };
   }
 
-  onChangehandler = (e, index) => {
+  onChangeToolshandler = (e, index) => {
     const tool = this.state.tools[index];
     const newToolName = { ...tool, [e.target.name]: e.target.value };
     this.setState({
@@ -23,7 +25,7 @@ export default class ToolsForm extends React.Component {
     });
   };
 
-  onChangeImagehandler = (e, index) => {
+  onChangeImageToolshandler = (e, index) => {
     const tool = this.state.tools[index];
     var reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
@@ -38,7 +40,6 @@ export default class ToolsForm extends React.Component {
   };
 
   addToolsHandler = e => {
-    console.log("handler");
     this.setState({
       tools: [
         ...this.state.tools,
@@ -48,81 +49,100 @@ export default class ToolsForm extends React.Component {
   };
 
   removeToolsHandler = id => {
-    console.log("ciao");
     const { tools } = this.state;
     tools.forEach(tool => {
       if (tool.id === id) {
         tool.image = null;
       }
     });
-    console.log(tools);
     this.setState({
       tools
     });
   };
 
   render() {
-    console.log(this.state);
     return (
       <div>
-        <h2> Add Tools </h2>
-        <div>
-          {this.state.tools &&
-            this.state.tools.map(({ name, image, id }, i) => {
-              return (
-                <div className="row" key={id}>
-                  <div className="form-group">
-                    <Label value="Tool Name" />
-                    <div className="row">
-                      <Input
-                        className="form-control"
-                        type="text"
-                        name="name"
-                        onChange={e => this.onChangehandler(e, i)}
-                        placeholder="Tool"
-                        value={name}
-                      />
-                      {!image ? (
-                        <div>
-                          <label className="btn btn-outline-dark">
-                            Chose a file
-                            <input
-                              style={{ display: "none" }}
-                              type="file"
-                              name="image"
-                              onChange={e => this.onChangeImagehandler(e, i)}
-                              accept="image/*"
+            <div>
+              <h2> Add Tools </h2>
+              <div>
+                {this.state.tools &&
+                  this.state.tools.map(({ name, image, id }, i) => {
+                    return (
+                      <div className="row" key={id}>
+                        <div className="form-group">
+                          <Label value="Tool Name" />
+                          <div className="row">
+                            <Input
+                              className="form-control"
+                              type="text"
+                              name="name"
+                              onChange={e => this.onChangeToolshandler(e, i)}
+                              placeholder="Tool"
+                              value={name}
                             />
-                          </label>
-                        </div>
-                      ) : (
-                        <div className="image-container" onClick={() => this.removeToolsHandler(id)}>
-                          <img
-                            className="image"
-                            width="100px"
-                            src={image}
-                            alt="foo"
-                            
-                          />
-                          <div className="middle">
-                            <div className="text">Remove</div>
+                            {!image ? (
+                              <div>
+                                <label className="btn btn-outline-dark">
+                                  Chose a file
+                                  <input
+                                    style={{ display: "none" }}
+                                    type="file"
+                                    name="image"
+                                    onChange={e =>
+                                      this.onChangeImageToolshandler(e, i)
+                                    }
+                                    accept="image/*"
+                                  />
+                                </label>
+                              </div>
+                            ) : (
+                              <div
+                                className="image-container"
+                                onClick={() => this.removeToolsHandler(id)}
+                              >
+                                <img
+                                  className="image"
+                                  width="100px"
+                                  src={image}
+                                  alt="foo"
+                                />
+                                <div className="middle">
+                                  <div className="text">Remove</div>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-        </div>
-        &nbsp;
-        <Button
-          className="btn btn-outline-dark"
-          value="Add"
-          onClick={this.addToolsHandler}
-        />
-        &nbsp;
+                      </div>
+                    );
+                  })}
+              </div>
+              <Button
+                className="btn btn-outline-dark"
+                value="Add"
+                onClick={this.addToolsHandler}
+              />
+
+              <Button
+                className="btn btn-outline-dark"
+                value="Next"
+                onClick={() => this.props.onAddTools(this.state.tools)}
+              />
+            </div>
       </div>
     );
   }
 }
+
+export default class ToolsFormWrapper extends React.Component {
+  render() {
+    return (
+      <Context.Consumer>
+      {({ onAddTools,tools }) => (
+        <Form tools={tools} onAddTools={onAddTools}/>
+      )}
+      </Context.Consumer>
+    )
+    }
+  }

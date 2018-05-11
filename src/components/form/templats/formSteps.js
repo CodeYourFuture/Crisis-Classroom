@@ -1,9 +1,10 @@
 import React from "react";
-import LessonTitle from "./lessonTitle";
+// import LessonTitle from "./lessonTitle";
 import ToolsForm from "./ToolsForm";
-import Ingredients from "./Ingredients";
+// import Ingredients from "./Ingredients";
 import Instructions from "./Instructions";
 import Button from "../../button";
+
 
 import "./style.css";
 export default class FormSteps extends React.Component {
@@ -34,29 +35,10 @@ export default class FormSteps extends React.Component {
 
   render() {
     var forms = [
-      <LessonTitle
-        onChangehandler={this.props.onChangehandler}
-        handleUploadFile={this.props.handleUploadFile}
-        userData={this.props.userData}
-      />,
-      <ToolsForm
-        onChangehandler={this.props.onChangehandler}
-        handleUploadFile={this.props.handleUploadFile}
-        userData={this.props.userData}
-        addToolsHandler={this.props.addToolsHandler}
-      />,
-      <Ingredients
-        onChangehandler={this.props.onChangehandler}
-        handleUploadFile={this.props.handleUploadFile}
-        addIngredientsHandler={this.props.addIngredientsHandler}        
-        userData={this.props.userData}
-      />,
-      <Instructions
-        onChangehandler={this.props.onChangehandler}
-        handleUploadFile={this.props.handleUploadFile}
-        addInstructionsHandler={this.props.addInstructionsHandler}        
-        userData={this.props.userData}
-      />
+      // <LessonTitle />,
+      <ToolsForm />,
+      // <Ingredients />,
+      <Instructions />
     ];
     return (
       <div>
@@ -75,8 +57,8 @@ export default class FormSteps extends React.Component {
             {this.state.activeForm < forms.length - 1 && (
               <Button
                 className="btn btn-outline-dark"
-                value="Next"
-                onClick={this.nextFormHandler}
+                value="Previous"
+                onClick={this.props.previousFormHandler}
               />
             )}
           </div>

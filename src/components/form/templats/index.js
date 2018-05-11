@@ -1,22 +1,23 @@
 import React from "react";
 import axios from "axios";
-
-import FormSteps from "./formSteps";
+import Context from "./context";
+import ToolsForm from "./ToolsForm";
+// import Ingredients from "./Ingredients";
+import Instructions from "./Instructions";
+import Button from "../../button";
 
 import "./style.css";
 export default class LessonForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeForm: 0,
       title: "",
       duration: "",
       numberOfPeople: "",
-      toolsFields: [],
-      ingredientsFields: [],
-      instructionsFields:[],
-      ToolName: [],
-      ingredient: [],
-      StepsName: []
+      ingredients: [],
+      instructions: [],
+      tools: []
     };
   }
   onChangehandler = e => {
@@ -56,18 +57,55 @@ export default class LessonForm extends React.Component {
       });
   };
 
+  onAddTools = tools => {
+    this.setState({ tools });
+    this.nextFormHandler()
+  };
+
+  nextFormHandler = () => {
+    this.setState(prevState => {
+      return {
+        activeForm: prevState.activeForm + 1
+      };
+    });
+  };
+
+  previousFormHandler = () => {
+    this.setState(prevState => {
+      return {
+        activeForm: prevState.activeForm - 1
+      };
+    });
+  };
+
   render() {
-    console.log(this.state);
+    const { tools, activeForm } = this.state;
+    var forms = [
+      // <LessonTitle />,
+      <ToolsForm />,
+      // <Ingredients />,
+      <Instructions />
+    ];
+    const context = {
+      tools,
+      onAddTools: this.onAddTools
+    };
+    console.log(tools, activeForm)
     return (
       <div>
-        <FormSteps
-          onChangehandler={this.onChangehandler}
-          handleUploadFile={this.handleUploadFile}
-          addToolsHandler={this.addToolsHandler}
-          addIngredientsHandler={this.addIngredientsHandler}
-          addInstructionsHandler={this.addInstructionsHandler}
-          userData={this.state}
-        />
+        <Context.Provider value={context}>
+        <h2 className="text-center">Creat New Templete</h2>
+        <div className="lesson-form">
+          {forms[this.state.activeForm]}
+        {this.state.activeForm > 0 && (
+          <Button
+          className="btn btn-outline-dark"
+          value="previouse"
+          onClick={this.previousFormHandler}
+          />
+        )}
+        </div>
+        </Context.Provider>
       </div>
     );
   }

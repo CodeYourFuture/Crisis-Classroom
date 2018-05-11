@@ -2,17 +2,18 @@ import React from "react";
 import Input from "../../input";
 import Label from "../../label";
 import Button from "../../button";
+import "./style.css";
 
 export default class ToolsForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tools: [{ id: 1, name: "", image: "" }],
+      tools: [{ id: 1, name: "", image: null }],
       img: null
     };
   }
 
-  onChangehandler = index => e => {
+  onChangehandler = (e, index) => {
     const tool = this.state.tools[index];
     const newToolName = { ...tool, [e.target.name]: e.target.value };
     this.setState({
@@ -22,7 +23,7 @@ export default class ToolsForm extends React.Component {
     });
   };
 
-  onChangeImagehandler = index => e => {
+  onChangeImagehandler = (e, index) => {
     const tool = this.state.tools[index];
     var reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
@@ -37,11 +38,26 @@ export default class ToolsForm extends React.Component {
   };
 
   addToolsHandler = e => {
+    console.log("handler");
     this.setState({
       tools: [
         ...this.state.tools,
         { id: this.state.tools.length + 1, name: "", image: "" }
       ]
+    });
+  };
+
+  removeToolsHandler = id => {
+    console.log("ciao");
+    const { tools } = this.state;
+    tools.forEach(tool => {
+      if (tool.id === id) {
+        tool.image = null;
+      }
+    });
+    console.log(tools);
+    this.setState({
+      tools
     });
   };
 
@@ -62,38 +78,38 @@ export default class ToolsForm extends React.Component {
                         className="form-control"
                         type="text"
                         name="name"
-                        onChange={this.onChangehandler(i)}
+                        onChange={e => this.onChangehandler(e, i)}
                         placeholder="Tool"
                         value={name}
                       />
-                      <div>
-                        <label className="btn btn-outline-dark">
-                          Chose a file
-                          <input
-                            style={{ display: "none" }}
-                            type="file"
-                            name="image"
-                            onChange={this.onChangeImagehandler(i)}
-                            accept="image/*"
-                          />
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    {this.state.tools.map(
-                      (tool, i) =>
-                        id === i + 1 ? (
+                      {!image ? (
+                        <div>
+                          <label className="btn btn-outline-dark">
+                            Chose a file
+                            <input
+                              style={{ display: "none" }}
+                              type="file"
+                              name="image"
+                              onChange={e => this.onChangeImagehandler(e, i)}
+                              accept="image/*"
+                            />
+                          </label>
+                        </div>
+                      ) : (
+                        <div className="image-container" onClick={() => this.removeToolsHandler(id)}>
                           <img
+                            className="image"
                             width="100px"
-                            src={tool.image}
+                            src={image}
                             alt="foo"
-                            key={i}
+                            
                           />
-                        ) : (
-                          ""
-                        )
-                    )}
+                          <div className="middle">
+                            <div className="text">Remove</div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               );

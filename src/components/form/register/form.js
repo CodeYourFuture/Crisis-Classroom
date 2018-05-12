@@ -84,7 +84,7 @@ export default class Form extends React.Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="lesson-form">
+      <div className="registraton-form">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <Label value="Full Name *" />

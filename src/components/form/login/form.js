@@ -40,7 +40,7 @@ class Login extends Component {
     return (
       <div>
         <h3>To See Templates Please LogIn</h3>
-        <div className="lesson-form">
+        <div className="login-form">
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
               <Label value="User Name *" />

@@ -1,53 +1,147 @@
 import React from "react";
-import Label from "../../label";
 import Input from "../../input";
+import Label from "../../label";
 import Button from "../../button";
+import Context from "./context";
+import "./style.css";
 
-export default class Ingredients extends React.Component {
+class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ingredients: props.ingredients
+    };
+  }
+
+  onChangeIngredientshandler = (e, index) => {
+    const ingredient = this.state.ingredients[index];
+    const newIngredientName = {
+      ...ingredient,
+      [e.target.name]: e.target.value
+    };
+    this.setState({
+      ingredients: this.state.ingredients.map(
+        (ingredient, i) => (i === index ? newIngredientName : ingredient)
+      )
+    });
+  };
+
+  onChangeImageIngredientshandler = (e, index) => {
+    const ingredient = this.state.ingredients[index];
+    var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      const newIngredientImage = { ...ingredient, image: reader.result };
+      this.setState({
+        ingredients: this.state.ingredients.map(
+          (ingredient, i) => (i === index ? newIngredientImage : ingredient)
+        )
+      });
+    };
+  };
+
+  addIngredientsHandler = e => {
+    this.setState({
+      ingredients: [
+        ...this.state.ingredients,
+        { id: this.state.ingredients.length + 1, name: "", image: "" }
+      ]
+    });
+  };
+
+  removeIngredientsHandler = id => {
+    const { ingredients } = this.state;
+    ingredients.forEach(ingredient => {
+      if (ingredient.id === id) {
+        ingredient.image = null;
+      }
+    });
+    this.setState({
+      ingredients
+    });
+  };
+
   render() {
     return (
       <div>
-        <h2> Ingredients </h2>
         <div>
-          {this.props.userData.ingredientsFields &&
-            this.props.userData.ingredientsFields.map((fields, key) => {
-              return (
-                <div className="form-group" key={key}>
-                  <Label value="Ingredient Name" />
-                  <div className="row">
-                    <Input
-                      className="form-control"
-                      type="text"
-                      name="ingredient"
-                      onChange={this.props.onChangehandler}
-                      placeholder="ingredient"
-                      value={this.props.userData.ingredient}
-                    />
-                    &nbsp;
-                    <div>
-                      <label className="btn btn-outline-dark">
-                        Chose a file
-                        <input
-                          style={{ display: "none" }}
-                          type="file"
-                          onChange={this.props.handleUploadFile}
-                          accept="image/*"
+          <h2> Add Ingredients </h2>
+            {this.state.ingredients &&
+              this.state.ingredients.map(({ name, image, id }, i) => {
+                return (
+                  <div className="lessonForm" key={id}>
+                    <div className="form-group">
+                      <Label value="Ingredient Name" />
+                      <div className="lessonInput">
+                        <Input
+                          className="form-control"
+                          type="text"
+                          name="name"
+                          onChange={e => this.onChangeIngredientshandler(e, i)}
+                          placeholder="Ingredient"
+                          value={name}
                         />
-                      </label>
+                        {!image ? (
+                          <div>
+                            <label className="btn btn-outline-dark">
+                              Chose a file
+                              <input
+                                style={{ display: "none" }}
+                                type="file"
+                                name="image"
+                                onChange={e =>
+                                  this.onChangeImageIngredientshandler(e, i)
+                                }
+                                accept="image/*"
+                              />
+                            </label>
+                          </div>
+                        ) : (
+                          <div
+                            className="image-container"
+                            onClick={() => this.removeIngredientsHandler(id)}
+                          >
+                            <img
+                              className="image"
+                              width="100px"
+                              src={image}
+                              alt="foo"
+                            />
+                            <div className="middle">
+                              <div className="text">Remove</div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          &nbsp;
+                );
+              })}
+          </div>
           <Button
-            className="btn btn-outline-dark"
+            className="btn btn-outline-dark lessonBtn"
             value="Add"
-            onClick={this.props.addIngredientsHandler}
+            onClick={this.addIngredientsHandler}
           />
           &nbsp;
-        </div>
+          <Button
+            className="btn btn-outline-dark lessonBtn"
+            value="Next"
+            onClick={() => this.props.onAddIngredients(this.state.ingredients)}
+          />
       </div>
+    );
+  }
+}
+
+export default class IngredientsFormWrapper extends React.Component {
+  render() {
+    return (
+      <Context.Consumer>
+        {({ onAddIngredients, ingredients }) => (
+          <Form ingredients={ingredients} onAddIngredients={onAddIngredients} />
+        )}
+      </Context.Consumer>
     );
   }
 }

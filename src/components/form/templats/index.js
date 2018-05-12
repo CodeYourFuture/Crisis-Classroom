@@ -3,7 +3,7 @@ import axios from "axios";
 import Context from "./context";
 import ToolsForm from "./ToolsForm";
 // import Ingredients from "./Ingredients";
-import Instructions from "./Instructions";
+import InstructionsFormWrapper from "./Instructions";
 import Button from "../../button";
 
 import "./style.css";
@@ -61,6 +61,10 @@ export default class LessonForm extends React.Component {
     this.setState({ tools });
     this.nextFormHandler()
   };
+  onAddInstruction = instructions =>{
+    this.setState({instructions})
+    this.previousFormHandler()
+  }
 
   nextFormHandler = () => {
     this.setState(prevState => {
@@ -79,18 +83,21 @@ export default class LessonForm extends React.Component {
   };
 
   render() {
-    const { tools, activeForm } = this.state;
+    // console.log(this.state.instructions)
+    const { tools, activeForm , instructions} = this.state;
     var forms = [
       // <LessonTitle />,
       <ToolsForm />,
       // <Ingredients />,
-      <Instructions />
+      <InstructionsFormWrapper />
     ];
     const context = {
       tools,
-      onAddTools: this.onAddTools
+      onAddTools: this.onAddTools,
+      instructions,
+      onAddInstruction: this.onAddInstruction
     };
-    console.log(tools, activeForm)
+    console.log(instructions, activeForm)
     return (
       <div>
         <Context.Provider value={context}>

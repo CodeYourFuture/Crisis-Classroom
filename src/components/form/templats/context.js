@@ -1,12 +1,13 @@
 import React from "react";
 
 const Context = React.createContext({
-  lessonTitles:[],
+  lessonTitles: [],
   tools: [],
   ingredients: [],
   instructions: [],
   onAddLessonTitles: null,
   onAddTools: null,
-  onAddIngredients: null
+  onAddIngredients: null,
+  onAddInstructions: null
 });
 export default Context;

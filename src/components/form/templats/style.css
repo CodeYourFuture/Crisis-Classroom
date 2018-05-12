@@ -1,14 +1,13 @@
 .lesson-form {
-  padding: 50px;
   border-style: inset;
-  width: 80%;  
+  width: 80%; 
 }
 .lessonForm{
   padding: 5px ;
-  width: 60%;
+  width: 90%;
 }
 .lessonBtn {
-  width: 60%;
+  width: 90%;
 }
 .lessonInput{
   display: flex;
@@ -61,7 +60,7 @@
 @media only screen and (max-width: 1200px) {
   .lesson-form {
     margin: auto;
-    width: 90%;
+    width: 80%;
     padding: 10px;
   }
 }

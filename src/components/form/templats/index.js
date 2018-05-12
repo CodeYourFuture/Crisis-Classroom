@@ -4,7 +4,7 @@ import Context from "./context";
 import LessonTitle from "./lessonTitle";
 import ToolsForm from "./ToolsForm";
 import Ingredients from "./Ingredients";
-// import Instructions from "./Instructions";
+import Instructions from "./Instructions";
 import Purview from "./purview";
 import Button from "../../button";
 
@@ -36,6 +36,11 @@ export default class LessonForm extends React.Component {
     this.nextFormHandler();
   };
 
+  onAddInstructions = instructions => {
+    this.setState({ instructions });
+    this.nextFormHandler();
+  };
+
   nextFormHandler = () => {
     this.setState(prevState => {
       return {
@@ -53,12 +58,12 @@ export default class LessonForm extends React.Component {
   };
 
   render() {
-    const { tools, activeForm, ingredients, lessonTitles } = this.state;
+    const { tools, ingredients, lessonTitles, instructions } = this.state;
     var forms = [
       <LessonTitle />,
       <ToolsForm />,
       <Ingredients />,
-      // <Instructions />,
+      <Instructions />,
       <Purview />
     ];
     const context = {
@@ -67,9 +72,10 @@ export default class LessonForm extends React.Component {
       ingredients,
       onAddIngredients: this.onAddIngredients,
       lessonTitles,
-      onAddLessonTitles: this.onAddLessonTitles
+      onAddLessonTitles: this.onAddLessonTitles,
+      instructions,
+      onAddInstructions: this.onAddInstructions
     };
-    console.log(tools, activeForm);
     return (
       <div>
         <Context.Provider value={context}>

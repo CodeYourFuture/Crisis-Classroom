@@ -5,7 +5,7 @@ import Button from "../../button";
 import Context from "./context";
 import "./style.css";
 
-class Form3 extends React.Component {
+class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,28 +13,28 @@ class Form3 extends React.Component {
     };
   }
 
-  onChangeInstructionsHandler = (e, index) => {
+  onChangeInstructionshandler = (e, index) => {
     const instruction = this.state.instructions[index];
-    const newInstructionName = {
+    const newinstructionName = {
       ...instruction,
       [e.target.name]: e.target.value
     };
     this.setState({
       instructions: this.state.instructions.map(
-        (instruction, i) => (i === index ? newInstructionName : instruction)
+        (instruction, i) => (i === index ? newinstructionName : instruction)
       )
     });
   };
 
-  onChangeImageInstructionsHandler = (e, index) => {
+  onChangeImageInstructionshandler = (e, index) => {
     const instruction = this.state.instructions[index];
     var reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = () => {
-      const newInstructionImage = { ...instruction, image: reader.result };
+      const newinstructionImage = { ...instruction, image: reader.result };
       this.setState({
         instructions: this.state.instructions.map(
-          (instruction, i) => (i === index ? newInstructionImage : instruction)
+          (instruction, i) => (i === index ? newinstructionImage : instruction)
         )
       });
     };
@@ -78,7 +78,7 @@ class Form3 extends React.Component {
                           className="form-control"
                           type="text"
                           name="name"
-                          onChange={e => this.onChangeInstructionsHandler(e, i)}
+                          onChange={e => this.onChangeInstructionshandler(e, i)}
                           placeholder="instruction"
                           value={name}
                         />
@@ -91,7 +91,7 @@ class Form3 extends React.Component {
                                 type="file"
                                 name="image"
                                 onChange={e =>
-                                  this.onChangeImageInstructionsHandler(e, i)
+                                  this.onChangeImageInstructionshandler(e, i)
                                 }
                                 accept="image/*"
                               />
@@ -125,23 +125,25 @@ class Form3 extends React.Component {
             onClick={this.addInstructionsHandler}
           />
 
-          {/* <Button
-                className="btn btn-outline-dark"
-                value="Next"
-                onClick={() => this.props.onAddInstructions(this.state.instructions)}
-              /> */}
+          <Button
+            className="btn btn-outline-dark"
+            value="Next"
+            onClick={() =>
+              this.props.onAddInstructions(this.state.instructions)
+            }
+          />
         </div>
       </div>
     );
   }
 }
 
-export default class InstructionsFormWrapper extends React.Component {
+export default class instructionsFormWrapper extends React.Component {
   render() {
     return (
       <Context.Consumer>
-        {({ onAddInstructions, instructions, tools }) => (
-          <Form3
+        {({ onAddInstructions, instructions }) => (
+          <Form
             instructions={instructions}
             onAddInstructions={onAddInstructions}
           />

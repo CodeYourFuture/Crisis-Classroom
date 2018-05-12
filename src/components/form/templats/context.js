@@ -7,6 +7,7 @@ const Context = React.createContext({
   ingredients: [],
   instructions: [],
   tools: [],
-  onAddTools: null
+  onAddTools: null,
+  onAddInstructions: null
 });
 export default Context;

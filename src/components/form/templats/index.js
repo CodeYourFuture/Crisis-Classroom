@@ -59,12 +59,12 @@ export default class LessonForm extends React.Component {
 
   onAddTools = tools => {
     this.setState({ tools });
-    this.nextFormHandler()
+    this.nextFormHandler();
   };
-  onAddInstruction = instructions =>{
-    this.setState({instructions})
-    this.previousFormHandler()
-  }
+  onAddInstruction = instructions => {
+    this.setState({ instructions });
+    this.previousFormHandler();
+  };
 
   nextFormHandler = () => {
     this.setState(prevState => {
@@ -84,7 +84,7 @@ export default class LessonForm extends React.Component {
 
   render() {
     // console.log(this.state.instructions)
-    const { tools, activeForm , instructions} = this.state;
+    const { tools, activeForm, instructions } = this.state;
     var forms = [
       // <LessonTitle />,
       <ToolsForm />,
@@ -97,21 +97,21 @@ export default class LessonForm extends React.Component {
       instructions,
       onAddInstruction: this.onAddInstruction
     };
-    console.log(instructions, activeForm)
+    console.log(instructions, activeForm);
     return (
       <div>
         <Context.Provider value={context}>
-        <h2 className="text-center">Creat New Templete</h2>
-        <div className="lesson-form">
-          {forms[this.state.activeForm]}
-        {this.state.activeForm > 0 && (
-          <Button
-          className="btn btn-outline-dark"
-          value="previouse"
-          onClick={this.previousFormHandler}
-          />
-        )}
-        </div>
+          <h2 className="text-center">Creat New Templete</h2>
+          <div className="lesson-form">
+            {forms[this.state.activeForm]}
+            {this.state.activeForm > 0 && (
+              <Button
+                className="btn btn-outline-dark"
+                value="previouse"
+                onClick={this.previousFormHandler}
+              />
+            )}
+          </div>
         </Context.Provider>
       </div>
     );

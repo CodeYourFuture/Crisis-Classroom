@@ -2,8 +2,23 @@ import React from "react";
 import Context from "./context";
 import Button from "../../button";
 import { Grid, Row, Col } from "react-flexbox-grid/lib";
+import axios from "axios";
 
 export default class Purview extends React.Component {
+  
+
+  onSubmit = lessonData => {
+    console.log(lessonData)
+    axios
+      .post("http://localhost:8080/creat-lessons", lessonData)
+      .then(result => {
+        console.log(result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <div>
@@ -14,17 +29,21 @@ export default class Purview extends React.Component {
               <div>
                 <Context.Consumer>
                   {({ lessonTitles }) =>
-                    lessonTitles.map(lessonTitle => (
-                      <div>
-                        <h4>{lessonTitle.name}</h4>
-                        <img
-                          className="image"
-                          width="50px"
-                          src={lessonTitle.image}
-                          alt="foo"
-                        />
-                      </div>
-                    ))
+                    lessonTitles.map(
+                      (lessonTitle, i) => (
+                        (
+                          <div key={i}>
+                            <h4>{lessonTitle.name}</h4>
+                            <img
+                              className="image"
+                              width="50px"
+                              src={lessonTitle.image}
+                              alt="foo"
+                            />
+                          </div>
+                        )
+                      )
+                    )
                   }
                 </Context.Consumer>
               </div>
@@ -33,8 +52,8 @@ export default class Purview extends React.Component {
               <div>
                 <Context.Consumer>
                   {({ tools }) =>
-                    tools.map(tool => (
-                      <div className="purview-items">
+                    tools.map((tool, i) => (
+                      <div className="purview-items" key={i}>
                         <p>{tool.name}</p>
                         <img
                           className="purview-image"
@@ -52,12 +71,13 @@ export default class Purview extends React.Component {
               <div>
                 <Context.Consumer>
                   {({ lessonTitles }) =>
-                    lessonTitles.map(lessonTitle => (
+                    lessonTitles.map((lessonTitle, i) => (
                       <img
                         className="image"
                         width="50px"
                         src={lessonTitle.image}
                         alt="foo"
+                        key={i}
                       />
                     ))
                   }
@@ -68,12 +88,13 @@ export default class Purview extends React.Component {
               <div>
                 <Context.Consumer>
                   {({ lessonTitles }) =>
-                    lessonTitles.map(lessonTitle => (
+                    lessonTitles.map((lessonTitle, i) => (
                       <img
                         className="image"
                         width="50px"
                         src={lessonTitle.image}
                         alt="foo"
+                        key={i}
                       />
                     ))
                   }
@@ -83,15 +104,40 @@ export default class Purview extends React.Component {
           </Row>
         </Grid>
         <Context.Consumer>
-          {({ onAddLessonTitles, lessonTitles, previousFormHandler }) => (
-            <Button
-              className="btn btn-outline-dark "
-              value="previouse"
-              onClick={previousFormHandler}
-            />
-          )}
+          {context => {
+            const {
+              // onAddLessonTitles,
+              lessonTitles,
+              tools,
+              ingredients,
+              instructions,
+              previousFormHandler
+            } = context;
+            return (
+              <div>
+                <Button
+                  className="btn btn-outline-dark "
+                  value="previouse"
+                  onClick={previousFormHandler}
+                />
+                <Button
+                  className="btn btn-outline-dark "
+                  value="Save"
+                  onClick={() =>
+                    this.onSubmit({
+                      lessonTitles,
+                      tools,
+                      ingredients,
+                      instructions
+                    })
+                  }
+                />
+              </div>
+            );
+          }}
         </Context.Consumer>
       </div>
     );
   }
 }
+//  onAddLessonTitles, lessonTitles, previousFormHandler

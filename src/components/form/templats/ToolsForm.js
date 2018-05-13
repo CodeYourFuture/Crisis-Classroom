@@ -25,32 +25,32 @@ class Form extends React.Component {
 
   onChangeImageToolshandler = (e, index) => {
     const tool = this.state.tools[index];
-    var reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = () => {
-      const newToolImage = { ...tool, image: reader.result };
+    // var reader = new FileReader();
+    // reader.readAsDataURL(e.target.files[0]);
+    // reader.onload = () => {
+      const newToolImage = { ...tool, toolImage: "reader.result "};
       this.setState({
         tools: this.state.tools.map(
           (tool, i) => (i === index ? newToolImage : tool)
         )
       });
-    };
+    // };
   };
 
   addToolsHandler = e => {
     this.setState({
       tools: [
         ...this.state.tools,
-        { id: this.state.tools.length + 1, name: "", image: "" }
+        { toolId: this.state.tools.length + 1, toolName: "", toolImage: "" }
       ]
     });
   };
 
-  removeToolsHandler = id => {
+  removeToolsHandler = toolId => {
     const { tools } = this.state;
     tools.forEach(tool => {
-      if (tool.id === id) {
-        tool.image = null;
+      if (tool.toolId === toolId) {
+        tool.toolImage = null;
       }
     });
     this.setState({
@@ -64,28 +64,28 @@ class Form extends React.Component {
         <div>
           <h2> Add Tools </h2>
           {this.state.tools &&
-            this.state.tools.map(({ name, image, id }, i) => {
+            this.state.tools.map(({ toolName, toolImage, toolId }, i) => {
               return (
-                <div className="lessonForm" key={id}>
+                <div className="lessonForm" key={toolId}>
                   <div className="form-group">
                     <Label value="Tool Name" />
                     <div className="lessonInput">
                       <Input
                         className="form-control"
                         type="text"
-                        name="name"
+                        name="toolName"
                         onChange={e => this.onChangeToolshandler(e, i)}
                         placeholder="Tool"
-                        value={name}
+                        value={toolName}
                       />
-                      {!image ? (
+                      {!toolImage ? (
                         <div>
                           <label className="btn btn-outline-dark">
                             Chose a file
                             <input
                               style={{ display: "none" }}
                               type="file"
-                              name="image"
+                              name="toolImage"
                               onChange={e =>
                                 this.onChangeImageToolshandler(e, i)
                               }
@@ -96,12 +96,12 @@ class Form extends React.Component {
                       ) : (
                         <div
                           className="image-container"
-                          onClick={() => this.removeToolsHandler(id)}
+                          onClick={() => this.removeToolsHandler(toolId)}
                         >
                           <img
                             className="image"
                             width="100px"
-                            src={image}
+                            src={toolImage}
                             alt="foo"
                           />
                           <div className="middle">

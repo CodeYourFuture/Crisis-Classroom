@@ -1,12 +1,13 @@
 import React from "react";
 // import axios from "axios";
 import Context from "./context";
-import LessonTitle from "./lessonTitle";
+// import LessonTitle from "./lessonTitle";
 import ToolsForm from "./ToolsForm";
 import Ingredients from "./Ingredients";
 import Instructions from "./Instructions";
 import Purview from "./purview";
 // import Button from "../../button";
+// import {Link} from "react-router-dom"
 
 import "./style.css";
 export default class LessonForm extends React.Component {
@@ -60,7 +61,7 @@ export default class LessonForm extends React.Component {
   render() {
     const { tools, ingredients, lessonTitles, instructions } = this.state;
     var forms = [
-      <LessonTitle />,
+      // <LessonTitle />,
       <ToolsForm />,
       <Ingredients />,
       <Instructions />,

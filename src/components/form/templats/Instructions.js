@@ -31,7 +31,7 @@ class Form extends React.Component {
     var reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = () => {
-      const newinstructionImage = { ...instruction, image: reader.result };
+      const newinstructionImage = { ...instruction, instructionImage: reader.result };
       this.setState({
         instructions: this.state.instructions.map(
           (instruction, i) => (i === index ? newinstructionImage : instruction)
@@ -44,16 +44,16 @@ class Form extends React.Component {
     this.setState({
       instructions: [
         ...this.state.instructions,
-        { id: this.state.instructions.length + 1, name: "", image: "" }
+        { instructionId: this.state.instructions.length + 1, instructionName: "", instructionImage: "" }
       ]
     });
   };
 
-  removeInstructionsHandler = id => {
+  removeInstructionsHandler = instructionId => {
     const { instructions } = this.state;
     instructions.forEach(instruction => {
-      if (instruction.id === id) {
-        instruction.image = null;
+      if (instruction.instructionId === instructionId) {
+        instruction.instructionImage = null;
       }
     });
     this.setState({
@@ -68,28 +68,28 @@ class Form extends React.Component {
           <h2> Add instructions </h2>
           <div>
             {this.state.instructions &&
-              this.state.instructions.map(({ name, image, id }, i) => {
+              this.state.instructions.map(({ instructionName, instructionImage, instructionId }, i) => {
                 return (
-                  <div className="lessonForm" key={id}>
+                  <div className="lessonForm" key={instructionId}>
                     <div className="form-group">
                       <Label value="instruction Name" />
                       <div className="row">
                         <Input
                           className="form-control"
                           type="text"
-                          name="name"
+                          name="instructionName"
                           onChange={e => this.onChangeInstructionshandler(e, i)}
                           placeholder="instruction"
-                          value={name}
+                          value={instructionName}
                         />
-                        {!image ? (
+                        {!instructionImage ? (
                           <div>
                             <label className="btn btn-outline-dark">
                               Chose a file
                               <input
                                 style={{ display: "none" }}
                                 type="file"
-                                name="image"
+                                name="instructionImage"
                                 onChange={e =>
                                   this.onChangeImageInstructionshandler(e, i)
                                 }
@@ -100,12 +100,12 @@ class Form extends React.Component {
                         ) : (
                           <div
                             className="image-container"
-                            onClick={() => this.removeInstructionsHandler(id)}
+                            onClick={() => this.removeInstructionsHandler(instructionId)}
                           >
                             <img
                               className="image"
                               width="100px"
-                              src={image}
+                              src={instructionImage}
                               alt="foo"
                             />
                             <div className="middle">

@@ -32,34 +32,36 @@ class Form extends React.Component {
     });
   };
 
-  onChangeImageLessonTitleshandler = (e, index) => {
+  onChangeImageLessonTitleshandler = async (e, index) => {
     const lessonTitle = this.state.lessonTitles[index];
-    var reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = () => {
-      const newLessonTitleImage = { ...lessonTitle, image: reader.result };
-      this.setState({
-        lessonTitles: this.state.lessonTitles.map(
-          (lessonTitle, i) => (i === index ? newLessonTitleImage : lessonTitle)
-        )
-      });
-    };
+    // var reader = new FileReader();
+    // reader.readAsDataURL(e.target.files[0]);
+    // reader.onload = () => {
+    const filePath = await fetch("https://localhost/uploadImage", file).then();
+
+    const newLessonTitleImage = { ...lessonTitle, lessonTitleImage: e.target.files[0] };
+    this.setState({
+      lessonTitles: this.state.lessonTitles.map(
+        (lessonTitle, i) => (i === index ? newLessonTitleImage : lessonTitle)
+      )
+    });
+    // };
   };
 
   addLessonTitlesHandler = e => {
     this.setState({
       lessonTitles: [
         ...this.state.lessonTitles,
-        { id: this.state.lessonTitles.length + 1, name: "", image: "" }
+        { lessonTitleId: this.state.lessonTitles.length + 1, lessonTitleName: "", lessonTitleImage: "" }
       ]
     });
   };
 
-  removeLessonTitlesHandler = id => {
+  removeLessonTitlesHandler = lessonTitleId => {
     const { lessonTitles } = this.state;
     lessonTitles.forEach(lessonTitle => {
-      if (lessonTitle.id === id) {
-        lessonTitle.image = null;
+      if (lessonTitle.lessonTitleId === lessonTitleId) {
+        lessonTitle.lessonTitleImage = null;
       }
     });
     this.setState({
@@ -68,40 +70,39 @@ class Form extends React.Component {
   };
 
   render() {
-    // console.log(this.state.lessonValue);
     return (
       <div>
         <div>
           <h2>lessonTitles </h2>
           {this.state.lessonTitles &&
-            this.state.lessonTitles.map(({ name, image, id }, i) => {
+            this.state.lessonTitles.map(({ lessonTitleName, lessonTitleImage, lessonTitleId }, i) => {
               return (
-                <div className="lessonForm" key={id}>
+                <div className="lessonForm" key={lessonTitleId}>
                   <div className="form-group">
                     <Label
                       value={this.state.lessonValue.map(
-                        (vall, i) => (id === i + 1 ? vall : "")
+                        (vall, i) => (lessonTitleId === i + 1 ? vall : "")
                       )}
                     />
                     <div className="lessonInput">
                       <Input
                         className="form-control"
                         type="text"
-                        name="name"
+                        name="lessonTitleName"
                         onChange={e => this.onChangeLessonTitleshandler(e, i)}
                         placeholder={this.state.lessonValue.map(
-                          (vall, i) => (id === i + 1 ? vall : "")
+                          (vall, i) => (lessonTitleId === i + 1 ? vall : "")
                         )}
-                        value={name}
+                        value={lessonTitleName}
                       />
-                      {!image ? (
+                      {!lessonTitleImage ? (
                         <div>
                           <label className="btn btn-outline-dark">
                             Chose a file
                             <input
                               style={{ display: "none" }}
                               type="file"
-                              name="image"
+                              name="lessonTitleImage"
                               onChange={e =>
                                 this.onChangeImageLessonTitleshandler(e, i)
                               }
@@ -112,12 +113,12 @@ class Form extends React.Component {
                       ) : (
                         <div
                           className="image-container"
-                          onClick={() => this.removeLessonTitlesHandler(id)}
+                          onClick={() => this.removeLessonTitlesHandler(lessonTitleId)}
                         >
                           <img
                             className="image"
                             width="100px"
-                            src={image}
+                            src={lessonTitleImage}
                             alt="foo"
                           />
                           <div className="middle">
@@ -130,7 +131,7 @@ class Form extends React.Component {
                 </div>
               );
             })}
-        </div >
+        </div>
         <Button
           className="btn btn-outline-dark lessonBtn"
           value="Add"
@@ -161,93 +162,3 @@ export default class LessonTitlesFormWrapper extends React.Component {
     );
   }
 }
-
-// import React, { Component } from "react";
-// import Input from "../../input";
-// import Label from "../../label";
-
-// export default class lessonTitle extends Component {
-//   render() {
-//     return (
-//       <div>
-//         <form>
-//           <div className="form-group">
-//             <Label value="Title" />
-//             <div className="row">
-//               <Input
-//                 className="form-control"
-//                 type="text"
-//                 name="title"
-//                 onChange={this.props.onChangehandler}
-//                 placeholder="Insert title"
-//                 value={this.props.userData.title}
-//               />
-//               &nbsp;
-//               <div>
-//                 <label className="btn btn-outline-dark">
-//                   Chose a file
-//                   <input
-//                     style={{ display: "none" }}
-//                     type="file"
-//                     onChange={this.props.handleUploadFile}
-//                     accept="image/*"
-//                   />
-//                 </label>
-//               </div>
-//             </div>
-//           </div>
-//           <div className="form-group">
-//             <Label value="Time to perpare" />
-//             <div className="row">
-//               <Input
-//                 className="form-control"
-//                 type="text"
-//                 name="duration"
-//                 onChange={this.props.onChangehandler}
-//                 placeholder="How much time does it require?"
-//                 value={this.props.userData.duration}
-//               />
-//               &nbsp;
-//               <div>
-//                 <label className="btn btn-outline-dark">
-//                   Chose a file
-//                   <input
-//                     style={{ display: "none" }}
-//                     type="file"
-//                     onChange={this.props.handleUploadFile}
-//                     accept="image/*"
-//                   />
-//                 </label>
-//               </div>
-//             </div>
-//           </div>
-//           <div className="form-group">
-//             <Label value="N. People" />
-//             <div className="row">
-//               <Input
-//                 className="form-control"
-//                 type="text"
-//                 name="numberOfPeople"
-//                 onChange={this.props.onChangehandler}
-//                 placeholder="How many people is it for?"
-//                 value={this.props.userData.numberOfPeople}
-//               />
-//               &nbsp;
-//               <div>
-//                 <label className="btn btn-outline-dark">
-//                   Chose a file
-//                   <input
-//                     style={{ display: "none" }}
-//                     type="file"
-//                     onChange={this.props.handleUploadFile}
-//                     accept="image/*"
-//                   />
-//                 </label>
-//               </div>
-//             </div>
-//           </div>
-//         </form>
-//       </div>
-//     );
-//   }
-// }

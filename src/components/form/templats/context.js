@@ -8,6 +8,7 @@ const Context = React.createContext({
   onAddLessonTitles: null,
   onAddTools: null,
   onAddIngredients: null,
-  onAddInstructions: null
+  onAddInstructions: null,
+  previousFormHandler: null
 });
 export default Context;

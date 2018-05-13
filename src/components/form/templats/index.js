@@ -6,7 +6,7 @@ import ToolsForm from "./ToolsForm";
 import Ingredients from "./Ingredients";
 import Instructions from "./Instructions";
 import Purview from "./purview";
-import Button from "../../button";
+// import Button from "../../button";
 
 import "./style.css";
 export default class LessonForm extends React.Component {
@@ -74,7 +74,8 @@ export default class LessonForm extends React.Component {
       lessonTitles,
       onAddLessonTitles: this.onAddLessonTitles,
       instructions,
-      onAddInstructions: this.onAddInstructions
+      onAddInstructions: this.onAddInstructions,
+      previousFormHandler:this.previousFormHandler
     };
     return (
       <div>
@@ -82,13 +83,6 @@ export default class LessonForm extends React.Component {
           <h2 className="text-center">Creat New Templete</h2>
           <div className="lesson-form">
             {forms[this.state.activeForm]}
-            {this.state.activeForm > 0 && (
-              <Button
-                className="btn btn-outline-dark lessonBtn"
-                value="previouse"
-                onClick={this.previousFormHandler}
-              />
-            )}
           </div>
         </Context.Provider>
       </div>

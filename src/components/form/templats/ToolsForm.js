@@ -63,69 +63,77 @@ class Form extends React.Component {
       <div>
         <div>
           <h2> Add Tools </h2>
-            {this.state.tools &&
-              this.state.tools.map(({ name, image, id }, i) => {
-                return (
-                  <div className="lessonForm" key={id}>
-                    <div className="form-group">
-                      <Label value="Tool Name" />
-                      <div className="lessonInput">
-                        <Input
-                          className="form-control"
-                          type="text"
-                          name="name"
-                          onChange={e => this.onChangeToolshandler(e, i)}
-                          placeholder="Tool"
-                          value={name}
-                        />
-                        {!image ? (
-                          <div>
-                            <label className="btn btn-outline-dark">
-                              Chose a file
-                              <input
-                                style={{ display: "none" }}
-                                type="file"
-                                name="image"
-                                onChange={e =>
-                                  this.onChangeImageToolshandler(e, i)
-                                }
-                                accept="image/*"
-                              />
-                            </label>
-                          </div>
-                        ) : (
-                          <div
-                            className="image-container"
-                            onClick={() => this.removeToolsHandler(id)}
-                          >
-                            <img
-                              className="image"
-                              width="100px"
-                              src={image}
-                              alt="foo"
+          {this.state.tools &&
+            this.state.tools.map(({ name, image, id }, i) => {
+              return (
+                <div className="lessonForm" key={id}>
+                  <div className="form-group">
+                    <Label value="Tool Name" />
+                    <div className="lessonInput">
+                      <Input
+                        className="form-control"
+                        type="text"
+                        name="name"
+                        onChange={e => this.onChangeToolshandler(e, i)}
+                        placeholder="Tool"
+                        value={name}
+                      />
+                      {!image ? (
+                        <div>
+                          <label className="btn btn-outline-dark">
+                            Chose a file
+                            <input
+                              style={{ display: "none" }}
+                              type="file"
+                              name="image"
+                              onChange={e =>
+                                this.onChangeImageToolshandler(e, i)
+                              }
+                              accept="image/*"
                             />
-                            <div className="middle">
-                              <div className="text">Remove</div>
-                            </div>
+                          </label>
+                        </div>
+                      ) : (
+                        <div
+                          className="image-container"
+                          onClick={() => this.removeToolsHandler(id)}
+                        >
+                          <img
+                            className="image"
+                            width="100px"
+                            src={image}
+                            alt="foo"
+                          />
+                          <div className="middle">
+                            <div className="text">Remove</div>
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      )}
                     </div>
                   </div>
-                );
-              })}
-          </div>
+                </div>
+              );
+            })}
+        </div>
+        <Button
+          className="btn btn-outline-dark"
+          value="Add"
+          onClick={this.addToolsHandler}
+        />
+        &nbsp;
+        <div style={{display:"flex"}}>
           <Button
-            className="btn btn-outline-dark lessonBtn"
-            value="Add"
-            onClick={this.addToolsHandler}
+            className="btn btn-outline-dark"
+            value="previouse"
+            onClick={this.props.previousFormHandler}
           />
           &nbsp;
           <Button
-            className="btn btn-outline-dark lessonBtn"
+            className="btn btn-outline-dark"
             value="Next"
             onClick={() => this.props.onAddTools(this.state.tools)}
           />
+        </div>
       </div>
     );
   }
@@ -135,8 +143,12 @@ export default class ToolsFormWrapper extends React.Component {
   render() {
     return (
       <Context.Consumer>
-        {({ onAddTools, tools }) => (
-          <Form tools={tools} onAddTools={onAddTools} />
+        {({ onAddTools, tools, previousFormHandler }) => (
+          <Form
+            tools={tools}
+            onAddTools={onAddTools}
+            previousFormHandler={previousFormHandler}
+          />
         )}
       </Context.Consumer>
     );

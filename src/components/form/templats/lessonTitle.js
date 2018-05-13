@@ -130,7 +130,7 @@ class Form extends React.Component {
                 </div>
               );
             })}
-        </div>
+        </div >
         <Button
           className="btn btn-outline-dark lessonBtn"
           value="Add"

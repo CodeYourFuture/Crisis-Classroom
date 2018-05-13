@@ -120,18 +120,26 @@ class Form extends React.Component {
               })}
           </div>
           <Button
-            className="btn btn-outline-dark lessonBtn"
+            className="btn btn-outline-dark "
             value="Add"
             onClick={this.addInstructionsHandler}
           />
           &nbsp;
+          <div style={{display:"flex"}}>
           <Button
-            className="btn btn-outline-dark lessonBtn"
+            className="btn btn-outline-dark "
+            value="previouse"
+            onClick={this.props.previousFormHandler}
+          />
+          &nbsp;
+          <Button
+            className="btn btn-outline-dark "
             value="Next"
             onClick={() =>
               this.props.onAddInstructions(this.state.instructions)
             }
           />
+          </div>
         </div>
       </div>
     );
@@ -142,10 +150,11 @@ export default class instructionsFormWrapper extends React.Component {
   render() {
     return (
       <Context.Consumer>
-        {({ onAddInstructions, instructions }) => (
+        {({ onAddInstructions, instructions, previousFormHandler }) => (
           <Form
             instructions={instructions}
             onAddInstructions={onAddInstructions}
+            previousFormHandler={previousFormHandler}
           />
         )}
       </Context.Consumer>

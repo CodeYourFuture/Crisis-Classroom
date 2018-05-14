@@ -8,7 +8,7 @@ const Welecome = () => {
     <div className="welecome">
       <div>
         <h2>
-          Hello <strong>{Cookies.get("userName")}</strong> welecome to Crisis
+          Hello <strong>{Cookies.get("userName")}</strong> welcome to Crisis
           Classroom
         </h2>
         <p>
@@ -19,7 +19,7 @@ const Welecome = () => {
           and classes.
         </p>
         <Link to="/" className="btn btn-outline-info">
-          Go to Home pag
+          Go to Home page
         </Link>
         <button className="btn btn-light">or</button>
         <Link to="/templates" className="btn btn-outline-success">

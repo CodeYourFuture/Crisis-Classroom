@@ -27,7 +27,7 @@ export default class Instructionsparttwo extends React.Component {
             </div>
           );
         })}
-        <h1>It is ready to eat</h1>
+        <h1>It is ready to eat.</h1>
       </div>
     );
   }

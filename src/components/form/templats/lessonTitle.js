@@ -73,7 +73,7 @@ class Form extends React.Component {
     return (
       <div>
         <div>
-          <h2>lessonTitles </h2>
+          <h2>Lesson Title </h2>
           {this.state.lessonTitles &&
             this.state.lessonTitles.map(({ lessonTitleName, lessonTitleImage, lessonTitleId }, i) => {
               return (
@@ -98,7 +98,7 @@ class Form extends React.Component {
                       {!lessonTitleImage ? (
                         <div>
                           <label className="btn btn-outline-dark">
-                            Chose a file
+                            Upload an image
                             <input
                               style={{ display: "none" }}
                               type="file"
@@ -119,7 +119,7 @@ class Form extends React.Component {
                             className="image"
                             width="100px"
                             src={lessonTitleImage}
-                            alt="foo"
+                            alt="image"
                           />
                           <div className="middle">
                             <div className="text">Remove</div>

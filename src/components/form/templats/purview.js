@@ -22,7 +22,7 @@ export default class Purview extends React.Component {
   render() {
     return (
       <div>
-        <h2>Purview</h2>
+        <h2>Preview</h2>
         <Grid fluid className="grid-container">
           <Row className="mian-row">
             <Col className="box" lg={3} {...this.props}>
@@ -38,7 +38,7 @@ export default class Purview extends React.Component {
                               className="image"
                               width="50px"
                               src={lessonTitle.image}
-                              alt="foo"
+                              alt="image"
                             />
                           </div>
                         )
@@ -59,7 +59,7 @@ export default class Purview extends React.Component {
                           className="purview-image"
                           width="50px"
                           src={tool.image}
-                          alt="foo"
+                          alt="image"
                         />
                       </div>
                     ))
@@ -76,7 +76,7 @@ export default class Purview extends React.Component {
                         className="image"
                         width="50px"
                         src={lessonTitle.image}
-                        alt="foo"
+                        alt="image"
                         key={i}
                       />
                     ))
@@ -93,7 +93,7 @@ export default class Purview extends React.Component {
                         className="image"
                         width="50px"
                         src={lessonTitle.image}
-                        alt="foo"
+                        alt="image"
                         key={i}
                       />
                     ))
@@ -117,7 +117,7 @@ export default class Purview extends React.Component {
               <div>
                 <Button
                   className="btn btn-outline-dark "
-                  value="previouse"
+                  value="previous"
                   onClick={previousFormHandler}
                 />
                 <Button

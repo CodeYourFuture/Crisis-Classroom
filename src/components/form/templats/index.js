@@ -81,7 +81,7 @@ export default class LessonForm extends React.Component {
     return (
       <div>
         <Context.Provider value={context}>
-          <h2 className="text-center">Creat New Templete</h2>
+          <h2 className="text-center">Create A New Template</h2>
           <div className="lesson-form">
             {forms[this.state.activeForm]}
           </div>

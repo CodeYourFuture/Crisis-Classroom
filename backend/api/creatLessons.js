@@ -7,20 +7,52 @@ const creatLessons = (req, res) => {
   const lessonId = Date.now().toString();
   const lesson = {
     lessonTitles: [
-      { id: 1, name: "book", image: "https://www.amazon.com/s3/files/book.jpg" },
-      { id: 2, name: "pen", image: "https://www.amazon.com/s3/files/pen.jpg" }
+      {
+        lessonTitleIdId: 1,
+        lessonTitlName: "book",
+        lessonTitlImage: "https://www.amazon.com/s3/files/book.jpg"
+      },
+      {
+        lessonTitleIdId: 2,
+        lessonTitlName: "pen",
+        lessonTitlImage: "https://www.amazon.com/s3/files/pen.jpg"
+      }
     ],
     tools: [
-      { id: 1, name: "one", image: "https://www.amazon.com/s3/files/one.jpg" },
-      { id: 2, name: "two", image: "https://www.amazon.com/s3/files/two.jpg" }
+      {
+        toolId: 1,
+        toolName: "one",
+        toolImage: "https://www.amazon.com/s3/files/one.jpg"
+      },
+      {
+        toolId: 2,
+        toolName: "two",
+        toolImage: "https://www.amazon.com/s3/files/two.jpg"
+      }
     ],
     ingredients: [
-      { id: 1, name: "three", image: "https://www.amazon.com/s3/files/three.jpg" },
-      { id: 2, name: "four", image: "https://www.amazon.com/s3/files/four.jpg" }
+      {
+        ingredientId: 1,
+        ingredientName: "three",
+        ingredientImage: "https://www.amazon.com/s3/files/three.jpg"
+      },
+      {
+        ingredientId: 2,
+        ingredientName: "four",
+        ingredientImage: "https://www.amazon.com/s3/files/four.jpg"
+      }
     ],
     instructions: [
-      { id: 1, name: "five", image: "https://www.amazon.com/s3/files/five.jpg" },
-      { id: 2, name: "six", image: "https://www.amazon.com/s3/files/six.jpg" }
+      {
+        instructionId: 1,
+        instructionsName: "five",
+        instructionsImage: "https://www.amazon.com/s3/files/five.jpg"
+      },
+      {
+        instructionId: 2,
+        instructionsName: "six",
+        instructionsImage: "https://www.amazon.com/s3/files/six.jpg"
+      }
     ]
   };
 
@@ -28,10 +60,17 @@ const creatLessons = (req, res) => {
 };
 const saveToDb = (lesson, lessonId) => {
   const { lessonTitles, tools, ingredients, instructions } = lesson;
+  (lessonId => saveLessonId( lessonId));
   lessonTitles.forEach(lessonTitle => saveLessonTitle(lessonTitle, lessonId));
   tools.forEach(tool => saveTool(tool, lessonId));
   ingredients.forEach(ingredient => saveIngredient(ingredient, lessonId));
   instructions.forEach(instruction => saveInstruction(instruction, lessonId));
+};
+const saveLessonId= (lessonId) => {
+  var sql = `insert into lessons
+    (lessonId)
+    values (?)`;
+  db.run(sql, [lessonId]);
 };
 const saveLessonTitle = (lessonTitle, lessonId) => {
   var sql = `insert into lessonTitles

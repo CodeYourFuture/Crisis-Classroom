@@ -22,7 +22,7 @@ export default class Purview extends React.Component {
   render() {
     return (
       <div>
-        <h2>Purview</h2>
+        <h2>Preview</h2>
         <Grid fluid className="grid-container">
           <Row className="mian-row">
             <Col className="box" lg={3} {...this.props}>

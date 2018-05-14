@@ -21,6 +21,7 @@ import Projects from "../components/navbarPages/Projects";
 import NotFound from "../components/pages/notFound";
 import Survey from "../components/pages/Survey";
 import RegistrationDone from "../components/form/register/Registration-done";
+import ImageUploader from "../components/imageUploader"
 
 
 class Routes extends Component {
@@ -43,6 +44,7 @@ class Routes extends Component {
         <Layout path="/register" component={Register} />
         <Layout exact path="/welecome" component={Welecome} />
         <Layout exact path="/notfound" component={NotFound} />
+        <Layout exact path="/image-uploader" component={ImageUploader} />
         <Layout exact path="/registration-done" component={RegistrationDone} />
         <PrivateRoute path="/templates" component={Templates} />
       </Switch>

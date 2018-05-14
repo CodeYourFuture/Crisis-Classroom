@@ -19,9 +19,9 @@ class Form extends React.Component {
       lessonTitles: props.lessonTitles,
       lessonValue: [
         "Lesson Title",
-        "Time to perpar",
+        "Time to prepare",
         "Number of people",
-        "Somethinge else"
+        "Something else"
       ]
     };
   }
@@ -41,10 +41,12 @@ class Form extends React.Component {
 
   onChangeImageLessonTitleshandler = (e, index) => {
     const lessonTitle = this.state.lessonTitles[index];
-
     const file = e.target.files[0];
     ReactS3.upload(file, config).then(result => {
-      const newLessonTitleName = { ...lessonTitle, image: result.location };
+      const newLessonTitleName = {
+        ...lessonTitle,
+        lessonTitleImage: result.location
+      };
       this.setState({
         lessonTitles: this.state.lessonTitles.map(
           (lessonTitle, i) => (i === index ? newLessonTitleName : lessonTitle)
@@ -57,16 +59,20 @@ class Form extends React.Component {
     this.setState({
       lessonTitles: [
         ...this.state.lessonTitles,
-        { id: this.state.lessonTitles.length + 1, name: "", image: "" }
+        {
+          lessonTitleId: this.state.lessonTitles.length + 1,
+          lessonTitleName: "",
+          lessonTitleImage: ""
+        }
       ]
     });
   };
 
-  removeLessonTitlesHandler = id => {
+  removeLessonTitlesImageHandler = lessonTitleId => {
     const { lessonTitles } = this.state;
     lessonTitles.forEach(lessonTitle => {
-      if (lessonTitle.id === id) {
-        lessonTitle.image = null;
+      if (lessonTitle.lessonTitleId === lessonTitleId) {
+        lessonTitle.lessonTitleImage = null;
       }
     });
     this.setState({
@@ -74,70 +80,87 @@ class Form extends React.Component {
     });
   };
 
+
+  //ameer pleaze make it work
+  removeLessonTitlesHandler = i => {
+    const { lessonTitles } = this.state;
+    this.setState({
+      lessonTitles: lessonTitles.splice(-i, 1)
+    });
+  };
+
   render() {
-    // console.log(this.state.lessonValue);
     return (
       <div>
         <div>
-          <h2>lessonTitles </h2>
+          <h2>Lesson Title </h2>
           {this.state.lessonTitles &&
-            this.state.lessonTitles.map(({ name, image, id }, i) => {
-              return (
-                <div className="lessonForm" key={id}>
-                  <div className="form-group">
-                    <Label
-                      value={this.state.lessonValue.map(
-                        (vall, i) => (id === i + 1 ? vall : "")
-                      )}
-                    />
-                    <div className="lessonInput">
-                      <Input
-                        className="form-control"
-                        type="text"
-                        name="name"
-                        onChange={e => this.onChangeLessonTitleshandler(e, i)}
-                        placeholder={this.state.lessonValue.map(
-                          (vall, i) => (id === i + 1 ? vall : "")
+            this.state.lessonTitles.map(
+              ({ lessonTitleName, lessonTitleImage, lessonTitleId }, i) => {
+                return (
+                  <div className="lessonForm" key={lessonTitleId}>
+                    <div className="form-group">
+                      <Label
+                        value={this.state.lessonValue.map(
+                          (vall, i) => (lessonTitleId === i + 1 ? vall : "")
                         )}
-                        value={name}
                       />
-                      {!image ? (
-                        <div>
-                          <label className="btn btn-outline-dark">
-                            Chose a file
-                            <input
-                              style={{ display: "none" }}
-                              type="file"
-                              name="image"
-                              onChange={e =>
-                                this.onChangeImageLessonTitleshandler(e, i)
-                              }
-                              accept="image/*"
-                            />
-                            {/* <imageUploader/> */}
-                          </label>
-                        </div>
-                      ) : (
-                        <div
-                          className="image-container"
-                          onClick={() => this.removeLessonTitlesHandler(id)}
-                        >
-                          <img
-                            className="image"
-                            width="100px"
-                            src={image}
-                            alt="foo"
-                          />
-                          <div className="middle">
-                            <div className="text">Remove</div>
+                      <div className="lessonInput">
+                        <Input
+                          className="form-control"
+                          type="text"
+                          name="lessonTitleName"
+                          onChange={e => this.onChangeLessonTitleshandler(e, i)}
+                          placeholder={this.state.lessonValue.map(
+                            (vall, i) => (lessonTitleId === i + 1 ? vall : "")
+                          )}
+                          value={lessonTitleName}
+                        />
+                        {!lessonTitleImage ? (
+                          <div>
+                            <label className="btn btn-outline-dark">
+                              Upload an image
+                              <input
+                                style={{ display: "none" }}
+                                type="file"
+                                name="lessonTitleImage"
+                                onChange={e =>
+                                  this.onChangeImageLessonTitleshandler(e, i)
+                                }
+                                accept="image/*"
+                              />
+                            </label>
                           </div>
-                        </div>
-                      )}
+                        ) : (
+                          <div
+                            className="image-container"
+                            onClick={() =>
+                              this.removeLessonTitlesImageHandler(lessonTitleId)
+                            }
+                          >
+                            <img
+                              className="image"
+                              width="100px"
+                              src={lessonTitleImage}
+                              alt="lesson Title "
+                            />
+                            <div className="middle">
+                              <div className="text">Remove</div>
+                            </div>
+                          </div>
+                        )}
+                        &nbsp;
+                        <Button
+                          className="btn btn-outline-danger lessonBtn"
+                          value="Remove"
+                          onClick={() => this.removeLessonTitlesHandler(i)}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              }
+            )}
         </div>
         <Button
           className="btn btn-outline-dark lessonBtn"
@@ -169,93 +192,3 @@ export default class LessonTitlesFormWrapper extends React.Component {
     );
   }
 }
-
-// import React, { Component } from "react";
-// import Input from "../../input";
-// import Label from "../../label";
-
-// export default class lessonTitle extends Component {
-//   render() {
-//     return (
-//       <div>
-//         <form>
-//           <div className="form-group">
-//             <Label value="Title" />
-//             <div className="row">
-//               <Input
-//                 className="form-control"
-//                 type="text"
-//                 name="title"
-//                 onChange={this.props.onChangehandler}
-//                 placeholder="Insert title"
-//                 value={this.props.userData.title}
-//               />
-//               &nbsp;
-//               <div>
-//                 <label className="btn btn-outline-dark">
-//                   Chose a file
-//                   <input
-//                     style={{ display: "none" }}
-//                     type="file"
-//                     onChange={this.props.handleUploadFile}
-//                     accept="image/*"
-//                   />
-//                 </label>
-//               </div>
-//             </div>
-//           </div>
-//           <div className="form-group">
-//             <Label value="Time to perpare" />
-//             <div className="row">
-//               <Input
-//                 className="form-control"
-//                 type="text"
-//                 name="duration"
-//                 onChange={this.props.onChangehandler}
-//                 placeholder="How much time does it require?"
-//                 value={this.props.userData.duration}
-//               />
-//               &nbsp;
-//               <div>
-//                 <label className="btn btn-outline-dark">
-//                   Chose a file
-//                   <input
-//                     style={{ display: "none" }}
-//                     type="file"
-//                     onChange={this.props.handleUploadFile}
-//                     accept="image/*"
-//                   />
-//                 </label>
-//               </div>
-//             </div>
-//           </div>
-//           <div className="form-group">
-//             <Label value="N. People" />
-//             <div className="row">
-//               <Input
-//                 className="form-control"
-//                 type="text"
-//                 name="numberOfPeople"
-//                 onChange={this.props.onChangehandler}
-//                 placeholder="How many people is it for?"
-//                 value={this.props.userData.numberOfPeople}
-//               />
-//               &nbsp;
-//               <div>
-//                 <label className="btn btn-outline-dark">
-//                   Chose a file
-//                   <input
-//                     style={{ display: "none" }}
-//                     type="file"
-//                     onChange={this.props.handleUploadFile}
-//                     accept="image/*"
-//                   />
-//                 </label>
-//               </div>
-//             </div>
-//           </div>
-//         </form>
-//       </div>
-//     );
-//   }
-// }

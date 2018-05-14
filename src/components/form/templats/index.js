@@ -1,5 +1,4 @@
 import React from "react";
-// import axios from "axios";
 import Context from "./context";
 import LessonTitle from "./lessonTitle";
 import ToolsForm from "./ToolsForm";
@@ -7,6 +6,7 @@ import Ingredients from "./Ingredients";
 import Instructions from "./Instructions";
 import Purview from "./purview";
 // import Button from "../../button";
+// import {Link} from "react-router-dom";
 
 import "./style.css";
 export default class LessonForm extends React.Component {
@@ -80,7 +80,7 @@ export default class LessonForm extends React.Component {
     return (
       <div>
         <Context.Provider value={context}>
-          <h2 className="text-center">Creat New Templete</h2>
+          <h2 className="text-center">Create A New Template</h2>
           <div className="lesson-form">
             {forms[this.state.activeForm]}
           </div>

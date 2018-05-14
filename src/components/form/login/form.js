@@ -39,11 +39,11 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <h3>To See Templates Please LogIn</h3>
+        <h3>To See Templates Please Login</h3>
         <div className="login-form">
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
-              <Label value="User Name *" />
+              <Label value="Username *" />
               <Input
                 className="form-control"
                 name="userName"
@@ -69,7 +69,7 @@ class Login extends Component {
 
               <div className="row">
                 &nbsp; &nbsp;
-                <Button className="btn btn-outline-dark" value="LogIn" />
+                <Button className="btn btn-outline-dark" value="Login" />
                 &nbsp;
                 <Link to="/register" className="btn btn-outline-dark">
                   Register

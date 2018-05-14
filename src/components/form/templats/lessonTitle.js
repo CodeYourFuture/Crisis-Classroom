@@ -81,6 +81,15 @@ class Form extends React.Component {
     });
   };
 
+
+  //ameer pleaze make it work
+  removeLessonTitlesHandler = i => {
+    const { lessonTitles } = this.state;
+    this.setState({
+      lessonTitles: lessonTitles.splice(-i, 1)
+    });
+  };
+
   render() {
     return (
       <div>
@@ -143,13 +152,9 @@ class Form extends React.Component {
                         )}
                         &nbsp;
                         <Button
-                          className="btn btn-outline-dark lessonBtn"
+                          className="btn btn-outline-danger lessonBtn"
                           value="Remove"
-                          onClick={() =>
-                            this.props.onAddLessonTitles(
-                              this.state.lessonTitles
-                            )
-                          }
+                          onClick={() => this.removeLessonTitlesHandler(i)}
                         />
                       </div>
                     </div>

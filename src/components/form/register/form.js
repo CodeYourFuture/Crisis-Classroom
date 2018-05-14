@@ -50,15 +50,15 @@ export default class Form extends React.Component {
     };
 
     if (userName === checkUserName) {
-      errors.userName = `This user name already taken .`;
+      errors.userName = `This username already taken .`;
     } else if (email === checkEmail) {
-      errors.email = `This email already exist .`;
+      errors.email = `This email already exists .`;
     } else if (firstName.length <= 0) {
       errors.firstName = `First Name can't be empty. `;
     } else if (surName.length <= 0) {
-      errors.surName = `Sure Name can't be empty. `;
+      errors.surName = `Surname can't be empty. `;
     } else if (userName.length <= 0) {
-      errors.userName = `user Name can't be empty .`;
+      errors.userName = `username can't be empty .`;
     } else if (email.length < 5) {
       errors.email = ` Email should be at least 5 charcters long .`;
     } else if (email.split("").filter(x => x === "@").length !== 1) {
@@ -74,7 +74,7 @@ export default class Form extends React.Component {
     } else if (confirmPassword.length < 6) {
       errors.confirmPassword = `Password should be at least 6 characters long .`;
     } else if (password !== confirmPassword) {
-      errors.confirmPassword = `Passwords does not mach .`;
+      errors.confirmPassword = `Passwords do not mach .`;
     } else {
       this.props.onFormSubmit();
     }
@@ -114,12 +114,12 @@ export default class Form extends React.Component {
             </div>
           </div>
           <div className="form-group">
-            <Label value="User Name *" />
+            <Label value="Username *" />
             <Input
               className="form-control"
               name="userName"
               type="text"
-              placeholder="UserName"
+              placeholder="Username"
               value={this.props.userData.userName}
               onChange={this.props.handleChange}
             />

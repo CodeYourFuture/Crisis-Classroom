@@ -36,16 +36,16 @@ class ConfirmRegistration extends Component {
     return (
       <div className="lesson-form">
         <h3>
-          Hello * {state.firstName} *,please check your details and complete your
+          Hello  {state.firstName} , please check your details and complete your
           registration
         </h3>
         <ul>
-          <li> User name: {state.userName}</li>
           <li>First name: {state.firstName}</li>
           <li>Last name: {state.surName}</li>
+          <li>User name: {state.userName}</li>
           <li>Email: {state.email}</li>
         </ul>
-        <div className="row">
+        <div className="row container">
           <Button
             className="btn btn-outline-dark"
             value="Back"

@@ -26,7 +26,7 @@ export default class ImageUploader extends Component {
           {this.state.img === "" ? (
             "chose a file"
           ) : (
-            <img width="60px" src={this.state.img} alt="foo" />
+            <img width="60px" src={this.state.img} alt="image" />
           )}
           <input
             style={{ display: "none" }}

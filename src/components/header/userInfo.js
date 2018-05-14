@@ -13,7 +13,7 @@ class userInfo extends Component {
     this.props.history.replace("/");
   };
   onClick = () => {
-    alert("Hop to see you soon");
+    alert("Hope to see you soon.");
   };
   render() {
     return (
@@ -25,12 +25,12 @@ class userInfo extends Component {
           {AuthService.loggedIn() ? (
             <Button
               className="btn btn-outline-success"
-              value="Log Out"
+              value="Log out"
               onClick={this.onLogOut}
             />
           ) : (
             <Link to="/register" className="btn btn-outline-success">
-              Rehister
+              Register
             </Link>
           )}
         </div>

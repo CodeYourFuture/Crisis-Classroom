@@ -85,7 +85,7 @@ class Form extends React.Component {
                       {!ingredientImage ? (
                         <div>
                           <label className="btn btn-outline-dark">
-                            Chose a file
+                            Upload an image
                             <input
                               style={{ display: "none" }}
                               type="file"
@@ -106,7 +106,7 @@ class Form extends React.Component {
                             className="image"
                             width="100px"
                             src={ingredientImage}
-                            alt="foo"
+                            alt="image"
                           />
                           <div className="middle">
                             <div className="text">Remove</div>
@@ -128,7 +128,7 @@ class Form extends React.Component {
         <div style={{display:"flex"}}>
           <Button
             className="btn btn-outline-dark "
-            value="previouse"
+            value="previous"
             onClick={this.props.previousFormHandler}
           />
           &nbsp;

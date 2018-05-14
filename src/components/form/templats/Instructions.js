@@ -3,7 +3,15 @@ import Input from "../../input";
 import Label from "../../label";
 import Button from "../../button";
 import Context from "./context";
+import ReactS3 from "react-s3";
 import "./style.css";
+
+const config = {
+  bucketName: "crisis-class-room",
+  region: "eu-west-2",
+  accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
+};
 
 class Form extends React.Component {
   constructor(props) {
@@ -28,16 +36,15 @@ class Form extends React.Component {
 
   onChangeImageInstructionshandler = (e, index) => {
     const instruction = this.state.instructions[index];
-    var reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = () => {
-      const newinstructionImage = { ...instruction, instructionImage: reader.result };
+    const file = e.target.files[0];
+    ReactS3.upload(file, config).then(result => {
+      const newinstructionImage = { ...instruction, instructionImage: result.location };
       this.setState({
         instructions: this.state.instructions.map(
           (instruction, i) => (i === index ? newinstructionImage : instruction)
         )
       });
-    };
+    });
   };
 
   addInstructionsHandler = e => {
@@ -106,7 +113,7 @@ class Form extends React.Component {
                               className="image"
                               width="100px"
                               src={instructionImage}
-                              alt="image"
+                              alt="instruction"
                             />
                             <div className="middle">
                               <div className="text">Remove</div>

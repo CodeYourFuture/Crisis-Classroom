@@ -38,7 +38,7 @@ export default class Purview extends React.Component {
                               className="image"
                               width="50px"
                               src={lessonTitle.image}
-                              alt="image"
+                              alt="lesson Title "
                             />
                           </div>
                         )
@@ -59,7 +59,7 @@ export default class Purview extends React.Component {
                           className="purview-image"
                           width="50px"
                           src={tool.image}
-                          alt="image"
+                          alt="tool"
                         />
                       </div>
                     ))
@@ -76,7 +76,7 @@ export default class Purview extends React.Component {
                         className="image"
                         width="50px"
                         src={lessonTitle.image}
-                        alt="image"
+                        alt="lesson Title"
                         key={i}
                       />
                     ))
@@ -93,7 +93,7 @@ export default class Purview extends React.Component {
                         className="image"
                         width="50px"
                         src={lessonTitle.image}
-                        alt="image"
+                        alt="lesson Title"
                         key={i}
                       />
                     ))

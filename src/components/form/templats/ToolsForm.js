@@ -3,7 +3,15 @@ import Input from "../../input";
 import Label from "../../label";
 import Button from "../../button";
 import Context from "./context";
+import ReactS3 from "react-s3";
 import "./style.css";
+
+const config = {
+  bucketName: "crisis-class-room",
+  region: "eu-west-2",
+  accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
+};
 
 class Form extends React.Component {
   constructor(props) {
@@ -25,16 +33,15 @@ class Form extends React.Component {
 
   onChangeImageToolshandler = (e, index) => {
     const tool = this.state.tools[index];
-    // var reader = new FileReader();
-    // reader.readAsDataURL(e.target.files[0]);
-    // reader.onload = () => {
-      const newToolImage = { ...tool, toolImage: "reader.result "};
+    const file = e.target.files[0];
+    ReactS3.upload(file, config).then(result => {
+      const newToolImage = { ...tool, toolImage: result.location};
       this.setState({
         tools: this.state.tools.map(
           (tool, i) => (i === index ? newToolImage : tool)
         )
       });
-    // };
+    });
   };
 
   addToolsHandler = e => {
@@ -102,7 +109,7 @@ class Form extends React.Component {
                             className="image"
                             width="100px"
                             src={toolImage}
-                            alt="image"
+                            alt="tool"
                           />
                           <div className="middle">
                             <div className="text">Remove</div>

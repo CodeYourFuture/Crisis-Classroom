@@ -3,7 +3,15 @@ import Input from "../../input";
 import Label from "../../label";
 import Button from "../../button";
 import Context from "./context";
+import ReactS3 from "react-s3";
 import "./style.css";
+
+const config = {
+  bucketName: "crisis-class-room",
+  region: "eu-west-2",
+  accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
+};
 
 class Form extends React.Component {
   constructor(props) {
@@ -12,9 +20,9 @@ class Form extends React.Component {
       lessonTitles: props.lessonTitles,
       lessonValue: [
         "Lesson Title",
-        "Time to perpar",
+        "Time to prepare",
         "Number of people",
-        "Somethinge else"
+        "Something else"
       ]
     };
   }
@@ -32,32 +40,36 @@ class Form extends React.Component {
     });
   };
 
-  onChangeImageLessonTitleshandler = async (e, index) => {
+  onChangeImageLessonTitleshandler = (e, index) => {
     const lessonTitle = this.state.lessonTitles[index];
-    // var reader = new FileReader();
-    // reader.readAsDataURL(e.target.files[0]);
-    // reader.onload = () => {
-    const filePath = await fetch("https://localhost/uploadImage", file).then();
-
-    const newLessonTitleImage = { ...lessonTitle, lessonTitleImage: e.target.files[0] };
-    this.setState({
-      lessonTitles: this.state.lessonTitles.map(
-        (lessonTitle, i) => (i === index ? newLessonTitleImage : lessonTitle)
-      )
+    const file = e.target.files[0];
+    ReactS3.upload(file, config).then(result => {
+      const newLessonTitleName = {
+        ...lessonTitle,
+        lessonTitleImage: result.location
+      };
+      this.setState({
+        lessonTitles: this.state.lessonTitles.map(
+          (lessonTitle, i) => (i === index ? newLessonTitleName : lessonTitle)
+        )
+      });
     });
-    // };
   };
 
   addLessonTitlesHandler = e => {
     this.setState({
       lessonTitles: [
         ...this.state.lessonTitles,
-        { lessonTitleId: this.state.lessonTitles.length + 1, lessonTitleName: "", lessonTitleImage: "" }
+        {
+          lessonTitleId: this.state.lessonTitles.length + 1,
+          lessonTitleName: "",
+          lessonTitleImage: ""
+        }
       ]
     });
   };
 
-  removeLessonTitlesHandler = lessonTitleId => {
+  removeLessonTitlesImageHandler = lessonTitleId => {
     const { lessonTitles } = this.state;
     lessonTitles.forEach(lessonTitle => {
       if (lessonTitle.lessonTitleId === lessonTitleId) {
@@ -75,62 +87,76 @@ class Form extends React.Component {
         <div>
           <h2>Lesson Title </h2>
           {this.state.lessonTitles &&
-            this.state.lessonTitles.map(({ lessonTitleName, lessonTitleImage, lessonTitleId }, i) => {
-              return (
-                <div className="lessonForm" key={lessonTitleId}>
-                  <div className="form-group">
-                    <Label
-                      value={this.state.lessonValue.map(
-                        (vall, i) => (lessonTitleId === i + 1 ? vall : "")
-                      )}
-                    />
-                    <div className="lessonInput">
-                      <Input
-                        className="form-control"
-                        type="text"
-                        name="lessonTitleName"
-                        onChange={e => this.onChangeLessonTitleshandler(e, i)}
-                        placeholder={this.state.lessonValue.map(
+            this.state.lessonTitles.map(
+              ({ lessonTitleName, lessonTitleImage, lessonTitleId }, i) => {
+                return (
+                  <div className="lessonForm" key={lessonTitleId}>
+                    <div className="form-group">
+                      <Label
+                        value={this.state.lessonValue.map(
                           (vall, i) => (lessonTitleId === i + 1 ? vall : "")
                         )}
-                        value={lessonTitleName}
                       />
-                      {!lessonTitleImage ? (
-                        <div>
-                          <label className="btn btn-outline-dark">
-                            Upload an image
-                            <input
-                              style={{ display: "none" }}
-                              type="file"
-                              name="lessonTitleImage"
-                              onChange={e =>
-                                this.onChangeImageLessonTitleshandler(e, i)
-                              }
-                              accept="image/*"
-                            />
-                          </label>
-                        </div>
-                      ) : (
-                        <div
-                          className="image-container"
-                          onClick={() => this.removeLessonTitlesHandler(lessonTitleId)}
-                        >
-                          <img
-                            className="image"
-                            width="100px"
-                            src={lessonTitleImage}
-                            alt="image"
-                          />
-                          <div className="middle">
-                            <div className="text">Remove</div>
+                      <div className="lessonInput">
+                        <Input
+                          className="form-control"
+                          type="text"
+                          name="lessonTitleName"
+                          onChange={e => this.onChangeLessonTitleshandler(e, i)}
+                          placeholder={this.state.lessonValue.map(
+                            (vall, i) => (lessonTitleId === i + 1 ? vall : "")
+                          )}
+                          value={lessonTitleName}
+                        />
+                        {!lessonTitleImage ? (
+                          <div>
+                            <label className="btn btn-outline-dark">
+                              Upload an image
+                              <input
+                                style={{ display: "none" }}
+                                type="file"
+                                name="lessonTitleImage"
+                                onChange={e =>
+                                  this.onChangeImageLessonTitleshandler(e, i)
+                                }
+                                accept="image/*"
+                              />
+                            </label>
                           </div>
-                        </div>
-                      )}
+                        ) : (
+                          <div
+                            className="image-container"
+                            onClick={() =>
+                              this.removeLessonTitlesImageHandler(lessonTitleId)
+                            }
+                          >
+                            <img
+                              className="image"
+                              width="100px"
+                              src={lessonTitleImage}
+                              alt="lesson Title "
+                            />
+                            <div className="middle">
+                              <div className="text">Remove</div>
+                            </div>
+                          </div>
+                        )}
+                        &nbsp;
+                        <Button
+                          className="btn btn-outline-dark lessonBtn"
+                          value="Remove"
+                          onClick={() =>
+                            this.props.onAddLessonTitles(
+                              this.state.lessonTitles
+                            )
+                          }
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              }
+            )}
         </div>
         <Button
           className="btn btn-outline-dark lessonBtn"

@@ -3,8 +3,15 @@ import Input from "../../input";
 import Label from "../../label";
 import Button from "../../button";
 import Context from "./context";
+import ReactS3 from "react-s3";
 import "./style.css";
 
+const config = {
+  bucketName: "crisis-class-room",
+  region: "eu-west-2",
+  accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
+};
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -34,16 +41,16 @@ class Form extends React.Component {
 
   onChangeImageLessonTitleshandler = (e, index) => {
     const lessonTitle = this.state.lessonTitles[index];
-    var reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = () => {
-      const newLessonTitleImage = { ...lessonTitle, image: reader.result };
+
+    const file = e.target.files[0];
+    ReactS3.upload(file, config).then(result => {
+      const newLessonTitleName = { ...lessonTitle, image: result.location };
       this.setState({
         lessonTitles: this.state.lessonTitles.map(
-          (lessonTitle, i) => (i === index ? newLessonTitleImage : lessonTitle)
+          (lessonTitle, i) => (i === index ? newLessonTitleName : lessonTitle)
         )
       });
-    };
+    });
   };
 
   addLessonTitlesHandler = e => {
@@ -107,6 +114,7 @@ class Form extends React.Component {
                               }
                               accept="image/*"
                             />
+                            {/* <imageUploader/> */}
                           </label>
                         </div>
                       ) : (
@@ -130,7 +138,7 @@ class Form extends React.Component {
                 </div>
               );
             })}
-        </div >
+        </div>
         <Button
           className="btn btn-outline-dark lessonBtn"
           value="Add"

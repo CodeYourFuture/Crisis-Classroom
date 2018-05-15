@@ -43,7 +43,7 @@ export default class NavbarFeatures extends Component {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/projects">
-                  projects
+                  Projects
                 </Link>
               </li>
               <li className="nav-item">

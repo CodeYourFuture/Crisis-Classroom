@@ -4,9 +4,7 @@ import "./style.css";
 const RegistrationDone = () => {
   return (
     <div className="not-found">
-      <p>Welcome to Crisis ClassRoom Thanks for your patience.</p>
-      <p>We will accepte your registration as soon as possible.</p>
-      <p></p>
+      <p>Thank you for registrating. We will be in touch shortly by email to welcome you to Crisis Classroom.</p>
     </div>
   );
 };

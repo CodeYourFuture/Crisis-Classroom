@@ -36,8 +36,8 @@ class ConfirmRegistration extends Component {
     return (
       <div className="lesson-form">
         <h3>
-          Hello  {state.firstName} , please check your details and complete your
-          registration
+          Hi {state.firstName}, please check the below details and click 'Looks fine'.
+          
         </h3>
         <ul>
           <li>First name: {state.firstName}</li>

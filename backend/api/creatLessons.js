@@ -5,6 +5,7 @@ let db = new sqlite3.Database(filename);
 
 const creatLessons = (req, res) => {
   const lessonId = Date.now().toString();
+  console.log(req.body)
   const lesson = {
     lessonTitles: [
       {
@@ -74,26 +75,26 @@ const saveLessonId= (lessonId) => {
 };
 const saveLessonTitle = (lessonTitle, lessonId) => {
   var sql = `insert into lessonTitles
-    (lessonId, name, image)
-    values (?, ?, ?)`;
-  db.run(sql, [lessonId, lessonTitle.name, lessonTitle.image]);
+    (lessonId ,lessonTitleId, lessonTitleName, lessonTitleImage)
+    values (?, ?, ?,?)`;
+  db.run(sql, [lessonId, req.body.lessonTitleId, req.body.lessonTitleName, req.body.lessonTitleImage]);
 };
 const saveTool = (tool, lessonId) => {
   var sql = `insert into tools
-    (lessonId, name, image)
-    values (?, ?, ?)`;
-  db.run(sql, [lessonId, tool.name, tool.image]);
-};
+    (lessonId,toolId, toolName, toolImage)
+    values (?, ?, ?, ?)`;
+  db.run(sql, [lessonId,req.boy.toolId, req.body.toolName, req.body.toolImage]);
+}
 const saveIngredient = (ingredient, lessonId) => {
   var sql = `insert into ingredients
-    (lessonId, name, image)
-    values (?, ?, ?)`;
-  db.run(sql, [lessonId, ingredient.name, ingredient.image]);
+    (lessonId, ingredientId, ingredientName, ingredientImage)
+    values (?, ?, ?, ?)`;
+  db.run(sql, [lessonId, req.body.ingredientId , req.body.ingredientName, req.body.ingredientImage]);
 };
 const saveInstruction = (instruction, lessonId) => {
   var sql = `insert into instructions
-    (lessonId, name, image)
-    values (?, ?, ?)`;
-  db.run(sql, [lessonId, instruction.name, instruction.image]);
+    (lessonId,instructionId, instructionName, instructionImage)
+    values (?, ?, ?, ?)`;
+  db.run(sql, [lessonId, req.bod.instructionId, req.body.instructionName, req.body.instructionImage]);
 };
 module.exports = creatLessons;

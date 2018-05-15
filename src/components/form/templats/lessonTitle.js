@@ -89,10 +89,10 @@ class Form extends React.Component {
     });
   };
 
-  render() {
+  render(i) {
     return (
       <div>
-        <div>
+        <div key={i}>
           <h2>Lesson Title </h2>
           {this.state.lessonTitles &&
             this.state.lessonTitles.map(

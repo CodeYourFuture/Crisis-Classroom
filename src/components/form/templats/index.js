@@ -64,7 +64,7 @@ export default class LessonForm extends React.Component {
       <ToolsForm />,
       <Ingredients />,
       <Instructions />,
-      <Purview />
+      <Purview history={this.props.history}/>
     ];
     const context = {
       tools,

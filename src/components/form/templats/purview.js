@@ -8,12 +8,13 @@ export default class preview extends React.Component {
   onSubmit = lessonData => {
     axios
       .post("http://localhost:8080/creat-lessons", lessonData)
-      // .then(result => {
-      //   console.log(result);
-      // })
-      // .catch(err => {
-      //   console.log(err);
-      // });
+      .then(result => {
+        console.log(result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+      this.props.history.replace("/template-created")
   };
 
   render() {
@@ -120,7 +121,7 @@ export default class preview extends React.Component {
                 &nbsp;
                 <Button
                   className="btn btn-outline-dark "
-                  value="Save"
+                  value="Create"
                   onClick={() =>
                     this.onSubmit({
                       lessonTitles,
@@ -138,130 +139,3 @@ export default class preview extends React.Component {
     );
   }
 }
-
-/* <Grid fluid className="grid-container">
-          <Row className="mian-row">
-            <Col className="box" lg={3} {...this.props}>
-            <div>
-                <Context.Consumer>
-                  {({ lessonTitles }) =>
-                    lessonTitles.map(
-                      // lessonTitleId
-                      (lessonTitle, i) => {
-                        
-                        if (lessonTitle.lessonTitleId === 1) {
-                          return
-                           
-                          <div key={i}>
-                        
-                            <h4>{lessonTitle.lessonTitleName}</h4>
-                            <img
-                              className="image"
-                              width="50px"
-                              src={lessonTitle.lessonTitleImage}
-                              alt="lesson Title "
-                            />
-                          </div>;
-                           
-                          
-                        } 
-                        if(lessonTitle.lessonTitleId ===2){
-                          return
-
-                          <div key={i}>
-                            <h4>{lessonTitle.name}</h4>
-                            <img
-                              className="image"
-                              width="50px"
-                              src={lessonTitle.lessonTitleImage}
-                              alt="lesson Title "
-                            />
-                          </div>;
-                        }
-                        if(lessonTitle.lessonTitleId===3){
-                          <div key={i}>
-                            <h4>{lessonTitle.name}</h4>
-                            <img
-                              className="image"
-                              width="50px"
-                              src={lessonTitle.lessonTitleImage}
-                              alt="lesson Title "
-                            />
-                          </div>;
-
-
-                        }
-                        return
-                      }
-                    )
-                  }
-                </Context.Consumer>
-              </div>
-            </Col>
-            <Col className="box" lg={3} {...this.props}>
-              <div>
-                <Context.Consumer>
-                  {({ tools }) =>
-                    tools.map((tool, i) => (
-                      <div className="preview-items" key={i}>
-                        <h6>{tool.toolName}</h6>
-                        <img
-                          className="preview-image"
-                          width="50px"
-                          src={tool.toolImage}
-                          alt="tool"
-                        />
-                      </div>
-                      console.log(tool)
-                    ))
-                  }
-                </Context.Consumer>
-              </div>
-            </Col>
-            <Col className="box" lg={3} {...this.props}>
-              <div>
-                <Context.Consumer>
-                  {({ ingredients }) =>
-                    ingredients.map((ingredient, i) => (
-                      <div className="preview-items" key={i}>
-                        <h6>{ingredient.ingredientName}</h6>
-
-                        <img
-                          className="image"
-                          width="50px"
-                          src={ingredient.ingredientImage}
-                          alt="lesson Title"
-                          key={i}
-                        />
-                      </div>
-                      console.log(ingredient.ingredientName)
-                    ))
-                  }
-                </Context.Consumer>
-              </div>
-            </Col>
-
-            <Col className="box" lg={3} {...this.props}>
-              <div>
-                <Context.Consumer>
-                  {({ instructions }) =>
-                    instructions.map((instruction, i) => (
-                      <div className="preview-items" key={i}>
-                        <h6>{instruction.instructionName}</h6>
-
-                        <img
-                          className="image"
-                          width="50px"
-                          src={instruction.instructionImage}
-                          alt="instruction imag"
-                          key={i}
-                        />
-                      </div>
-                      console.log(instruction)
-                    ))
-                  }
-                </Context.Consumer>
-              </div>
-            </Col>
-          </Row>
-        </Grid> */

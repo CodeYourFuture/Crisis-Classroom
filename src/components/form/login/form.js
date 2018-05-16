@@ -48,7 +48,7 @@ class Login extends Component {
                 className="form-control"
                 name="userName"
                 type="text"
-                placeholder="UserName"
+                placeholder="Username"
                 value={this.state.userName}
                 onChange={this.handleChange}
               />

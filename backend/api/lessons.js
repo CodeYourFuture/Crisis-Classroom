@@ -5,9 +5,20 @@ const filename = "./database/crisisdb.sqlit";
 let db = new sqlite3.Database(filename);
 
 const lessonTitle = (req, res) => {
-  var sql = `select * from lessonTitles UNION select * from tools UNION select * from ingredients UNION select * from instructions`;
+  var sql = `select
+   lessonTitleName, 
+   lessonTitleImage, 
+   toolName, 
+   toolImage, 
+   ingredientName, 
+   ingredientImage, 
+   instructionName, 
+   instructionImage 
+   from 
+   lessonTitles 
+   join tools 
+   join ingredients join instructions join lessons where lessons.lessonId = lessons.lessonId`;
   db.all(sql, [], (err, rows) => {
-    console.log(rows)
     if (err) {
       res.status(500).end();
     } else {

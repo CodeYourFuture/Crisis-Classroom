@@ -80,7 +80,7 @@ class Form extends React.Component {
                   <div className="lessonForm" key={instructionId}>
                     <div className="form-group">
                       <Label value="instruction Name" />
-                      <div className="row">
+                      <div className="lessonInput">
                         <Input
                           className="form-control"
                           type="text"

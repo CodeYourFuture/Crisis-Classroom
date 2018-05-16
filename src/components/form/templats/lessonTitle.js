@@ -81,7 +81,7 @@ class Form extends React.Component {
   };
 
 
-  //ameer pleaze make it work
+ 
   removeLessonTitlesHandler = i => {
     const { lessonTitles } = this.state;
     this.setState({
@@ -149,12 +149,12 @@ class Form extends React.Component {
                             </div>
                           </div>
                         )}
-                        &nbsp;
+                        {/* &nbsp;
                         <Button
                           className="btn btn-outline-danger lessonBtn"
                           value="Remove"
                           onClick={() => this.removeLessonTitlesHandler(i)}
-                        />
+                        /> */}
                       </div>
                     </div>
                   </div>

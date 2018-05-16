@@ -4,27 +4,145 @@ import Button from "../../button";
 import { Grid, Row, Col } from "react-flexbox-grid/lib";
 import axios from "axios";
 
-export default class Purview extends React.Component {
+export default class preview extends React.Component {
   onSubmit = lessonData => {
-    console.log(lessonData);
     axios
       .post("http://localhost:8080/creat-lessons", lessonData)
-      .then(result => {
-        console.log(result);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      // .then(result => {
+      //   console.log(result);
+      // })
+      // .catch(err => {
+      //   console.log(err);
+      // });
   };
 
   render() {
     return (
       <div>
-        <h2>Preview</h2>
-        <Grid fluid className="grid-container">
+        <h2 className="Preview-h2">Preview</h2>
+        <Context.Consumer>
+          {context => {
+            return (
+              <Grid fluid className="grid-container">
+                <Row className="mian-row">
+                  <Col className="box" lg={3} {...this.props}>
+                    {context.lessonTitles.map((lessonTitle, i) => {
+                      return (
+                        <div key={i}>
+                          {lessonTitle.lessonTitleId === 1 ? (
+                            <div className="preview-title-items">
+                              <h2>{lessonTitle.lessonTitleName}</h2>
+                              <img
+                                className="preview-title-image"
+                                src={lessonTitle.lessonTitleImage}
+                                alt="lessonTitle"
+                              />
+                            </div>
+                          ) : (
+                            <div className="preview-items">
+                              <h6>{lessonTitle.lessonTitleName}</h6>
+                              <img
+                                className="preview-image"
+                                src={lessonTitle.lessonTitleImage}
+                                alt="lessonTitle"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                    <hr className="preview-hr" />
+                    <h4>Tools</h4>
+                    {context.tools.map((tool, i) => (
+                      <div className="preview-items" key={i}>
+                        <h6>{tool.toolName}</h6>
+                        <img
+                          className="preview-image"
+                          width="50px"
+                          src={tool.toolImage}
+                          alt="tool"
+                        />
+                      </div>
+                    ))}
+                  </Col>
+                  <Col className="box" lg={3} {...this.props}>
+                    <h4>Ingredients</h4>
+                    {context.ingredients.map((ingredient, i) => (
+                      <div className="preview-items" key={i}>
+                        <h6>{ingredient.ingredientName}</h6>
+                        <img
+                          className="preview-image"
+                          width="50px"
+                          src={ingredient.ingredientImage}
+                          alt="ingredient"
+                        />
+                      </div>
+                    ))}
+                  </Col>
+                  <Col className="box" lg={3} {...this.props}>
+                    <h4>Instructions</h4>
+                    {context.instructions.map((instruction, i) => {
+                      return (
+                        <div className="preview-items" key={i}>
+                          <h6>{instruction.instructionName}</h6>
+                          <img
+                            className="preview-image"
+                            width="50px"
+                            src={instruction.instructionImage}
+                            alt="instruction"
+                          />
+                        </div>
+                      );
+                    })}
+                  </Col>
+                  <Col className="box" lg={3} {...this.props} />
+                </Row>
+              </Grid>
+            );
+          }}
+        </Context.Consumer>
+        <Context.Consumer>
+          {context => {
+            const {
+              lessonTitles,
+              tools,
+              ingredients,
+              instructions,
+              previousFormHandler
+            } = context;
+            return (
+              <div style={{ display: "flex" }}>
+                <Button
+                  className="btn btn-outline-dark "
+                  value="previous"
+                  onClick={previousFormHandler}
+                />
+                &nbsp;
+                <Button
+                  className="btn btn-outline-dark "
+                  value="Save"
+                  onClick={() =>
+                    this.onSubmit({
+                      lessonTitles,
+                      tools,
+                      ingredients,
+                      instructions
+                    })
+                  }
+                />
+              </div>
+            );
+          }}
+        </Context.Consumer>
+      </div>
+    );
+  }
+}
+
+/* <Grid fluid className="grid-container">
           <Row className="mian-row">
-            {/* <Col className="box" lg={3} {...this.props}> */}
-            {/* <div>
+            <Col className="box" lg={3} {...this.props}>
+            <div>
                 <Context.Consumer>
                   {({ lessonTitles }) =>
                     lessonTitles.map(
@@ -79,21 +197,21 @@ export default class Purview extends React.Component {
                   }
                 </Context.Consumer>
               </div>
-            </Col> */}
+            </Col>
             <Col className="box" lg={3} {...this.props}>
               <div>
                 <Context.Consumer>
                   {({ tools }) =>
                     tools.map((tool, i) => (
-                      // <div className="purview-items" key={i}>
-                      //   <h5>{tool.toolName}</h5>
-                      //   <img
-                      //     className="purview-image"
-                      //     width="50px"
-                      //     src={tool.toolImage}
-                      //     alt="tool"
-                      //   />
-                      // </div>
+                      <div className="preview-items" key={i}>
+                        <h6>{tool.toolName}</h6>
+                        <img
+                          className="preview-image"
+                          width="50px"
+                          src={tool.toolImage}
+                          alt="tool"
+                        />
+                      </div>
                       console.log(tool)
                     ))
                   }
@@ -105,17 +223,17 @@ export default class Purview extends React.Component {
                 <Context.Consumer>
                   {({ ingredients }) =>
                     ingredients.map((ingredient, i) => (
-                      // <div className="purview-items" key={i}>
-                      //   <h5>{ingredient.ingredientName}</h5>
+                      <div className="preview-items" key={i}>
+                        <h6>{ingredient.ingredientName}</h6>
 
-                      //   <img
-                      //     className="image"
-                      //     width="50px"
-                      //     src={ingredient.ingredientImage}
-                      //     alt="lesson Title"
-                      //     key={i}
-                      //   />
-                      // </div>
+                        <img
+                          className="image"
+                          width="50px"
+                          src={ingredient.ingredientImage}
+                          alt="lesson Title"
+                          key={i}
+                        />
+                      </div>
                       console.log(ingredient.ingredientName)
                     ))
                   }
@@ -128,17 +246,17 @@ export default class Purview extends React.Component {
                 <Context.Consumer>
                   {({ instructions }) =>
                     instructions.map((instruction, i) => (
-                      // <div className="purview-items" key={i}>
-                      //   <h5>{instruction.instructionName}</h5>
+                      <div className="preview-items" key={i}>
+                        <h6>{instruction.instructionName}</h6>
 
-                      //   <img
-                      //     className="image"
-                      //     width="50px"
-                      //     src={instruction.instructionImage}
-                      //     alt="instruction imag"
-                      //     key={i}
-                      //   />
-                      // </div>
+                        <img
+                          className="image"
+                          width="50px"
+                          src={instruction.instructionImage}
+                          alt="instruction imag"
+                          key={i}
+                        />
+                      </div>
                       console.log(instruction)
                     ))
                   }
@@ -146,42 +264,4 @@ export default class Purview extends React.Component {
               </div>
             </Col>
           </Row>
-        </Grid>
-        <Context.Consumer>
-          {context => {
-            const {
-              // onAddLessonTitles,
-              lessonTitles,
-              tools,
-              ingredients,
-              instructions,
-              previousFormHandler
-            } = context;
-            return (
-              <div>
-                <Button
-                  className="btn btn-outline-dark "
-                  value="previous"
-                  onClick={previousFormHandler}
-                />
-                <Button
-                  className="btn btn-outline-dark "
-                  value="Save"
-                  onClick={() =>
-                    this.onSubmit({
-                      lessonTitles,
-                      tools,
-                      ingredients,
-                      instructions
-                    })
-                  }
-                />
-              </div>
-            );
-          }}
-        </Context.Consumer>
-      </div>
-    );
-  }
-}
-//  onAddLessonTitles, lessonTitles, previousFormHandler
+        </Grid> */

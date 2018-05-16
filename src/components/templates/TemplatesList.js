@@ -50,7 +50,7 @@ export default class TemplatIndex extends Component {
                 {e.lessons.lessonTitle || "[no description]"}
                 <img
                   className="templetsItemImg"
-                  src={require(`../../image/archive/${e.lessons.lessonImg}`)}
+                  src={require(`../../image/${e.lessons.lessonImg}`)}
                   alt={e.lessons.lessonTitle}
                 />
               </Link>

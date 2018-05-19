@@ -1,7 +1,13 @@
 import React from "react";
 
 const Context = React.createContext({
-  lessonTitles: [],
+  lessonTitle: "",
+  lessonTitleImage: "",
+  timeToPrepare: "",
+  timeToPrepareImage: "",
+  numberOfPeople: "",
+  numberOfPeopleImage: "",
+
   tools: [],
   ingredients: [],
   instructions: [],
@@ -9,6 +15,6 @@ const Context = React.createContext({
   onAddTools: null,
   onAddIngredients: null,
   onAddInstructions: null,
-  previousFormHandler: null,
+  previousFormHandler: null
 });
 export default Context;

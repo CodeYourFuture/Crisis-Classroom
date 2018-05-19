@@ -35,7 +35,7 @@ class Form extends React.Component {
     const tool = this.state.tools[index];
     const file = e.target.files[0];
     ReactS3.upload(file, config).then(result => {
-      const newToolImage = { ...tool, toolImage: result.location};
+      const newToolImage = { ...tool, toolImage: result.location };
       this.setState({
         tools: this.state.tools.map(
           (tool, i) => (i === index ? newToolImage : tool)
@@ -62,6 +62,13 @@ class Form extends React.Component {
     });
     this.setState({
       tools
+    });
+  };
+
+  removeLessonTitlesHandler = i => {
+    const { lessonTitles } = this.state;
+    this.setState({
+      lessonTitles: lessonTitles.splice(-i, 1)
     });
   };
 
@@ -116,6 +123,12 @@ class Form extends React.Component {
                           </div>
                         </div>
                       )}
+                      &nbsp;
+                      <Button
+                        className="btn btn-outline-danger lessonBtn"
+                        value="Remove"
+                        onClick={() => this.removeLessonTitlesHandler(i)}
+                      />
                     </div>
                   </div>
                 </div>
@@ -128,7 +141,7 @@ class Form extends React.Component {
           onClick={this.addToolsHandler}
         />
         &nbsp;
-        <div style={{display:"flex"}}>
+        <div style={{ display: "flex" }}>
           <Button
             className="btn btn-outline-dark"
             value="previous"

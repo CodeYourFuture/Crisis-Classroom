@@ -1,6 +1,6 @@
 import React from "react";
 import Context from "./context";
-import LessonTitle from "./lessonTitle";
+import Lesson from "./lesson";
 import ToolsForm from "./ToolsForm";
 import Ingredients from "./Ingredients";
 import Instructions from "./Instructions";
@@ -14,7 +14,12 @@ export default class LessonForm extends React.Component {
     super(props);
     this.state = {
       activeForm: 0,
-      lessonTitles: [],
+      lessonTitle: "",
+      lessonTitleImage: "",
+      timeToPrepare: "",
+      timeToPrepareImage: "",
+      numberOfPeople: "",
+      numberOfPeopleImage: "",
       ingredients: [],
       instructions: [],
       tools: []
@@ -31,8 +36,24 @@ export default class LessonForm extends React.Component {
     this.nextFormHandler();
   };
 
-  onAddLessonTitles = lessonTitles => {
-    this.setState({ lessonTitles });
+  onAddLesson = lesson => {
+    const {
+      lessonTitle,
+      lessonTitleImage,
+      timeToPrepare,
+      timeToPrepareImage,
+      numberOfPeople,
+      numberOfPeopleImage
+    } = lesson;
+
+    this.setState({
+      lessonTitle,
+      lessonTitleImage,
+      timeToPrepare,
+      timeToPrepareImage,
+      numberOfPeople,
+      numberOfPeopleImage
+    });
     this.nextFormHandler();
   };
 
@@ -58,32 +79,45 @@ export default class LessonForm extends React.Component {
   };
 
   render() {
-    const { tools, ingredients, lessonTitles, instructions } = this.state;
+    const {
+      lessonTitle,
+      lessonTitleImage,
+      timeToPrepare,
+      timeToPrepareImage,
+      numberOfPeople,
+      numberOfPeopleImage,
+      tools,
+      ingredients,
+      instructions
+    } = this.state;
     var forms = [
-      <LessonTitle />,
+      <Lesson />,
       <ToolsForm />,
       <Ingredients />,
       <Instructions />,
-      <Purview history={this.props.history}/>
+      <Purview history={this.props.history} />
     ];
     const context = {
+      lessonTitle,
+      lessonTitleImage,
+      timeToPrepare,
+      timeToPrepareImage,
+      numberOfPeople,
+      numberOfPeopleImage,
+      onAddLesson: this.onAddLesson,
       tools,
       onAddTools: this.onAddTools,
       ingredients,
       onAddIngredients: this.onAddIngredients,
-      lessonTitles,
-      onAddLessonTitles: this.onAddLessonTitles,
       instructions,
       onAddInstructions: this.onAddInstructions,
-      previousFormHandler:this.previousFormHandler
+      previousFormHandler: this.previousFormHandler
     };
     return (
       <div>
         <Context.Provider value={context}>
           <h2 className="text-center">Create A New Template</h2>
-          <div className="lesson-form">
-            {forms[this.state.activeForm]}
-          </div>
+          <div className="lesson-form">{forms[this.state.activeForm]}</div>
         </Context.Provider>
       </div>
     );

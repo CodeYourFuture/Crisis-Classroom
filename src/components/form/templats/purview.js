@@ -14,7 +14,7 @@ export default class preview extends React.Component {
       .catch(err => {
         console.log(err);
       });
-      this.props.history.replace("/template-created")
+    this.props.history.replace("/template-created");
   };
 
   render() {
@@ -27,31 +27,34 @@ export default class preview extends React.Component {
               <Grid fluid className="grid-container">
                 <Row className="mian-row">
                   <Col className="box" lg={3} {...this.props}>
-                    {context.lessonTitles.map((lessonTitle, i) => {
-                      return (
-                        <div key={i}>
-                          {lessonTitle.lessonTitleId === 1 ? (
-                            <div className="preview-title-items">
-                              <h2>{lessonTitle.lessonTitleName}</h2>
-                              <img
-                                className="preview-title-image"
-                                src={lessonTitle.lessonTitleImage}
-                                alt="lessonTitle"
-                              />
-                            </div>
-                          ) : (
-                            <div className="preview-items">
-                              <h6>{lessonTitle.lessonTitleName}</h6>
-                              <img
-                                className="preview-image"
-                                src={lessonTitle.lessonTitleImage}
-                                alt="lessonTitle"
-                              />
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
+                    <div>
+                      <div className="preview-title-items">
+                        <h2>{context.lessonTitle}</h2>
+                        <img
+                          className="preview-title-image"
+                          src={context.lessonTitleImage}
+                          alt="lessonTitle"
+                        />
+                      </div>
+                      <div className="preview-items">
+                        <h6>{context.timeToPrepare}</h6>
+                        <img
+                          className="preview-image"
+                          width="50px"
+                          src={context.timeToPrepareImage}
+                          alt="ingredient"
+                        />
+                      </div>
+                      <div className="preview-items">
+                        <h6>{context.numberOfPeople}</h6>
+                        <img
+                          className="preview-image"
+                          width="50px"
+                          src={context.numberOfPeopleImage}
+                          alt="ingredient"
+                        />
+                      </div>
+                    </div>
                     <hr className="preview-hr" />
                     <h4>Tools</h4>
                     {context.tools.map((tool, i) => (

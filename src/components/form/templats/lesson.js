@@ -4,6 +4,7 @@ import Label from "../../label";
 import Button from "../../button";
 import Context from "./context";
 import ReactS3 from "react-s3";
+import axios from "axios"
 import "./style.css";
 
 const config = {
@@ -34,17 +35,36 @@ class Form extends React.Component {
     });
   };
 
-  onChangeImageLessonhandler = e => {
-    const file = e.target.files[0];
-    const { name } = e.target;
-    ReactS3.upload(file, config).then(result => {
-      const image = result.location;
-      this.setState({
-        ...this.state,
-        [name]: image
+
+  onChangeImageLessonhandler = event => {
+    const data = new FormData();
+    data.append("file", event.target.files[0]);
+    data.append("name", "file name");
+    data.append("description", "about file");
+
+    axios
+      .post("http://localhost:8080/files", data)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
       });
-    });
   };
+  // onChangeImageLessonhandler = e => {
+  //   const file = e.target.files[0];
+  //   const { name } = e.target;
+  //   ReactS3.upload(file, config).then(result => {
+  //     const image = result.location;
+  //     this.setState({
+  //       ...this.state,
+  //       [name]: image
+  //     });
+  //   });
+  // };
+
+
+
 
   removeImageHandler = e => {
     const file = e.target.name;

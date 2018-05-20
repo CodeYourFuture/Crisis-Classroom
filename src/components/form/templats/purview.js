@@ -9,12 +9,15 @@ export default class preview extends React.Component {
     axios
       .post("http://localhost:8080/creat-lessons", lessonData)
       .then(result => {
-        console.log(result);
+        if(result){
+          // this.props.history.replace("/template-created");
+          console.log(result);
+        }
       })
       .catch(err => {
+        // alert(err)
         console.log(err);
       });
-    this.props.history.replace("/template-created");
   };
 
   render() {
@@ -108,7 +111,12 @@ export default class preview extends React.Component {
         <Context.Consumer>
           {context => {
             const {
-              lessonTitles,
+              lessonTitle,
+              lessonTitleImage,
+              timeToPrepare,
+              timeToPrepareImage,
+              numberOfPeople,
+              numberOfPeopleImage,
               tools,
               ingredients,
               instructions,
@@ -127,7 +135,12 @@ export default class preview extends React.Component {
                   value="Create"
                   onClick={() =>
                     this.onSubmit({
-                      lessonTitles,
+                      lessonTitle,
+                      lessonTitleImage,
+                      timeToPrepare,
+                      timeToPrepareImage,
+                      numberOfPeople,
+                      numberOfPeopleImage,
                       tools,
                       ingredients,
                       instructions

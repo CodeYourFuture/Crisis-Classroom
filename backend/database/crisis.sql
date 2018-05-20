@@ -22,19 +22,14 @@ create table survey
 );
 create table lessons
 (
-    lessonId integer primary key
-);
-
-create table lessonTitles
-(
     id integer primary key,
-    lessonId text,
-    lessonTitleId text,
-    lessonTitleName text,
+    lessonTitle text,
     lessonTitleImage text,
-    foreign key(lessonId) references lessons(lessonId)
+    timeToPrepare text,
+    timeToPrepareImage text,
+    numberOfPeople text,
+    numberOfPeopleImage text
 );
-
 create table tools
 (
     id integer primary key,
@@ -42,9 +37,8 @@ create table tools
     toolId text,
     toolName text,
     toolImage text,
-    foreign key(lessonId) references lessons(lessonId)
+    foreign key(lessonId) references lessons(id)
 );
-
 create table ingredients
 (
     id integer primary key,
@@ -52,7 +46,7 @@ create table ingredients
     ingredientId text,
     ingredientName text,
     ingredientImage text,
-    foreign key(lessonId) references lessons(lessonId)
+    foreign key(lessonId) references lessons(id)
 );
 create table instructions
 (
@@ -61,7 +55,7 @@ create table instructions
     instructionId text,
     instructionName text,
     instructionImage text,
-    foreign key(lessonId) references lessons(lessonId)
+    foreign key(lessonId) references lessons(id)
 );
 
 

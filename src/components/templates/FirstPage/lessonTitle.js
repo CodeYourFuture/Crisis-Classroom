@@ -8,7 +8,7 @@ export default class LessonTitle extends React.Component {
         <h2>{this.props.lessonTitle}</h2>
         <img
           className="lessonImg"
-          src={require(`../../../image/archive/${this.props.lessonImg}`)}
+          src={require(`../../../image/${this.props.lessonImg}`)}
           alt={this.props.lessonTitle}
         />
       </div>

@@ -40,18 +40,21 @@
   border: 1px;
   align-items: center;
   position: relative;
+  margin-left: auto;  
+  
 }
 .colSymbole {
   width: 25%;
   align-items: end;
+  margin-left: auto;  
+  
 }
 .Symbole {
   width: 100%;
   border-radius: 10px;
+
 }
-hr {
-  border-top: 3px double #8c8b8b;
-}
+
 .hr {
   width: 80%;
   background-color: #fff;

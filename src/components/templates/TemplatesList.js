@@ -36,7 +36,7 @@ export default class TemplatIndex extends Component {
           <Input
             onChange={this.searchHandler}
             type="text"
-            placeholder="Search for templete"
+            placeholder="Search for template"
           />
           <Link to="/add-new-templet" className="push">
             <button className="btn btn-primary">Add One</button>
@@ -50,7 +50,7 @@ export default class TemplatIndex extends Component {
                 {e.lessons.lessonTitle || "[no description]"}
                 <img
                   className="templetsItemImg"
-                  src={require(`../../image/archive/${e.lessons.lessonImg}`)}
+                  src={require(`../../image/${e.lessons.lessonImg}`)}
                   alt={e.lessons.lessonTitle}
                 />
               </Link>

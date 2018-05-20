@@ -24,7 +24,7 @@ class Login extends Component {
 
     this.Auth.login(this.state.userName, this.state.password)
       .then(res => {
-        this.props.history.replace("/welecome");
+        if (this.Auth.loggedIn()) this.props.history.replace("/welecome");
       })
       .catch(err => {
         alert(err);
@@ -39,22 +39,22 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <h3>To See Templates Please LogIn</h3>
-        <div className="lesson-form">
+        <h3>To See Templates Please Login</h3>
+        <div className="login-form">
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
-              <Label value="User Name" />
+              <Label value="Username *" />
               <Input
                 className="form-control"
                 name="userName"
                 type="text"
-                placeholder="UserName"
+                placeholder="Username"
                 value={this.state.userName}
                 onChange={this.handleChange}
               />
             </div>
             <div className="form-group">
-              <Label value="Password" />
+              <Label value="Password *" />
               <Input
                 className="form-control"
                 name="password"
@@ -69,7 +69,7 @@ class Login extends Component {
 
               <div className="row">
                 &nbsp; &nbsp;
-                <Button className="btn btn-outline-dark" value="LogIn" />
+                <Button className="btn btn-outline-dark" value="Login" />
                 &nbsp;
                 <Link to="/register" className="btn btn-outline-dark">
                   Register

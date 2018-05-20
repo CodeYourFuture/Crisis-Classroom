@@ -6,7 +6,7 @@ import Home from "../containers/Home";
 import Register from "../components/form/register/index";
 import Templates from "../containers/Templates.jsx";
 import Login from "../components/form/login/form";
-import LessonForm from "../components/form/templet/newTemplet";
+import LessonForm from "../components/form/templats/index";
 import News from "../../src/components/pages/News";
 import Meet from "../../src/components/pages/Meet";
 import Day1 from "../../src/components/pages/Day1";
@@ -18,9 +18,12 @@ import Teacher from "../components/navbarPages/Teacher";
 import Training from "../components/navbarPages/Training";
 import About from "../components/navbarPages/About";
 import Projects from "../components/navbarPages/Projects";
-import NotFound from "../components/pages/notFound"
-import "./style.css";
+import NotFound from "../components/pages/notFound";
 import Survey from "../components/pages/Survey";
+import RegistrationDone from "../components/form/register/Registration-done";
+import ImageUploader from "../components/imageUploader";
+import TemplateCreated from "../components/form/templats/templateCreated";
+
 
 class Routes extends Component {
   render() {
@@ -42,13 +45,13 @@ class Routes extends Component {
         <Layout path="/register" component={Register} />
         <Layout exact path="/welecome" component={Welecome} />
         <Layout exact path="/notfound" component={NotFound} />
+        <Layout exact path="/image-uploader" component={ImageUploader} />
+        <Layout exact path="/registration-done" component={RegistrationDone} />
+        <Layout exact path="/template-created" component={TemplateCreated} />
         <PrivateRoute path="/templates" component={Templates} />
       </Switch>
     );
   }
 }
 
-
-
 export default Routes;
-

@@ -5,7 +5,6 @@ let db = new sqlite3.Database(filename);
 
 const creatLessons = (req, res) => {
   const lessonId = Date.now().toString();
-  // console.log(req.body);
   const lesson = req.body;
 
     const {

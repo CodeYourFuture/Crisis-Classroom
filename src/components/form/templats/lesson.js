@@ -4,7 +4,7 @@ import Label from "../../label";
 import Button from "../../button";
 import Context from "./context";
 import ReactS3 from "react-s3";
-import axios from "axios"
+// import axios from "axios";
 import "./style.css";
 
 const config = {

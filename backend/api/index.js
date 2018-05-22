@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-const users = require("./users");
+const logIn = require("./logIn");
 const lessons = require("./lessons");
 const checkUserName = require("./checkUserName");
 const checkEmail = require("./checkEmail");
@@ -29,7 +29,7 @@ const api = () => {
   const router = express.Router();
   router.post("/register", register);
   router.get("/lessons", lessons);
-  router.post("/login", users.login);
+  router.post("/login", logIn.login);
   router.post("/check-email", checkEmail);
   router.post("/check-user-name", checkUserName);
   router.post("/survey", survey);

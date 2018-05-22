@@ -5,38 +5,65 @@ const filename = "./database/crisisdb.sqlit";
 let db = new sqlite3.Database(filename);
 
 const lessonTitle = (req, res) => {
-  var sql = `select * from tools `;
-  db.all(sql, [], (err, rows) => {
-    if (err) {
-      res.status(500).end();
-    } else {
-      res.status(200).json({
-        lesson: rows
-      });
-    }
+  getLessons()
+    .then(lessons => Promise.all(lessons.map(lesson => getLessonData(lesson))))
+    .then(lessonsPlusData => res.json(lessonsPlusData))
+    .catch(err => res.status(400).json(err));
+};
+
+const getLessonData = lesson => {
+  return Promise.all([
+    getTools(lesson.id),
+    getIngredients(lesson.id),
+    getInstructions(lesson.id)
+  ]).then(([tools, ingredients, instructions]) => {
+    return {
+      ...lesson,
+      tools: tools,
+      ingredients: ingredients,
+      instructions: instructions
+    };
   });
 };
-// const tool = (req, res) => {
-//   var sql = `select * from tools`;
-//   db.all(sql, [], (err, rows) => {
-//     if (err) {
-//       res.status(500).end();
-//     } else {
-//       res.status(200).json({
-//         tools: rows
-//       });
-//     }
-//   });
-// };
-// const ingredient = (req, res) => {
-//   var sql = `select * from ingredients`;
 
-//   db.all(sql, [], (err, ingredients) => {});
-// };
-// const instruction = (req, res) => {
-//   var sql = `select * from instructions `;
+const getLessons = () => {
+  return new Promise((resolve, reject) => {
+    var sql = `select * from lessons`;
+    db.all(sql, [], (err, data) => {
+      if (err) return reject(err);
+      return resolve(data);
+    });
+  });
+};
 
-//   db.all(sql, [], (err, instructions) => {});
-// };
+const getTools = lessonId => {
+  return new Promise((resolve, reject) => {
+    var sql = `select * from tools where tools.lessonId= ?`;
+    db.all(sql, [lessonId], (err, data) => {
+      if (err) return reject(err);
+      return resolve(data);
+    });
+  });
+};
+
+const getIngredients = lessonId => {
+  return new Promise((resolve, reject) => {
+    var sql = `select * from ingredients where ingredients.lessonId=?`;
+    db.all(sql, [lessonId], (err, data) => {
+      if (err) return reject(err);
+      return resolve(data);
+    });
+  });
+};
+
+const getInstructions = lessonId => {
+  return new Promise((resolve, reject) => {
+    var sql = `select * from instructions where instructions.lessonId=?`;
+    db.all(sql, [lessonId], (err, data) => {
+      if (err) return reject(err);
+      return resolve(data);
+    });
+  });
+};
 
 module.exports = lessonTitle;

@@ -33,7 +33,7 @@ create table lessons
 create table tools
 (
     id integer primary key,
-    lessonId text,
+    lessonId integer,
     toolId text,
     toolName text,
     toolImage text,
@@ -42,7 +42,7 @@ create table tools
 create table ingredients
 (
     id integer primary key,
-    lessonId text,
+    lessonId integer,
     ingredientId text,
     ingredientName text,
     ingredientImage text,
@@ -51,7 +51,7 @@ create table ingredients
 create table instructions
 (
     id integer primary key,
-    lessonId text,
+    lessonId integer,
     instructionId text,
     instructionName text,
     instructionImage text,

@@ -17,7 +17,7 @@ export default class Teacher extends Component {
           of self so that life can begin.
         </p>
         <img
-          src="https://i2.wp.com/www.favouriteblog.com/wp-content/uploads/2017/11/17-Fun-Machine-Learning-Projects-for-Beginners.jpg?resize=600%2C300&ssl=1"
+          src={require("../../image/archive/17-Fun-Machine-Learning-Projects-for-Beginners.jpg")}
           alt="projects"
           className="welcome"
         />
@@ -27,20 +27,14 @@ export default class Teacher extends Component {
           <div className="col-xs-12 col-sm-4 item  ">
             <figure className="thumbnail">
               <div className="mask-img">
-                <a
-                  href="https://www.crisisclassroom.com/projects/from-brighton-to-the-balkans"
-                  className="link-6"
-                >
-                  <img
-                    src="https://www.crisisclassroom.com//media/files/MelissaAlon.jpg"
-                    width="100%"
-                    alt="From Brighton to the Balkans"
-                    id="img-from-brighton-to-the-balkans"
-                    className="img-responsive day"
-                  />
-                </a>
+                <img
+                  src={require("../../image/archive/MelissaAlon.jpg")}
+                  width="100%"
+                  alt="From Brighton to the Balkans"
+                  id="img-from-brighton-to-the-balkans"
+                  className="img-responsive day"
+                />
               </div>
-
               <h2 className="text-uppercase">
                 <a href="https://www.crisisclassroom.com/projects/from-brighton-to-the-balkans">
                   From Brighton to the Balkans
@@ -59,18 +53,13 @@ export default class Teacher extends Component {
           <div className="col-xs-12 col-sm-4 item cat-11 cla-5">
             <figure className="thumbnail">
               <div className="mask-img">
-                <a
-                  href="https://www.crisisclassroom.com/projects/right-here-right-now"
-                  className="link-6"
-                >
-                  <img
-                    src="https://www.crisisclassroom.com//media/files/P1030037.JPG"
-                    width="100%"
-                    alt="Right Here Right Now"
-                    id="img-right-here-right-now"
-                    className="img-responsive day"
-                  />
-                </a>
+                <img
+                  src={require("../../image/archive/P1030037.JPG")}
+                  width="100%"
+                  alt="Right Here Right Now"
+                  id="img-right-here-right-now"
+                  className="img-responsive day"
+                />
               </div>
 
               <h2 className="text-uppercase">
@@ -89,18 +78,13 @@ export default class Teacher extends Component {
           <div className="col-xs-12 col-sm-4 item  ">
             <figure className="thumbnail">
               <div className="mask-img">
-                <a
-                  href="https://www.crisisclassroom.com/projects/fundraising-fridays"
-                  className="link-6"
-                >
-                  <img
-                    src="https://www.crisisclassroom.com//media/files/Copy%20of%20IMG_7423.jpg"
-                    width="100%"
-                    alt="Fundraising Fridays"
-                    id="img-fundraising-fridays"
-                    className="img-responsive day"
-                  />
-                </a>
+                <img
+                  src={require("../../image/archive/IMG_7423.jpg")}
+                  width="100%"
+                  alt="Fundraising Fridays"
+                  id="img-fundraising-fridays"
+                  className="img-responsive day"
+                />
               </div>
               <figcaption className="caption text-center">
                 <h2 className="text-uppercase">
@@ -113,7 +97,7 @@ export default class Teacher extends Component {
                   and life-changing for someone else without having
                   to&nbsp;leave&nbsp;the comforts of your own home.&nbsp;
                   Download the resource pack and away you go!
-                </p>{" "}
+                </p>
               </figcaption>
             </figure>
           </div>
@@ -127,18 +111,13 @@ export default class Teacher extends Component {
           >
             <figure className="thumbnail">
               <div className="mask-img">
-                <a
-                  href="https://www.crisisclassroom.com/projects/suzies-yard"
-                  className="link-6"
-                >
-                  <img
-                    src="https://www.crisisclassroom.com//media/files/CRISIS-0094-2.jpg"
-                    width="100%"
-                    alt="Suzie's Yard"
-                    id="img-suzies-yard"
-                    className="img-responsive day"
-                  />
-                </a>
+                <img
+                  src={require("../../image/archive/CRISIS-0094-2.jpg")}
+                  width="100%"
+                  alt="Suzie's Yard"
+                  id="img-suzies-yard"
+                  className="img-responsive day"
+                />
               </div>
               <figcaption className="caption text-center">
                 <h2 className="text-uppercase">
@@ -154,7 +133,7 @@ export default class Teacher extends Component {
                   methods, Suzie has been opening her home and sharing recipes
                   with the local migrant community since July 2017.&nbsp; Find
                   out what’s happening now.
-                </p>{" "}
+                </p>
               </figcaption>
             </figure>
           </div>
@@ -162,18 +141,13 @@ export default class Teacher extends Component {
           <div className="col-xs-12 col-sm-4 item cat-12 cla-4">
             <figure className="thumbnail">
               <div className="mask-img">
-                <a
-                  href="https://www.crisisclassroom.com/projects/supporting-refugees-with-their-further-education"
-                  className="link-6"
-                >
-                  <img
-                    src="https://www.crisisclassroom.com//media/files/CRISIS-0131.jpg"
-                    width="100%"
-                    alt="Supporting Refugees with their Further Education"
-                    id="img-supporting-refugees-with-their-further-education"
-                    className="img-responsive day"
-                  />
-                </a>
+                <img
+                  src={require("../../image/archive/CRISIS-0131.jpg")}
+                  width="100%"
+                  alt="Supporting Refugees with their Further Education"
+                  id="img-supporting-refugees-with-their-further-education"
+                  className="img-responsive day"
+                />
               </div>
               <figcaption className="caption text-center">
                 <h2 className="text-uppercase">
@@ -185,7 +159,7 @@ export default class Teacher extends Component {
                   We run courses&nbsp;in understanding the impact that trauma
                   can have on learning and how to manage the overwhelming
                   experiences that come with settling in to a new home.
-                </p>{" "}
+                </p>
               </figcaption>
             </figure>
           </div>
@@ -193,18 +167,13 @@ export default class Teacher extends Component {
           <div className="col-xs-12 col-sm-4 item  ">
             <figure className="thumbnail">
               <div className="mask-img">
-                <a
-                  href="https://www.crisisclassroom.com/projects/partner-projects"
-                  className="link-6"
-                >
-                  <img
-                    src="https://www.crisisclassroom.com//media/files/CRISIS-0405.jpg"
-                    width="100%"
-                    alt="Partner Projects"
-                    id="img-partner-projects"
-                    className="img-responsive day"
-                  />
-                </a>
+                <img
+                  src={require("../../image/archive/CRISIS-0405.jpg")}
+                  width="100%"
+                  alt="Partner Projects"
+                  id="img-partner-projects"
+                  className="img-responsive day"
+                />
               </div>
 
               <h2 className="text-uppercase">
@@ -220,14 +189,6 @@ export default class Teacher extends Component {
                 Melissa@crisisclassroom.com&nbsp;
               </p>
             </figure>
-          </div>
-
-          <div className="light">
-            <img
-              src={require("../../image/archive/ser1.jpg")}
-              alt="light"
-              className="light"
-            />
           </div>
         </div>
       </div>

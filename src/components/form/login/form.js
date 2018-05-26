@@ -16,7 +16,7 @@ class Login extends Component {
     this.Auth = AuthService;
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.Auth.loggedIn()) this.props.history.replace("/");
   }
   onSubmit = e => {

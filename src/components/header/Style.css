@@ -26,3 +26,7 @@
 .user-info-items{
 display: flex;
 }
+.log-out{
+border: none;
+background: none;
+}

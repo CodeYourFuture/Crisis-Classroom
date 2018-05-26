@@ -25,7 +25,6 @@ export default class FirstPage extends React.Component {
   }
 
   render() {
-    console.log(this.state.lesson);
     const { lesson, error } = this.state;
     if (error) {
       return (

@@ -11,7 +11,6 @@
 .crisis-image {
   width: 80%;
   margin: 20px;
-  border: 3px solid rgb(8, 3, 3);
 }
 .getStart {
   margin: 20px;
@@ -21,18 +20,14 @@
 .training-image{
   width: 90%;
   margin: 20px;
-  border: 3px solid rgb(8, 3, 3);
-
 }
 
 .teacher-baner{
   width: 100%;
   margin: 20px;
-  border: 3px solid rgb(8, 3, 3);
 }
 .teacher-image-kate{
   width: 100%;
-  border: 3px solid rgb(8, 3, 3);
 }
 .news{
  color: brown;

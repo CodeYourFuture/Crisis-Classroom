@@ -18,6 +18,12 @@
     padding: .3%;
     border-radius: 10px;
 }
-.push {
-    margin-left: auto;
+.add-templat{
+    width: 18%;   
+    display: flex;
+    align-items: center;    
+    justify-content: center;
+}
+.add-templat-p{
+     width: 90%;
 }

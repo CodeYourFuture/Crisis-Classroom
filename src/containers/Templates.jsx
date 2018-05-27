@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import TemplatesList from "../components/templates/TemplatesList";
-import FirstPage from "../components/templates/FirstPage";
+import Template from "../components/templates/index";
 import "./style.css";
 
 export default class Templates extends Component {
@@ -38,7 +38,7 @@ export default class Templates extends Component {
           exact
           path="/templates/:id"
           render={props => (
-            <FirstPage {...props} lessons={this.state.lessons} />
+            <Template {...props} lessons={this.state.lessons} />
           )}
         />
         <Redirect to={match.path} />

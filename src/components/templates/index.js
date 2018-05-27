@@ -2,10 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Grid, Row, Col } from "react-flexbox-grid/lib";
 
-
 import "./style.css";
 
-export default class FirstPage extends React.Component {
+export default class Template extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +43,7 @@ export default class FirstPage extends React.Component {
       <div>
         <Grid fluid className="grid-container">
           <Row className="mian-row">
-            <Col className="box" lg={3} {...this.props}>
+            <Col className="box" lg={3}>
               <div>
                 <div className="preview-title-items">
                   <h2>{lesson.lessonTitle}</h2>
@@ -87,7 +86,7 @@ export default class FirstPage extends React.Component {
                 </div>
               ))}
             </Col>
-            <Col className="box" lg={3} {...this.props}>
+            <Col className="box" lg={3}>
               <h4>Ingredients</h4>
               {lesson.ingredients.map((ingredient, i) => (
                 <div className="preview-items" key={i}>
@@ -101,7 +100,7 @@ export default class FirstPage extends React.Component {
                 </div>
               ))}
             </Col>
-            <Col className="box" lg={3} {...this.props}>
+            <Col className="box" lg={3}>
               <h4>Instructions</h4>
               {lesson.instructions.map((instruction, i) => {
                 return (
@@ -117,7 +116,7 @@ export default class FirstPage extends React.Component {
                 );
               })}
             </Col>
-            <Col className="box" lg={3} {...this.props} />
+            <Col className="box" lg={3} />
           </Row>
         </Grid>
       </div>

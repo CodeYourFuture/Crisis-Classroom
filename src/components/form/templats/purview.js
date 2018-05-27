@@ -12,27 +12,22 @@ export default class preview extends React.Component {
       .then(result => {
         if (result) {
           this.props.history.replace("/template-created");
-          console.log(result);
         }
       })
       .catch(err => {
-        // alert(err)
         console.log(err);
       });
   };
 
   EditHandler = lessonData => {
-    console.log(lessonData);
     axios
       .post("http://localhost:8080/edit-lessons", lessonData)
       .then(result => {
         if (result) {
-          // this.props.history.replace("/template-created");
-          console.log(result);
+          this.props.history.replace("/template-edited");
         }
       })
       .catch(err => {
-        // alert(err)
         console.log(err);
       });
   };

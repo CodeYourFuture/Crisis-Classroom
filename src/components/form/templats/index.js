@@ -40,7 +40,6 @@ export default class LessonForm extends React.Component {
         ingredients,
         instructions
       } = this.props.location.state.lesson;
-      console.log(id)
       this.setState({
         id,
         lessonTitle,

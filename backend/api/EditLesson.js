@@ -7,21 +7,21 @@ const EditLesson = (req, res) => {
   const lesson = req.body;
   console.log(lesson);
   const { tools, ingredients, instructions, lessonId } = lesson;
-  saveLessons(lesson)
-    .then(() => tools.forEach(tool => saveTool(tool, lessonId)))
+  editLessons(lesson)
+    .then(() => tools.forEach(tool => editTool(tool, lessonId)))
     .then(() =>
-      ingredients.forEach(ingredient => saveIngredient(ingredient, lessonId))
+      ingredients.forEach(ingredient => editIngredient(ingredient, lessonId))
     )
     .then(() =>
       instructions.forEach(instruction =>
-        saveInstruction(instruction, lessonId)
+        editInstruction(instruction, lessonId)
       )
     )
     .then(() => res.json(console.log(res)))
     .catch(err => res.status(400).json(err));
 };
 
-const saveLessons = lesson => {
+const editLessons = lesson => {
   const {
     lessonId,
     lessonTitle,
@@ -59,7 +59,7 @@ const saveLessons = lesson => {
   });
 };
 
-const saveTool = (tool, lessonId) => {
+const editTool = (tool, lessonId) => {
   return new Promise((resolve, reject) => {
     if (tool.id) {
       var sql = `UPDATE tools set
@@ -84,7 +84,7 @@ const saveTool = (tool, lessonId) => {
   });
 };
 
-const saveIngredient = (ingredient, lessonId) => {
+const editIngredient = (ingredient, lessonId) => {
   return new Promise((resolve, reject) => {
     if (ingredient.id) {
       var sql = `UPDATE ingredients set
@@ -118,7 +118,7 @@ const saveIngredient = (ingredient, lessonId) => {
   });
 };
 
-const saveInstruction = (instruction, lessonId) => {
+const editInstruction = (instruction, lessonId) => {
   return new Promise((resolve, reject) => {
     if (instruction.id) {
       var sql = `UPDATE instructions set

@@ -23,6 +23,8 @@ import Survey from "../components/pages/Survey";
 import RegistrationDone from "../components/form/register/Registration-done";
 import ImageUploader from "../components/imageUploader";
 import TemplateCreated from "../components/form/templats/templateCreated";
+import TemplateEdited  from "../components/form/templats/templateEdited";
+import TemplateDeleted  from "../components/templates/templateDeleted";
 
 
 class Routes extends Component {
@@ -48,6 +50,8 @@ class Routes extends Component {
         <Layout exact path="/image-uploader" component={ImageUploader} />
         <Layout exact path="/registration-done" component={RegistrationDone} />
         <Layout exact path="/template-created" component={TemplateCreated} />
+        <Layout exact path="/template-edited" component={TemplateEdited} />
+        <Layout exact path="/template-deleted" component={TemplateDeleted} />
         <PrivateRoute path="/templates" component={Templates} />
       </Switch>
     );

@@ -2,9 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Grid, Row, Col } from "react-flexbox-grid/lib";
 
+import Button from "../button";
+
 import "./style.css";
 
-export default class Template extends React.Component {
+export default class Template extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +14,12 @@ export default class Template extends React.Component {
       error: null
     };
   }
+  onSubmit = lesson => {
+    this.props.history.push({
+      pathname: "/add-new-templet",
+      state: { lesson }
+    });
+  };
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -119,7 +127,14 @@ export default class Template extends React.Component {
             <Col className="box" lg={3} />
           </Row>
         </Grid>
+        <Button
+          className="btn btn-outline-dark "
+          value="Edit"
+          onClick={() => this.onSubmit(lesson)}
+        />
       </div>
     );
   }
 }
+
+

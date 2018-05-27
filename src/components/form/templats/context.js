@@ -1,6 +1,7 @@
 import React from "react";
 
 const Context = React.createContext({
+  id:"",
   lessonTitle: "",
   lessonTitleImage: "",
   timeToPrepare: "",

@@ -20,7 +20,6 @@ class Form extends React.Component {
       ingredients: props.ingredients
     };
   }
-  
 
   onChangeIngredientshandler = (e, index) => {
     const ingredient = this.state.ingredients[index];
@@ -39,7 +38,10 @@ class Form extends React.Component {
     const ingredient = this.state.ingredients[index];
     const file = e.target.files[0];
     ReactS3.upload(file, config).then(result => {
-      const newIngredientImage = { ...ingredient, ingredientImage: result.location };
+      const newIngredientImage = {
+        ...ingredient,
+        ingredientImage: result.location
+      };
       this.setState({
         ingredients: this.state.ingredients.map(
           (ingredient, i) => (i === index ? newIngredientImage : ingredient)
@@ -52,15 +54,19 @@ class Form extends React.Component {
     this.setState({
       ingredients: [
         ...this.state.ingredients,
-        { ingredientId: this.state.ingredients.length + 1, ingredientName: "", ingredientImage: "" }
+        {
+          ingredientId: this.state.ingredients.length + 1,
+          ingredientName: "",
+          ingredientImage: ""
+        }
       ]
     });
   };
 
-  removeIngredientsHandler =ingredientIid => {
+  removeIngredientsHandler = ingredientIid => {
     const { ingredients } = this.state;
     ingredients.forEach(ingredient => {
-      if (ingredient.ingredientIid ===ingredientIid) {
+      if (ingredient.ingredientIid === ingredientIid) {
         ingredient.ingredientImage = null;
       }
     });
@@ -73,58 +79,66 @@ class Form extends React.Component {
     return (
       <div>
         <div>
-          <h2> Add Ingredients </h2>
+          {this.props.id ? (
+            <h2> Edit, Remove or add Ingredients </h2>
+          ) : (
+            <h2> Add Ingredients </h2>
+          )}
           {this.state.ingredients &&
-            this.state.ingredients.map(({ ingredientName, ingredientImage, ingredientId }, i) => {
-              return (
-                <div className="lessonForm" key={ingredientId}>
-                  <div className="form-group">
-                    <Label value="Ingredient Name" />
-                    <div className="lessonInput">
-                      <Input
-                        className="form-control"
-                        type="text"
-                        name="ingredientName"
-                        onChange={e => this.onChangeIngredientshandler(e, i)}
-                        placeholder="Ingredient"
-                        value={ingredientName}
-                      />
-                      {!ingredientImage ? (
-                        <div>
-                          <label className="btn btn-outline-dark">
-                            Upload an image
-                            <input
-                              style={{ display: "none" }}
-                              type="file"
-                              name="ingredientImage"
-                              onChange={e =>
-                                this.onChangeImageIngredientshandler(e, i)
-                              }
-                              accept="image/*"
-                            />
-                          </label>
-                        </div>
-                      ) : (
-                        <div
-                          className="image-container"
-                          onClick={() => this.removeIngredientsHandler(ingredientId)}
-                        >
-                          <img
-                            className="image"
-                            width="100px"
-                            src={ingredientImage}
-                            alt="ingredient"
-                          />
-                          <div className="middle">
-                            <div className="text">Remove</div>
+            this.state.ingredients.map(
+              ({ ingredientName, ingredientImage, ingredientId }, i) => {
+                return (
+                  <div className="lessonForm" key={ingredientId}>
+                    <div className="form-group">
+                      <Label value="Ingredient Name" />
+                      <div className="lessonInput">
+                        <Input
+                          className="form-control"
+                          type="text"
+                          name="ingredientName"
+                          onChange={e => this.onChangeIngredientshandler(e, i)}
+                          placeholder="Ingredient"
+                          value={ingredientName}
+                        />
+                        {!ingredientImage ? (
+                          <div>
+                            <label className="btn btn-outline-dark">
+                              Upload an image
+                              <input
+                                style={{ display: "none" }}
+                                type="file"
+                                name="ingredientImage"
+                                onChange={e =>
+                                  this.onChangeImageIngredientshandler(e, i)
+                                }
+                                accept="image/*"
+                              />
+                            </label>
                           </div>
-                        </div>
-                      )}
+                        ) : (
+                          <div
+                            className="image-container"
+                            onClick={() =>
+                              this.removeIngredientsHandler(ingredientId)
+                            }
+                          >
+                            <img
+                              className="image"
+                              width="100px"
+                              src={ingredientImage}
+                              alt="ingredient"
+                            />
+                            <div className="middle">
+                              <div className="text">Remove</div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              }
+            )}
         </div>
         <Button
           className="btn btn-outline-dark "
@@ -132,7 +146,7 @@ class Form extends React.Component {
           onClick={this.addIngredientsHandler}
         />
         &nbsp;
-        <div style={{display:"flex"}}>
+        <div style={{ display: "flex" }}>
           <Button
             className="btn btn-outline-dark "
             value="previous"
@@ -159,6 +173,7 @@ export default class IngredientsFormWrapper extends React.Component {
             ingredients={ingredients}
             onAddIngredients={onAddIngredients}
             previousFormHandler={previousFormHandler}
+            {...this.props}
           />
         )}
       </Context.Consumer>

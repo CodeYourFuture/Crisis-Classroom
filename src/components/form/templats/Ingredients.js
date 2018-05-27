@@ -63,10 +63,10 @@ class Form extends React.Component {
     });
   };
 
-  removeIngredientsHandler = ingredientIid => {
+  removeIngredientsHandler = ingredientId => {
     const { ingredients } = this.state;
     ingredients.forEach(ingredient => {
-      if (ingredient.ingredientIid === ingredientIid) {
+      if (ingredient.ingredientId === ingredientId) {
         ingredient.ingredientImage = null;
       }
     });

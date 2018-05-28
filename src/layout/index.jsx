@@ -7,13 +7,15 @@ import Footer from "../components/Footer";
 const DefaultLayout = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={matchProps => (
-      <div>
-        <Header {...matchProps} />
-        <Component {...matchProps} />
-        <Footer />
-      </div>
-    )}
+    render={props => {
+      return (
+        <div>
+          <Header {...props} />
+          <Component {...props} />
+          <Footer />
+        </div>
+      );
+    }}
   />
 );
 

@@ -38,7 +38,10 @@ class Form extends React.Component {
     const instruction = this.state.instructions[index];
     const file = e.target.files[0];
     ReactS3.upload(file, config).then(result => {
-      const newinstructionImage = { ...instruction, instructionImage: result.location };
+      const newinstructionImage = {
+        ...instruction,
+        instructionImage: result.location
+      };
       this.setState({
         instructions: this.state.instructions.map(
           (instruction, i) => (i === index ? newinstructionImage : instruction)
@@ -51,7 +54,11 @@ class Form extends React.Component {
     this.setState({
       instructions: [
         ...this.state.instructions,
-        { instructionId: this.state.instructions.length + 1, instructionName: "", instructionImage: "" }
+        {
+          instructionId: this.state.instructions.length + 1,
+          instructionName: "",
+          instructionImage: ""
+        }
       ]
     });
   };
@@ -72,59 +79,69 @@ class Form extends React.Component {
     return (
       <div>
         <div>
-          <h2> Add instructions </h2>
+          {this.props.id ? (
+            <h2> Edit, Remove or add instructions </h2>
+          ) : (
+            <h2> Add instructions </h2>
+          )}
           <div>
             {this.state.instructions &&
-              this.state.instructions.map(({ instructionName, instructionImage, instructionId }, i) => {
-                return (
-                  <div className="lessonForm" key={instructionId}>
-                    <div className="form-group">
-                      <Label value="instruction Name" />
-                      <div className="lessonInput">
-                        <Input
-                          className="form-control"
-                          type="text"
-                          name="instructionName"
-                          onChange={e => this.onChangeInstructionshandler(e, i)}
-                          placeholder="instruction"
-                          value={instructionName}
-                        />
-                        {!instructionImage ? (
-                          <div>
-                            <label className="btn btn-outline-dark">
-                              Upload an image
-                              <input
-                                style={{ display: "none" }}
-                                type="file"
-                                name="instructionImage"
-                                onChange={e =>
-                                  this.onChangeImageInstructionshandler(e, i)
-                                }
-                                accept="image/*"
-                              />
-                            </label>
-                          </div>
-                        ) : (
-                          <div
-                            className="image-container"
-                            onClick={() => this.removeInstructionsHandler(instructionId)}
-                          >
-                            <img
-                              className="image"
-                              width="100px"
-                              src={instructionImage}
-                              alt="instruction"
-                            />
-                            <div className="middle">
-                              <div className="text">Remove</div>
+              this.state.instructions.map(
+                ({ instructionName, instructionImage, instructionId }, i) => {
+                  return (
+                    <div className="lessonForm" key={instructionId}>
+                      <div className="form-group">
+                        <Label value="instruction Name" />
+                        <div className="lessonInput">
+                          <Input
+                            className="form-control"
+                            type="text"
+                            name="instructionName"
+                            onChange={e =>
+                              this.onChangeInstructionshandler(e, i)
+                            }
+                            placeholder="instruction"
+                            value={instructionName}
+                          />
+                          {!instructionImage ? (
+                            <div>
+                              <label className="btn btn-outline-dark">
+                                Upload an image
+                                <input
+                                  style={{ display: "none" }}
+                                  type="file"
+                                  name="instructionImage"
+                                  onChange={e =>
+                                    this.onChangeImageInstructionshandler(e, i)
+                                  }
+                                  accept="image/*"
+                                />
+                              </label>
                             </div>
-                          </div>
-                        )}
+                          ) : (
+                            <div
+                              className="image-container"
+                              onClick={() =>
+                                this.removeInstructionsHandler(instructionId)
+                              }
+                            >
+                              <img
+                                className="image"
+                                width="100px"
+                                src={instructionImage}
+                                alt="instruction"
+                              />
+                              <div className="middle">
+                                <div className="text">Remove</div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                }
+              )}
           </div>
           <Button
             className="btn btn-outline-dark "
@@ -132,20 +149,20 @@ class Form extends React.Component {
             onClick={this.addInstructionsHandler}
           />
           &nbsp;
-          <div style={{display:"flex"}}>
-          <Button
-            className="btn btn-outline-dark "
-            value="previous"
-            onClick={this.props.previousFormHandler}
-          />
-          &nbsp;
-          <Button
-            className="btn btn-outline-dark "
-            value="Next"
-            onClick={() =>
-              this.props.onAddInstructions(this.state.instructions)
-            }
-          />
+          <div style={{ display: "flex" }}>
+            <Button
+              className="btn btn-outline-dark "
+              value="previous"
+              onClick={this.props.previousFormHandler}
+            />
+            &nbsp;
+            <Button
+              className="btn btn-outline-dark "
+              value="Next"
+              onClick={() =>
+                this.props.onAddInstructions(this.state.instructions)
+              }
+            />
           </div>
         </div>
       </div>
@@ -162,6 +179,7 @@ export default class instructionsFormWrapper extends React.Component {
             instructions={instructions}
             onAddInstructions={onAddInstructions}
             previousFormHandler={previousFormHandler}
+            {...this.props}
           />
         )}
       </Context.Consumer>

@@ -76,7 +76,11 @@ class Form extends React.Component {
     return (
       <div>
         <div>
-          <h2> Add Tools </h2>
+          {this.props.id ? (
+            <h2> Edit, Remove or add Tools </h2>
+          ) : (
+            <h2> Add Tools </h2>
+          )}
           {this.state.tools &&
             this.state.tools.map(({ toolName, toolImage, toolId }, i) => {
               return (
@@ -163,11 +167,12 @@ export default class ToolsFormWrapper extends React.Component {
   render() {
     return (
       <Context.Consumer>
-        {({ onAddTools, tools, previousFormHandler }) => (
+        {({ onAddTools, tools, previousFormHandler, id }) => (
           <Form
             tools={tools}
             onAddTools={onAddTools}
             previousFormHandler={previousFormHandler}
+            id={this.props.id}
           />
         )}
       </Context.Consumer>

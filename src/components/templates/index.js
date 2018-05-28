@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Grid, Row, Col } from "react-flexbox-grid/lib";
-
+import axios from "axios";
+import Button from "../button";
 
 import "./style.css";
 
-export default class FirstPage extends React.Component {
+export default class Template extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +14,24 @@ export default class FirstPage extends React.Component {
       error: null
     };
   }
+  editHandler = lesson => {
+    this.props.history.push({
+      pathname: "/add-new-templet",
+      state: { lesson }
+    });
+  };
+  DeleteHandler = lesson => {
+    axios
+      .post("http://localhost:8080/delete-lessons", lesson)
+      .then(result => {
+        if (result) {
+          this.props.history.replace("/template-deleted");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -44,7 +63,7 @@ export default class FirstPage extends React.Component {
       <div>
         <Grid fluid className="grid-container">
           <Row className="mian-row">
-            <Col className="box" lg={3} {...this.props}>
+            <Col className="box" lg={3}>
               <div>
                 <div className="preview-title-items">
                   <h2>{lesson.lessonTitle}</h2>
@@ -87,7 +106,7 @@ export default class FirstPage extends React.Component {
                 </div>
               ))}
             </Col>
-            <Col className="box" lg={3} {...this.props}>
+            <Col className="box" lg={3}>
               <h4>Ingredients</h4>
               {lesson.ingredients.map((ingredient, i) => (
                 <div className="preview-items" key={i}>
@@ -101,7 +120,7 @@ export default class FirstPage extends React.Component {
                 </div>
               ))}
             </Col>
-            <Col className="box" lg={3} {...this.props}>
+            <Col className="box" lg={3}>
               <h4>Instructions</h4>
               {lesson.instructions.map((instruction, i) => {
                 return (
@@ -117,9 +136,22 @@ export default class FirstPage extends React.Component {
                 );
               })}
             </Col>
-            <Col className="box" lg={3} {...this.props} />
+            <Col className="box" lg={3} />
           </Row>
         </Grid>
+        <div style={{ display: "flex" }}>
+          <Button
+            className="btn btn-outline-dark "
+            value="Edit"
+            onClick={() => this.editHandler(lesson)}
+          />
+          &nbsp;
+          <Button
+            className="btn btn-outline-danger"
+            value="Delete"
+            onClick={() => this.DeleteHandler(lesson)}
+          />
+        </div>
       </div>
     );
   }

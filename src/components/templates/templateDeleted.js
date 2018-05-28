@@ -2,12 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 
-const TemplateCreated = () => {
+const TemplateDeleted = () => {
   return (
     <div className="welecome">
       <div>
-        <h2>Thanks for your patience.</h2>
-        <p>Your lesson has been created.</p>
+        <p>Your lesson has been deleted.</p>
         <Link to="/templates" className="btn btn-outline-success">
           Templates
         </Link>
@@ -16,4 +15,4 @@ const TemplateCreated = () => {
   );
 };
 
-export default TemplateCreated;
+export default TemplateDeleted;

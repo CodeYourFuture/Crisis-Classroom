@@ -20,6 +20,8 @@ const register = require("./register");
 const survey = require("./survey");
 const files = require("./files");
 const creatLessons = require("./creatLessons");
+const EditLesson = require("./EditLesson");
+const DeleteLesson = require("./DeleteLesson");
 
 const jwtMW = exjwt({
   secret: "keyboard cat 4 ever"
@@ -34,6 +36,8 @@ const api = () => {
   router.post("/check-user-name", checkUserName);
   router.post("/survey", survey);
   router.post("/creat-lessons", creatLessons);
+  router.post("/edit-lessons", EditLesson);
+  router.post("/delete-lessons", DeleteLesson);
   router.post("/files", upload.single("file"), files);
 
   return router;

@@ -30,11 +30,9 @@ class Form extends React.Component {
   onChange = e => {
     const { name, value } = e.target;
     this.setState({
-      ...this.state,
       [name]: value
     });
   };
-
 
   // onChangeImageLessonhandler = event => {
   //   const data = new FormData();
@@ -62,9 +60,6 @@ class Form extends React.Component {
       });
     });
   };
-
-
-
 
   removeImageHandler = e => {
     const file = e.target.name;
@@ -248,8 +243,25 @@ export default class Lesson extends React.Component {
   render() {
     return (
       <Context.Consumer>
-        {({ onAddLesson, lesson }) => (
-          <Form lesson={lesson} onAddLesson={onAddLesson} />
+        {({
+          onAddLesson,
+          lessonTitle,
+          lessonTitleImage,
+          timeToPrepare,
+          timeToPrepareImage,
+          numberOfPeople,
+          numberOfPeopleImage
+        }) => (
+          <Form
+            lessonTitle={lessonTitle}
+            lessonTitleImage={lessonTitleImage}
+            timeToPrepare={timeToPrepare}
+            timeToPrepareImage={timeToPrepareImage}
+            numberOfPeople={numberOfPeople}
+            numberOfPeopleImage={numberOfPeopleImage}
+            onAddLesson={onAddLesson}
+            {...this.props}
+          />
         )}
       </Context.Consumer>
     );

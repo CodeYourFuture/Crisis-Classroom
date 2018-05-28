@@ -5,17 +5,29 @@ import { Grid, Row, Col } from "react-flexbox-grid/lib";
 import axios from "axios";
 
 export default class preview extends React.Component {
-  onSubmit = lessonData => {
+
+  CreatHandler = lessonData => {
     axios
       .post("http://localhost:8080/creat-lessons", lessonData)
       .then(result => {
-        if(result){
-          // this.props.history.replace("/template-created");
-          console.log(result);
+        if (result) {
+          this.props.history.replace("/template-created");
         }
       })
       .catch(err => {
-        // alert(err)
+        console.log(err);
+      });
+  };
+
+  EditHandler = lessonData => {
+    axios
+      .post("http://localhost:8080/edit-lessons", lessonData)
+      .then(result => {
+        if (result) {
+          this.props.history.replace("/template-edited");
+        }
+      })
+      .catch(err => {
         console.log(err);
       });
   };
@@ -122,6 +134,7 @@ export default class preview extends React.Component {
               instructions,
               previousFormHandler
             } = context;
+            const lessonId = this.props.id;
             return (
               <div style={{ display: "flex" }}>
                 <Button
@@ -130,23 +143,64 @@ export default class preview extends React.Component {
                   onClick={previousFormHandler}
                 />
                 &nbsp;
-                <Button
-                  className="btn btn-outline-dark "
-                  value="Create"
-                  onClick={() =>
-                    this.onSubmit({
-                      lessonTitle,
-                      lessonTitleImage,
-                      timeToPrepare,
-                      timeToPrepareImage,
-                      numberOfPeople,
-                      numberOfPeopleImage,
-                      tools,
-                      ingredients,
-                      instructions
-                    })
-                  }
-                />
+                {lessonId ? (
+                  <div style={{ display: "flex" }}>
+                    <Button
+                      className="btn btn-outline-dark "
+                      value="Edit"
+                      onClick={() =>
+                        this.EditHandler({
+                          lessonId,
+                          lessonTitle,
+                          lessonTitleImage,
+                          timeToPrepare,
+                          timeToPrepareImage,
+                          numberOfPeople,
+                          numberOfPeopleImage,
+                          tools,
+                          ingredients,
+                          instructions
+                        })
+                      }
+                    />
+                &nbsp;                    
+                    <Button
+                      className="btn btn-outline-dark "
+                      value="Create New One"
+                      onClick={() =>
+                        this.CreatHandler({
+                          lessonTitle,
+                          lessonTitleImage,
+                          timeToPrepare,
+                          timeToPrepareImage,
+                          numberOfPeople,
+                          numberOfPeopleImage,
+                          tools,
+                          ingredients,
+                          instructions
+                        })
+                      }
+                    />
+                  </div>
+                ) : (
+                  <Button
+                    className="btn btn-outline-dark "
+                    value="Create Template"
+                    onClick={() =>
+                      this.CreatHandler({
+                        lessonTitle,
+                        lessonTitleImage,
+                        timeToPrepare,
+                        timeToPrepareImage,
+                        numberOfPeople,
+                        numberOfPeopleImage,
+                        tools,
+                        ingredients,
+                        instructions
+                      })
+                    }
+                  />
+                )}
               </div>
             );
           }}

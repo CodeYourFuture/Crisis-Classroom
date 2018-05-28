@@ -14,6 +14,7 @@ export default class LessonForm extends React.Component {
     super(props);
     this.state = {
       activeForm: 0,
+      id: "",
       lessonTitle: "",
       lessonTitleImage: "",
       timeToPrepare: "",
@@ -25,7 +26,35 @@ export default class LessonForm extends React.Component {
       tools: []
     };
   }
-
+  componentDidMount() {
+    if (this.props.location.state) {
+      const {
+        id,
+        lessonTitle,
+        lessonTitleImage,
+        timeToPrepare,
+        timeToPrepareImage,
+        numberOfPeople,
+        numberOfPeopleImage,
+        tools,
+        ingredients,
+        instructions
+      } = this.props.location.state.lesson;
+      this.setState({
+        id,
+        lessonTitle,
+        lessonTitleImage,
+        timeToPrepare,
+        timeToPrepareImage,
+        numberOfPeople,
+        numberOfPeopleImage,
+        tools,
+        ingredients,
+        instructions
+      });
+      this.nextFormHandler();
+    }
+  }
   onAddTools = tools => {
     this.setState({ tools });
     this.nextFormHandler();
@@ -91,11 +120,11 @@ export default class LessonForm extends React.Component {
       instructions
     } = this.state;
     var forms = [
-      <Lesson />,
-      <ToolsForm />,
-      <Ingredients />,
-      <Instructions />,
-      <Purview history={this.props.history} />
+      <Lesson {...this.props} />,
+      <ToolsForm {...this.props} id={this.state.id}/>,
+      <Ingredients {...this.props} id={this.state.id}/>,
+      <Instructions {...this.props} id={this.state.id}/>,
+      <Purview history={this.props.history} id={this.state.id}/>
     ];
     const context = {
       lessonTitle,
@@ -116,7 +145,11 @@ export default class LessonForm extends React.Component {
     return (
       <div>
         <Context.Provider value={context}>
-          <h2 className="text-center">Create A New Template</h2>
+          {this.props.location.state ? (
+            <h2 className="text-center">Edit Template</h2>
+          ) : (
+            <h2 className="text-center">Create A New Template</h2>
+          )}
           <div className="lesson-form">{forms[this.state.activeForm]}</div>
         </Context.Provider>
       </div>

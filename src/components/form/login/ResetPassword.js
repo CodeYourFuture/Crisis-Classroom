@@ -31,25 +31,22 @@ class ResetPassword extends Component {
       })
       .then(result => {
         if (result) {
-          console.log(result);
-          this.props.history.replace("/");
+          console.log(result)
         }
       })
       .catch(err => {
         console.log(err);
       });
+      this.props.history.replace("/login");
   };
   render() {
-    // const {
-    //   userName
-    // } = this.props.location.state.data;
     return (
       <div>
         <div>
           <h3>Enter new password</h3>
           <div className="login-form">
             <p>
-              Hi {userName} please enter Your new password and click submit to
+              Hi there please enter Your new password and click submit to
               reset your password.
             </p>
             <form onSubmit={this.onSubmit}>

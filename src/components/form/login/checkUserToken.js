@@ -10,9 +10,11 @@ class CheckUserToken extends Component {
       userName: "",
       expired: ""
     };
+    if(this.state.resetPasswordToken=== ""){
+      this.CheckToken()
+    }
   }
-
-  componentDidMount() {
+  CheckToken = () => {
     const token = window.location.pathname;
     axios
       .get(`http://localhost:8080${token}`, "crisisclassroom")
@@ -40,7 +42,8 @@ class CheckUserToken extends Component {
       .catch(err => {
         console.log(err);
       });
-  }
+  };
+
   render() {
     const { expired } = this.state;
     return (

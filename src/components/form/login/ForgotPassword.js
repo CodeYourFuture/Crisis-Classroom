@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
 import Input from "../../input";
 import Button from "../../button";
 import Label from "../../label";
@@ -9,7 +8,11 @@ class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: ""
+      email: "",
+      data: false,
+      errors: {
+        email: null
+      }
     };
   }
   handleChange = e => {
@@ -18,39 +21,80 @@ class ForgotPassword extends Component {
     });
   };
 
-  onSubmit = () => {
+  onFormSubmit = () => {
     const { email } = this.state;
     axios
       .post("http://localhost:8080/forgot-password", {
         email
       })
       .then(result => {
-        console.log(result, "hello");
-    })
-    .catch(err => {
+        const data = result.data;
+        if (data) {
+          this.setState({ data });
+        }
+      })
+      .catch(err => {
         console.log(err);
-    });
-    this.props.history.replace("/");
+      });
   };
+
+  onSubmit = e => {
+    e.preventDefault();
+    const errors = this.validate();
+    if (errors) {
+      this.setState({ errors });
+    }
+  };
+
+  validate() {
+    const { email } = this.state;
+
+    const errors = {
+      email: null
+    };
+    if (email.length < 5) {
+      errors.email = ` Email should be at least 5 charcters long .`;
+    } else if (email.split("").filter(x => x === "@").length !== 1) {
+      errors.email = `Email should contain a @ .`;
+    } else if (email.indexOf(".") === -1) {
+      errors.email = `Email should contain at least one dot .`;
+    } else {
+      this.onFormSubmit();
+    }
+    return errors;
+  }
   render() {
+    const data = this.state.data;
+    const { errors } = this.state;
     return (
       <div>
         <h3>Enter your email</h3>
         <div className="login-form">
-          <form onSubmit={this.onSubmit}>
-            <div className="form-group">
-              <Label value="Email *" />
-              <Input
-                className="form-control"
-                name="email"
-                type="text"
-                placeholder="Email"
-                value={this.state.email}
-                onChange={this.handleChange}
+          {data ? (
+            <p className="errors">{this.state.data}</p>
+          ) : (
+            <div>
+              <div className="form-group">
+                <Label value="Email *" />
+                <Input
+                  className="form-control"
+                  name="email"
+                  type="text"
+                  placeholder="Email"
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                />
+                {errors.email !== "" && (
+                  <span className="error">{errors.email}</span>
+                )}
+              </div>
+              <Button
+                className="btn btn-outline-dark"
+                value="Submit"
+                onClick={this.onSubmit}
               />
             </div>
-            <Button className="btn btn-outline-dark" value="Submit" />
-          </form>
+          )}
         </div>
       </div>
     );

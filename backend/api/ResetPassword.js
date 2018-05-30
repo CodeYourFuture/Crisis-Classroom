@@ -39,7 +39,7 @@ const ResetPassword = (req, res) => {
           service: "Gmail",
           auth: {
             user: "mohsen06111990@gmail.com",
-            pass: "password"
+            pass: "Moradi66"
           }
         });
         var mailOptions = {
@@ -54,18 +54,18 @@ const ResetPassword = (req, res) => {
         };
         smtpTransport.sendMail(mailOptions, err => {
           if (err) {
-            res.send(err);
+          return  res.send(err);
           }
-          res.send(`Success! Your password has been changed.`);
+       return   res.send(`Success! Your password has been changed.`);
           done(err, "done");
         });
       }
     ],
     err => {
       if (err) {
-        res.send(err);
+       return res.send(err);
       }
-      res.json(res);
+    return  res.json(res);
     }
   );
 };

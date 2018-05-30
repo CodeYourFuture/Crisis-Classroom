@@ -26,13 +26,13 @@ const ForgotPassword = (req, res, next) => {
           const [user] = rows;
           if (!user) {
             return res.send("No account with that email address exists.");
-          }else {
-              const resetPasswordExpires = Date.now() + 3600000;
-              var sql = `UPDATE users set resetPasswordToken=?, resetPasswordExpires=? where email=?`;
-              db.run(sql, [token, resetPasswordExpires, user.email], (err) => {
-                  done(err, token, user);
-              });
-            }
+          } else {
+            const resetPasswordExpires = Date.now() + 3600000;
+            var sql = `UPDATE users set resetPasswordToken=?, resetPasswordExpires=? where email=?`;
+            db.run(sql, [token, resetPasswordExpires, user.email], err => {
+              done(err, token, user);
+            });
+          }
         });
       },
       (token, user, done) => {
@@ -40,7 +40,7 @@ const ForgotPassword = (req, res, next) => {
           service: "Gmail",
           auth: {
             user: "mohsen06111990@gmail.com",
-            pass: "password"
+            pass: "Moradi66"
           }
         });
         var mailOptions = {
@@ -51,11 +51,10 @@ const ForgotPassword = (req, res, next) => {
               http://localhost:3000/reset-password/${token}\nIf you did not request this, please ignore this email and your password will remain unchanged.`
         };
         smtpTransport.sendMail(mailOptions, err => {
-          console.log("mail sent");
           if (err) {
-            res.send(err);
+            return res.send(err);
           }
-          res.send(
+          return res.send(
             `success, An e-mail has been sent to ${
               user.email
             } with further instructions.`

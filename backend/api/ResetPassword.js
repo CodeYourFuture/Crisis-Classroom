@@ -39,7 +39,7 @@ const ResetPassword = (req, res) => {
           service: "Gmail",
           auth: {
             user: "mohsen06111990@gmail.com",
-            pass: "Moradi66"
+            pass: "pass"
           }
         });
         var mailOptions = {

@@ -40,7 +40,7 @@ const ForgotPassword = (req, res, next) => {
           service: "Gmail",
           auth: {
             user: "mohsen06111990@gmail.com",
-            pass: "Moradi66"
+            pass: "pass"
           }
         });
         var mailOptions = {

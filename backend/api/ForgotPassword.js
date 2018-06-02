@@ -7,10 +7,9 @@ const sqlite3 = require("sqlite3").verbose();
 
 const filename = "./database/crisisdb.sqlit";
 let db = new sqlite3.Database(filename);
+var gmail = require("../gmail.json")
 
 const ForgotPassword = (req, res, next) => {
-  console.log(req.body);
-
   async.waterfall(
     [
       done => {
@@ -39,14 +38,14 @@ const ForgotPassword = (req, res, next) => {
         var smtpTransport = nodemailer.createTransport({
           service: "Gmail",
           auth: {
-            user: "mohsen06111990@gmail.com",
-            pass: "Moradi66"
+            user: gmail.user,
+            pass: gmail.pass
           }
         });
         var mailOptions = {
           to: user.email,
-          from: "mohsen06111990@gmail.com",
-          subject: "Node.js Password Reset",
+          from: gmail.user,
+          subject: "Password Reset",
           text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\nPlease click on the following link, or paste this into your browser to complete the process:\n
               http://localhost:3000/reset-password/${token}\nIf you did not request this, please ignore this email and your password will remain unchanged.`
         };

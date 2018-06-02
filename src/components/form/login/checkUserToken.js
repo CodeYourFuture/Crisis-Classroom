@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { withRouter } from 'react-router'
 
 class CheckUserToken extends Component {
   constructor(props) {
@@ -14,10 +15,11 @@ class CheckUserToken extends Component {
       this.CheckToken()
     }
   }
+
   CheckToken = () => {
-    const token = window.location.pathname;
+    const token = this.props.match.params.token;
     axios
-      .get(`http://localhost:8080${token}`, "crisisclassroom")
+      .get(`http://localhost:8080/reset-password/${token}`, "crisisclassroom")
       .then(result => {
         if (result.data.rows) {
           const { resetPasswordToken, userName } = result.data.rows[0];
@@ -49,7 +51,7 @@ class CheckUserToken extends Component {
     return (
       <div>
         <div className="login-form">
-          <p>{expired} please send an email agane</p>
+          <p>{expired}.</p>
           <Link to="/forgot-password">Resend email</Link>
         </div>
       </div>
@@ -57,4 +59,5 @@ class CheckUserToken extends Component {
   }
 }
 
-export default CheckUserToken;
+export default withRouter(CheckUserToken)
+

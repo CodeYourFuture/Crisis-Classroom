@@ -7,6 +7,7 @@ const sqlite3 = require("sqlite3").verbose();
 
 const filename = "./database/crisisdb.sqlit";
 let db = new sqlite3.Database(filename);
+var gmail = require("../gmail.json")
 
 const ResetPassword = (req, res) => {
   console.log(req.body);
@@ -38,13 +39,13 @@ const ResetPassword = (req, res) => {
         var smtpTransport = nodemailer.createTransport({
           service: "Gmail",
           auth: {
-            user: "mohsen06111990@gmail.com",
-            pass: "Moradi66"
+            user: gmail.user,
+            pass: gmail.pass
           }
         });
         var mailOptions = {
           to: user.email,
-          from: "mohsen06111990@gmail.com",
+          from: gmail.user,
           subject: "Your password has been changed",
           text:
             "Hello,\n\n" +

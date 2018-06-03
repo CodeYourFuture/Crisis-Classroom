@@ -16,11 +16,11 @@ const CheckUserToken = (req, res) => {
   db.all(sql, [token], (err, rows) => {
     const [user] = rows;
     if (!user) {
-      return res.send("Sorry this link is Wrong");
+      return res.status(400).json({msg: "Sorry this link is Wrong."});
     } else if (err) {
       res.status(400).json(err);
     } else if (Date.now() > user.resetPasswordExpires) {
-      return res.send("Sorry this link is expired");
+      return res.status(400).json({msg: "Sorry this link is expired."});
     } else {
       res.status(200).json({
         rows

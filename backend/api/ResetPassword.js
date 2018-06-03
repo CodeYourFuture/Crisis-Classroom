@@ -39,13 +39,13 @@ const ResetPassword = (req, res) => {
         var smtpTransport = nodemailer.createTransport({
           service: "Gmail",
           auth: {
-            user: gmail.user,
-            pass: gmail.pass
+            user: process.env.USER_GMAIL,
+            pass:  process.env.GMAIL_PASS
           }
         });
         var mailOptions = {
           to: user.email,
-          from: gmail.user,
+          from:  process.env.USER_GMAIL,
           subject: "Your password has been changed",
           text:
             "Hello,\n\n" +
@@ -55,7 +55,7 @@ const ResetPassword = (req, res) => {
         };
         smtpTransport.sendMail(mailOptions, err => {
           if (err) {
-          return  res.send(err);
+            return res.status(400).json({ msg: "Ops! Sorry something happened on the server, please try again later." });
           }
        return   res.send(`Success! Your password has been changed.`);
           done(err, "done");

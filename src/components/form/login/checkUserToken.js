@@ -9,7 +9,7 @@ class CheckUserToken extends Component {
     this.state = {
       resetPasswordToken: "",
       userName: "",
-      expired: ""
+      err:""
     };
     if(this.state.resetPasswordToken=== ""){
       this.CheckToken()
@@ -25,12 +25,6 @@ class CheckUserToken extends Component {
           const { resetPasswordToken, userName } = result.data.rows[0];
           this.setState({ resetPasswordToken, userName });
         }
-        if (
-          result.data === "Sorry this link is expired" ||
-          result.data === "Sorry this link is Wrong"
-        ) {
-          this.setState({ expired: result.data });
-        }
       })
       .then(() => {
         const data = this.state;
@@ -42,16 +36,20 @@ class CheckUserToken extends Component {
         }
       })
       .catch(err => {
-        console.log(err);
+        if(err.response){
+          this.setState({err: err.response.data.msg})
+        }else{
+          this.setState({err: "Ops! Sorry something happened on the server, please try again later"})
+        }
       });
   };
 
   render() {
-    const { expired } = this.state;
+    const { err } = this.state;
     return (
       <div>
         <div className="login-form">
-          <p>{expired}.</p>
+          <p>{err}</p>
           <Link to="/forgot-password">Resend email</Link>
         </div>
       </div>

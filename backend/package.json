@@ -16,6 +16,7 @@
     "connect-busboy": "0.0.2",
     "cors": "^2.8.4",
     "cors-prefetch-middleware": "^1.0.0",
+    "dotenv": "^6.0.0",
     "express": "^4.15.4",
     "express-handlebars": "^3.0.0",
     "express-jwt": "^5.3.1",

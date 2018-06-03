@@ -5,13 +5,16 @@ import Button from "../../button";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+const PAGESTATUS = { none: 0, err: 1, success: 2 };
+
 class ResetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
       password: "",
       confirmPassword: "",
-      data: false,
+      msg: null,
+      pageStatus: PAGESTATUS.none,
       errors: {
         password: null,
         confirmPassword: null
@@ -35,17 +38,25 @@ class ResetPassword extends Component {
         resetPasswordToken
       })
       .then(result => {
-        if (result.data.response) {
-          this.setState({
-            data: "Something went wrong."
-          });
-        } else if (result.data) {
-          const data = result.data;
-          this.setState({ data });
+        console.log("hi")
+        const msg = result.data;
+        if (msg) {
+          this.setState({ msg, pageStatus: PAGESTATUS.success });
         }
       })
       .catch(err => {
-        console.log(err);
+        if (err.response) {
+          this.setState({
+            err: err.response.data.msg,
+            pageStatus: PAGESTATUS.err
+          });
+        } else {
+          this.setState({
+            err:
+              "Ops! Sorry something happened on the server, please try again later",
+            pageStatus: PAGESTATUS.err
+          });
+        }
       });
   };
 
@@ -79,60 +90,75 @@ class ResetPassword extends Component {
     }
     return errors;
   }
+
+  renderByStatus() {
+    const {
+      errors,
+      err,
+      msg,
+      pageStatus,
+      password,
+      confirmPassword
+    } = this.state;
+    switch (pageStatus) {
+      case PAGESTATUS.err:
+        return (
+          <div>
+            <p>{err}</p>
+            <Link to="/login">Go to login page</Link>
+          </div>
+        );
+      case PAGESTATUS.success:
+        return <p className="success">{msg}</p>;
+      default:
+        return (
+          <div>
+            <p>
+              Hi there please enter Your new password and click submit to reset
+              your password.
+            </p>
+            <div className="form-group">
+              <Label value="Password *" />
+              <Input
+                className="form-control"
+                name="password"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={this.handleChange}
+              />
+              {errors.password !== null && (
+                <span className="error">{errors.password}</span>
+              )}
+            </div>
+            <div className="form-group">
+              <Label value="Confirm Your Password *" />
+              <Input
+                className="form-control"
+                name="confirmPassword"
+                type="password"
+                placeholder="Confirm Your Password"
+                value={confirmPassword}
+                onChange={this.handleChange}
+              />
+              {errors.confirmPassword !== null && (
+                <span className="error">{errors.confirmPassword}</span>
+              )}
+            </div>
+            <Button
+              className="btn btn-outline-dark"
+              value="Submit"
+              onClick={this.onSubmit}
+            />
+          </div>
+        );
+    }
+  }
   render() {
-    const data = this.state.data;
-    const { errors } = this.state;
     return (
       <div>
         <h3>Reset password</h3>
-        <div className="login-form">
-          {data ? (
-            <div>
-              <p>{data}</p>
-              <Link to="/login">Go to login page</Link>
-            </div>
-          ) : (
-            <div>
-              <p>
-                Hi there please enter Your new password and click submit to
-                reset your password.
-              </p>
-              <div className="form-group">
-                <Label value="Password *" />
-                <Input
-                  className="form-control"
-                  name="password"
-                  type="password"
-                  placeholder="Password"
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                />
-                {errors.password !== null && (
-                  <span className="error">{errors.password}</span>
-                )}
-              </div>
-              <div className="form-group">
-                <Label value="Confirm Your Password *" />
-                <Input
-                  className="form-control"
-                  name="confirmPassword"
-                  type="password"
-                  placeholder="Confirm Your Password"
-                  value={this.state.confirmPassword}
-                  onChange={this.handleChange}
-                />
-                {errors.confirmPassword !== null && (
-                  <span className="error">{errors.confirmPassword}</span>
-                )}
-              </div>
-              <Button
-                className="btn btn-outline-dark"
-                value="Submit"
-                onClick={this.onSubmit}
-              />
-            </div>
-          )}
-        </div>
+        <div className="login-form">{this.renderByStatus()}</div>
       </div>
     );
   }

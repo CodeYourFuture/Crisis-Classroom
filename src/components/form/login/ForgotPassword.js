@@ -3,13 +3,15 @@ import Input from "../../input";
 import Button from "../../button";
 import Label from "../../label";
 import axios from "axios";
-
+const PAGESTATUS = { none: 0, err: 1, success: 2 };
 class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
-      data: false,
+      msg: null,
+      err:"",
+      pageStatus: PAGESTATUS.none,
       errors: {
         email: null
       }
@@ -28,13 +30,24 @@ class ForgotPassword extends Component {
         email
       })
       .then(result => {
-        const data = result.data;
-        if (data) {
-          this.setState({ data });
+        const msg = result.data;
+        if (msg) {
+          this.setState({ msg, pageStatus: PAGESTATUS.success });
         }
       })
       .catch(err => {
-        console.log(err);
+        if (err.response) {
+          this.setState({
+            err: err.response.data.msg,
+            pageStatus: PAGESTATUS.err
+          });
+        } else {
+          this.setState({
+            err:
+              "Ops! Sorry something happened on the server, please try again later",
+            pageStatus: PAGESTATUS.err
+          });
+        }
       });
   };
 
@@ -63,40 +76,43 @@ class ForgotPassword extends Component {
     }
     return errors;
   }
-  render() {
-    const data = this.state.data;
-    const { errors } = this.state;
-    return (
-      <div>
-        <h3>Enter your email</h3>
-        <div className="login-form">
-          {data ? (
-            <p className="errors">{this.state.data}</p>
-          ) : (
-            <div>
-              <div className="form-group">
-                <Label value="Email *" />
-                <Input
-                  className="form-control"
-                  name="email"
-                  type="text"
-                  placeholder="Email"
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                />
-                {errors.email !== "" && (
-                  <span className="error">{errors.email}</span>
-                )}
-              </div>
-              <Button
-                className="btn btn-outline-dark"
-                value="Submit"
-                onClick={this.onSubmit}
+  renderByStatus() {
+    const { errors, err, msg, pageStatus, email } = this.state;
+    switch (pageStatus) {
+      case PAGESTATUS.err:
+        return <p className="errors">{err}</p>;
+      case PAGESTATUS.success:
+        return <p className="success">{msg}</p>;
+      default:
+        return (
+          <div>
+            <h3>Enter your email</h3>
+            <div className="form-group">
+              <Label value="Email *" />
+              <Input
+                className="form-control"
+                name="email"
+                type="text"
+                placeholder="Email"
+                value={email}
+                onChange={this.handleChange}
               />
+              {errors.email !== "" && (
+                <span className="error">{errors.email}</span>
+              )}
             </div>
-          )}
-        </div>
-      </div>
+            <Button
+              className="btn btn-outline-dark"
+              value="Submit"
+              onClick={this.onSubmit}
+            />
+          </div>
+        );
+    }
+  }
+  render() {
+    return (
+        <div className="login-form">{this.renderByStatus()}</div>
     );
   }
 }

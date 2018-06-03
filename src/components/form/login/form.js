@@ -65,8 +65,7 @@ class Login extends Component {
               />
             </div>
             <div className="form-group">
-              <h5>Forgotten password?</h5>
-
+              <Link to="/forgot-password">Forgotten password?</Link>
               <div className="row">
                 &nbsp; &nbsp;
                 <Button className="btn btn-outline-dark" value="Login" />

@@ -66,9 +66,9 @@ class Form extends React.Component {
   };
 
   removeLessonTitlesHandler = i => {
-    const { lessonTitles } = this.state;
+    const { tools } = this.state;
     this.setState({
-      lessonTitles: lessonTitles.splice(-i, 1)
+      tools: tools.splice(-i, 1)
     });
   };
 

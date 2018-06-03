@@ -25,6 +25,10 @@ import ImageUploader from "../components/imageUploader";
 import TemplateCreated from "../components/form/templats/templateCreated";
 import TemplateEdited  from "../components/form/templats/templateEdited";
 import TemplateDeleted  from "../components/templates/templateDeleted";
+import ForgotPassword from "../components/form/login/ForgotPassword";
+import CheckUserToken from "../components/form/login/checkUserToken";
+import ResetPassword from "../components/form/login/ResetPassword";
+
 
 
 class Routes extends Component {
@@ -49,9 +53,12 @@ class Routes extends Component {
         <Layout exact path="/notfound" component={NotFound} />
         <Layout exact path="/image-uploader" component={ImageUploader} />
         <Layout exact path="/registration-done" component={RegistrationDone} />
-        <Layout exact path="/template-created" component={TemplateCreated} />
-        <Layout exact path="/template-edited" component={TemplateEdited} />
-        <Layout exact path="/template-deleted" component={TemplateDeleted} />
+        <Layout exact path="/forgot-password" component={ForgotPassword} />
+        <Layout exact path="/reset-password/:token" component={CheckUserToken} />
+        <Layout exact path="/reset-password" component={ResetPassword} />
+        <PrivateRoute exact path="/template-created" component={TemplateCreated} />
+        <PrivateRoute exact path="/template-edited" component={TemplateEdited} />
+        <PrivateRoute exact path="/template-deleted" component={TemplateDeleted} />
         <PrivateRoute path="/templates" component={Templates} />
       </Switch>
     );

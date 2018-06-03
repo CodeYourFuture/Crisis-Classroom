@@ -3,6 +3,8 @@ const router = express.Router();
 const exjwt = require("express-jwt");
 const multer = require("multer");
 
+
+
 const storage = multer.diskStorage({
   destination: "./files",
   filename(req, file, cb) {
@@ -22,6 +24,10 @@ const files = require("./files");
 const creatLessons = require("./creatLessons");
 const EditLesson = require("./EditLesson");
 const DeleteLesson = require("./DeleteLesson");
+//forgot password
+const ForgotPassword = require("./ForgotPassword");
+const CheckUserToken = require("./CheckUserToken");
+const ResetPassword = require("./ResetPassword");
 
 const jwtMW = exjwt({
   secret: "keyboard cat 4 ever"
@@ -39,6 +45,10 @@ const api = () => {
   router.post("/edit-lessons", EditLesson);
   router.post("/delete-lessons", DeleteLesson);
   router.post("/files", upload.single("file"), files);
+//forgot password
+router.post("/forgot-password", ForgotPassword);
+router.get("/reset-password/:token", CheckUserToken);
+router.post("/reset-password", ResetPassword);
 
   return router;
 };

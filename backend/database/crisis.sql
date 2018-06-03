@@ -5,6 +5,8 @@ create table users
     surName varchar,
     email varchar,
     userName varchar,
+    resetPasswordToken varchar,
+    resetPasswordExpires varchar,
     password text not null,
     confirmPassword text not null
 );

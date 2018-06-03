@@ -9,10 +9,10 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      err: "",
       userName: "",
       password: ""
     };
-
     this.Auth = AuthService;
   }
 
@@ -27,7 +27,14 @@ class Login extends Component {
         if (this.Auth.loggedIn()) this.props.history.replace("/welecome");
       })
       .catch(err => {
-        alert(err);
+        if (err.msg) {
+          this.setState({ err: err.msg });
+        } else {
+          this.setState({
+            err:
+              "Ops! Sorry something happened on the server, please try again later"
+          });
+        }
       });
   };
 
@@ -41,6 +48,7 @@ class Login extends Component {
       <div>
         <h3>To See Templates Please Login</h3>
         <div className="login-form">
+          <p>{this.state.err}</p>
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
               <Label value="Username *" />

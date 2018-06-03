@@ -10,7 +10,6 @@ let db = new sqlite3.Database(filename);
 var gmail = require("../gmail.json")
 
 const ResetPassword = (req, res) => {
-  console.log(req.body);
   async.waterfall(
     [
       done => {

@@ -5,7 +5,6 @@ let db = new sqlite3.Database(filename);
 
 const checkEmail = (req, res) => {
   var sql = "select users.email from users where  email=?";
-  console.log(req.body);
   db.all(sql, [req.body.email], (err, rows) => {
     if (err) {
       res.status(500);

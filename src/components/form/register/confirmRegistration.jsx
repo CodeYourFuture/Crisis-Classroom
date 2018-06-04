@@ -3,6 +3,13 @@ import Button from "../../button";
 import axios from "axios";
 
 class ConfirmRegistration extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      err: ""
+    };
+  }
+
   onSubmit = () => {
     const {
       firstName,
@@ -23,11 +30,17 @@ class ConfirmRegistration extends Component {
         confirmPassword
       })
       .then(result => {
-        console.log(result);
         this.props.history.replace("/registration-done");
       })
       .catch(err => {
-        console.log(err);
+        if (err.msg) {
+          this.setState({ err: err.msg });
+        } else {
+          this.setState({
+            err:
+              "Ops! Sorry something happened on the server, please try again later"
+          });
+        }
       });
   };
 
@@ -35,9 +48,10 @@ class ConfirmRegistration extends Component {
     const state = this.props.userData;
     return (
       <div className="lesson-form">
+        <p>{this.state.err}</p>
         <h3>
-          Hi {state.firstName}, please check the below details and click 'Looks fine'.
-          
+          Hi {state.firstName}, please check the below details and click 'Looks
+          fine'.
         </h3>
         <ul>
           <li>First name: {state.firstName}</li>

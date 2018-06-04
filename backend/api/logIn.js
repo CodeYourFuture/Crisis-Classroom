@@ -1,25 +1,26 @@
 const sqlite3 = require("sqlite3").verbose();
 const jwt = require("jsonwebtoken");
 
+
+
 const filename = "./database/crisisdb.sqlit";
 let db = new sqlite3.Database(filename);
 
 const login = (req, res) => {
   var sql = `select users.userName, users.password from users where userName=? and password=?`;
-  // console.log(req.body);
   db.all(sql, [req.body.userName, req.body.password], (err, rows) => {
     if (rows.length === 0) {
       return res.status(400).json({
         sucess: false,
         token: null,
-        err: "username or password are wrong"
+        msg: "username or password are wrong"
       });
     }
     if (err) {
       return res.status(400).json({
         sucess: false,
         token: null,
-        err: "Something bad happened"
+        msg: "Ops! Sorry something happened on the server, please try again later." 
       });
     }
 
@@ -39,3 +40,5 @@ const login = (req, res) => {
 module.exports = {
   login: login
 };
+//use bcrypt to secure password
+//https://www.abeautifulsite.net/hashing-passwords-with-nodejs-and-bcrypt

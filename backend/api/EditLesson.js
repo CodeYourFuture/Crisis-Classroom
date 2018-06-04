@@ -5,7 +5,6 @@ let db = new sqlite3.Database(filename);
 
 const EditLesson = (req, res) => {
   const lesson = req.body;
-  console.log(lesson);
   const { tools, ingredients, instructions, lessonId } = lesson;
   editLessons(lesson)
     .then(() => tools.forEach(tool => editTool(tool, lessonId)))

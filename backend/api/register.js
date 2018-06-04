@@ -7,7 +7,6 @@ const register = (req, res) => {
   var sql = `insert into users
              (firstName, surName, userName, email, password, confirmPassword)
              values (?, ?, ?, ?, ?, ?)`;
-  console.log(req.body);
   db.run(
     sql,
     [
@@ -20,7 +19,7 @@ const register = (req, res) => {
     ],
     (err, rows) => {
       if (err) {
-        res.status(500).end();
+        return res.status(400).json({ msg: "Ops! Sorry something happened on the server, please try again later." });        
       } else {
         res.status(200).json({
           users: rows

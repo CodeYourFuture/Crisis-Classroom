@@ -31,10 +31,10 @@ const ResetPassword = (req, res) => {
                     'Ops! Sorry something happened on the server, please try again later.',
                 });
               }
-              var sql = `UPDATE users set password=?, resetPasswordToken=? where resetPasswordToken=?`;
+              var sql = `UPDATE users set password=?, resetPasswordExpires=? where resetPasswordToken=?`;
               db.run(
                 sql,
-                [hash, 'crisis classroom', user.resetPasswordToken],
+                [hash, Date.now(), user.resetPasswordToken],
                 (err) => {
                   done(err, user);
                 }

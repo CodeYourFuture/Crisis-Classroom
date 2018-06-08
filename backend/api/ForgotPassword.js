@@ -23,6 +23,11 @@ const ForgotPassword = (req, res, next) => {
           const [user] = rows;
           if (!user) {
             return res.send('No account with that email address exists.');
+          } else if (err) {
+            return res.status(400).json({
+              msg:
+                'Ops! Sorry something happened on the server, please try again later.',
+            });
           } else {
             const resetPasswordExpires = Date.now() + 3600000;
             var sql = `UPDATE users set resetPasswordToken=?, resetPasswordExpires=? where email=?`;
@@ -32,7 +37,7 @@ const ForgotPassword = (req, res, next) => {
           }
         });
       },
-      (token, user, done) => {
+      (token, user) => {
         var smtpTransport = nodemailer.createTransport({
           service: 'Gmail',
           auth: {
@@ -49,17 +54,14 @@ const ForgotPassword = (req, res, next) => {
         };
         smtpTransport.sendMail(mailOptions, (err) => {
           if (err) {
-            return res
-              .status(400)
-              .json({
-                msg:
-                  'Ops! Sorry something happened on the server, please try again later.',
-              });
+            return res.status(400).json({
+              msg:
+                'Ops! Sorry something happened on the server, please try again later.',
+            });
           }
           return res.send(
             `success, An e-mail has been sent to ${user.email} with further instructions.`
           );
-          done(err, 'done');
         });
       },
     ],

@@ -43,7 +43,7 @@ const ResetPassword = (req, res) => {
           }
         });
       },
-      (user, done) => {
+      (user) => {
         var smtpTransport = nodemailer.createTransport({
           service: 'Gmail',
           auth: {

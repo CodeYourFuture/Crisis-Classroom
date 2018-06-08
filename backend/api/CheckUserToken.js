@@ -1,8 +1,3 @@
-var passport = require("passport");
-var async = require("async");
-var nodemailer = require("nodemailer");
-var crypto = require("crypto");
-
 const sqlite3 = require("sqlite3").verbose();
 
 const filename = "./database/crisisdb.sqlit";

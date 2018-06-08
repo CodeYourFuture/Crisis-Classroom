@@ -1,14 +1,11 @@
-var passport = require('passport');
 var async = require('async');
 var nodemailer = require('nodemailer');
-var crypto = require('crypto');
 const bcrypt = require('bcrypt');
 
 const sqlite3 = require('sqlite3').verbose();
 
 const filename = './database/crisisdb.sqlit';
 let db = new sqlite3.Database(filename);
-var gmail = require('../gmail.json');
 
 const ResetPassword = (req, res) => {
   async.waterfall(
@@ -20,7 +17,10 @@ const ResetPassword = (req, res) => {
         db.all(sql, [resetPasswordToken], (err, rows) => {
           const [user] = rows;
           if (err) {
-            res.status(400).json(err);
+            return res.status(400).json({
+              msg:
+                'Ops! Sorry something happened on the server, please try again later.',
+            });
           } else if (Date.now() > user.resetPasswordExpires) {
             return res.send('Sorry this link is expired');
           } else {
@@ -69,15 +69,16 @@ const ResetPassword = (req, res) => {
             });
           }
           return res.send(`Success! Your password has been changed.`);
-          done(err, 'done');
         });
       },
     ],
     (err) => {
       if (err) {
-        return res.send(err);
+        return res.status(400).json({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
       }
-      return res.json(res);
     }
   );
 };

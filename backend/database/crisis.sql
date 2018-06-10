@@ -8,7 +8,8 @@ create table users
     resetPasswordToken varchar,
     resetPasswordExpires varchar,
     password text not null,
-    admin NUMERIC
+    teacher BOOLEAN,
+    admin BOOLEAN
 );
 create table survey
 (

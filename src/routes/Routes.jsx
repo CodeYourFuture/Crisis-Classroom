@@ -28,6 +28,7 @@ import TemplateDeleted  from "../components/templates/templateDeleted";
 import ForgotPassword from "../components/form/login/ForgotPassword";
 import CheckUserToken from "../components/form/login/checkUserToken";
 import ResetPassword from "../components/form/login/ResetPassword";
+import Adminpage from "../layout/adminPage";
 
 
 
@@ -35,7 +36,7 @@ class Routes extends Component {
   render() {
     return (
       <Switch>
-        <Layout exact path="/teachers" component={Teacher} />
+        <Adminpage exact path="/teachers" component={Teacher} />
         <Layout exact path="/training" component={Training} />
         <Layout exact path="/training/day-one" component={Day1} />
         <Layout exact path="/training/day-two" component={Day2} />
@@ -47,11 +48,11 @@ class Routes extends Component {
         <Layout exact path="/" component={Home} />
         <Layout exact path="/survey" component={Survey} />
         <Layout exact path="/login" component={Login} />
-        <Layout exact path="/add-new-templet" component={LessonForm} />
+        <PrivateRoute exact path="/add-new-templet" component={LessonForm} />
         <Layout path="/register" component={Register} />
-        <Layout exact path="/welecome" component={Welecome} />
+        <PrivateRoute exact path="/welecome" component={Welecome} />
         <Layout exact path="/notfound" component={NotFound} />
-        <Layout exact path="/image-uploader" component={ImageUploader} />
+        <PrivateRoute exact path="/image-uploader" component={ImageUploader} />
         <Layout exact path="/registration-done" component={RegistrationDone} />
         <Layout exact path="/forgot-password" component={ForgotPassword} />
         <Layout exact path="/reset-password/:token" component={CheckUserToken} />

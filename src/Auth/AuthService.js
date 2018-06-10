@@ -27,6 +27,12 @@ class AuthService {
       })
   };
 
+  AdminloggedIn = () =>{
+    const token = this.getToken();
+    const decoded = decode(token);
+    console.log(decoded)
+    return decoded.admin
+  }
   loggedIn = () => {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken();
@@ -40,7 +46,7 @@ class AuthService {
         return true;
       } else return false;
     } catch (err) {
-      return false;
+      return true;
     }
   };
 
@@ -52,6 +58,7 @@ class AuthService {
   getToken = () => {
     // Retrieves the user token from localStorage
     return localStorage.getItem("id_token");
+
   };
 
   logout = () => {

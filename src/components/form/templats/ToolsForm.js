@@ -1,23 +1,23 @@
-import React from "react";
-import Input from "../../input";
-import Label from "../../label";
-import Button from "../../button";
-import Context from "./context";
-import ReactS3 from "react-s3";
-import "./style.css";
+import React from 'react';
+import Input from '../../input';
+import Label from '../../label';
+import Button from '../../button';
+import Context from './context';
+import ReactS3 from 'react-s3';
+import './style.css';
 
 const config = {
-  bucketName: "crisis-class-room",
-  region: "eu-west-2",
+  bucketName: 'crisis-class-room',
+  region: 'eu-west-2',
   accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
+  secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY,
 };
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tools: props.tools
+      tools: props.tools,
     };
   }
 
@@ -27,48 +27,51 @@ class Form extends React.Component {
     this.setState({
       tools: this.state.tools.map(
         (tool, i) => (i === index ? newToolName : tool)
-      )
+      ),
     });
   };
 
   onChangeImageToolshandler = (e, index) => {
     const tool = this.state.tools[index];
     const file = e.target.files[0];
-    ReactS3.upload(file, config).then(result => {
+    ReactS3.upload(file, config).then((result) => {
       const newToolImage = { ...tool, toolImage: result.location };
       this.setState({
         tools: this.state.tools.map(
           (tool, i) => (i === index ? newToolImage : tool)
-        )
+        ),
       });
     });
   };
 
-  addToolsHandler = e => {
+  addToolsHandler = (e) => {
     this.setState({
       tools: [
         ...this.state.tools,
-        { toolId: this.state.tools.length + 1, toolName: "", toolImage: "" }
-      ]
+        { toolId: this.state.tools.length + 1, toolName: '', toolImage: '' },
+      ],
     });
   };
 
-  removeToolsHandler = toolId => {
+  removeToolsImgHandler = (toolId) => {
     const { tools } = this.state;
-    tools.forEach(tool => {
+    tools.forEach((tool) => {
       if (tool.toolId === toolId) {
         tool.toolImage = null;
       }
     });
     this.setState({
-      tools
+      tools,
     });
   };
 
-  removeLessonTitlesHandler = i => {
+  removeToolsHandler = (i) => {
     const { tools } = this.state;
+    let removeResult = tools.filter((tool) => tool.toolId !== i);
+    console.log(removeResult);
+
     this.setState({
-      tools: tools.splice(-i, 1)
+      tools: removeResult
     });
   };
 
@@ -84,7 +87,7 @@ class Form extends React.Component {
           {this.state.tools &&
             this.state.tools.map(({ toolName, toolImage, toolId }, i) => {
               return (
-                <div className="lessonForm" key={toolId}>
+                <div className="lessonForm" key={i}>
                   <div className="form-group">
                     <Label value="Tool Name" />
                     <div className="lessonInput">
@@ -92,7 +95,7 @@ class Form extends React.Component {
                         className="form-control"
                         type="text"
                         name="toolName"
-                        onChange={e => this.onChangeToolshandler(e, i)}
+                        onChange={(e) => this.onChangeToolshandler(e, i)}
                         placeholder="Tool"
                         value={toolName}
                       />
@@ -101,12 +104,11 @@ class Form extends React.Component {
                           <label className="btn btn-outline-dark">
                             Upload an image
                             <input
-                              style={{ display: "none" }}
+                              style={{ display: 'none' }}
                               type="file"
                               name="toolImage"
-                              onChange={e =>
-                                this.onChangeImageToolshandler(e, i)
-                              }
+                              onChange={(e) =>
+                                this.onChangeImageToolshandler(e, i)}
                               accept="image/*"
                             />
                           </label>
@@ -114,7 +116,7 @@ class Form extends React.Component {
                       ) : (
                         <div
                           className="image-container"
-                          onClick={() => this.removeToolsHandler(toolId)}
+                          onClick={() => this.removeToolsImgHandler(toolId)}
                         >
                           <img
                             className="image"
@@ -131,7 +133,7 @@ class Form extends React.Component {
                       <Button
                         className="btn btn-outline-danger lessonBtn"
                         value="Remove"
-                        onClick={() => this.removeLessonTitlesHandler(i)}
+                        onClick={() => this.removeToolsHandler(toolId)}
                       />
                     </div>
                   </div>
@@ -145,7 +147,7 @@ class Form extends React.Component {
           onClick={this.addToolsHandler}
         />
         &nbsp;
-        <div style={{ display: "flex" }}>
+        <div style={{ display: 'flex' }}>
           <Button
             className="btn btn-outline-dark"
             value="previous"
@@ -179,3 +181,9 @@ export default class ToolsFormWrapper extends React.Component {
     );
   }
 }
+
+// index.js:2178 Warning: Encountered two children with the same key, `3`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version.
+//     in div (at ToolsForm.js:79)
+//     in div (at ToolsForm.js:78)
+//     in Form (at ToolsForm.js:172)
+//     in ToolsFormWrapper (at index.js:124)

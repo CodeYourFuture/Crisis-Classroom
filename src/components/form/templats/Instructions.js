@@ -1,23 +1,23 @@
-import React from "react";
-import Input from "../../input";
-import Label from "../../label";
-import Button from "../../button";
-import Context from "./context";
-import ReactS3 from "react-s3";
-import "./style.css";
+import React from 'react';
+import Input from '../../input';
+import Label from '../../label';
+import Button from '../../button';
+import Context from './context';
+import ReactS3 from 'react-s3';
+import './style.css';
 
 const config = {
-  bucketName: "crisis-class-room",
-  region: "eu-west-2",
+  bucketName: 'crisis-class-room',
+  region: 'eu-west-2',
   accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
+  secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY,
 };
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      instructions: props.instructions
+      instructions: props.instructions,
     };
   }
 
@@ -25,53 +25,64 @@ class Form extends React.Component {
     const instruction = this.state.instructions[index];
     const newinstructionName = {
       ...instruction,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     };
     this.setState({
       instructions: this.state.instructions.map(
         (instruction, i) => (i === index ? newinstructionName : instruction)
-      )
+      ),
     });
   };
 
   onChangeImageInstructionshandler = (e, index) => {
     const instruction = this.state.instructions[index];
     const file = e.target.files[0];
-    ReactS3.upload(file, config).then(result => {
+    ReactS3.upload(file, config).then((result) => {
       const newinstructionImage = {
         ...instruction,
-        instructionImage: result.location
+        instructionImage: result.location,
       };
       this.setState({
         instructions: this.state.instructions.map(
           (instruction, i) => (i === index ? newinstructionImage : instruction)
-        )
+        ),
       });
     });
   };
 
-  addInstructionsHandler = e => {
+  addInstructionsHandler = (e) => {
     this.setState({
       instructions: [
         ...this.state.instructions,
         {
           instructionId: this.state.instructions.length + 1,
-          instructionName: "",
-          instructionImage: ""
-        }
-      ]
+          instructionName: '',
+          instructionImage: '',
+        },
+      ],
     });
   };
 
-  removeInstructionsHandler = instructionId => {
+  removeInstructionsImgHandler = (instructionId) => {
     const { instructions } = this.state;
-    instructions.forEach(instruction => {
+    instructions.forEach((instruction) => {
       if (instruction.instructionId === instructionId) {
         instruction.instructionImage = null;
       }
     });
     this.setState({
-      instructions
+      instructions,
+    });
+  };
+
+  removeInstructionsHandler = (i) => {
+    const { instructions } = this.state;
+    let removeResult = instructions.filter(
+      (instruction) => instruction.instructionId !== i
+    );
+
+    this.setState({
+      instructions: removeResult,
     });
   };
 
@@ -89,7 +100,7 @@ class Form extends React.Component {
               this.state.instructions.map(
                 ({ instructionName, instructionImage, instructionId }, i) => {
                   return (
-                    <div className="lessonForm" key={instructionId}>
+                    <div className="lessonForm" key={i}>
                       <div className="form-group">
                         <Label value="instruction Name" />
                         <div className="lessonInput">
@@ -97,9 +108,8 @@ class Form extends React.Component {
                             className="form-control"
                             type="text"
                             name="instructionName"
-                            onChange={e =>
-                              this.onChangeInstructionshandler(e, i)
-                            }
+                            onChange={(e) =>
+                              this.onChangeInstructionshandler(e, i)}
                             placeholder="instruction"
                             value={instructionName}
                           />
@@ -108,12 +118,11 @@ class Form extends React.Component {
                               <label className="btn btn-outline-dark">
                                 Upload an image
                                 <input
-                                  style={{ display: "none" }}
+                                  style={{ display: 'none' }}
                                   type="file"
                                   name="instructionImage"
-                                  onChange={e =>
-                                    this.onChangeImageInstructionshandler(e, i)
-                                  }
+                                  onChange={(e) =>
+                                    this.onChangeImageInstructionshandler(e, i)}
                                   accept="image/*"
                                 />
                               </label>
@@ -122,8 +131,7 @@ class Form extends React.Component {
                             <div
                               className="image-container"
                               onClick={() =>
-                                this.removeInstructionsHandler(instructionId)
-                              }
+                                this.removeInstructionsImgHandler(instructionId)}
                             >
                               <img
                                 className="image"
@@ -136,6 +144,13 @@ class Form extends React.Component {
                               </div>
                             </div>
                           )}
+                          &nbsp;
+                          <Button
+                            className="btn btn-outline-danger lessonBtn"
+                            value="Remove"
+                            onClick={() =>
+                              this.removeInstructionsHandler(instructionId)}
+                          />
                         </div>
                       </div>
                     </div>
@@ -149,7 +164,7 @@ class Form extends React.Component {
             onClick={this.addInstructionsHandler}
           />
           &nbsp;
-          <div style={{ display: "flex" }}>
+          <div style={{ display: 'flex' }}>
             <Button
               className="btn btn-outline-dark "
               value="previous"
@@ -160,8 +175,7 @@ class Form extends React.Component {
               className="btn btn-outline-dark "
               value="Next"
               onClick={() =>
-                this.props.onAddInstructions(this.state.instructions)
-              }
+                this.props.onAddInstructions(this.state.instructions)}
             />
           </div>
         </div>

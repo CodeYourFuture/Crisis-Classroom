@@ -38,7 +38,6 @@ class ResetPassword extends Component {
         resetPasswordToken
       })
       .then(result => {
-        console.log("hi")
         const msg = result.data;
         if (msg) {
           this.setState({ msg, pageStatus: PAGESTATUS.success });

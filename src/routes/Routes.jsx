@@ -29,6 +29,8 @@ import ForgotPassword from "../components/form/login/ForgotPassword";
 import CheckUserToken from "../components/form/login/checkUserToken";
 import ResetPassword from "../components/form/login/ResetPassword";
 import Adminpage from "../layout/adminPage";
+import AcceptRegistration from "../components/admin/AcceptRegistration";
+import CheckRegistrationToken from "../components/admin/CheckRegistrationToken";
 
 
 
@@ -36,7 +38,7 @@ class Routes extends Component {
   render() {
     return (
       <Switch>
-        <Adminpage exact path="/teachers" component={Teacher} />
+        <Layout exact path="/teachers" component={Teacher} />
         <Layout exact path="/training" component={Training} />
         <Layout exact path="/training/day-one" component={Day1} />
         <Layout exact path="/training/day-two" component={Day2} />
@@ -61,6 +63,8 @@ class Routes extends Component {
         <PrivateRoute exact path="/template-edited" component={TemplateEdited} />
         <PrivateRoute exact path="/template-deleted" component={TemplateDeleted} />
         <PrivateRoute path="/templates" component={Templates} />
+        <Adminpage exact path="/accept-registration/:token" component={CheckRegistrationToken} />
+        <Adminpage exact path="/accept-registration" component={AcceptRegistration} />
       </Switch>
     );
   }

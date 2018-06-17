@@ -68,8 +68,6 @@ class Form extends React.Component {
   removeToolsHandler = (i) => {
     const { tools } = this.state;
     let removeResult = tools.filter((tool) => tool.toolId !== i);
-    console.log(removeResult);
-
     this.setState({
       tools: removeResult
     });

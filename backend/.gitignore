@@ -1,4 +1,6 @@
 node_modules/*
 .DS_Store
 *.exe
-
+.env
+gmail.json
+database/*

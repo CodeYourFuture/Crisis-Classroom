@@ -6,19 +6,22 @@
     "antd": "^3.3.3",
     "axios": "^0.18.0",
     "dotenv": "^5.0.1",
+    "eslint-plugin-react": "^7.8.2",
     "firebase": "^4.13.1",
     "js-cookie": "^2.2.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.5",
     "mdbreact": "^4.2.0",
-    "react": "^16.2.0",
+    "react": "^16.3.0",
     "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.3.0",
     "react-dropzone-s3-uploader": "^1.1.0",
     "react-flexbox-grid": "^2.0.0",
     "react-image-uploader": "^1.0.0",
     "react-images-uploader": "^1.2.0-rc1",
     "react-mad-navbar": "^0.2.0",
+    "react-password-mask": "^3.3.0",
+    "react-progress-button": "^5.1.0",
     "react-router-dom": "^4.2.2",
     "react-s3": "^1.2.4",
     "react-scripts": "^1.1.1",
@@ -31,6 +34,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "react-social-icons": "^2.8.1"
+    "react-social-icons": "^2.8.1",
+    "react-to-print": "^1.0.17"
   }
 }

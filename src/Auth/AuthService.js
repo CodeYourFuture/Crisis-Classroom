@@ -9,6 +9,7 @@ class AuthService {
     this.state = {
       err:null
     };
+    // console.log(this.state.err)
   }
 
   login = (userName, password) => {
@@ -24,9 +25,6 @@ class AuthService {
         this.setToken(res.token);
         return Promise.resolve(res);
       })
-      .catch(err => {
-       return err
-      });
   };
 
   loggedIn = () => {
@@ -89,9 +87,9 @@ class AuthService {
     if (response.status >= 200 && response.status < 300) {
       return response;
     } else {
-      var error = new Error(response.statusText);
-      error.response = response;
-      throw error;
+      return response.json().then(error => {
+        throw error;
+      })
     }
   };
 }

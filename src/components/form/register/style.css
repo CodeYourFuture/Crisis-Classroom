@@ -1,3 +1,15 @@
+.registraton-form {
+    margin: auto;
+    width: 50%;
+    padding: 50px;
+    border-style: inset;
+  }
+  .login-form {
+    margin: auto;
+    width: 50%;
+    padding: 50px;
+    border-style: inset;
+  }
 .registration{
     align-items: center;
 }

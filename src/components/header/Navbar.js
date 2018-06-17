@@ -28,7 +28,6 @@ export default class NavbarFeatures extends Component {
           >
             <span className="navbar-toggler-icon" />
           </button>
-
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
@@ -43,7 +42,7 @@ export default class NavbarFeatures extends Component {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/projects">
-                  projects
+                  Projects
                 </Link>
               </li>
               <li className="nav-item">
@@ -76,28 +75,32 @@ export default class NavbarFeatures extends Component {
                   Our supporters
                 </div>
               </li>
-
               <li className="nav-item">
                 <Link to="/templates" className="nav-link">
                   Templates
                 </Link>
               </li>
-
-              <li className="nav-item">
-                {AuthService.loggedIn() ? (
+              {AuthService.loggedIn() ? (
+                <li className="nav-item">
                   <Button
-                    className="btn btn-outline-success"
+                    className="log-out nav-link"
                     value="Log Out"
                     onClick={this.onLogOut}
                   />
-                ) : (
+                </li>
+              ) : (
+                <li className="nav-item user-info-items">
+                  <Link to="/login" className="nav-link">
+                    LogIn
+                  </Link>
+                  &nbsp;
                   <Link to="/register" className="nav-link">
                     Register
                   </Link>
-                )}
-              </li>
+                </li>
+              )}
             </ul>
-            <form className="form-inline my-2 my-lg-0 form">
+            {/* <form className="form-inline my-2 my-lg-0 form">
               <input
                 className="form-control mr-sm-2"
                 type="search"
@@ -110,7 +113,7 @@ export default class NavbarFeatures extends Component {
               >
                 Search
               </button>
-            </form>
+            </form> */}
           </div>
         </nav>
       </Route>

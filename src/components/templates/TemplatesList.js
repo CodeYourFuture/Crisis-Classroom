@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Fakedb from "../../data/Fakedb.json";
-
 import Input from "../input";
+import PlusIcon from "../../image/icons/plus-icon-green-hi.png"
 import "./style.css";
 
 function searchingFor(term) {
   return db => {
-    return (
-      !term || db.lessons.lessonTitle.toLowerCase().includes(term.toLowerCase())
-    );
+    return !term || db.lessonTitle.toLowerCase().includes(term.toLowerCase());
   };
 }
 
@@ -20,6 +17,7 @@ export default class TemplatIndex extends Component {
       term: null
     };
   }
+
   searchHandler = e => {
     this.setState({
       term: e.target.value,
@@ -28,7 +26,7 @@ export default class TemplatIndex extends Component {
   };
 
   render() {
-    let searchResult = Fakedb.filter(searchingFor(this.state.term));
+    let searchResult = this.props.lessons.filter(searchingFor(this.state.term));
     return (
       <div>
         <h1>Templates</h1>
@@ -36,22 +34,22 @@ export default class TemplatIndex extends Component {
           <Input
             onChange={this.searchHandler}
             type="text"
-            placeholder="Search for templete"
+            placeholder="Search for template"
           />
-          <Link to="/add-new-templet" className="push">
-            <button className="btn btn-primary">Add One</button>
-          </Link>
         </div>
         &nbsp; &nbsp;
         <div className="templets">
+          <Link to="/add-new-templet" className="add-templat">
+            <img src={PlusIcon} alt="plus icon green" className="add-templat-p"/>
+          </Link>
           {searchResult.map((e, i) => (
             <div className="templetsItem" key={i}>
-              <Link to={`/templates/${e.lessons.id}`} key={i}>
-                {e.lessons.lessonTitle || "[no description]"}
+              <Link to={`/templates/${e.id}`}>
+                {e.lessonTitle || "[no description]"}
                 <img
                   className="templetsItemImg"
-                  src={require(`../../image/archive/${e.lessons.lessonImg}`)}
-                  alt={e.lessons.lessonTitle}
+                  src={e.lessonTitleImage}
+                  alt={e.lessonTitle}
                 />
               </Link>
             </div>

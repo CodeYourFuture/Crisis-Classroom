@@ -1,5 +1,6 @@
 import React from "react";
 import Input from "../../input";
+import PasswordMask from "react-password-mask";
 // import Button from "../../button";
 import Label from "../../label";
 
@@ -8,102 +9,85 @@ export default class Form extends React.Component {
     super(props);
     this.state = {
       error: null,
-      errors: [],
-      checkUser: [],
-      checkUserName: [],
-      checkEmail: "",
-      userChecked: false
+      errors: {
+        firstName: null,
+        surName: null,
+        userName: null,
+        email: null,
+        password: null,
+        confirmPassword: null
+      }
     };
-  }
-
-  componentDidMount() {
-    fetch(`http://localhost:8080/check-users`)
-      .then(res => res.json())
-      .then(Data => {
-        this.setState({ checkUser: Data.status });
-      })
-      .catch(error => {
-        this.setState({
-          error
-        });
-      });
   }
 
   handleSubmit = e => {
     e.preventDefault();
-
-
-
-
-    const errors = this.validate()
-    const userChecked = this.state.userChecked;
-    console.log(userChecked);
-    if (errors.length > 0) {
+    const errors = this.validate();
+    if (errors) {
       this.setState({ errors });
-      return;
-    } else {
-      this.props.onFormSubmit();
     }
   };
 
   validate() {
-    const {firstName, surName, userName, email, password, confirmPassword} = this.props.userData
-    const errors = [];
+    const {
+      firstName,
+      surName,
+      userName,
+      email,
+      password,
+      confirmPassword,
+      checkUserName,
+      checkEmail
+    } = this.props.userData;
 
-    const check = this.state.checkUser;
-    check.forEach(check => {
-      if (userName === check.userName) {
-        errors.push( "This user name already taken" );
-      }
-      if (email === check.email) {
-        errors.push( "This email already exist" );
-      }
-    });
+    const errors = {
+      firstName: null,
+      surName: null,
+      userName: null,
+      email: null,
+      password: null,
+      confirmPassword: null
+    };
 
-    if (firstName.length <= 0) {
-      errors.push("First Name can't be empty");
+    if (userName === checkUserName) {
+      errors.userName = `This username already taken .`;
+    } else if (email === checkEmail) {
+      errors.email = `This email already exists .`;
+    } else if (firstName.length <= 0) {
+      errors.firstName = `First Name can't be empty. `;
+    } else if (surName.length <= 0) {
+      errors.surName = `Surname can't be empty. `;
+    } else if (userName.length <= 0) {
+      errors.userName = `username can't be empty .`;
+    } else if (email.length < 5) {
+      errors.email = ` Email should be at least 5 charcters long .`;
+    } else if (email.split("").filter(x => x === "@").length !== 1) {
+      errors.email = `Email should contain a @ .`;
+    } else if (email.indexOf(".") === -1) {
+      errors.email = `Email should contain at least one dot .`;
+    } else if (password.length === 0) {
+      errors.password = `Password field is required .`;
+    } else if (password.length < 6) {
+      errors.password = `Password should be at least 6 characters long .`;
+    } else if (confirmPassword.length === 0) {
+      errors.confirmPassword = `Confirm password field is required .`;
+    } else if (confirmPassword.length < 6) {
+      errors.confirmPassword = `Password should be at least 6 characters long .`;
+    } else if (password !== confirmPassword) {
+      errors.confirmPassword = `Passwords do not mach .`;
+    } else {
+      this.props.onFormSubmit();
     }
-    if (surName.length <= 0) {
-      errors.push("Sure Name can't be empty");
-    }
-
-    if (userName.length <= 0) {
-      errors.push("user Name can't be empty");
-    }
-
-    if (email.length < 5) {
-      errors.push("Email should be at least 5 charcters long");
-    }
-    if (email.split("").filter(x => x === "@").length !== 1) {
-      errors.push("Email should contain a @");
-    }
-    if (email.indexOf(".") === -1) {
-      errors.push("Email should contain at least one dot");
-    }
-
-    if (password.length < 6) {
-      errors.push("Password should be at least 6 characters long");
-    }
-    if (password !== confirmPassword) {
-      errors.push("Passwords does not mach");
-    }
-
     return errors;
   }
 
   render() {
     const { errors } = this.state;
-    console.log("foorm");
     return (
-      <div className="lesson-form">
-        {errors.map(error => (
-          <p className="error" key={error}>
-            {error}
-          </p>
-        ))}
+      <div className="registraton-form">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <Label value="Full Name" />
+            <Label value="Full Name *" />
             <div>
               <Input
                 className="form-control"
@@ -113,6 +97,9 @@ export default class Form extends React.Component {
                 value={this.props.userData.firstName}
                 onChange={this.props.handleChange}
               />
+              {errors.firstName !== null && (
+                <span className="error">{errors.firstName}</span>
+              )}
               <Input
                 className="form-control"
                 name="surName"
@@ -121,22 +108,27 @@ export default class Form extends React.Component {
                 value={this.props.userData.surName}
                 onChange={this.props.handleChange}
               />
+              {errors.surName !== null && (
+                <span className="error">{errors.surName}</span>
+              )}
             </div>
           </div>
           <div className="form-group">
-            <Label value="User Name" />
+            <Label value="Username *" />
             <Input
               className="form-control"
               name="userName"
               type="text"
-              placeholder="UserName"
+              placeholder="Username"
               value={this.props.userData.userName}
               onChange={this.props.handleChange}
             />
-            <p className="error">{this.state.checkUserName}</p>
+            {errors.userName !== null && (
+              <span className="error">{errors.userName}</span>
+            )}
           </div>
           <div className="form-group">
-            <Label value="Email" />
+            <Label value="Email *" />
             <Input
               className="form-control"
               name="email"
@@ -145,21 +137,27 @@ export default class Form extends React.Component {
               value={this.props.userData.email}
               onChange={this.props.handleChange}
             />
-            <p className="error">{this.state.checkEmail}</p>
+            {errors.email !== "" && (
+              <span className="error">{errors.email}</span>
+            )}
           </div>
           <div className="form-group">
-            <Label value="Password" />
-            <Input
+            <Label value="Password *" />
+            <PasswordMask
               className="form-control"
               name="password"
               type="password"
               placeholder="Password"
               value={this.props.userData.password}
               onChange={this.props.handleChange}
+              // useVendorStyles={null}
             />
+            {errors.password !== null && (
+              <span className="error">{errors.password}</span>
+            )}
           </div>
           <div className="form-group">
-            <Label value="Confirm Your Password" />
+            <Label value="Confirm Your Password *" />
             <Input
               className="form-control"
               name="confirmPassword"
@@ -168,8 +166,17 @@ export default class Form extends React.Component {
               value={this.props.userData.confirmPassword}
               onChange={this.props.handleChange}
             />
+            {errors.confirmPassword !== null && (
+              <span className="error">{errors.confirmPassword}</span>
+            )}
           </div>
-          <button className="btn btn-outline-dark" value="Register" type="submit">Register</button>
+          <button
+            className="btn btn-outline-dark"
+            value="Register"
+            type="submit"
+          >
+            Register
+          </button>
         </form>
       </div>
     );

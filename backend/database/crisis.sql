@@ -8,12 +8,8 @@ create table users
     resetPasswordToken varchar,
     resetPasswordExpires varchar,
     password text not null,
-    confirmPassword text not null
+    admin NUMERIC
 );
-insert into users
-    (firstName, surName, email, userName, password, confirmPassword)
-values
-    ("Ameer", "Kabir", "Amir@gmail.com", "Amirkabir", "123456", "123456");
 create table survey
 (
     id integer primary key,

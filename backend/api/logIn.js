@@ -1,44 +1,63 @@
-const sqlite3 = require("sqlite3").verbose();
-const jwt = require("jsonwebtoken");
+const sqlite3 = require ('sqlite3').verbose ();
+const jwt = require ('jsonwebtoken');
+const bcrypt = require ('bcrypt');
 
-
-
-const filename = "./database/crisisdb.sqlit";
-let db = new sqlite3.Database(filename);
+const filename = './database/crisisdb.sqlit';
+let db = new sqlite3.Database (filename);
 
 const login = (req, res) => {
-  var sql = `select users.userName, users.password from users where userName=? and password=?`;
-  db.all(sql, [req.body.userName, req.body.password], (err, rows) => {
+  const {userName, password} = req.body;
+  var sql = `select userName, password, admin from users where userName=?`;
+  db.all (sql, [userName], (err, rows) => {
+    const [data] = rows;
     if (rows.length === 0) {
-      return res.status(400).json({
+      return res.status (400).json ({
         sucess: false,
         token: null,
-        msg: "username or password are wrong"
+        msg: 'username or password are wrong',
       });
     }
     if (err) {
-      return res.status(400).json({
+      return res.status (400).json ({
         sucess: false,
         token: null,
-        msg: "Ops! Sorry something happened on the server, please try again later." 
+        msg: 'Ops! Sorry something happened on the server, please try again later.',
+      });
+    } else {
+      const hash = data.password;
+      bcrypt.compare (password, hash, (err, respons) => {
+        if (err) {
+          return res.status (400).json ({
+            sucess: false,
+            token: null,
+            msg: 'Ops! Sorry something happened on the server, please try again later.',
+          });
+        }
+        if (respons) {
+          let token = jwt.sign (
+            {id: data.id, userName: data.userName, admin: data.admin},
+            process.env.JWT_SECRET,
+            {expiresIn: 129600}
+          );
+          return res.json ({
+            sucess: true,
+            err: null,
+            token,
+          });
+        } else {
+          return res.status (400).json ({
+            sucess: false,
+            token: null,
+            msg: 'username or password are wrong',
+          });
+        }
       });
     }
-
-    let token = jwt.sign(
-      { id: rows.id, userName: rows.userName },
-      "keyboard cat 4 ever",
-      { expiresIn: 129600 }
-    );
-    return res.json({
-      sucess: true,
-      err: null,
-      token
-    });
   });
 };
 
 module.exports = {
-  login: login
+  login: login,
 };
-//use bcrypt to secure password
+
 //https://www.abeautifulsite.net/hashing-passwords-with-nodejs-and-bcrypt

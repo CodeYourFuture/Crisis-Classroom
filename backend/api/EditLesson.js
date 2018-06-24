@@ -1,26 +1,32 @@
-const sqlite3 = require("sqlite3").verbose();
+const sqlite3 = require('sqlite3').verbose();
 
-const filename = "./database/crisisdb.sqlit";
+const filename = './database/crisisdb.sqlit';
 let db = new sqlite3.Database(filename);
 
 const EditLesson = (req, res) => {
   const lesson = req.body;
   const { tools, ingredients, instructions, lessonId } = lesson;
   editLessons(lesson)
-    .then(() => tools.forEach(tool => editTool(tool, lessonId)))
+    .then(() => tools.forEach((tool) => editTool(tool, lessonId)))
     .then(() =>
-      ingredients.forEach(ingredient => editIngredient(ingredient, lessonId))
+      ingredients.forEach((ingredient) => editIngredient(ingredient, lessonId))
     )
     .then(() =>
-      instructions.forEach(instruction =>
+      instructions.forEach((instruction) =>
         editInstruction(instruction, lessonId)
       )
     )
     .then(() => res.json(console.log(res)))
-    .catch(err => res.status(400).json(err));
+    .catch((err) =>
+      res.status(400).json({
+        err,
+        msg:
+          'Ops! Sorry something happened on the server, please try again later.',
+      })
+    );
 };
 
-const editLessons = lesson => {
+const editLessons = (lesson) => {
   const {
     lessonId,
     lessonTitle,
@@ -28,7 +34,7 @@ const editLessons = lesson => {
     timeToPrepare,
     timeToPrepareImage,
     numberOfPeople,
-    numberOfPeopleImage
+    numberOfPeopleImage,
   } = lesson;
   return new Promise((resolve, reject) => {
     var sql = `UPDATE lessons SET
@@ -48,7 +54,7 @@ const editLessons = lesson => {
         timeToPrepareImage,
         numberOfPeople,
         numberOfPeopleImage,
-        lessonId
+        lessonId,
       ],
       (err, data) => {
         if (err) return reject(err);
@@ -106,7 +112,7 @@ const editIngredient = (ingredient, lessonId) => {
           lessonId,
           ingredient.ingredientId,
           ingredient.ingredientName,
-          ingredient.ingredientImage
+          ingredient.ingredientImage,
         ],
         (err, data) => {
           if (err) return reject(err);
@@ -127,7 +133,7 @@ const editInstruction = (instruction, lessonId) => {
         [
           instruction.instructionName,
           instruction.instructionImage,
-          instruction.id
+          instruction.id,
         ],
         (err, data) => {
           if (err) return reject(err);
@@ -144,7 +150,7 @@ const editInstruction = (instruction, lessonId) => {
           lessonId,
           instruction.instructionId,
           instruction.instructionName,
-          instruction.instructionImage
+          instruction.instructionImage,
         ],
         (err, data) => {
           if (err) return reject(err);

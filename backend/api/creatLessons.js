@@ -1,34 +1,42 @@
-const sqlite3 = require("sqlite3").verbose();
+const sqlite3 = require('sqlite3').verbose();
 
-const filename = "./database/crisisdb.sqlit";
+const filename = './database/crisisdb.sqlit';
 let db = new sqlite3.Database(filename);
 
 const creatLessons = (req, res) => {
   const lessonId = Date.now().toString();
   const lesson = req.body;
 
-    const {
-      tools,
-      ingredients,
-      instructions
-    } = lesson;
-     saveLessons(lesson, lessonId)
-    .then(() => tools.forEach(tool => saveTool(tool, lessonId)))
-    .then(() => ingredients.forEach(ingredient => saveIngredient(ingredient, lessonId)))
-    .then(() => instructions.forEach(instruction => saveInstruction(instruction, lessonId)))
+  const { tools, ingredients, instructions } = lesson;
+  saveLessons(lesson, lessonId)
+    .then(() => tools.forEach((tool) => saveTool(tool, lessonId)))
+    .then(() =>
+      ingredients.forEach((ingredient) => saveIngredient(ingredient, lessonId))
+    )
+    .then(() =>
+      instructions.forEach((instruction) =>
+        saveInstruction(instruction, lessonId)
+      )
+    )
     .then(() => res.json(console.log(res)))
-    .catch(err => res.status(400).json(err));
+    .catch((err) =>
+      res.status(400).json({
+        err,
+        msg:
+          'Ops! Sorry something happened on the server, please try again later.',
+      })
+    );
 };
 
-const saveLessons= (lesson, lessonId) => {
-    const {
-        lessonTitle,
-        lessonTitleImage,
-        timeToPrepare,
-        timeToPrepareImage,
-        numberOfPeople,
-        numberOfPeopleImage
-      } = lesson;
+const saveLessons = (lesson, lessonId) => {
+  const {
+    lessonTitle,
+    lessonTitleImage,
+    timeToPrepare,
+    timeToPrepareImage,
+    numberOfPeople,
+    numberOfPeopleImage,
+  } = lesson;
   return new Promise((resolve, reject) => {
     var sql = `insert into lessons
     (id,
@@ -39,15 +47,16 @@ const saveLessons= (lesson, lessonId) => {
       numberOfPeople,
       numberOfPeopleImage)
     values (?, ?, ?, ?, ?, ?, ?)`;
-    db
-      .run(sql, [
+    db.run(
+      sql,
+      [
         lessonId,
         lessonTitle,
         lessonTitleImage,
         timeToPrepare,
         timeToPrepareImage,
         numberOfPeople,
-        numberOfPeopleImage
+        numberOfPeopleImage,
       ],
       (err, data) => {
         if (err) return reject(err);
@@ -84,7 +93,7 @@ const saveIngredient = (ingredient, lessonId) => {
         lessonId,
         ingredient.ingredientId,
         ingredient.ingredientName,
-        ingredient.ingredientImage
+        ingredient.ingredientImage,
       ],
       (err, data) => {
         if (err) return reject(err);
@@ -105,7 +114,7 @@ const saveInstruction = (instruction, lessonId) => {
         lessonId,
         instruction.instructionId,
         instruction.instructionName,
-        instruction.instructionImage
+        instruction.instructionImage,
       ],
       (err, data) => {
         if (err) return reject(err);

@@ -7,7 +7,7 @@ const CheckRegistrationToken = (req, res) => {
   const token = req.params.token;
   console.log(token)
   var sql =
-    'select resetPasswordToken, firstName, surName, email from users where resetPasswordToken=?';
+    'select userName, resetPasswordToken, firstName, surName, email from users where resetPasswordToken=?';
   db.all(sql, [token], (err, rows) => {
     const [user] = rows;
     if (!user) {

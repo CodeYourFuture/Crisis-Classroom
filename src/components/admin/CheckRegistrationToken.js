@@ -7,6 +7,7 @@ class CheckRegistrationToken extends Component {
     super (props);
     this.state = {
       resetPasswordToken: '',
+      userName:'',
       firstName: '',
       surName: '',
       email: '',
@@ -16,20 +17,23 @@ class CheckRegistrationToken extends Component {
       this.CheckToken ();
     }
   }
-
+  
   CheckToken = () => {
+    console.log("hi")
     const token = this.props.match.params.token;
     axios
       .get (`http://localhost:8080/accept-registration/${token}`,"")
       .then (result => {
+        console.log(result)
         if (result.data.rows) {
           const {
             resetPasswordToken,
             firstName,
             surName,
             email,
+            userName
           } = result.data.rows[0];
-          this.setState ({resetPasswordToken, firstName, surName, email});
+          this.setState ({resetPasswordToken, userName, firstName, surName, email});
         }
       })
       .then (() => {

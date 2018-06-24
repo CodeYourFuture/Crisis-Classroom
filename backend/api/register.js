@@ -64,7 +64,7 @@ const register = (req, res) => {
           to: process.env.USER_GMAIL,
           from: process.env.USER_GMAIL,
           subject: 'Password Reset',
-          text: ` http://localhost:3000/confirm-registration/${token}`
+          text: ` http://localhost:3000/accept-registration/${token}`
         };
         smtpTransport.sendMail (mailOptions, err => {
           if (err) {

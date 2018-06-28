@@ -24,6 +24,8 @@ const DeleteLesson = require('./DeleteLesson');
 const ForgotPassword = require('./ForgotPassword');
 const CheckUserToken = require('./CheckUserToken');
 const ResetPassword = require('./ResetPassword');
+//Admin 
+const CheckRegistrationToken = require('./CheckRegistrationToken');
 
 const api = () => {
   const router = express.Router();
@@ -41,6 +43,8 @@ const api = () => {
   router.post('/forgot-password', ForgotPassword);
   router.get('/reset-password/:token', CheckUserToken);
   router.post('/reset-password', ResetPassword);
+  //Admin
+  router.get('/accept-registration/:token', CheckRegistrationToken)
 
   return router;
 };

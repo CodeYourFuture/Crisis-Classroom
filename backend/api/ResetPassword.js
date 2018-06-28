@@ -11,17 +11,17 @@ const ResetPassword = (req, res) => {
   async.waterfall(
     [
       (done) => {
-        const { resetPasswordToken, password } = req.body;
+        const { token, password } = req.body;
         var sql =
-          'select email, resetPasswordToken, resetPasswordExpires from users where resetPasswordToken=?';
-        db.all(sql, [resetPasswordToken], (err, rows) => {
+          'select email, token, tokenXpires from users where token=?';
+        db.all(sql, [token], (err, rows) => {
           const [user] = rows;
           if (err) {
             return res.status(400).json({
               msg:
                 'Ops! Sorry something happened on the server, please try again later.',
             });
-          } else if (Date.now() > user.resetPasswordExpires) {
+          } else if (Date.now() > user.tokenXpires) {
             return res.send('Sorry this link is expired');
           } else {
             bcrypt.hash(password, 10, (err, hash) => {
@@ -31,10 +31,10 @@ const ResetPassword = (req, res) => {
                     'Ops! Sorry something happened on the server, please try again later.',
                 });
               }
-              var sql = `UPDATE users set password=?, resetPasswordExpires=? where resetPasswordToken=?`;
+              var sql = `UPDATE users set password=?, tokenXpires=? where token=?`;
               db.run(
                 sql,
-                [hash, Date.now(), user.resetPasswordToken],
+                [hash, Date.now(), user.token],
                 (err) => {
                   done(err, user);
                 }

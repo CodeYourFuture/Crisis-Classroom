@@ -3,10 +3,10 @@ const sqlite3 = require('sqlite3').verbose();
 const filename = './database/crisisdb.sqlit';
 let db = new sqlite3.Database(filename);
 
-const CheckUserToken = (req, res) => {
+const CheckRegistrationToken = (req, res) => {
   const token = req.params.token;
   var sql =
-    'select token, tokenXpires, userName from users where token=?';
+    'select userName, token, firstName, surName, email from users where token=?';
   db.all(sql, [token], (err, rows) => {
     const [user] = rows;
     if (!user) {
@@ -16,8 +16,6 @@ const CheckUserToken = (req, res) => {
         msg:
           'Ops! Sorry something happened on the server, please try again later.',
       });
-    } else if (Date.now() > user.tokenXpires) {
-      return res.status(400).json({ msg: 'Sorry this link is expired.' });
     } else {
       res.status(200).json({
         rows,
@@ -25,4 +23,4 @@ const CheckUserToken = (req, res) => {
     }
   });
 };
-module.exports = CheckUserToken;
+module.exports = CheckRegistrationToken;

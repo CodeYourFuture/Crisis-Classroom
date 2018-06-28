@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import Button from "../../button";
-import axios from "axios";
+import React, { Component } from 'react';
+import Button from '../../button';
+import axios from 'axios';
 
 class ConfirmRegistration extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      err: ""
+      err: '',
     };
   }
 
@@ -17,28 +17,30 @@ class ConfirmRegistration extends Component {
       userName,
       email,
       password,
-      confirmPassword
+      confirmPassword,
     } = this.props.userData;
 
     axios
-      .post("http://localhost:8080/register", {
+      .post('http://localhost:8080/register', {
         firstName,
         surName,
         userName,
         email,
         password,
-        confirmPassword
+        confirmPassword,
       })
-      .then(result => {
-        this.props.history.replace("/registration-done");
+      .then((result) => {
+        if (result) {
+          this.props.history.replace('/registration-done');
+        }
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.msg) {
           this.setState({ err: err.msg });
         } else {
           this.setState({
             err:
-              "Ops! Sorry something happened on the server, please try again later"
+              'Ops! Sorry something happened on the server, please try again later',
           });
         }
       });

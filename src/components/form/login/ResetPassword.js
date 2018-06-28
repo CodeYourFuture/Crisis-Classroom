@@ -30,15 +30,14 @@ class ResetPassword extends Component {
 
   onFormSubmit = () => {
     const { password, confirmPassword } = this.state;
-    const { resetPasswordToken } = this.props.location.state.data;
+    const { token } = this.props.location.state.data;
     axios
       .post("http://localhost:8080/reset-password", {
         password,
         confirmPassword,
-        resetPasswordToken
+        token
       })
       .then(result => {
-        console.log("hi")
         const msg = result.data;
         if (msg) {
           this.setState({ msg, pageStatus: PAGESTATUS.success });

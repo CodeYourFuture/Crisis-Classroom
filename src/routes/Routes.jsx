@@ -28,6 +28,9 @@ import TemplateDeleted  from "../components/templates/templateDeleted";
 import ForgotPassword from "../components/form/login/ForgotPassword";
 import CheckUserToken from "../components/form/login/checkUserToken";
 import ResetPassword from "../components/form/login/ResetPassword";
+import Adminpage from "../layout/adminPage";
+import AcceptRegistration from "../components/admin/AcceptRegistration";
+import CheckRegistrationToken from "../components/admin/CheckRegistrationToken";
 
 
 
@@ -47,11 +50,11 @@ class Routes extends Component {
         <Layout exact path="/" component={Home} />
         <Layout exact path="/survey" component={Survey} />
         <Layout exact path="/login" component={Login} />
-        <Layout exact path="/add-new-templet" component={LessonForm} />
+        <PrivateRoute exact path="/add-new-templet" component={LessonForm} />
         <Layout path="/register" component={Register} />
-        <Layout exact path="/welecome" component={Welecome} />
+        <PrivateRoute exact path="/welecome" component={Welecome} />
         <Layout exact path="/notfound" component={NotFound} />
-        <Layout exact path="/image-uploader" component={ImageUploader} />
+        <PrivateRoute exact path="/image-uploader" component={ImageUploader} />
         <Layout exact path="/registration-done" component={RegistrationDone} />
         <Layout exact path="/forgot-password" component={ForgotPassword} />
         <Layout exact path="/reset-password/:token" component={CheckUserToken} />
@@ -60,6 +63,8 @@ class Routes extends Component {
         <PrivateRoute exact path="/template-edited" component={TemplateEdited} />
         <PrivateRoute exact path="/template-deleted" component={TemplateDeleted} />
         <PrivateRoute path="/templates" component={Templates} />
+        <Adminpage exact path="/accept-registration/:token" component={CheckRegistrationToken} />
+        <Adminpage exact path="/accept-registration" component={AcceptRegistration} />
       </Switch>
     );
   }

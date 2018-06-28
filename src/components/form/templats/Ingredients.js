@@ -80,8 +80,6 @@ class Form extends React.Component {
     let removeResult = ingredients.filter(
       (ingredient) => ingredient.ingredientId !== i
     );
-    console.log(removeResult);
-
     this.setState({
       ingredients: removeResult,
     });

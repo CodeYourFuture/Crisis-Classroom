@@ -29,9 +29,9 @@ const ForgotPassword = (req, res, next) => {
                 'Ops! Sorry something happened on the server, please try again later.',
             });
           } else {
-            const resetPasswordExpires = Date.now() + 3600000;
-            var sql = `UPDATE users set resetPasswordToken=?, resetPasswordExpires=? where email=?`;
-            db.run(sql, [token, resetPasswordExpires, user.email], (err) => {
+            const tokenXpires = Date.now() + 3600000;
+            var sql = `UPDATE users set token=?, tokenXpires=? where email=?`;
+            db.run(sql, [token, tokenXpires, user.email], (err) => {
               done(err, token, user);
             });
           }

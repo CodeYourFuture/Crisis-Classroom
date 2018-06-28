@@ -6,14 +6,14 @@ class CheckRegistrationToken extends Component {
   constructor (props) {
     super (props);
     this.state = {
-      resetPasswordToken: '',
+      token: '',
       userName:'',
       firstName: '',
       surName: '',
       email: '',
       err: '',
     };
-    if (this.state.resetPasswordToken === '') {
+    if (this.state.token === '') {
       this.CheckToken ();
     }
   }
@@ -25,18 +25,18 @@ class CheckRegistrationToken extends Component {
       .then (result => {
         if (result.data.rows) {
           const {
-            resetPasswordToken,
+            token,
             firstName,
             surName,
             email,
             userName
           } = result.data.rows[0];
-          this.setState ({resetPasswordToken, userName, firstName, surName, email});
+          this.setState ({token, userName, firstName, surName, email});
         }
       })
       .then (() => {
         const data = this.state;
-        if (this.state.resetPasswordToken) {
+        if (this.state.token) {
           this.props.history.push ({
             pathname: '/accept-registration',
             state: {data},

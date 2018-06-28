@@ -5,8 +5,8 @@ create table users
     surName varchar,
     email varchar,
     userName varchar,
-    resetPasswordToken varchar,
-    resetPasswordExpires varchar,
+    token varchar,
+    tokenXpires varchar,
     password text not null,
     teacher BOOLEAN,
     admin BOOLEAN

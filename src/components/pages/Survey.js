@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './style.css';
 import axios from 'axios';
 
 export default class Survey extends Component {
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
     this.state = {
       studentName: '',
       answer1: '',
@@ -14,40 +14,40 @@ export default class Survey extends Component {
     };
   }
 
-  nameSubmit = event => {
+  nameSubmit = (event) => {
     var studentName = this.refs.name.value;
-    this.setState ({
+    this.setState({
       studentName: studentName,
     });
   };
 
-  answerSelected = event => {
-    this.setState ({
+  answerSelected = (event) => {
+    this.setState({
       [event.target.name]: event.target.value,
     });
   };
 
   questionSubmit = () => {
-    const {studentName, answer1, answer2, answer3} = this.state;
+    const { studentName, answer1, answer2, answer3 } = this.state;
     axios
-      .post ('http://localhost:8080/survey', {
+      .post('http://localhost:8080/survey', {
         studentName,
         answer1,
         answer2,
         answer3,
       })
-      .then (result => {
-        console.log (result);
+      .then((result) => {
+        console.log(result);
       })
-      .catch (error => {
-        console.log (error);
+      .catch((error) => {
+        console.log(error);
       });
 
-    console.log (this.state);
-    this.setState ({isSubmitted: true});
+    console.log(this.state);
+    this.setState({ isSubmitted: true });
   };
 
-  render () {
+  render() {
     var studentName;
     var questions;
     if (this.state.studentName === '' && this.state.isSubmitted === false) {
@@ -73,7 +73,7 @@ export default class Survey extends Component {
     ) {
       studentName = (
         <h1 className="text-center n-survey head">
-          {' '}Welcome to survey, {this.state.studentName}
+          Welcome to survey, {this.state.studentName}
         </h1>
       );
       questions = (
@@ -90,7 +90,6 @@ export default class Survey extends Component {
                   value="making"
                   onChange={this.answerSelected}
                 />
-                {' '}
                 Making
                 <input
                   className="my"
@@ -99,7 +98,6 @@ export default class Survey extends Component {
                   value="Cooking"
                   onChange={this.answerSelected}
                 />
-                {' '}
                 Cooking
                 <input
                   className="my"
@@ -108,7 +106,6 @@ export default class Survey extends Component {
                   value="Playing"
                   onChange={this.answerSelected}
                 />
-                {' '}
                 Playing
               </div>
             </div>
@@ -123,7 +120,6 @@ export default class Survey extends Component {
                   value="Student"
                   onChange={this.answerSelected}
                 />
-                {' '}
                 Student
                 <input
                   className="my"
@@ -132,7 +128,6 @@ export default class Survey extends Component {
                   value="Teacher"
                   onChange={this.answerSelected}
                 />
-                {' '}
                 Teacher
                 <input
                   className="my"
@@ -141,7 +136,6 @@ export default class Survey extends Component {
                   value="Visitor"
                   onChange={this.answerSelected}
                 />
-                {' '}
                 Visitor
               </div>
             </div>
@@ -156,7 +150,6 @@ export default class Survey extends Component {
                   value="Yes"
                   onChange={this.answerSelected}
                 />
-                {' '}
                 Yes
                 <input
                   className="my"
@@ -165,7 +158,6 @@ export default class Survey extends Component {
                   value="No"
                   onChange={this.answerSelected}
                 />
-                {' '}
                 No
                 <input
                   className="my"
@@ -174,13 +166,11 @@ export default class Survey extends Component {
                   value="Maybe"
                   onChange={this.answerSelected}
                 />
-                {' '}
                 Maybe
               </div>
             </div>
             <input className="btn btn-primary" type="submit" value="submit" />
           </form>
-
         </div>
       );
     } else if (this.state.isSubmitted === true) {

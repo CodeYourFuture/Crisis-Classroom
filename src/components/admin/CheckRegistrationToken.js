@@ -19,12 +19,10 @@ class CheckRegistrationToken extends Component {
   }
   
   CheckToken = () => {
-    console.log("hi")
     const token = this.props.match.params.token;
     axios
       .get (`http://localhost:8080/accept-registration/${token}`,"")
       .then (result => {
-        console.log(result)
         if (result.data.rows) {
           const {
             resetPasswordToken,

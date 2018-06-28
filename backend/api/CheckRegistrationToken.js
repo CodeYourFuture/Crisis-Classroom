@@ -5,7 +5,6 @@ let db = new sqlite3.Database(filename);
 
 const CheckRegistrationToken = (req, res) => {
   const token = req.params.token;
-  console.log(token)
   var sql =
     'select userName, resetPasswordToken, firstName, surName, email from users where resetPasswordToken=?';
   db.all(sql, [token], (err, rows) => {

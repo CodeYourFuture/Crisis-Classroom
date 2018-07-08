@@ -10,7 +10,6 @@ const SelectUser = (req, res) => {
   CheckAdmin(userName)
     .then(()=>getUser(id))
     .then((data) => {
-        console.log(data)
         res.json(data);
     })
     .catch((err) =>

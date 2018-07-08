@@ -11,7 +11,7 @@ const checkAdmin = (data) => {
       if (err) return reject(err);
       if (!user) return reject('User does not exist');
       if (user.admin === 1) {
-        return resolve();
+        return resolve(user.admin);
       }
       return reject('You have to be an admin');
     });

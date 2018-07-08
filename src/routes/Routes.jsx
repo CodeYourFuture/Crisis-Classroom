@@ -32,6 +32,7 @@ import Adminpage from "../layout/adminPage";
 import AcceptRegistration from "../components/admin/AcceptRegistration";
 import UsersInfo from "../components/admin/UsersInfo";
 import SelectUser from "../components/admin/SelectUser";
+import Admin from "../components/admin/admin";
 
 
 class Routes extends Component {
@@ -66,6 +67,7 @@ class Routes extends Component {
         <Adminpage exact path="/accept-registration/:token" component={AcceptRegistration} />
         <Adminpage exact path="/users-info" component={UsersInfo} />
         <Adminpage exact path="/users-info/:id" component={SelectUser} />
+        <Adminpage exact path="/admin" component={Admin} />
       </Switch>
     );
   }

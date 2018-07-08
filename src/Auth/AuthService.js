@@ -1,85 +1,89 @@
-import decode from "jwt-decode";
+import decode from 'jwt-decode';
 
 //https://hptechblogs.com/using-json-web-token-react/
 
 class AuthService {
-  constructor(domain) {
-    this.domain = domain || "http://localhost:8080";
-    
+  constructor (domain) {
+    this.domain = domain || process.env.REACT_APP_DOMAIN;
+
     this.state = {
-      err:null
+      err: null,
     };
-    // console.log(this.state.err)
   }
 
   login = (userName, password) => {
     // Get a token
-    return this.fetch(`${this.domain}/login`, {
-      method: "POST",
-      body: JSON.stringify({
+    return this.fetch (`${this.domain}/login`, {
+      method: 'POST',
+      body: JSON.stringify ({
         userName,
-        password
-      })
-    })
-      .then(res => {
-        this.setToken(res.token);
-        return Promise.resolve(res);
-      })
+        password,
+      }),
+    }).then (res => {
+      this.setToken (res.token);
+      return Promise.resolve (res);
+    });
   };
 
+  // Checks if user is admin
+  isAdmin = () => {
+    const token = this.getToken ();
+    const decoded = decode (token);
+    return decoded.admin;
+  };
   loggedIn = () => {
     // Checks if there is a saved token and it's still valid
-    const token = this.getToken();
-    return !!token && !this.isTokenExpired(token); // handwaiving here
+    const token = this.getToken ();
+    return !!token && !this.isTokenExpired (token); // handwaiving here
   };
 
   isTokenExpired = token => {
     try {
-      const decoded = decode(token);
-      if (decoded.exp < Date.now() / 1000) {
+      const decoded = decode (token);
+      if (decoded.exp < Date.now () / 1000) {
         return true;
       } else return false;
     } catch (err) {
-      return false;
+      return true;
     }
   };
 
-  setToken(idToken) {
+  setToken (idToken) {
     // Saves user token to localStorage
-    localStorage.setItem("id_token", idToken);
+    localStorage.setItem ('id_token', idToken);
   }
 
   getToken = () => {
     // Retrieves the user token from localStorage
-    return localStorage.getItem("id_token");
+    return localStorage.getItem ('id_token');
   };
 
   logout = () => {
     // Clear user token and profile data from localStorage
-    localStorage.removeItem("id_token");
+    localStorage.removeItem ('id_token');
   };
 
   getProfile = () => {
-    return decode(this.getToken());
+    return decode (this.getToken ());
   };
 
   fetch = (url, options) => {
     // performs api calls sending the required authentication headers
     const headers = {
-      Accept: "application/json",
-      "Content-Type": "application/json"
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     };
 
-    if (this.loggedIn()) {
-      headers["Authorization"] = "Bearer " + this.getToken();
+    if (this.loggedIn ()) {
+      headers['Authorization'] = 'Bearer ' + this.getToken ();
     }
 
-    return fetch(url, {
+    return fetch (url, {
       headers,
-      ...options
+      ...options,
     })
-      .then(this._checkStatus)
-      .then(response => response.json());
+      .then (this._checkStatus)
+      .then (response => response.json ());
   };
 
   _checkStatus = response => {
@@ -87,11 +91,11 @@ class AuthService {
     if (response.status >= 200 && response.status < 300) {
       return response;
     } else {
-      return response.json().then(error => {
+      return response.json ().then (error => {
         throw error;
-      })
+      });
     }
   };
 }
-const auth = new AuthService();
+const auth = new AuthService ();
 export default auth;

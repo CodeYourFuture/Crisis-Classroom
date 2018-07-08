@@ -7,7 +7,7 @@ let db = new sqlite3.Database (filename);
 
 const login = (req, res) => {
   const {userName, password} = req.body;
-  var sql = `select userName, password, admin from users where userName=?`;
+  var sql = `select userName, password, admin, teacher from users where userName=?`;
   db.all (sql, [userName], (err, rows) => {
     const [data] = rows;
     if (rows.length === 0) {
@@ -22,6 +22,13 @@ const login = (req, res) => {
         sucess: false,
         token: null,
         msg: 'Ops! Sorry something happened on the server, please try again later.',
+      });
+    }
+    if (data.teacher !== 1) {
+      return res.status (400).json ({
+        sucess: false,
+        token: null,
+        msg: ' Sorry your registeration has not been accepted yet, please try again later.',
       });
     } else {
       const hash = data.password;

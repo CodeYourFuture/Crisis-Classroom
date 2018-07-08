@@ -7,11 +7,11 @@ class CheckUserToken extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      resetPasswordToken: "",
+      token: "",
       userName: "",
       err:""
     };
-    if(this.state.resetPasswordToken=== ""){
+    if(this.state.token=== ""){
       this.CheckToken()
     }
   }
@@ -19,16 +19,16 @@ class CheckUserToken extends Component {
   CheckToken = () => {
     const token = this.props.match.params.token;
     axios
-      .get(`http://localhost:8080/reset-password/${token}`, "crisisclassroom")
+      .get(`${process.env.REACT_APP_DOMAIN}/reset-password/${token}`)
       .then(result => {
         if (result.data.rows) {
-          const { resetPasswordToken, userName } = result.data.rows[0];
-          this.setState({ resetPasswordToken, userName });
+          const { token, userName } = result.data.rows[0];
+          this.setState({ token, userName });
         }
       })
       .then(() => {
         const data = this.state;
-        if (this.state.resetPasswordToken) {
+        if (this.state.token) {
           this.props.history.push({
             pathname: "/reset-password",
             state: { data }

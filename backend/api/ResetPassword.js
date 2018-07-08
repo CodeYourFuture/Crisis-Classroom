@@ -11,17 +11,17 @@ const ResetPassword = (req, res) => {
   async.waterfall(
     [
       (done) => {
-        const { resetPasswordToken, password } = req.body;
+        const { token, password } = req.body;
         var sql =
-          'select email, resetPasswordToken, resetPasswordExpires from users where resetPasswordToken=?';
-        db.all(sql, [resetPasswordToken], (err, rows) => {
+          'select email, token, tokenExpires from users where token=?';
+        db.all(sql, [token], (err, rows) => {
           const [user] = rows;
           if (err) {
             return res.status(400).json({
               msg:
                 'Ops! Sorry something happened on the server, please try again later.',
             });
-          } else if (Date.now() > user.resetPasswordExpires) {
+          } else if (Date.now() > user.tokenExpires) {
             return res.send('Sorry this link is expired');
           } else {
             bcrypt.hash(password, 10, (err, hash) => {
@@ -31,10 +31,10 @@ const ResetPassword = (req, res) => {
                     'Ops! Sorry something happened on the server, please try again later.',
                 });
               }
-              var sql = `UPDATE users set password=?, resetPasswordExpires=? where resetPasswordToken=?`;
+              var sql = `UPDATE users set password=?, tokenExpires=? where token=?`;
               db.run(
                 sql,
-                [hash, Date.now(), user.resetPasswordToken],
+                [hash, Date.now(), user.token],
                 (err) => {
                   done(err, user);
                 }
@@ -45,14 +45,16 @@ const ResetPassword = (req, res) => {
       },
       (user) => {
         var smtpTransport = nodemailer.createTransport({
-          service: 'Gmail',
+          host: 'smtp.sendgrid.net',
+          port: 465,
+          secure: true, // true for 465, false for other ports,
           auth: {
-            user: process.env.USER_GMAIL,
-            pass: process.env.GMAIL_PASS,
+            user: process.env.SMTP_USER_NAME,
+            pass: process.env.SMTP_PASS,
           },
         });
         var mailOptions = {
-          to: user.email,
+          to: process.env.USER_GMAIL,
           from: process.env.USER_GMAIL,
           subject: 'Your password has been changed',
           text:

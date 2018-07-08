@@ -14,7 +14,7 @@ export default class Templates extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:8080/lessons`)
+    fetch(`${process.env.REACT_APP_DOMAIN}/lessons`)
       .then(res => res.json())
       .then(lessons => {
         this.setState({ lessons });

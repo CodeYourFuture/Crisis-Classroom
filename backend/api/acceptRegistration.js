@@ -7,7 +7,6 @@ const filename = './database/crisisdb.sqlit';
 let db = new sqlite3.Database (filename);
 
 const AcceptRegistration = (req, res) => {
-  console.log(process.env.SMTP_USER_NAME)
     const {teacher, admin, userName} = req.body;
   async.waterfall (
     [

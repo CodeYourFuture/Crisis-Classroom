@@ -70,7 +70,6 @@ class CheckRegistrationToken extends Component {
             email,
             userName,
           } = result.data.rows[0];
-        console.log(result.data.rows[0])
           this.setState ({token, userName, firstName, surName, email});
         }
       })

@@ -45,7 +45,7 @@ const ResetPassword = (req, res) => {
       },
       (user) => {
         var smtpTransport = nodemailer.createTransport({
-          host: 'smtp.sendgrid.net',
+           host: 'smtp.sendgrid.net',
           port: 465,
           secure: true, // true for 465, false for other ports,
           auth: {
@@ -54,7 +54,7 @@ const ResetPassword = (req, res) => {
           },
         });
         var mailOptions = {
-          to: process.env.USER_GMAIL,
+          to: user.email,
           from: process.env.USER_GMAIL,
           subject: 'Your password has been changed',
           text:

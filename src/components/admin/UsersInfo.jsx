@@ -43,7 +43,6 @@ class UserInfo extends React.Component {
       <div>
         {users.map((user, i) => {
           const { id, firstName, surName} = user;
-          console.log(user);
           return (
             <div key={i} className="login-form">
               <h5> {firstName} {surName}</h5>

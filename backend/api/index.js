@@ -27,8 +27,8 @@ const ResetPassword = require ('./ResetPassword');
 //Admin
 const CheckRegistrationToken = require ('./CheckRegistrationToken');
 const AcceptRegistration = require ('./acceptRegistration');
-const UsersInfo = require ('./UsersInfo');
-const Selectuser = require ('./Selectuser');
+const UsersInfo = require ('./usersInfo');
+const Selectuser = require ('./SelectUser');
 const Admin = require ('./admin');
 
 const api = () => {

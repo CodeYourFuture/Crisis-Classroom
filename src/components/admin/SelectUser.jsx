@@ -31,7 +31,7 @@ class SelectUser extends React.Component {
     e.preventDefault ();
     const {teacher, admin, userName} = this.state;
     axios
-      .post ('http://localhost:8080/accept-registration', {
+      .post (`${process.env.REACT_APP_DOMAIN}/accept-registration`, {
         teacher,
         admin,
         userName,
@@ -58,7 +58,7 @@ class SelectUser extends React.Component {
     const decoded = decode (token);
     const userName = decoded.userName;
     axios
-      .post (`http://localhost:8080${url}`, {userName, id})
+      .post (`${process.env.REACT_APP_DOMAIN}${url}`, {userName, id})
       .then (result => {
         if (result) {
           const {

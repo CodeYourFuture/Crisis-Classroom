@@ -32,7 +32,7 @@ class ResetPassword extends Component {
     const { password, confirmPassword } = this.state;
     const { token } = this.props.location.state.data;
     axios
-      .post("http://localhost:8080/reset-password", {
+      .post(`${process.env.REACT_APP_DOMAIN}/reset-password`, {
         password,
         confirmPassword,
         token

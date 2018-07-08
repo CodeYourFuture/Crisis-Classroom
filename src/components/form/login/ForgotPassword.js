@@ -26,7 +26,7 @@ class ForgotPassword extends Component {
   onFormSubmit = () => {
     const { email } = this.state;
     axios
-      .post("http://localhost:8080/forgot-password", {
+      .post(`${process.env.REACT_APP_DOMAIN}/forgot-password`, {
         email
       })
       .then(result => {

@@ -22,7 +22,7 @@ export default class Template extends React.Component {
   };
   DeleteHandler = lesson => {
     axios
-      .post("http://localhost:8080/delete-lessons", lesson)
+      .post(`${process.env.REACT_APP_DOMAIN}/delete-lessons`, lesson)
       .then(result => {
         if (result) {
           this.props.history.replace("/template-deleted");

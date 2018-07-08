@@ -36,7 +36,7 @@ class CheckRegistrationToken extends Component {
     e.preventDefault()
     const {teacher, admin, userName} = this.state;
     axios
-      .post ('http://localhost:8080/accept-registration', {
+      .post (`${process.env.REACT_APP_DOMAIN}/accept-registration`, {
         teacher,
         admin,
         userName,
@@ -60,7 +60,7 @@ class CheckRegistrationToken extends Component {
   CheckToken = () => {
     const token = this.props.match.params.token;
     axios
-      .get (`http://localhost:8080/accept-registration/${token}`, '')
+      .get (`${process.env.REACT_APP_DOMAIN}/accept-registration/${token}`, '')
       .then (result => {
         if (result.data.rows) {
           const {

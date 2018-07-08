@@ -8,7 +8,7 @@ export default class preview extends React.Component {
 
   CreatHandler = lessonData => {
     axios
-      .post("http://localhost:8080/creat-lessons", lessonData)
+      .post(`${process.env.REACT_APP_DOMAIN}/creat-lessons`, lessonData)
       .then(result => {
         if (result) {
           this.props.history.replace("/template-created");
@@ -21,7 +21,7 @@ export default class preview extends React.Component {
 
   EditHandler = lessonData => {
     axios
-      .post("http://localhost:8080/edit-lessons", lessonData)
+      .post(`${process.env.REACT_APP_DOMAIN}/edit-lessons`, lessonData)
       .then(result => {
         if (result) {
           this.props.history.replace("/template-edited");

@@ -30,7 +30,7 @@ export default class Survey extends Component {
   questionSubmit = () => {
     const { studentName, answer1, answer2, answer3 } = this.state;
     axios
-      .post('http://localhost:8080/survey', {
+      .post(`${process.env.REACT_APP_DOMAIN}/survey`, {
         studentName,
         answer1,
         answer2,

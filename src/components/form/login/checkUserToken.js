@@ -19,7 +19,7 @@ class CheckUserToken extends Component {
   CheckToken = () => {
     const token = this.props.match.params.token;
     axios
-      .get(`http://localhost:8080/reset-password/${token}`)
+      .get(`${process.env.REACT_APP_DOMAIN}/reset-password/${token}`)
       .then(result => {
         if (result.data.rows) {
           const { token, userName } = result.data.rows[0];

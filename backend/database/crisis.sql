@@ -6,7 +6,7 @@ create table users
     email varchar,
     userName varchar,
     token varchar,
-    tokenXpires varchar,
+    tokenExpires varchar,
     password text not null,
     teacher BOOLEAN,
     admin BOOLEAN

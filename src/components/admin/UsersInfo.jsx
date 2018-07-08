@@ -19,7 +19,7 @@ class UserInfo extends React.Component {
     const decoded = decode(token);
     const userName = decoded.userName;
     axios
-      .post('http://localhost:8080/users-info', { userName })
+      .post(`${process.env.REACT_APP_DOMAIN}/users-info`, { userName })
       .then((result) => {
         const users = result.data;
         if (result) {

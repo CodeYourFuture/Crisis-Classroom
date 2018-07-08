@@ -29,7 +29,7 @@ class Registration extends Component {
 
     const { userName } = this.state;
     axios
-      .post("http://localhost:8080/check-user-name", {
+      .post(`${process.env.REACT_APP_DOMAIN}/check-user-name`, {
         userName
       })
       .then(res => {
@@ -43,7 +43,7 @@ class Registration extends Component {
 
     const { email } = this.state;
     axios
-      .post("http://localhost:8080/check-email", {
+      .post(`${process.env.REACT_APP_DOMAIN}/check-email`, {
         email
       })
       .then(res => {

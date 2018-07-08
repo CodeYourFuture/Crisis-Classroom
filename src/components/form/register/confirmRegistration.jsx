@@ -21,7 +21,7 @@ class ConfirmRegistration extends Component {
     } = this.props.userData;
 
     axios
-      .post('http://localhost:8080/register', {
+      .post(`${process.env.REACT_APP_DOMAIN}/register`, {
         firstName,
         surName,
         userName,

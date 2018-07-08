@@ -25,7 +25,12 @@ jobs:
           command: docker push $DOCKER_USER/crisis-class-room/frontend:$VERSION
       - run:
           name: Docker push backend
-          command: docker push $DOCKER_USER/crisis-class-room/backend:$VERSION          
+          command: docker push $DOCKER_USER/crisis-class-room/backend:$VERSION  
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build                   
 
 
             

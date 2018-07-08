@@ -30,7 +30,8 @@ import CheckUserToken from "../components/form/login/checkUserToken";
 import ResetPassword from "../components/form/login/ResetPassword";
 import Adminpage from "../layout/adminPage";
 import AcceptRegistration from "../components/admin/AcceptRegistration";
-import UsersInfo from "../components/admin/UsersInfo"
+import UsersInfo from "../components/admin/UsersInfo";
+import SelectUser from "../components/admin/SelectUser";
 
 
 class Routes extends Component {
@@ -64,6 +65,7 @@ class Routes extends Component {
         <PrivateRoute path="/templates" component={Templates} />
         <Adminpage exact path="/accept-registration/:token" component={AcceptRegistration} />
         <Adminpage exact path="/users-info" component={UsersInfo} />
+        <Adminpage exact path="/users-info/:id" component={SelectUser} />
       </Switch>
     );
   }

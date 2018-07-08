@@ -28,6 +28,7 @@ const ResetPassword = require('./ResetPassword');
 const CheckRegistrationToken = require('./CheckRegistrationToken');
 const AcceptRegistration = require('./acceptRegistration');
 const UsersInfo = require('./UsersInfo')
+const Selectuser = require('./Selectuser')
 
 const api = () => {
   const router = express.Router();
@@ -49,6 +50,7 @@ const api = () => {
   router.get('/accept-registration/:token', CheckRegistrationToken)
   router.post('/accept-registration', AcceptRegistration)
   router.post('/users-info', UsersInfo)
+  router.post('/users-info/:id', Selectuser)
 
   return router;
 };

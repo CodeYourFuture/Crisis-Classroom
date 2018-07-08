@@ -84,7 +84,7 @@ export default class Survey extends Component {
               <label>What kind of Templates do you like the most:</label>
               <div>
                 <input
-                  className="my"
+                  className="input-form"
                   type="radio"
                   name="answer1"
                   value="making"
@@ -92,7 +92,7 @@ export default class Survey extends Component {
                 />
                 Making
                 <input
-                  className="my"
+                  className="input-form"
                   type="radio"
                   name="answer1"
                   value="Cooking"
@@ -100,7 +100,7 @@ export default class Survey extends Component {
                 />
                 Cooking
                 <input
-                  className="my"
+                  className="input-form"
                   type="radio"
                   name="answer1"
                   value="Playing"
@@ -114,7 +114,7 @@ export default class Survey extends Component {
               <label>You are a :</label>
               <div>
                 <input
-                  className="my"
+                  className="input-form"
                   type="radio"
                   name="answer2"
                   value="Student"
@@ -122,7 +122,7 @@ export default class Survey extends Component {
                 />
                 Student
                 <input
-                  className="my"
+                  className="input-form"
                   type="radio"
                   name="answer2"
                   value="Teacher"
@@ -130,7 +130,7 @@ export default class Survey extends Component {
                 />
                 Teacher
                 <input
-                  className="my"
+                  className="input-form"
                   type="radio"
                   name="answer2"
                   value="Visitor"
@@ -144,7 +144,7 @@ export default class Survey extends Component {
               <label>Is online learning helpful:</label>
               <div>
                 <input
-                  className="my"
+                  className="input-form"
                   type="radio"
                   name="answer3"
                   value="Yes"
@@ -152,7 +152,7 @@ export default class Survey extends Component {
                 />
                 Yes
                 <input
-                  className="my"
+                  className="input-form"
                   type="radio"
                   name="answer3"
                   value="No"
@@ -160,7 +160,7 @@ export default class Survey extends Component {
                 />
                 No
                 <input
-                  className="my"
+                  className="input-form"
                   type="radio"
                   name="answer3"
                   value="Maybe"

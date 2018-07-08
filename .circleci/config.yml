@@ -13,19 +13,19 @@ jobs:
           command: echo 'export VERSION=$(echo $CIRCLE_SHA1 | cut -c -7)' >> $BASH_ENV
       - run: 
            name: Docker build frontend
-           command: docker build -t $DOCKER_USER/crisis-class-room/frontend:$VERSION ./frontend
+           command: docker build -t $DOCKER_USER/crisis-class-room-frontend:$VERSION ./frontend
       - run: 
            name: Docker build backend
-           command: docker build -t $DOCKER_USER/crisis-class-room/backend:$VERSION ./backend
+           command: docker build -t $DOCKER_USER/crisis-class-room-backend:$VERSION ./backend
       - run:
           name: Docker login
           command: docker login -u $DOCKER_USER -p $DOCKER_PASS 
       - run:
           name: Docker push frontend
-          command: docker push $DOCKER_USER/crisis-class-room/frontend:$VERSION
+          command: docker push $DOCKER_USER/crisis-class-room-frontend:$VERSION
       - run:
           name: Docker push backend
-          command: docker push $DOCKER_USER/crisis-class-room/backend:$VERSION  
+          command: docker push $DOCKER_USER/crisis-class-room-backend:$VERSION  
 workflows:
   version: 2
   build_and_deploy:

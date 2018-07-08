@@ -54,10 +54,12 @@ const register = (req, res) => {
       },
       (token, rows) => {
         var smtpTransport = nodemailer.createTransport ({
-          service: 'Gmail',
+          host: 'smtp.sendgrid.net',
+          port: 465,
+          secure: true, // true for 465, false for other ports,
           auth: {
-            user: process.env.USER_GMAIL,
-            pass: process.env.GMAIL_PASS,
+            user: process.env.SMTP_USER_NAME,
+            pass: process.env.SMTP_PASS,
           },
         });
         var mailOptions = {

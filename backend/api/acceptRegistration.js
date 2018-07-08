@@ -7,6 +7,7 @@ const filename = './database/crisisdb.sqlit';
 let db = new sqlite3.Database (filename);
 
 const AcceptRegistration = (req, res) => {
+  console.log(process.env.SMTP_USER_NAME)
     const {teacher, admin, userName} = req.body;
   async.waterfall (
     [
@@ -23,10 +24,12 @@ const AcceptRegistration = (req, res) => {
       },
       () => {
         var smtpTransport = nodemailer.createTransport ({
-          service: 'Gmail',
+          host: 'smtp.sendgrid.net',
+          port: 465,
+          secure: true, // true for 465, false for other ports,
           auth: {
-            user: process.env.USER_GMAIL,
-            pass: process.env.GMAIL_PASS,
+            user: process.env.SMTP_USER_NAME,
+            pass: process.env.SMTP_PASS,
           },
         });
         var mailOptions = {

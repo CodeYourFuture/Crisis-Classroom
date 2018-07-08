@@ -39,14 +39,16 @@ const ForgotPassword = (req, res, next) => {
       },
       (token, user) => {
         var smtpTransport = nodemailer.createTransport({
-          service: 'Gmail',
+          host: 'smtp.sendgrid.net',
+          port: 465,
+          secure: true, // true for 465, false for other ports,
           auth: {
-            user: process.env.USER_GMAIL,
-            pass: process.env.GMAIL_PASS,
+            user: process.env.SMTP_USER_NAME,
+            pass: process.env.SMTP_PASS,
           },
         });
         var mailOptions = {
-          to: user.email,
+          to: process.env.USER_GMAIL,
           from: process.env.USER_GMAIL,
           subject: 'Password Reset',
           text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\nPlease click on the following link, or paste this into your browser to complete the process:\n

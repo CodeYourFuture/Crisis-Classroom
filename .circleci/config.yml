@@ -13,19 +13,19 @@ jobs:
           command: echo 'export VERSION=$(echo $CIRCLE_SHA1 | cut -c -7)' >> $BASH_ENV
       - run:
           name: Docker build frontend
-          command: docker build -t codeyourfuture/crisis-classroom-fe:$VERSION ./frontend && docker tag codeyourfuture/crisis-classroom-fe:$VERSION codeyourfuture/crisis-classroom-fe:latest
+          command: docker build -t codeyourfuture/crisis-classroom-fe:$VERSION --build-arg version=$VERSION ./frontend && docker tag codeyourfuture/crisis-classroom-fe:$VERSION codeyourfuture/crisis-classroom-fe:latest
       - run:
           name: Docker build backend
-          command: docker build -t codeyourfuture/crisis-classroom-be:$VERSION ./backend && docker tag codeyourfuture/crisis-classroom-be:$VERSION codeyourfuture/crisis-classroom-be:latest
+          command: docker build -t codeyourfuture/crisis-classroom-be:$VERSION --build-arg version=$VERSION ./backend && docker tag codeyourfuture/crisis-classroom-be:$VERSION codeyourfuture/crisis-classroom-be:latest
       - run:
           name: Docker login
           command: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run:
           name: Docker push frontend
-          command: docker push codeyourfuture/crisis-classroom-fe:$VERSION
+          command: docker push codeyourfuture/crisis-classroom-fe
       - run:
           name: Docker push backend
-          command: docker push codeyourfuture/crisis-classroom-be:$VERSION
+          command: docker push codeyourfuture/crisis-classroom-be
 
 workflows:
   version: 2

@@ -3,7 +3,7 @@ const sqlite3 = require('sqlite3').verbose();
 const filename = './database/crisisdb.sqlit';
 let db = new sqlite3.Database(filename);
 
-const CheckAdmin = require('../helpers/checkAdmin');
+const CheckAdmin = require('../../helpers/checkAdmin');
 
 const SelectUser = (req, res) => {
   const { userName, id } = req.body;

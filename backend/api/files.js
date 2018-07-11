@@ -1,5 +1,4 @@
 const files = (req, res) => {
- console.log(req.file, req.body)
+  return res.status (200).json ({image: req.file.location});
 };
-
 module.exports = files;

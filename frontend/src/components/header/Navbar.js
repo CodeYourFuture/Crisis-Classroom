@@ -124,7 +124,7 @@ export default class NavbarFeatures extends Component {
                           <img
                             className="image"
                             src={avatar}
-                            alt="lesson Title "
+                            alt="avatar"
                           />
                         )}
                       </div>

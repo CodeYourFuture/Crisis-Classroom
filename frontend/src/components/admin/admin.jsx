@@ -8,13 +8,15 @@ class UserInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: '',
       admin: 0,
       email: '',
       firstName: '',
       surName: '',
       teacher: 0,
       userName: '',
-      isAdmin: null,
+      avatar: null,
+      aboutUser: '',
       err: '',
       msg: '',
     };
@@ -28,20 +30,26 @@ class UserInfo extends React.Component {
       .then((result) => {
         if (result) {
           const {
+            title,
             firstName,
             surName,
             userName,
             email,
             teacher,
             admin,
+            avatar,
+            aboutUser,
           } = result.data[0];
           this.setState({
+            title,
             firstName,
             surName,
             userName,
             email,
             teacher,
             admin,
+            avatar,
+            aboutUser,
           });
         }
       })
@@ -58,11 +66,14 @@ class UserInfo extends React.Component {
   }
   render() {
     const {
+      title,
       firstName,
       surName,
       userName,
       email,
       admin,
+      avatar,
+      aboutUser,
       err,
       msg,
     } = this.state;
@@ -72,10 +83,32 @@ class UserInfo extends React.Component {
           {admin ? (
             <div>
               <div>
+                <div className="user-avatar">
+                  {!avatar ? (
+                    <div>
+                      {title === 'Mr' ? (
+                        <img
+                          className="image"
+                          src={require('../../image/icons/man-avatar.jpg')}
+                          alt="avatar"
+                        />
+                      ) : (
+                        <img
+                          className="image"
+                          src={require('../../image/icons/women-avatar.jpg')}
+                          alt="avatar"
+                        />
+                      )}
+                    </div>
+                  ) : (
+                    <img className="image" src={avatar} alt="avatar" />
+                  )}
+                </div>
                 <h5>First Name: {firstName}</h5>
                 <h5>Sur Name: {surName}</h5>
                 <h5>User Name: {userName}</h5>
                 <h5>Email: {email}</h5>
+                <h5>{aboutUser}</h5>
               </div>
               <div>
                 <Link to="/users-info" className="btn btn-outline-dark">

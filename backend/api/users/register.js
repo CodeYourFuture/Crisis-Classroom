@@ -9,12 +9,15 @@ let db = new sqlite3.Database (filename);
 
 const register = (req, res) => {
   const {
+    title,
     firstName,
     surName,
     userName,
     email,
     password,
     confirmPassword,
+    avatar,
+    aboutUser
   } = req.body;
   async.waterfall (
     [
@@ -33,11 +36,11 @@ const register = (req, res) => {
               });
             } else {
               var sql = `insert into users
-              (firstName, surName, userName, token, email, password)
-              values (?, ?, ?, ?, ?, ?)`;
+              (title, firstName, surName, userName, token, email, password, avatar, aboutUser)
+              values (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
               db.run (
                 sql,
-                [firstName, surName, userName, token, email, hash],
+                [title, firstName, surName, userName, token, email, hash, avatar, aboutUser],
                 (err, rows) => {
                   if (err) {
                     return res.status (400).json ({

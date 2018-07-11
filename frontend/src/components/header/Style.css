@@ -30,3 +30,8 @@ display: flex;
 border: none;
 background: none;
 }
+
+.user-avatar {
+  position: relative;
+  width: 30px;
+}

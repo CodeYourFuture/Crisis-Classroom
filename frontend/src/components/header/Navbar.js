@@ -1,16 +1,34 @@
-import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
-import "./Style.css";
-import AuthService from "../../Auth/AuthService";
-import Button from "../button";
+import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom';
+import './Style.css';
+import AuthService from '../../Auth/AuthService';
+import Button from '../button';
+import decode from 'jwt-decode';
 
 export default class NavbarFeatures extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userName: '',
+      avatar: '',
+      title: null,
+    };
+  }
+  UNSAFE_componentWillMount() {
+    const token = AuthService.getToken();
+    if (token) {
+      const decoded = decode(token);
+      const { userName, avatar, title } = decoded;
+      this.setState({ userName, avatar, title });
+    }
+  }
   onLogOut = () => {
     AuthService.logout();
-    this.props.history.replace("/");
+    this.props.history.replace('/');
   };
 
   render() {
+    const { userName, avatar, title } = this.state;
     return (
       <Route>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -81,13 +99,44 @@ export default class NavbarFeatures extends Component {
                 </Link>
               </li>
               {AuthService.loggedIn() ? (
-                <li className="nav-item">
-                  <Button
-                    className="log-out nav-link"
-                    value="Log Out"
-                    onClick={this.onLogOut}
-                  />
-                </li>
+                <div>
+                  <li className="nav-item user-info-items">
+                    <div className="nav-link">{userName}</div>
+                    <div className="nav-link">
+                      <div className="user-avatar">
+                        {!avatar ? (
+                          <div>
+                            {title === 'Mr' ? (
+                              <img
+                                className="image"
+                                src={require('../../image/icons/man-avatar.jpg')}
+                                alt="avatar"
+                              />
+                            ) : (
+                              <img
+                                className="image"
+                                src={require('../../image/icons/women-avatar.jpg')}
+                                alt="avatar"
+                              />
+                            )}
+                          </div>
+                        ) : (
+                          <img
+                            className="image"
+                            src={avatar}
+                            alt="lesson Title "
+                          />
+                        )}
+                      </div>
+                    </div>
+                    &nbsp;
+                    <Button
+                      className="log-out nav-link"
+                      value="Log Out"
+                      onClick={this.onLogOut}
+                    />
+                  </li>
+                </div>
               ) : (
                 <li className="nav-item user-info-items">
                   <Link to="/login" className="nav-link">

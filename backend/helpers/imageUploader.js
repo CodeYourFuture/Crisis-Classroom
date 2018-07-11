@@ -1,12 +1,13 @@
 const multer = require ('multer');
+var multerS3 = require ('multer-s3');
+var aws = require ('aws-sdk');
 
 const config = {
   accessKeyId: process.env.AWS_SECRET_KEY,
   secretAccessKey: process.env.AWS_ACCESS_KEY,
 };
 
-var multerS3 = require ('multer-s3');
-var aws = require ('aws-sdk');
+
 
 var s3 = new aws.S3 (config);
 var upload = multer ({

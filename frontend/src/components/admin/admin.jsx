@@ -3,6 +3,7 @@ import axios from 'axios';
 import decode from 'jwt-decode';
 import { Link } from 'react-router-dom';
 import AuthService from '../../Auth/AuthService';
+import './style.css';
 
 class UserInfo extends React.Component {
   constructor(props) {
@@ -79,49 +80,46 @@ class UserInfo extends React.Component {
     } = this.state;
     return (
       <div>
-        <div className="login-form">
-          {admin ? (
-            <div>
-              <div>
-                <div className="user-avatar">
-                  {!avatar ? (
-                    <div>
-                      {title === 'Mr' ? (
-                        <img
-                          className="image"
-                          src={require('../../image/icons/man-avatar.jpg')}
-                          alt="avatar"
-                        />
-                      ) : (
-                        <img
-                          className="image"
-                          src={require('../../image/icons/women-avatar.jpg')}
-                          alt="avatar"
-                        />
-                      )}
-                    </div>
-                  ) : (
-                    <img className="image" src={avatar} alt="avatar" />
-                  )}
-                </div>
-                <h5>First Name: {firstName}</h5>
-                <h5>Sur Name: {surName}</h5>
-                <h5>User Name: {userName}</h5>
-                <h5>Email: {email}</h5>
-                <h5>{aboutUser}</h5>
+        {admin ? (
+          <div className="admin">
+            <div className="admin-divs">
+              <div className="admin-avatar">
+                {!avatar ? (
+                  <div>
+                    {title === 'Mr' ? (
+                      <img
+                        className="admin-image"
+                        src={require('../../image/icons/man-avatar.jpg')}
+                        alt="avatar"
+                      />
+                    ) : (
+                      <img
+                        className="admin-image"
+                        src={require('../../image/icons/women-avatar.jpg')}
+                        alt="avatar"
+                      />
+                    )}
+                  </div>
+                ) : (
+                  <img className="admin-image" src={avatar} alt="avatar" />
+                )}
               </div>
-              <div>
-                <Link to="/users-info" className="btn btn-outline-dark">
-                  Users Info
-                </Link>
-              </div>
+              <h5>First Name: {firstName}</h5>
+              <h5>Sur Name: {surName}</h5>
+              <h5>User Name: {userName}</h5>
+              <h5>Email: {email}</h5>
+              <h5>{aboutUser}</h5>
             </div>
-          ) : (
-            <h5>
-              {err} {msg}
-            </h5>
-          )}
-        </div>
+            <div className="admin-divs">
+            <h4>Chose one of falowing things you want to do..</h4>
+              <Link to="/users-info">Users Informations...</Link>
+            </div>
+          </div>
+        ) : (
+          <h5 className="error">
+            {err} {msg}
+          </h5>
+        )}
       </div>
     );
   }

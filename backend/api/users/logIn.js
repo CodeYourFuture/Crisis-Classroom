@@ -7,7 +7,7 @@ let db = new sqlite3.Database (filename);
 
 const login = (req, res) => {
   const {userName, password} = req.body;
-  var sql = `select userName, password, admin, teacher from users where userName=?`;
+  var sql = `select title, userName, password, admin, teacher, avatar from users where userName=?`;
   db.all (sql, [userName], (err, rows) => {
     const [data] = rows;
     if (rows.length === 0) {
@@ -42,7 +42,7 @@ const login = (req, res) => {
         }
         if (respons) {
           let token = jwt.sign (
-            {id: data.id, userName: data.userName, admin: data.admin},
+            {id: data.id, title: data.title, userName: data.userName, admin: data.admin, avatar: data.avatar},
             process.env.JWT_SECRET,
             {expiresIn: 129600}
           );

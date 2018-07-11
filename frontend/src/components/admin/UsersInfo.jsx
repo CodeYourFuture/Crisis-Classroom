@@ -9,7 +9,6 @@ class UserInfo extends React.Component {
     super(props);
     this.state = {
       users: [],
-      isAdmin: null,
       err: '',
       msg: '',
     };
@@ -40,13 +39,41 @@ class UserInfo extends React.Component {
   render() {
     const users = this.state.users;
     return (
-      <div>
+      <div style={{"background-color": "#dadada"}}>
+        <h3>Users</h3>
         {users.map((user, i) => {
-          const { id, firstName, surName} = user;
+          const { id, title, firstName, surName, avatar, aboutUser } = user;
           return (
-            <div key={i} className="login-form">
-              <h5> {firstName} {surName}</h5>
-              <Link to={`users-info/${id}`} className="btn btn-outline-dark">Edit</Link>
+            <div key={i}>
+              <Link to={`users-info/${id}`} className="admin-users">
+                <div className="admin-avatar">
+                  {!avatar ? (
+                    <div>
+                      {title === 'Mr' ? (
+                        <img
+                          className="admin-image"
+                          src={require('../../image/icons/man-avatar.jpg')}
+                          alt="avatar"
+                        />
+                      ) : (
+                        <img
+                          className="admin-image"
+                          src={require('../../image/icons/women-avatar.jpg')}
+                          alt="avatar"
+                        />
+                      )}
+                    </div>
+                  ) : (
+                    <img className="admin-image" src={avatar} alt="avatar" />
+                  )}
+                </div>
+                <div>
+                  <h6>
+                    {title} {firstName} {surName}
+                  </h6>
+                  <h6>{aboutUser}</h6>
+                </div>
+              </Link>
             </div>
           );
         })}

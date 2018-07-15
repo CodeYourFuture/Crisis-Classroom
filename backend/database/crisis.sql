@@ -9,6 +9,7 @@ create table users
     token varchar,
     tokenExpires varchar,
     password text not null,
+    uuid text not null,
     teacher BOOLEAN,
     admin BOOLEAN,
     avatar varchar,

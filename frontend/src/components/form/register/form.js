@@ -217,6 +217,20 @@ export default class Form extends React.Component {
               value={this.props.userData.aboutUser}
             />
           </div>
+          <div className="form-group">
+            <Label value="UUID *" />
+            <Input
+              className="form-control"
+              name="uuid"
+              type="text"
+              placeholder="UUID"
+              value={this.props.userData.uuid}
+              onChange={this.props.handleChange}
+            />
+            {/* {errors.userName !== null && (
+              <span className="error">{errors.userName}</span>
+            )} */}
+          </div>
           <button
             className="btn btn-outline-dark"
             value="Register"

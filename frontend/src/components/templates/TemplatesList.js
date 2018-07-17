@@ -39,7 +39,7 @@ export default class TemplatIndex extends Component {
         </div>
         &nbsp; &nbsp;
         <div className="templets">
-          <Link to="/add-new-templet" className="add-templat">
+          <Link to="/add-new-template" className="add-templat">
             <img src={PlusIcon} alt="plus icon green" className="add-templat-p"/>
           </Link>
           {searchResult.map((e, i) => (

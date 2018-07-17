@@ -69,7 +69,7 @@ const checkEmail = (email) => {
       const userEmail = rows[0];
       if (!userEmail) {
         return resolve();
-      } else return reject({ err, msg: 'You allredy registerd' });
+      } else return reject({ err, msg: 'You already registerd' });
     });
   });
 };
@@ -80,7 +80,7 @@ const checkUserName = (userName) => {
       const user = rows[0];
       if (!user) {
         return resolve();
-      } else return reject({ err, msg: 'You allredy registerd' });
+      } else return reject({ err, msg: 'You already registerd' });
     });
   });
 };
@@ -120,7 +120,7 @@ const saveUserData = (data, userInfo) => {
         if (err)
           return reject({
             err,
-            msg: 'Something happed while saving user data to data bace',
+            msg: 'Something happened while saving user data into database',
           });
         return resolve({ data, userInfo });
       }

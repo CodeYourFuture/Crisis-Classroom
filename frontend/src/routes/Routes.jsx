@@ -35,7 +35,7 @@ class Routes extends Component {
         <Layout exact path="/forgot-password" component={ForgotPassword} />
         <Layout exact path="/reset-password/:token" component={CheckUserToken} />
         <Layout exact path="/reset-password" component={ResetPassword} />
-        <PrivateRoute exact path="/add-new-templet" component={LessonForm} />
+        <PrivateRoute exact path="/add-new-template" component={LessonForm} />
         <PrivateRoute exact path="/template-created" component={TemplateCreated} />
         <PrivateRoute exact path="/template-edited" component={TemplateEdited} />
         <PrivateRoute exact path="/template-deleted" component={TemplateDeleted} />

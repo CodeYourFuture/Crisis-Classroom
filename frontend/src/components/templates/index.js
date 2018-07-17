@@ -16,7 +16,7 @@ export default class Template extends React.Component {
   }
   editHandler = lesson => {
     this.props.history.push({
-      pathname: "/add-new-templet",
+      pathname: "/add-new-template",
       state: { lesson }
     });
   };

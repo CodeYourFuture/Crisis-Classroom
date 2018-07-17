@@ -23,7 +23,7 @@ const SelectUser = (req, res) => {
 
 const getUser = (id) => {
     return new Promise((resolve, reject) => {
-        var sql = `select id, userName, surName, firstName, email, teacher, admin from users where id=?`;
+        var sql = `select id, title, userName, surName, firstName, email, teacher, admin, avatar, aboutUser from users where id=?`;
         db.all(sql, [id], (err, data) => {
       if (err) return reject(err);
       return resolve(data);

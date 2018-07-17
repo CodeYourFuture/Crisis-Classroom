@@ -19,7 +19,7 @@ const Admin = (req, res) => {
   };
   const getAdmin = (userName) => {
     return new Promise((resolve, reject) => {
-      var sql = `select firstName, surName, email, userName, teacher, admin from users where userName=?`;
+      var sql = `select title, firstName, surName, email, userName, avatar, aboutUser, teacher, admin from users where userName=?`;
       db.all(sql, [userName], (err, admin) => {
         if (err) return reject(err);
         return resolve(admin);

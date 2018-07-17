@@ -7,7 +7,6 @@ const lessons = require ('./lesson/lessons');
 const checkUserName = require ('../helpers/checkUserName');
 const checkEmail = require ('../helpers/checkEmail');
 const register = require ('./users/register');
-const survey = require ('./survey');
 const files = require ('./files');
 const creatLessons = require ('./lesson/creatLessons');
 const EditLesson = require ('./lesson/EditLesson');
@@ -30,7 +29,6 @@ const api = () => {
   router.post ('/login', logIn.login);
   router.post ('/check-email', checkEmail);
   router.post ('/check-user-name', checkUserName);
-  router.post ('/survey', survey);
   router.post ('/creat-lessons', creatLessons);
   router.post ('/edit-lessons', EditLesson);
   router.post ('/delete-lessons', DeleteLesson);

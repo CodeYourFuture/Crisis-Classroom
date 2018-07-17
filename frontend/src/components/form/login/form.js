@@ -24,7 +24,7 @@ class Login extends Component {
 
     this.Auth.login(this.state.userName, this.state.password)
       .then(res => {
-        if (this.Auth.loggedIn()) this.props.history.replace("/welecome");
+        if (this.Auth.loggedIn()) this.props.history.replace("/");
       })
       .catch(err => {
         if (err.msg) {

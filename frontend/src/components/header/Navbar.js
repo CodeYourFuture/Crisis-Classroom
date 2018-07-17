@@ -54,46 +54,6 @@ export default class NavbarFeatures extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/teachers">
-                  Teachers
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/projects">
-                  Projects
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/news">
-                  News
-                </Link>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  About
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link to="about" className="dropdown-item">
-                    About
-                  </Link>
-                  <Link to="meettheteam" className="dropdown-item">
-                    Meet the team
-                  </Link>
-                  <Link to="about" className="dropdown-item">
-                    What we do
-                  </Link>
-                  <div className="dropdown-item dropdown-divider" />
-                  Our supporters
-                </div>
-              </li>
-              <li className="nav-item">
                 <Link to="/templates" className="nav-link">
                   Templates
                 </Link>
@@ -121,11 +81,7 @@ export default class NavbarFeatures extends Component {
                             )}
                           </div>
                         ) : (
-                          <img
-                            className="image"
-                            src={avatar}
-                            alt="avatar"
-                          />
+                          <img className="image" src={avatar} alt="avatar" />
                         )}
                       </div>
                     </div>

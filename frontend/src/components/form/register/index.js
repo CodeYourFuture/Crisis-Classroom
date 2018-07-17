@@ -18,6 +18,7 @@ class Registration extends Component {
       password: '',
       confirmPassword: '',
       aboutUser: '',
+      uuid:'',
       formSubmitted: false,
       errors: [],
       checkUserName: [],
@@ -50,7 +51,6 @@ class Registration extends Component {
   };
 
   handleChange = (e) => {
-    console.log(e.target.value)
     this.setState({
       [e.target.name]: e.target.value,
     });

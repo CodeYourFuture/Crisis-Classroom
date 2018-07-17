@@ -1,7 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Input from "../../input";
 import PasswordMask from "react-password-mask";
-// import Button from "../../button";
 import Label from "../../label";
 
 export default class Form extends React.Component {
@@ -84,9 +84,9 @@ export default class Form extends React.Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="registraton-form">
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
+      <div>
+        <form className='center' onSubmit={this.handleSubmit}>
+          <div className="form-group ">
             <Label value="Full Name *" />
             <div>
               <Input
@@ -100,6 +100,7 @@ export default class Form extends React.Component {
               {errors.firstName !== null && (
                 <span className="error">{errors.firstName}</span>
               )}
+              <br />
               <Input
                 className="form-control"
                 name="surName"
@@ -129,6 +130,7 @@ export default class Form extends React.Component {
           </div>
           <div className="form-group">
             <Label value="Email *" />
+            <br />
             <Input
               className="form-control"
               name="email"
@@ -143,8 +145,8 @@ export default class Form extends React.Component {
           </div>
           <div className="form-group">
             <Label value="Password *" />
+            <br />
             <PasswordMask
-              className="form-control"
               name="password"
               type="password"
               placeholder="Password"
@@ -158,6 +160,7 @@ export default class Form extends React.Component {
           </div>
           <div className="form-group">
             <Label value="Confirm Your Password *" />
+            <br />
             <Input
               className="form-control"
               name="confirmPassword"
@@ -171,12 +174,13 @@ export default class Form extends React.Component {
             )}
           </div>
           <button
-            className="btn btn-outline-dark"
+            className="btn btn-outline-dark btn-submit"
             value="Register"
             type="submit"
           >
             Register
           </button>
+          <p>Already have an account? <Link to="/login">Lon in</Link></p>
         </form>
       </div>
     );

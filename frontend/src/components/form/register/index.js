@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Form from "./form";
 import ConfirmRegistration from "./confirmRegistration";
 import axios from "axios";
+import { Container, Row, Col } from "reactstrap";
 
 import "./style.css";
 
@@ -69,7 +70,9 @@ class Registration extends Component {
 
   render() {
     return (
-      <div className="registration">
+      <div>
+      <div className="row justify-content-center registration">
+        <div class="col-4">
         <h3>Registration</h3>
         {!this.state.formSubmitted ? (
           <Form
@@ -86,7 +89,10 @@ class Registration extends Component {
             history={this.props.history}
           />
         )}
+        </div>
       </div>
+      </div>
+
     );
   }
 }

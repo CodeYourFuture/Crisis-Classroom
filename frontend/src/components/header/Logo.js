@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import './Style.css';
+import CrisisLogo from "../../image/icons/crisis-logo.svg"
 
 class Logo extends Component {
   render() {
@@ -9,7 +10,7 @@ class Logo extends Component {
         <img
           alt="Logo crisis classroom"
           height="60"
-          src="https://www.crisisclassroom.com/img/crisis-logo.svg"
+          src={CrisisLogo}
         />
         </a>
       </div>

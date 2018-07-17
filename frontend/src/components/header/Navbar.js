@@ -1,16 +1,34 @@
-import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
-import "./Style.css";
-import AuthService from "../../Auth/AuthService";
-import Button from "../button";
+import React, {Component} from 'react';
+import {Route, Link} from 'react-router-dom';
+import './Style.css';
+import AuthService from '../../Auth/AuthService';
+import Button from '../button';
+import decode from 'jwt-decode';
 
 export default class NavbarFeatures extends Component {
+  constructor (props) {
+    super (props);
+    this.state = {
+      userName: '',
+      avatar: '',
+      title: null,
+    };
+  }
+  UNSAFE_componentWillMount () {
+    const token = AuthService.getToken ();
+    if (token) {
+      const decoded = decode (token);
+      const {userName, avatar, title} = decoded;
+      this.setState ({userName, avatar, title});
+    }
+  }
   onLogOut = () => {
-    AuthService.logout();
-    this.props.history.replace("/");
+    AuthService.logout ();
+    this.props.history.replace ('/');
   };
 
-  render() {
+  render () {
+    const {userName, avatar, title} = this.state;
     return (
       <Route>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -36,69 +54,56 @@ export default class NavbarFeatures extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/teachers">
-                  Teachers
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/projects">
-                  Projects
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/news">
-                  News
-                </Link>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  About
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link to="about" className="dropdown-item">
-                    About
-                  </Link>
-                  <Link to="meettheteam" className="dropdown-item">
-                    Meet the team
-                  </Link>
-                  <Link to="about" className="dropdown-item">
-                    What we do
-                  </Link>
-                  <div className="dropdown-item dropdown-divider" />
-                  Our supporters
-                </div>
-              </li>
-              <li className="nav-item">
                 <Link to="/templates" className="nav-link">
                   Templates
                 </Link>
               </li>
-              {AuthService.loggedIn() ? (
-                <li className="nav-item">
-                  <Button
-                    className="log-out nav-link"
-                    value="Log Out"
-                    onClick={this.onLogOut}
-                  />
-                </li>
-              ) : (
-                <li className="nav-item user-info-items">
-                  <Link to="/login" className="nav-link">
-                    LogIn
-                  </Link>
-                  &nbsp;
-                  <Link to="/register" className="nav-link">
-                    Register
-                  </Link>
-                </li>
-              )}
+              {AuthService.loggedIn ()
+                ? <div>
+                    <li className="nav-item user-info-items">
+                      <div className="nav-link">{userName}</div>
+                      <div className="nav-link">
+                        <div className="user-avatar">
+                          {!avatar
+                            ? <div>
+                                {title === 'Mr'
+                                  ? <img
+                                      className="image"
+                                      src={require ('../../image/icons/man-avatar.jpg')}
+                                      alt="avatar"
+                                    />
+                                  : <img
+                                      className="image"
+                                      src={require ('../../image/icons/women-avatar.jpg')}
+                                      alt="avatar"
+                                    />}
+                              </div>
+                            : <img
+                                className="image"
+                                src={avatar}
+                                alt="avatar"
+                              />}
+                        </div>
+                      </div>
+                      &nbsp;
+                      <Button
+                        className="log-out nav-link"
+                        value="Log Out"
+                        onClick={this.onLogOut}
+                      />
+                    </li>
+                  </div>
+                : ''
+                  // <li className="nav-item user-info-items">
+                  //   <Link to="/login" className="nav-link">
+                  //     LogIn
+                  //   </Link>
+                  //   &nbsp;
+                  //   <Link to="/register" className="nav-link">
+                  //     Register
+                  //   </Link>
+                  // </li>
+              }
             </ul>
             {/* <form className="form-inline my-2 my-lg-0 form">
               <input

@@ -1,70 +1,97 @@
-import React, { Component } from "react";
-import Form from "./form";
-import ConfirmRegistration from "./confirmRegistration";
-import axios from "axios";
-import { Container, Row, Col } from "reactstrap";
+import React, { Component } from 'react';
+import Form from './form';
+import ConfirmRegistration from './confirmRegistration';
+import axios from 'axios';
 
-import "./style.css";
+import './style.css';
 
 class Registration extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      avatar: null,
+      title:'',
       firstName: '',
       surName: '',
       userName: '',
       email: '',
       password: '',
-      confirmPassword:'',
+      confirmPassword: '',
+      aboutUser: '',
+      uuid:'',
       formSubmitted: false,
       errors: [],
       checkUserName: [],
-      checkEmail: []
+      checkEmail: [],
     };
   }
 
-  handleChange = e => {
+  onChangeImageHandler = (event) => {
+    const data = new FormData();
+    data.append('image', event.target.files[0]);
+    const { name } = event.target;
+    axios
+      .post(`${process.env.REACT_APP_DOMAIN}/files`, data)
+      .then((result) => {
+        if (result) {
+          const image = result.data.image;
+          this.setState({
+            ...this.state,
+            [name]: image,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  removeImageHandler = () => {
+    this.setState({ avatar: null });
+  };
+
+  handleChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
 
     const { userName } = this.state;
     axios
       .post(`${process.env.REACT_APP_DOMAIN}/check-user-name`, {
-        userName
+        userName,
       })
-      .then(res => {
+      .then((res) => {
         this.setState({ checkUserName: res.data.rows[0].userName });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
-          error
+          error,
         });
       });
 
     const { email } = this.state;
     axios
       .post(`${process.env.REACT_APP_DOMAIN}/check-email`, {
-        email
+        email,
       })
-      .then(res => {
+      .then((res) => {
         this.setState({ checkEmail: res.data.rows[0].email });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
-          error
+          error,
         });
       });
   };
 
   onFormSubmit = () => {
     this.setState({
-      formSubmitted: true
+      formSubmitted: true,
     });
   };
   onConfirmSubmit = () => {
     this.setState({
-      formSubmitted: false
+      formSubmitted: false,
     });
   };
 
@@ -87,6 +114,8 @@ class Registration extends Component {
             userData={this.state}
             onSubmit={this.onSubmit}
             history={this.props.history}
+            onChangeImageHandler={this.onChangeImageHandler}
+            removeImageHandler={this.removeImageHandler}
           />
         )}
         </div>

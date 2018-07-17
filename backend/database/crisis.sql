@@ -1,6 +1,7 @@
 create table users
 (
     id integer primary key,
+    title varchar,
     firstName varchar,
     surName varchar,
     email varchar,
@@ -8,8 +9,11 @@ create table users
     token varchar,
     tokenExpires varchar,
     password text not null,
+    uuid text not null,
     teacher BOOLEAN,
-    admin BOOLEAN
+    admin BOOLEAN,
+    avatar varchar,
+    aboutUser varchar
 );
 create table survey
 (

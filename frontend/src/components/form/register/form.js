@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Input from "../../input";
-import PasswordMask from "react-password-mask";
-import Label from "../../label";
+import React from 'react';
+import Input from '../../input';
+import PasswordMask from 'react-password-mask';
+// import Button from "../../button";
+import Label from '../../label';
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -15,12 +15,12 @@ export default class Form extends React.Component {
         userName: null,
         email: null,
         password: null,
-        confirmPassword: null
-      }
+        confirmPassword: null,
+      },
     };
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const errors = this.validate();
     if (errors) {
@@ -37,7 +37,7 @@ export default class Form extends React.Component {
       password,
       confirmPassword,
       checkUserName,
-      checkEmail
+      checkEmail,
     } = this.props.userData;
 
     const errors = {
@@ -46,7 +46,7 @@ export default class Form extends React.Component {
       userName: null,
       email: null,
       password: null,
-      confirmPassword: null
+      confirmPassword: null,
     };
 
     if (userName === checkUserName) {
@@ -61,9 +61,9 @@ export default class Form extends React.Component {
       errors.userName = `username can't be empty .`;
     } else if (email.length < 5) {
       errors.email = ` Email should be at least 5 charcters long .`;
-    } else if (email.split("").filter(x => x === "@").length !== 1) {
+    } else if (email.split('').filter((x) => x === '@').length !== 1) {
       errors.email = `Email should contain a @ .`;
-    } else if (email.indexOf(".") === -1) {
+    } else if (email.indexOf('.') === -1) {
       errors.email = `Email should contain at least one dot .`;
     } else if (password.length === 0) {
       errors.password = `Password field is required .`;
@@ -84,9 +84,45 @@ export default class Form extends React.Component {
   render() {
     const { errors } = this.state;
     return (
-      <div>
-        <form className='center' onSubmit={this.handleSubmit}>
-          <div className="form-group ">
+      <div className="registraton-form">
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+          <Label value="Title" />
+          <br/>
+          <Label value="Mr" />
+            <input
+              className="input-form"
+              type="radio"
+              name="title"
+              value="Mr"
+              onChange={this.props.handleChange}
+            />
+            <Label value="Mrs" />
+            <input
+              className="input-form"
+              type="radio"
+              name="title"
+              value="Mrs"
+              onChange={this.props.handleChange}
+            />
+            <Label value="Ms" />
+            <input
+              className="input-form"
+              type="radio"
+              name="title"
+              value="Ms"
+              onChange={this.props.handleChange}
+            />
+            <Label value="Miss" />
+            <input
+              className="input-form"
+              type="radio"
+              name="title"
+              value="Miss"
+              onChange={this.props.handleChange}
+            />
+          </div>
+          <div className="form-group">
             <Label value="Full Name *" />
             <div>
               <Input
@@ -139,7 +175,7 @@ export default class Form extends React.Component {
               value={this.props.userData.email}
               onChange={this.props.handleChange}
             />
-            {errors.email !== "" && (
+            {errors.email !== '' && (
               <span className="error">{errors.email}</span>
             )}
           </div>
@@ -166,12 +202,37 @@ export default class Form extends React.Component {
               name="confirmPassword"
               type="password"
               placeholder="Confirm Your Password"
-              value={this.props.userData.confirmPassword}
               onChange={this.props.handleChange}
             />
             {errors.confirmPassword !== null && (
               <span className="error">{errors.confirmPassword}</span>
             )}
+          </div>
+          <div className="form-group">
+            <textarea
+            className="form-control"
+              rows="4"
+              cols="50"
+              name="aboutUser"
+              form="usrform"
+              placeholder="About you..."
+              onChange={this.props.handleChange}
+              value={this.props.userData.aboutUser}
+            />
+          </div>
+          <div className="form-group">
+            <Label value="UUID *" />
+            <Input
+              className="form-control"
+              name="uuid"
+              type="text"
+              placeholder="UUID"
+              value={this.props.userData.uuid}
+              onChange={this.props.handleChange}
+            />
+            {/* {errors.userName !== null && (
+              <span className="error">{errors.userName}</span>
+            )} */}
           </div>
           <button
             className="btn btn-outline-dark btn-submit"

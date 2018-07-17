@@ -1,52 +1,48 @@
-import React from "react";
-import Input from "../../input";
-import Label from "../../label";
-import Button from "../../button";
-import Context from "./context";
-import ReactS3 from "react-s3";
-import axios from "axios";
-import "./style.css";
-
-const config = {
-  bucketName: "crisis-class-room",
-  region: "eu-west-2",
-  accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
-};
+import React from 'react';
+import Input from '../../input';
+import Label from '../../label';
+import Button from '../../button';
+import Context from './context';
+import axios from 'axios';
+import './style.css';
 
 class Form extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super (props);
     this.state = {
       lessonTitle: props.lessonTitle,
       lessonTitleImage: props.lessonTitleImage,
       timeToPrepare: props.timeToPrepare,
       timeToPrepareImage: props.timeToPrepareImage,
       numberOfPeople: props.numberOfPeople,
-      numberOfPeopleImage: props.numberOfPeopleImage
+      numberOfPeopleImage: props.numberOfPeopleImage,
     };
   }
 
   onChange = e => {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value
+    const {name, value} = e.target;
+    this.setState ({
+      [name]: value,
     });
   };
 
   onChangeImageLessonhandler = event => {
-    const data = new FormData();
-    data.append("file", event.target.files[0]);
-    data.append("name", "file name");
-    data.append("description", "about file");
-
+    const data = new FormData ();
+    data.append ('image', event.target.files[0]);
+    const {name} = event.target;
     axios
-      .post(`${process.env.REACT_APP_DOMAIN}/files`, data)
-      .then(response => {
-        console.log(response);
+      .post (`${process.env.REACT_APP_DOMAIN}/files`, data)
+      .then (result => {
+        if (result) {
+          const image = result.data.image;
+          this.setState ({
+            ...this.state,
+            [name]: image,
+          });
+        }
       })
-      .catch(error => {
-        console.log(error);
+      .catch (error => {
+        console.log (error);
       });
   };
   // onChangeImageLessonhandler = e => {
@@ -63,25 +59,25 @@ class Form extends React.Component {
 
   removeImageHandler = e => {
     const file = e.target.name;
-    if ("lessonTitleImage" === file) {
-      this.setState({ lessonTitleImage: null });
+    if ('lessonTitleImage' === file) {
+      this.setState ({lessonTitleImage: null});
     }
-    if ("timeToPrepareImage" === file) {
-      this.setState({ timeToPrepareImage: null });
+    if ('timeToPrepareImage' === file) {
+      this.setState ({timeToPrepareImage: null});
     }
-    if ("numberOfPeopleImage" === file) {
-      this.setState({ numberOfPeopleImage: null });
+    if ('numberOfPeopleImage' === file) {
+      this.setState ({numberOfPeopleImage: null});
     }
   };
 
-  render() {
+  render () {
     const {
       lessonTitle,
       lessonTitleImage,
       timeToPrepare,
       timeToPrepareImage,
       numberOfPeople,
-      numberOfPeopleImage
+      numberOfPeopleImage,
     } = this.state;
     return (
       <div>
@@ -98,38 +94,36 @@ class Form extends React.Component {
                   placeholder="Lesson Title"
                   value={lessonTitle}
                 />
-                {!lessonTitleImage ? (
-                  <div>
-                    <label className="btn btn-outline-dark">
-                      Upload an image
-                      <input
-                        style={{ display: "none" }}
-                        type="file"
-                        name="lessonTitleImage"
-                        onChange={this.onChangeImageLessonhandler}
-                        accept="image/*"
-                      />
-                    </label>
-                  </div>
-                ) : (
-                  <div className="image-container">
-                    <img
-                      className="image"
-                      width="100px"
-                      src={lessonTitleImage}
-                      alt="lesson Title "
-                    />
-                    <div className="middle">
-                      <button
-                        className="text"
-                        name="lessonTitleImage"
-                        onClick={this.removeImageHandler}
-                      >
-                        Remove
-                      </button>
+                {!lessonTitleImage
+                  ? <div>
+                      <label className="btn btn-outline-dark">
+                        Upload an image
+                        <input
+                          style={{display: 'none'}}
+                          type="file"
+                          name="lessonTitleImage"
+                          onChange={this.onChangeImageLessonhandler}
+                          accept="image/*"
+                        />
+                      </label>
                     </div>
-                  </div>
-                )}
+                  : <div className="image-container">
+                      <img
+                        className="image"
+                        width="100px"
+                        src={lessonTitleImage}
+                        alt="lesson Title "
+                      />
+                      <div className="middle">
+                        <button
+                          className="text"
+                          name="lessonTitleImage"
+                          onClick={this.removeImageHandler}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>}
               </div>
             </div>
           </div>
@@ -146,38 +140,36 @@ class Form extends React.Component {
                 placeholder="Time To Prepare"
                 value={timeToPrepare}
               />
-              {!timeToPrepareImage ? (
-                <div>
-                  <label className="btn btn-outline-dark">
-                    Upload an image
-                    <input
-                      style={{ display: "none" }}
-                      type="file"
-                      name="timeToPrepareImage"
-                      onChange={this.onChangeImageLessonhandler}
-                      accept="image/*"
-                    />
-                  </label>
-                </div>
-              ) : (
-                <div className="image-container">
-                  <img
-                    className="image"
-                    width="100px"
-                    src={timeToPrepareImage}
-                    alt="lesson Title "
-                  />
-                  <div className="middle">
-                    <button
-                      className="text"
-                      name="timeToPrepareImage"
-                      onClick={this.removeImageHandler}
-                    >
-                      Remove
-                    </button>
+              {!timeToPrepareImage
+                ? <div>
+                    <label className="btn btn-outline-dark">
+                      Upload an image
+                      <input
+                        style={{display: 'none'}}
+                        type="file"
+                        name="timeToPrepareImage"
+                        onChange={this.onChangeImageLessonhandler}
+                        accept="image/*"
+                      />
+                    </label>
                   </div>
-                </div>
-              )}
+                : <div className="image-container">
+                    <img
+                      className="image"
+                      width="100px"
+                      src={timeToPrepareImage}
+                      alt="lesson Title "
+                    />
+                    <div className="middle">
+                      <button
+                        className="text"
+                        name="timeToPrepareImage"
+                        onClick={this.removeImageHandler}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>}
             </div>
           </div>
         </div>
@@ -193,38 +185,36 @@ class Form extends React.Component {
                 placeholder="Number Of People"
                 value={numberOfPeople}
               />
-              {!numberOfPeopleImage ? (
-                <div>
-                  <label className="btn btn-outline-dark">
-                    Upload an image
-                    <input
-                      style={{ display: "none" }}
-                      type="file"
-                      name="numberOfPeopleImage"
-                      onChange={this.onChangeImageLessonhandler}
-                      accept="image/*"
-                    />
-                  </label>
-                </div>
-              ) : (
-                <div className="image-container">
-                  <img
-                    className="image"
-                    width="100px"
-                    src={numberOfPeopleImage}
-                    alt="number Of People"
-                  />
-                  <div className="middle">
-                    <button
-                      className="text"
-                      name="numberOfPeopleImage"
-                      onClick={this.removeImageHandler}
-                    >
-                      Remove
-                    </button>
+              {!numberOfPeopleImage
+                ? <div>
+                    <label className="btn btn-outline-dark">
+                      Upload an image
+                      <input
+                        style={{display: 'none'}}
+                        type="file"
+                        name="numberOfPeopleImage"
+                        onChange={this.onChangeImageLessonhandler}
+                        accept="image/*"
+                      />
+                    </label>
                   </div>
-                </div>
-              )}
+                : <div className="image-container">
+                    <img
+                      className="image"
+                      width="100px"
+                      src={numberOfPeopleImage}
+                      alt="number Of People"
+                    />
+                    <div className="middle">
+                      <button
+                        className="text"
+                        name="numberOfPeopleImage"
+                        onClick={this.removeImageHandler}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>}
             </div>
           </div>
         </div>
@@ -232,7 +222,7 @@ class Form extends React.Component {
         <Button
           className="btn btn-outline-dark lessonBtn"
           value="Next"
-          onClick={() => this.props.onAddLesson(this.state)}
+          onClick={() => this.props.onAddLesson (this.state)}
         />
       </div>
     );
@@ -240,7 +230,7 @@ class Form extends React.Component {
 }
 
 export default class Lesson extends React.Component {
-  render() {
+  render () {
     return (
       <Context.Consumer>
         {({
@@ -250,7 +240,7 @@ export default class Lesson extends React.Component {
           timeToPrepare,
           timeToPrepareImage,
           numberOfPeople,
-          numberOfPeopleImage
+          numberOfPeopleImage,
         }) => (
           <Form
             lessonTitle={lessonTitle}

@@ -1,21 +1,12 @@
 const express = require ('express');
 const multer = require ('multer');
 
-const storage = multer.diskStorage ({
-  destination: './files',
-  filename (req, file, cb) {
-    cb (null, `${new Date ()}-${file.originalname}`);
-  },
-});
-
-const upload = multer ({storage});
-
+const upload = require ("../helpers/imageUploader")
 const logIn = require ('./users/logIn');
 const lessons = require ('./lesson/lessons');
 const checkUserName = require ('../helpers/checkUserName');
 const checkEmail = require ('../helpers/checkEmail');
 const register = require ('./users/register');
-const survey = require ('./survey');
 const files = require ('./files');
 const creatLessons = require ('./lesson/creatLessons');
 const EditLesson = require ('./lesson/EditLesson');
@@ -38,11 +29,11 @@ const api = () => {
   router.post ('/login', logIn.login);
   router.post ('/check-email', checkEmail);
   router.post ('/check-user-name', checkUserName);
-  router.post ('/survey', survey);
   router.post ('/creat-lessons', creatLessons);
   router.post ('/edit-lessons', EditLesson);
   router.post ('/delete-lessons', DeleteLesson);
-  router.post ('/files', upload.single ('file'), files);
+  router.post ('/files', upload.single ('image'), files);
+
   //forgot password
   router.post ('/forgot-password', ForgotPassword);
   router.get ('/reset-password/:token', CheckUserToken);

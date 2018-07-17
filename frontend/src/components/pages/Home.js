@@ -3,10 +3,10 @@ import React from 'react';
 
 // import './style.css';
 
-const HomePage = () => {
+const HomePageText = () => {
   return (
     <div className="getStart">
-      <h1 className="welcome">Welcome to Crisis Classroom</h1>
+      
       <p>
         No matter who you are, how old you are or where in the world you are, we
         believe with all our hearts that education isn’t a privilege but a
@@ -23,4 +23,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default HomePageText;

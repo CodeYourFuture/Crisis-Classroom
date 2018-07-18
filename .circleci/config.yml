@@ -53,10 +53,10 @@ jobs:
           command: gpg --yes --passphrase="$GPG_KEY" config.gpg && export KUBECONFIG=$(pwd)/config
       - run:
           name: Update backend k8s deployment
-          command: kubectl set image deployment/crisis-classroom-dep-be crisis-classroom-be=codeyourfuture/crisis-classroom-be:$VERSION
+          command: ./kubectl set image deployment/crisis-classroom-dep-be crisis-classroom-be=codeyourfuture/crisis-classroom-be:$VERSION
       - run:
           name: Update frontend k8s deployment
-          command: kubectl set image deployment/crisis-classroom-dep-fe crisis-classroom-fe=codeyourfuture/crisis-classroom-fe:$VERSION
+          command: ./kubectl set image deployment/crisis-classroom-dep-fe crisis-classroom-fe=codeyourfuture/crisis-classroom-fe:$VERSION
 
 
 workflows:

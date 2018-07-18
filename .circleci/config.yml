@@ -50,14 +50,13 @@ jobs:
           command: aws s3 cp s3://$SECRETS_BUCKET/kubectl/config.gpg .
       - run:
           name: Decrypt kubeconfig and set KUBECONFIG
-          command: gpg --yes --passphrase="$GPG_KEY" config.gpg && export KUBECONFIG=$(pwd)/config
+          command: gpg --yes --passphrase="$GPG_KEY" config.gpg 
       - run:
           name: Update backend k8s deployment
-          command: ./kubectl set image deployment/crisis-classroom-dep-be crisis-classroom-be=codeyourfuture/crisis-classroom-be:$VERSION
+          command: KUBECONFIG=$(pwd)/config ./kubectl set image deployment/crisis-classroom-dep-be crisis-classroom-be=codeyourfuture/crisis-classroom-be:$VERSION
       - run:
           name: Update frontend k8s deployment
-          command: ./kubectl set image deployment/crisis-classroom-dep-fe crisis-classroom-fe=codeyourfuture/crisis-classroom-fe:$VERSION
-
+          command: KUBECONFIG=$(pwd)/config ./kubectl set image deployment/crisis-classroom-dep-fe crisis-classroom-fe=codeyourfuture/crisis-classroom-fe:$VERSION
 
 workflows:
   version: 2

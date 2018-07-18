@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Input from '../../input';
 import Button from '../../button';
 import Label from '../../label';
 import AuthService from '../../../Auth/AuthService';
 
 class Login extends Component {
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
     this.state = {
       err: '',
       userName: '',
@@ -16,34 +16,35 @@ class Login extends Component {
     this.Auth = AuthService;
   }
 
-  UNSAFE_componentWillMount () {
-    if (this.Auth.loggedIn ()) this.props.history.replace ('/');
+  UNSAFE_componentWillMount() {
+    if (this.Auth.loggedIn()) this.props.history.replace('/');
   }
-  onSubmit = e => {
-    e.preventDefault ();
+  onSubmit = (e) => {
+    e.preventDefault();
 
     this.Auth
-      .login (this.state.userName, this.state.password)
-      .then (res => {
-        if (this.Auth.loggedIn ()) this.props.history.replace ('/');
+      .login(this.state.userName, this.state.password)
+      .then((res) => {
+        if (this.Auth.loggedIn()) this.props.history.replace('/');
       })
-      .catch (err => {
+      .catch((err) => {
         if (err.msg) {
-          this.setState ({err: err.msg});
+          this.setState({ err: err.msg });
         } else {
-          this.setState ({
-            err: 'Ops! Sorry something happened on the server, please try again later',
+          this.setState({
+            err:
+              'Ops! Sorry something happened on the server, please try again later',
           });
         }
       });
   };
 
-  handleChange = e => {
-    this.setState ({
+  handleChange = (e) => {
+    this.setState({
       [e.target.name]: e.target.value,
     });
   };
-  render () {
+  render() {
     return (
       <div>
         <h3>Login</h3>

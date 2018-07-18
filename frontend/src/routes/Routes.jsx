@@ -21,6 +21,8 @@ import AcceptRegistration from "../components/admin/AcceptRegistration";
 import UsersInfo from "../components/admin/UsersInfo";
 import SelectUser from "../components/admin/SelectUser";
 import Admin from "../components/admin/admin";
+import UserProfile from "../components/users/userProfile";
+import editSkill from "../components/users/editSkill";
 
 
 class Routes extends Component {
@@ -40,6 +42,8 @@ class Routes extends Component {
         <PrivateRoute exact path="/template-edited" component={TemplateEdited} />
         <PrivateRoute exact path="/template-deleted" component={TemplateDeleted} />
         <PrivateRoute path="/templates" component={Templates} />
+        <PrivateRoute path="/user-profile" component={UserProfile} />
+        <PrivateRoute path="/get-skill/:id" component={editSkill} />
         <Adminpage exact path="/accept-registration/:token" component={AcceptRegistration} />
         <Adminpage exact path="/users-info" component={UsersInfo} />
         <Adminpage exact path="/users-info/:id" component={SelectUser} />

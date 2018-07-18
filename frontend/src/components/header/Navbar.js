@@ -61,7 +61,7 @@ export default class NavbarFeatures extends Component {
               {AuthService.loggedIn ()
                 ? <div>
                     <li className="nav-item user-info-items">
-                      <div className="nav-link">{userName}</div>
+                      <Link to="/user-profile" className="nav-link">{userName}</Link >
                       <div className="nav-link">
                         <div className="user-avatar">
                           {!avatar

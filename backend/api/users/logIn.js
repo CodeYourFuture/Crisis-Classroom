@@ -7,7 +7,7 @@ let db = new sqlite3.Database (filename);
 
 const login = (req, res) => {
   const {userName, password} = req.body;
-  var sql = `select title, userName, password, admin, teacher, avatar from users where userName=?`;
+  var sql = `select id, title, userName, password, admin, teacher, avatar from users where userName=?`;
   db.all (sql, [userName], (err, rows) => {
     const [data] = rows;
     if (rows.length === 0) {

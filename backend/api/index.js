@@ -14,6 +14,8 @@ const DeleteLesson = require('./lesson/DeleteLesson');
 const UserProfil = require('./users/userProfile');
 const CreatSkill = require('./users/creatSkill');
 const getSkill = require('./users/getSkill');
+const EditSkill=require('./users/editSkill')
+const DeleteSkill=require('./users/deleteSkill')
 //forgot password
 const ForgotPassword = require('./users/ForgotPassword');
 const CheckUserToken = require('../helpers/CheckUserToken');
@@ -38,6 +40,8 @@ const api = () => {
   router.post('/user-profile', UserProfil);
   router.post('/creat-skill', CreatSkill);
   router.post('/get-skill/:id', getSkill);
+  router.post('/edit-skill', EditSkill);
+  router.post('/delete-skill', DeleteSkill);
   router.post('/files', upload.single('image'), files);
 
   //forgot password

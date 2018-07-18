@@ -21,6 +21,7 @@ export default class UserProfile extends React.Component {
       avatar: null,
       aboutUser: '',
       addSkill: false,
+      showSkills: false,
       skills: [],
     };
   }
@@ -67,9 +68,14 @@ export default class UserProfile extends React.Component {
       });
   }
 
-  onClick = (e) => {
+  ShowAddSkill = (e) => {
     this.setState({ addSkill: e });
   };
+  showSkill=(e)=>{
+    if(!e){
+      this.setState({ showSkills: true });
+    }else this.setState({ showSkills: false });
+  }
   render() {
     const {
       title,
@@ -83,6 +89,7 @@ export default class UserProfile extends React.Component {
       aboutUser,
       addSkill,
       skills,
+      showSkills,
     } = this.state;
     return (
       <div className="user">
@@ -117,26 +124,32 @@ export default class UserProfile extends React.Component {
           <h5>{aboutUser}</h5>
         </div>
         <div>
-          <h6>Skills</h6>
-          <div>
-            {skills.map((skill, i) => {
-              return (
-                <Link to={`/get-skill/${skill.id}`}>
-                  <div key={i} className="skill">
-                    <h5>{skill.skillName}</h5>
-                    <h6>{skill.aboutSkill}</h6>
-                    <h6>{skill.skillLevel}</h6>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-          {addSkill ? (
+          <button onClick={()=>this.showSkill(showSkills)}>Skills</button>
+          {showSkills ? (
             <div>
-              <AddSkill />
+              <div>
+                {skills.map((skill, i) => {
+                  return (
+                    <Link to={`/get-skill/${skill.id}`} key={i}>
+                      <div className="skill">
+                        <h5>{skill.skillName}</h5>
+                        <h6>{skill.aboutSkill}</h6>
+                        <h6>{skill.skillLevel}</h6>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+              {addSkill ? (
+                <div>
+                  <AddSkill />
+                </div>
+              ) : (
+                <button onClick={() => this.ShowAddSkill(true)}>Add Skills</button>
+              )}
             </div>
           ) : (
-            <button onClick={() => this.onClick(true)}>Add Skills</button>
+            ''
           )}
         </div>
       </div>

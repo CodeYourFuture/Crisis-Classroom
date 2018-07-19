@@ -3,7 +3,6 @@ import Form from './form';
 import ConfirmRegistration from './confirmRegistration';
 import axios from 'axios';
 
-import './style.css';
 
 class Registration extends Component {
   constructor(props) {
@@ -97,7 +96,13 @@ class Registration extends Component {
 
   render() {
     return (
-      <div className="registration">
+      <div>
+      <div className=" row registration">
+        {/* <div class="col-3">
+        </div> */}
+        <div class="signin col-">
+
+        {/* <div class="col-md-3 col-md-offset-5"> */}
         <h3>Registration</h3>
         {!this.state.formSubmitted ? (
           <Form
@@ -116,7 +121,10 @@ class Registration extends Component {
             removeImageHandler={this.removeImageHandler}
           />
         )}
+        </div>
       </div>
+      </div>
+
     );
   }
 }

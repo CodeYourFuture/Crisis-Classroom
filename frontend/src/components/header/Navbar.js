@@ -68,18 +68,18 @@ export default class NavbarFeatures extends Component {
                             ? <div>
                                 {title === 'Mr'
                                   ? <img
-                                      className="image"
+                                      className="nav-image"
                                       src={require ('../../image/icons/man-avatar.jpg')}
                                       alt="avatar"
                                     />
                                   : <img
-                                      className="image"
+                                      className="nav-image"
                                       src={require ('../../image/icons/women-avatar.jpg')}
                                       alt="avatar"
                                     />}
                               </div>
                             : <img
-                                className="image"
+                                className="nav-image"
                                 src={avatar}
                                 alt="avatar"
                               />}

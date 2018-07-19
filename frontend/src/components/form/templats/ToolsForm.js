@@ -4,7 +4,6 @@ import Label from '../../label';
 import Button from '../../button';
 import Context from './context';
 import axios from 'axios';
-import './style.css';
 
 class Form extends React.Component {
   constructor (props) {

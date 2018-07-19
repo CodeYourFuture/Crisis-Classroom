@@ -3,7 +3,6 @@ import axios from 'axios';
 import decode from 'jwt-decode';
 import { Link } from 'react-router-dom';
 import AuthService from '../../Auth/AuthService';
-import './style.css';
 
 class UserInfo extends React.Component {
   constructor(props) {

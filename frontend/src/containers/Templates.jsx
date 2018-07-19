@@ -3,7 +3,6 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import TemplatesList from "../components/templates/TemplatesList";
 import Template from "../components/templates/index";
-import "./style.css";
 
 export default class Templates extends Component {
   constructor(props) {

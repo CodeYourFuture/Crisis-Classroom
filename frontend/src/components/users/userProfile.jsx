@@ -130,7 +130,7 @@ export default class UserProfile extends React.Component {
               <div>
                 {skills.map((skill, i) => {
                   return (
-                    <Link to={`/get-skill/${skill.id}`} key={i}>
+                    <Link to={`/edit-skill/${skill.id}`} key={i}>
                       <div className="skill">
                         <h5>{skill.skillName}</h5>
                         <h6>{skill.aboutSkill}</h6>

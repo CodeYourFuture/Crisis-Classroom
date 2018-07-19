@@ -43,7 +43,7 @@ class Routes extends Component {
         <PrivateRoute exact path="/template-deleted" component={TemplateDeleted} />
         <PrivateRoute path="/templates" component={Templates} />
         <PrivateRoute path="/user-profile" component={UserProfile} />
-        <PrivateRoute path="/get-skill/:id" component={editSkill} />
+        <PrivateRoute path="/edit-skill/:id" component={editSkill} />
         <Adminpage exact path="/accept-registration/:token" component={AcceptRegistration} />
         <Adminpage exact path="/users-info" component={UsersInfo} />
         <Adminpage exact path="/users-info/:id" component={SelectUser} />

@@ -89,9 +89,9 @@ export default class AddSkill extends React.Component {
               className="form-control"
             >
               <option>Chose</option>
-              <option value="begganer">Beggener</option>
-              <option value="intermdiat">Intermdiat</option>
-              <option value="advance">Advance</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advance">Advance</option>
             </select>
           </div>
 

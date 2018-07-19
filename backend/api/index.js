@@ -39,7 +39,7 @@ const api = () => {
   router.post('/delete-lessons', DeleteLesson);
   router.post('/user-profile', UserProfil);
   router.post('/creat-skill', CreatSkill);
-  router.post('/get-skill/:id', getSkill);
+  router.post('/edit-skill/:id', getSkill);
   router.post('/edit-skill', EditSkill);
   router.post('/delete-skill', DeleteSkill);
   router.post('/files', upload.single('image'), files);

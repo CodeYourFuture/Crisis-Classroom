@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Route, Link} from 'react-router-dom';
-import './Style.css';
 import AuthService from '../../Auth/AuthService';
 import Button from '../button';
 import decode from 'jwt-decode';

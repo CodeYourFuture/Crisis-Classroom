@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Input from "../input";
 import PlusIcon from "../../image/icons/plus-icon-green-hi.png"
-import "./style.css";
 
 function searchingFor(term) {
   return db => {

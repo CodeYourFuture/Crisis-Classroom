@@ -1,12 +1,11 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 
-// import './style.css';
 
 const HomePageText = () => {
   return (
     <div className="getStart">
-      
+
       <p>
         No matter who you are, how old you are or where in the world you are, we
         believe with all our hearts that education isn’t a privilege but a

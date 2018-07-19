@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import './Style.css';
 import CrisisLogo from "../../image/icons/crisis-logo.svg"
 
 class Logo extends Component {

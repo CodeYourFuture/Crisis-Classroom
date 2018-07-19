@@ -3,6 +3,8 @@ import Input from '../../input';
 import PasswordMask from 'react-password-mask';
 // import Button from "../../button";
 import Label from '../../label';
+import{ Link} from 'react-router-dom';
+
 
 export default class Form extends React.Component {
   constructor(props) {

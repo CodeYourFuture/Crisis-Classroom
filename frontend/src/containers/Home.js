@@ -21,11 +21,20 @@ class Home extends Component {
     return (
       <div className="home-page">
         <img
-          className="logo-crisis-classroom"
+          className="logo-crisis-classroom text-center"
           alt="Logo crisis classroom"
           src={CrisisLogo}
         />
-        <h1 className="welcome">Welcome to Crisis Classroom</h1>
+        <h1 className="welcome text-center">Welcome to Crisis Classroom</h1>
+        <br />
+        <br />
+
+        <div className='row'>
+        <div className="col-md-6">
+        <HomePageText />
+
+        </div>
+        <div className="col-md-6">
 
         {!AuthService.loggedIn ()
           ? <div>
@@ -46,7 +55,8 @@ class Home extends Component {
               {login ? <Login history={this.props.history}/> : <Registration history={this.props.history}/>}
             </div>
           : ''}
-        <HomePageText />
+        </div>
+        </div>
       </div>
     );
   }

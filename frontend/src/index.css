@@ -1,5 +1,5 @@
 
-  body{
+body{
     background-image: url("image/test.jpg");
     background-repeat: no-repeat, repeat;
     font-family: Roboto Mono
@@ -19,11 +19,41 @@
     display: flex;
     flex-wrap: nowrap;
   }
-  /* .form{
-    display: flex;
-    flex-wrap: nowrap;
-  } */
-  
+  /* Home Page */
+
+  .loginBtn{
+    width: 50%;
+    background: #0197f8;
+    border: none;
+    color: white;
+    border-radius: 0%;
+  }
+.loginBtn:hover  {
+    background: white;
+    color: #0197f8;
+  }
+  .registerBtn{
+    width: 50%;
+    color: #0197f8;
+    border: none;
+    background: white;
+    border: 1px solid #0197f8;
+    border-radius: 0%;
+  }
+  .registerBtn:hover{
+    color: white;
+    background: #0197f8;
+  }
+  .jumbotron{
+    background: #14150A;
+    opacity: 0.9;
+  }
+  .homePageTexts{
+    color: rgb(255, 255, 255);
+  }
+  .homeParagraph{
+    text-align: justify;
+  }
   .log-out{
   border: none;
   background: none;
@@ -37,8 +67,8 @@
 
   .footer{
     width: 100%;
-    color: snow;
-    background-color: rgb(56, 56, 66);
+    color: #808080;
+    background-color: rgb(255, 255, 255);
 }
 .crisis-image {
   max-width: 500px;
@@ -49,9 +79,6 @@
 .mainIndex {
   width: 100%;
   align-items: center;
-}
-.logo-crisis-classroom{
-  height:200px;
 }
 .admin{
   display: flex;
@@ -90,12 +117,7 @@ width: 50%;
   margin: auto;
   width: 100%;
   padding: 50px;
-  /* border-style: inset; */
 }
-/* .registraton {
-text-align: center;
-} */
-
 h3{
   padding-top: 20px;
   text-align: center;
@@ -105,11 +127,6 @@ h3{
   padding: 0px;
 }
 
-/* .container {
-padding: 16px;
-background-color: white;
-} */
-
 input[type=text], input[type=password], .form-control {
 width: 100%;
 padding: 9px;
@@ -117,6 +134,7 @@ padding: 9px;
 /* display: inline-block; */
 border: none;
 background: #f1f1f1;
+border-radius: 20px;
 }
 
 input[type=text]:focus, input[type=password]:focus {
@@ -133,6 +151,10 @@ border: none;
 cursor: pointer;
 width: 100%;
 opacity: 0.9;
+border-radius: 20px;
+}
+.loninBtnDiv{
+  width: 100%;
 }
 
 .btn-submit:hover {

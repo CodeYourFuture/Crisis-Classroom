@@ -89,8 +89,7 @@ export default class Form extends React.Component {
       <div className="registraton-form">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-          <Label value="Title" />
-          <br/>
+          {/* <Label value="Title" /> */}
           <Label value="Mr" />
             <input
               className="input-form"
@@ -125,7 +124,7 @@ export default class Form extends React.Component {
             />
           </div>
           <div className="form-group">
-            <Label value="Full Name *" />
+            {/* <Label value="Full Name *" /> */}
             <div>
               <Input
                 className="form-control"
@@ -153,7 +152,7 @@ export default class Form extends React.Component {
             </div>
           </div>
           <div className="form-group">
-            <Label value="Username *" />
+            {/* <Label value="Username *" /> */}
             <Input
               className="form-control"
               name="userName"
@@ -167,8 +166,7 @@ export default class Form extends React.Component {
             )}
           </div>
           <div className="form-group">
-            <Label value="Email *" />
-            <br />
+            {/* <Label value="Email *" /> */}
             <Input
               className="form-control"
               name="email"
@@ -182,8 +180,7 @@ export default class Form extends React.Component {
             )}
           </div>
           <div className="form-group">
-            <Label value="Password *" />
-            <br />
+            {/* <Label value="Password *" /> */}
             <PasswordMask
               name="password"
               type="password"
@@ -197,8 +194,7 @@ export default class Form extends React.Component {
             )}
           </div>
           <div className="form-group">
-            <Label value="Confirm Your Password *" />
-            <br />
+            {/* <Label value="Confirm Your Password *" /> */}
             <Input
               className="form-control"
               name="confirmPassword"
@@ -211,19 +207,7 @@ export default class Form extends React.Component {
             )}
           </div>
           <div className="form-group">
-            <textarea
-            className="form-control"
-              rows="4"
-              cols="50"
-              name="aboutUser"
-              form="usrform"
-              placeholder="About you..."
-              onChange={this.props.handleChange}
-              value={this.props.userData.aboutUser}
-            />
-          </div>
-          <div className="form-group">
-            <Label value="UUID *" />
+            {/* <Label value="UUID *" /> */}
             <Input
               className="form-control"
               name="uuid"
@@ -235,6 +219,18 @@ export default class Form extends React.Component {
             {/* {errors.userName !== null && (
               <span className="error">{errors.userName}</span>
             )} */}
+          </div>
+          <div className="form-group">
+            <textarea
+            className="form-control"
+              rows="4"
+              cols="50"
+              name="aboutUser"
+              form="usrform"
+              placeholder="About you..."
+              onChange={this.props.handleChange}
+              value={this.props.userData.aboutUser}
+            />
           </div>
           <button
             className="btn btn-outline-dark btn-submit"

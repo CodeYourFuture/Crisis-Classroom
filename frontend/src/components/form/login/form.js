@@ -51,7 +51,7 @@ class Login extends Component {
           <p>{this.state.err}</p>
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
-              <Label value="Username *" />
+              {/* <Label value="Username *" /> */}
               <Input
                 className="form-control"
                 name="userName"
@@ -62,7 +62,7 @@ class Login extends Component {
               />
             </div>
             <div className="form-group">
-              <Label value="Password *" />
+              {/* <Label value="Password *" /> */}
               <Input
                 className="form-control"
                 name="password"
@@ -73,15 +73,14 @@ class Login extends Component {
               />
             </div>
             <div className="form-group">
-              <Link to="/forgot-password">Forgotten password?</Link>
               <div className="row">
                 &nbsp; &nbsp;
-                <Button className="btn btn-outline-dark" value="Login" />
+                <div className='loninBtnDiv'>
+                <Button className="btn btn-submit" type="submit" value="Login" />
+                </div>
                 &nbsp;
-                <Link to="/register" className="btn btn-outline-dark">
-                  Register
-                </Link>
               </div>
+              <Link to="/forgot-password">Forgotten password?</Link>
             </div>
           </form>
         </div>

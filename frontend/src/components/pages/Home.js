@@ -6,7 +6,7 @@ const HomePageText = () => {
   return (
     <div className="getStart">
 
-      <p>
+      <p className='homePageTexts homeParagraph'>
         No matter who you are, how old you are or where in the world you are, we
         believe with all our hearts that education isn’t a privilege but a
         fundamental human right. We uphold this right, we fight for it and we

@@ -32,7 +32,7 @@ export default class NavbarFeatures extends Component {
       <Route>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <Link className="navbar-brand" to="/">
-            <div>Home</div>
+            Home
           </Link>
           <button
             className="navbar-toggler"

@@ -98,11 +98,11 @@ class Registration extends Component {
     return (
       <div>
       <div className=" row registration">
-        {/* <div class="col-3">
+        {/* <div className="col-3">
         </div> */}
-        <div class="signin col-">
+        <div className="signin col-">
 
-        {/* <div class="col-md-3 col-md-offset-5"> */}
+        {/* <div className="col-md-3 col-md-offset-5"> */}
         <h3>Registration</h3>
         {!this.state.formSubmitted ? (
           <Form

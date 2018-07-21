@@ -89,40 +89,18 @@ export default class Form extends React.Component {
       <div className="registraton-form">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-          <Label value="Title" />
-          <br/>
-          <Label value="Mr" />
-            <input
-              className="input-form"
-              type="radio"
+          <select
               name="title"
-              value="Mr"
+              value={this.props.userData.title}
               onChange={this.props.handleChange}
-            />
-            <Label value="Mrs" />
-            <input
-              className="input-form"
-              type="radio"
-              name="title"
-              value="Mrs"
-              onChange={this.props.handleChange}
-            />
-            <Label value="Ms" />
-            <input
-              className="input-form"
-              type="radio"
-              name="title"
-              value="Ms"
-              onChange={this.props.handleChange}
-            />
-            <Label value="Miss" />
-            <input
-              className="input-form"
-              type="radio"
-              name="title"
-              value="Miss"
-              onChange={this.props.handleChange}
-            />
+              className="form-control"
+            >
+              <option>Title</option>
+              <option value="Mr">Mr</option>
+              <option value="Mrs">Mrs</option>
+              <option value="Ms">Ms</option>
+              <option value="Miss">Miss</option>
+            </select>
           </div>
           <div className="form-group">
             <Label value="Full Name *" />

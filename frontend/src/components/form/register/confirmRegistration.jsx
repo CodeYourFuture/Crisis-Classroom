@@ -39,20 +39,23 @@ class ConfirmRegistration extends Component {
         uuid,
       })
       .then((result) => {
-        if (result) {
-          const { msg, err } = result.data;
-          this.setState({ msg, err });
-        }
+        console.log(result)
+        // if (result) {
+        //   const { msg, err } = result.data;
+        //   this.setState({ msg, err });
+        // }
       })
       .catch((err) => {
-        if (err.msg) {
-          this.setState({ err: err.msg });
-        } else {
-          this.setState({
-            err:
-              'Ops! Sorry something happened on the server, please try again later',
-          });
-        }
+        console.log(err)
+
+        // if (err.msg) {
+        //   this.setState({ err: err.msg });
+        // } else {
+        //   this.setState({
+        //     err:
+        //       'Ops! Sorry something happened on the server, please try again later',
+        //   });
+        // }
       });
   };
 

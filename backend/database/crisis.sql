@@ -1,6 +1,6 @@
 create table users
 (
-    id integer primary key,
+    id serial PRIMARY KEY,
     title varchar,
     firstName varchar,
     surName varchar,
@@ -17,7 +17,7 @@ create table users
 );
 create table skills
 (
-    id integer primary key,
+    id serial primary key,
     userId integer,
     skillName text,
     aboutSkill text,
@@ -26,7 +26,7 @@ create table skills
 );
 create table lessons
 (
-    id integer primary key,
+    id serial primary key,
     lessonTitle text,
     lessonTitleImage text,
     timeToPrepare text,
@@ -36,7 +36,7 @@ create table lessons
 );
 create table tools
 (
-    id integer primary key,
+    id serial primary key,
     lessonId integer,
     toolId text,
     toolName text,
@@ -45,7 +45,7 @@ create table tools
 );
 create table ingredients
 (
-    id integer primary key,
+    id serial primary key,
     lessonId integer,
     ingredientId text,
     ingredientName text,
@@ -54,7 +54,7 @@ create table ingredients
 );
 create table instructions
 (
-    id integer primary key,
+    id serial primary key,
     lessonId integer,
     instructionId text,
     instructionName text,

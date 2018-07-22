@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import decode from 'jwt-decode';
 import AddSkill from '../form/user/addSkill';
+import AddExperience from '../form/user/addExperience';
+
 import { Link } from 'react-router-dom';
 // import Button from '../button';
 // import Label from '../label';
@@ -22,6 +24,7 @@ export default class UserProfile extends React.Component {
       aboutUser: '',
       addSkill: false,
       showSkills: false,
+      showExperience: false,
       skills: [],
     };
   }
@@ -71,11 +74,12 @@ export default class UserProfile extends React.Component {
   ShowAddSkill = (e) => {
     this.setState({ addSkill: e });
   };
-  showSkill=(e)=>{
-    if(!e){
+  showHandler = (e) => {
+    console.log(e.target.value);
+    if (!e) {
       this.setState({ showSkills: true });
-    }else this.setState({ showSkills: false });
-  }
+    } else this.setState({ showSkills: false });
+  };
   render() {
     const {
       title,
@@ -90,6 +94,7 @@ export default class UserProfile extends React.Component {
       addSkill,
       skills,
       showSkills,
+      showExperience,
     } = this.state;
     return (
       <div className="user">
@@ -124,7 +129,12 @@ export default class UserProfile extends React.Component {
           <h5>{aboutUser}</h5>
         </div>
         <div>
-          <button onClick={()=>this.showSkill(showSkills)}>Skills</button>
+          <button name="showSkills" value={showSkills} onClick={this.showHandler}>
+            Skills
+          </button>
+          <button value={showExperience} onClick={this.showHandler}>
+            Experience
+          </button>
           {showSkills ? (
             <div>
               <div>
@@ -143,9 +153,12 @@ export default class UserProfile extends React.Component {
               {addSkill ? (
                 <div>
                   <AddSkill />
+                  <AddExperience />
                 </div>
               ) : (
-                <button onClick={() => this.ShowAddSkill(true)}>Add Skills</button>
+                <button onClick={() => this.ShowAddSkill(true)}>
+                  Add Skills
+                </button>
               )}
             </div>
           ) : (

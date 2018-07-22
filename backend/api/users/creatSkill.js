@@ -7,7 +7,7 @@ const creatSkill = (req, res) => {
   const date = Date.now().toString();
   const skill = req.body;
 
-  saveSkill(skill).then((data) => res.json(data)).catch((err) =>
+  saveSkill(skill).then(() => res.json({msg:"Success! Your skill has been created."})).catch((err) =>
     res.status(400).json({
       err,
       msg:

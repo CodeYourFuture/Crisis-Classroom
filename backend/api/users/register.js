@@ -1,15 +1,12 @@
-const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-var async = require('async');
 var nodemailer = require('nodemailer');
+const pg = require('pg');
 
-const filename = './database/crisisdb.sqlit';
-let db = new sqlite3.Database(filename);
+const connectionString = process.env.DATABASE_URL;
 
 const register = (req, res) => {
   const userInfo = req.body;
-
   security(userInfo)
     .then((data) => saveUserData(data, userInfo))
     .then((data) => sendEmail(data, userInfo))
@@ -19,18 +16,16 @@ const register = (req, res) => {
       });
     })
     .catch((data) => {
-      // res.status(400).json({err})didn't work
-      // res.status(500).send({err})didn't work
       const { err, msg } = data;
-      res.status(200).json({ err, msg }); //it is not a good idea but only way i could handel it
+      res.status(200).json({ msg, err });
     });
 };
 
 const security = (userInfo) => {
   const { email, userName } = userInfo;
   return Promise.all([
-    creatToken(),
     createHash(userInfo),
+    creatToken(),
     checkEmail(email),
     checkUserName(userName),
   ]).then(([token, hash]) => {
@@ -64,23 +59,39 @@ const createHash = (userInfo) => {
 
 const checkEmail = (email) => {
   return new Promise((resolve, reject) => {
-    var sql = 'select users.email from users where  email=?';
-    db.all(sql, [email], (err, rows) => {
-      const userEmail = rows[0];
-      if (!userEmail) {
-        return resolve();
-      } else return reject({ err, msg: 'You already registerd' });
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        done();
+        return reject(err);
+      }
+      query = client
+        .query('select email from users where email=$1', [email])
+        .then((result) => {
+          if (result.rowCount == 0) {
+            return resolve();
+          } else {
+            return reject({ err, msg: 'You already registerd' });
+          }
+        });
     });
   });
 };
 const checkUserName = (userName) => {
   return new Promise((resolve, reject) => {
-    var sql = 'select users.userName from users where  userName=?';
-    db.all(sql, [userName], (err, rows) => {
-      const user = rows[0];
-      if (!user) {
-        return resolve();
-      } else return reject({ err, msg: 'You already registerd' });
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        done();
+        return reject(err);
+      }
+      query = client
+        .query('select userName from users where userName=$1', [userName])
+        .then((result) => {
+          if (result.rowCount == 0) {
+            return resolve();
+          } else {
+            return reject({ err, msg: 'You already registerd' });
+          }
+        });
     });
   });
 };
@@ -99,38 +110,38 @@ const saveUserData = (data, userInfo) => {
   } = userInfo;
 
   return new Promise((resolve, reject) => {
-    var sql = `insert into users
-              (title, firstName, surName, userName, token, email, password, avatar, aboutUser, uuid)
-              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    db.run(
-      sql,
-      [
-        title,
-        firstName,
-        surName,
-        userName,
-        token,
-        email,
-        hash,
-        avatar,
-        aboutUser,
-        uuid,
-      ],
-      (err, rows) => {
-        if (err)
-          return reject({
-            err,
-            msg: 'Something happened while saving user data into database',
-          });
-        return resolve({ data, userInfo });
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          err,
+          msg: 'Something happened while saving user data into database',
+        });
       }
-    );
+      client.query(
+        `insert into users
+      (title, firstName, surName, userName, token, email, password, avatar, aboutUser, uuid)
+      values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+        [
+          title,
+          firstName,
+          surName,
+          userName,
+          token,
+          email,
+          hash,
+          avatar,
+          aboutUser,
+          uuid,
+        ]
+      );
+      return resolve(data, userInfo);
+    });
   });
 };
 
-const sendEmail = (data) => {
-  const { token } = data.data;
-  const { title, firstName, surName, email, avatar, aboutUser } = data.userInfo;
+const sendEmail = (data, userInfo) => {
+  const { token } = data;
+  const { title, firstName, surName, email, avatar, aboutUser } = userInfo;
   return new Promise((resolve, reject) => {
     var smtpTransport = nodemailer.createTransport({
       host: 'smtp.sendgrid.net',

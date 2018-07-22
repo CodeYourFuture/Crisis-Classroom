@@ -3,6 +3,8 @@ import Input from '../../input';
 import PasswordMask from 'react-password-mask';
 // import Button from "../../button";
 import Label from '../../label';
+import{ Link} from 'react-router-dom';
+
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -87,40 +89,18 @@ export default class Form extends React.Component {
       <div className="registraton-form">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-          <Label value="Title" />
-          <br/>
-          <Label value="Mr" />
-            <input
-              className="input-form"
-              type="radio"
+          <select
               name="title"
-              value="Mr"
+              value={this.props.userData.title}
               onChange={this.props.handleChange}
-            />
-            <Label value="Mrs" />
-            <input
-              className="input-form"
-              type="radio"
-              name="title"
-              value="Mrs"
-              onChange={this.props.handleChange}
-            />
-            <Label value="Ms" />
-            <input
-              className="input-form"
-              type="radio"
-              name="title"
-              value="Ms"
-              onChange={this.props.handleChange}
-            />
-            <Label value="Miss" />
-            <input
-              className="input-form"
-              type="radio"
-              name="title"
-              value="Miss"
-              onChange={this.props.handleChange}
-            />
+              className="form-control"
+            >
+              <option>Title</option>
+              <option value="Mr">Mr</option>
+              <option value="Mrs">Mrs</option>
+              <option value="Ms">Ms</option>
+              <option value="Miss">Miss</option>
+            </select>
           </div>
           <div className="form-group">
             <Label value="Full Name *" />
@@ -136,6 +116,7 @@ export default class Form extends React.Component {
               {errors.firstName !== null && (
                 <span className="error">{errors.firstName}</span>
               )}
+              <br />
               <Input
                 className="form-control"
                 name="surName"
@@ -165,6 +146,7 @@ export default class Form extends React.Component {
           </div>
           <div className="form-group">
             <Label value="Email *" />
+            <br />
             <Input
               className="form-control"
               name="email"
@@ -179,8 +161,8 @@ export default class Form extends React.Component {
           </div>
           <div className="form-group">
             <Label value="Password *" />
+            <br />
             <PasswordMask
-              className="form-control"
               name="password"
               type="password"
               placeholder="Password"
@@ -194,6 +176,7 @@ export default class Form extends React.Component {
           </div>
           <div className="form-group">
             <Label value="Confirm Your Password *" />
+            <br />
             <Input
               className="form-control"
               name="confirmPassword"
@@ -232,12 +215,13 @@ export default class Form extends React.Component {
             )} */}
           </div>
           <button
-            className="btn btn-outline-dark"
+            className="btn btn-outline-dark btn-submit"
             value="Register"
             type="submit"
           >
             Register
           </button>
+          <p>Already have an account? <Link to="/login">Lon in</Link></p>
         </form>
       </div>
     );

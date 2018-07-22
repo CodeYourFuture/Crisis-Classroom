@@ -8,7 +8,6 @@ import Purview from "./purview";
 // import Button from "../../button";
 // import {Link} from "react-router-dom";
 
-import "./style.css";
 export default class LessonForm extends React.Component {
   constructor(props) {
     super(props);

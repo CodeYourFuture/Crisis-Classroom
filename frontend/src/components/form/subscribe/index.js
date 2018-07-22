@@ -5,10 +5,10 @@ export default class LoginIndex extends Component {
   render() {
     return (
       <div>
-        <div class="row">
+        <div className="row">
           <h6 className="text-uppercase">Subscribe us</h6>
         </div>
-        <div class="row">
+        <div className="row">
           <Subscribe />
         </div>
       </div>

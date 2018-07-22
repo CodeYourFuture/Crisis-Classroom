@@ -4,21 +4,146 @@
     background-repeat: no-repeat, repeat;
     font-family: Roboto Mono
   }
-  
-  
-  .getstart{
-    margin: 20px;
+  .header {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    background-color: rgb(56, 56, 66);
   }
-  
-  .heading {
-    font-weight: 700;
+  .nav-div{
+    display: flex;
+    flex-wrap: nowrap;
   }
-  .subheading {
-    font-weight: 300;
+  .navbar{
+    width: 90%;
+    display: flex;
+    flex-wrap: nowrap;
   }
+  /* .form{
+    display: flex;
+    flex-wrap: nowrap;
+  } */
   
-  @keyframes App-logo-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  .log-out{
+  border: none;
+  background: none;
   }
-  
+
+  .user-avatar {
+    position: relative;
+    width: 30px;
+  }
+
+
+  .footer{
+    width: 100%;
+    color: snow;
+    background-color: rgb(56, 56, 66);
+}
+.crisis-image {
+  max-width: 500px;
+  width: 80%;
+  margin: 20px;
+}
+
+.mainIndex {
+  width: 100%;
+  align-items: center;
+}
+.logo-crisis-classroom{
+  height:200px;
+}
+.admin{
+  display: flex;
+  border: 1px solid  ;
+  padding: 1%;
+  background-color: #dadada;
+
+}
+.admin-avatar{
+  display: block;
+  width: 100px;
+}
+.admin-image{
+  width: 90%
+}
+
+.admin-divs{
+width: 50%;
+}
+.admin-users{
+  display: flex;
+  border: 1px solid  ;
+  padding: 1%;
+
+}
+.admin-user-info{
+  padding-left: 2%;
+}
+.registraton-form {
+  /* margin: auto; */
+  width: 100%;
+  padding: 50px;
+  /* border-style: inset; */
+}
+.login-form {
+  margin: auto;
+  width: 100%;
+  padding: 50px;
+  /* border-style: inset; */
+}
+/* .registraton {
+text-align: center;
+} */
+
+h3{
+  padding-top: 20px;
+  text-align: center;
+}
+.error{
+  color: red;
+  padding: 0px;
+}
+
+/* .container {
+padding: 16px;
+background-color: white;
+} */
+
+input[type=text], input[type=password], .form-control {
+width: 100%;
+padding: 9px;
+/* margin: 5px 0 22px 0; */
+/* display: inline-block; */
+border: none;
+background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+background-color: #ddd;
+outline: none;
+}
+
+.btn-submit {
+background-color: #4CAF50;
+color: white;
+padding: 11px;
+margin: 8px 0;
+border: none;
+cursor: pointer;
+width: 100%;
+opacity: 0.9;
+}
+.nav-image{
+width: 30px
+}
+.btn-submit:hover {
+opacity: 1;
+}
+@media screen and (max-width: 991px) {
+.signin{
+  max-width: 100% !important;
+  flex: none;
+}
+}
+

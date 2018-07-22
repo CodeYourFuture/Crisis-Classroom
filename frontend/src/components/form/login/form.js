@@ -1,52 +1,53 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Input from "../../input";
-import Button from "../../button";
-import Label from "../../label";
-import AuthService from "../../../Auth/AuthService";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Input from '../../input';
+import Button from '../../button';
+import Label from '../../label';
+import AuthService from '../../../Auth/AuthService';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      err: "",
-      userName: "",
-      password: ""
+      err: '',
+      userName: '',
+      password: '',
     };
     this.Auth = AuthService;
   }
 
   UNSAFE_componentWillMount() {
-    if (this.Auth.loggedIn()) this.props.history.replace("/");
+    if (this.Auth.loggedIn()) this.props.history.replace('/');
   }
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
-    this.Auth.login(this.state.userName, this.state.password)
-      .then(res => {
-        if (this.Auth.loggedIn()) this.props.history.replace("/");
+    this.Auth
+      .login(this.state.userName, this.state.password)
+      .then((res) => {
+        if (this.Auth.loggedIn()) this.props.history.replace('/');
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.msg) {
           this.setState({ err: err.msg });
         } else {
           this.setState({
             err:
-              "Ops! Sorry something happened on the server, please try again later"
+              'Ops! Sorry something happened on the server, please try again later',
           });
         }
       });
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
   render() {
     return (
       <div>
-        <h3>To See Templates Please Login</h3>
+        <h3>Login</h3>
         <div className="login-form">
           <p>{this.state.err}</p>
           <form onSubmit={this.onSubmit}>

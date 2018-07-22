@@ -15,13 +15,14 @@ create table users
     avatar varchar,
     aboutUser varchar
 );
-create table survey
+create table skills
 (
     id integer primary key,
-    studentName text,
-    answer1 text,
-    answer2 text,
-    answer3 text
+    userId integer,
+    skillName text,
+    aboutSkill text,
+    skillLevel text,
+    foreign key(userId) references users(id)
 );
 create table lessons
 (

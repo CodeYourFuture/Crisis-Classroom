@@ -4,7 +4,6 @@ import Label from '../../label';
 import Button from '../../button';
 import Context from './context';
 import axios from 'axios';
-import './style.css';
 
 class Form extends React.Component {
   constructor (props) {
@@ -45,6 +44,17 @@ class Form extends React.Component {
         console.log (error);
       });
   };
+  // onChangeImageLessonhandler = e => {
+  //   const file = e.target.files[0];
+  //   const { name } = e.target;
+  //   ReactS3.upload(file, config).then(result => {
+  //     const image = result.location;
+  //     this.setState({
+  //       ...this.state,
+  //       [name]: image
+  //     });
+  //   });
+  // };
 
   removeImageHandler = e => {
     const file = e.target.name;

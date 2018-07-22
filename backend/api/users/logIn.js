@@ -1,65 +1,80 @@
-const sqlite3 = require ('sqlite3').verbose ();
-const jwt = require ('jsonwebtoken');
-const bcrypt = require ('bcrypt');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const pg = require('pg');
 
-const filename = './database/crisisdb.sqlit';
-let db = new sqlite3.Database (filename);
+const connectionString = process.env.DATABASE_URL;
 
 const login = (req, res) => {
-  const {userName, password} = req.body;
-  var sql = `select id, title, userName, password, admin, teacher, avatar from users where userName=?`;
-  db.all (sql, [userName], (err, rows) => {
-    const [data] = rows;
-    if (rows.length === 0) {
-      return res.status (400).json ({
-        sucess: false,
-        token: null,
-        msg: 'username or password are wrong',
-      });
-    }
+  const { userName, password } = req.body;
+  pg.connect(connectionString, (err, client, done) => {
     if (err) {
-      return res.status (400).json ({
+      return res.status(400).json({
         sucess: false,
         token: null,
-        msg: 'Ops! Sorry something happened on the server, please try again later.',
+        msg:
+          'Ops! Sorry something happened on the server, please try again later.',
       });
     }
-    if (data.teacher !== 1) {
-      return res.status (400).json ({
-        sucess: false,
-        token: null,
-        msg: ' Sorry your registeration has not been accepted yet, please try again later.',
-      });
-    } else {
-      const hash = data.password;
-      bcrypt.compare (password, hash, (err, respons) => {
-        if (err) {
-          return res.status (400).json ({
-            sucess: false,
-            token: null,
-            msg: 'Ops! Sorry something happened on the server, please try again later.',
-          });
-        }
-        if (respons) {
-          let token = jwt.sign (
-            {id: data.id, title: data.title, userName: data.userName, admin: data.admin, avatar: data.avatar},
-            process.env.JWT_SECRET,
-            {expiresIn: 129600}
-          );
-          return res.json ({
-            sucess: true,
-            err: null,
-            token,
-          });
-        } else {
-          return res.status (400).json ({
+    query = client
+      .query(
+        `select id, title, userName, password, admin, teacher, avatar from users where userName=$1`,
+        [userName]
+      )
+      .then((result) => {
+        const user = result.rows[0];
+        if (result.rowCount == 0) {
+          return res.status(400).json({
             sucess: false,
             token: null,
             msg: 'username or password are wrong',
           });
+        } else {
+          const hash = user.password;
+          bcrypt.compare(password, hash, (err, respons) => {
+            if (err) {
+              return res.status(400).json({
+                sucess: false,
+                token: null,
+                msg:
+                  'Ops! Sorry something happened on the server, please try again later.',
+              });
+            }
+            if (!respons) {
+              return res.status(400).json({
+                sucess: false,
+                token: null,
+                msg: 'username or password are wrong',
+              });
+            } else {
+              if (user.teacher) {
+                let token = jwt.sign(
+                  {
+                    id: user.id,
+                    title: user.title,
+                    userName: user.username,
+                    admin: user.admin,
+                    avatar: user.avatar,
+                  },
+                  process.env.JWT_SECRET,
+                  { expiresIn: 129600 }
+                );
+                return res.json({
+                  sucess: true,
+                  err: null,
+                  token,
+                });
+              } else {
+                return res.status(400).json({
+                  sucess: false,
+                  token: null,
+                  msg:
+                    ' Sorry your registeration has not been accepted yet, please try again later.',
+                });
+              }
+            }
+          });
         }
       });
-    }
   });
 };
 

@@ -24,8 +24,8 @@ const register = (req, res) => {
 const security = (userInfo) => {
   const { email, userName } = userInfo;
   return Promise.all([
-    createHash(userInfo),
     creatToken(),
+    createHash(userInfo),
     checkEmail(email),
     checkUserName(userName),
   ]).then(([token, hash]) => {
@@ -134,6 +134,7 @@ const saveUserData = (data, userInfo) => {
           uuid,
         ]
       );
+
       return resolve(data, userInfo);
     });
   });

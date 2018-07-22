@@ -59,7 +59,7 @@ export default class NavbarFeatures extends Component {
                 </Link>
               </li>
               {AuthService.loggedIn ()
-                ? <div>
+                && <div>
                     <li className="nav-item user-info-items">
                       <Link to="/user-profile" className="nav-link">{userName}</Link >
                       <div className="nav-link">
@@ -93,7 +93,7 @@ export default class NavbarFeatures extends Component {
                       />
                     </li>
                   </div>
-                : ''
+                
                   // <li className="nav-item user-info-items">
                   //   <Link to="/login" className="nav-link">
                   //     LogIn

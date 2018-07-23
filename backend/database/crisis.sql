@@ -13,7 +13,8 @@ create table users
     teacher BOOLEAN,
     admin BOOLEAN,
     avatar varchar,
-    aboutUser varchar
+    aboutUser varchar,
+    date DATE NOT NULL DEFAULT CURRENT_DATE
 );
 create table skills
 (
@@ -22,6 +23,7 @@ create table skills
     skillName text,
     aboutSkill text,
     skillLevel text,
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
     foreign key(userId) references users(id)
 );
 create table lessons
@@ -32,7 +34,8 @@ create table lessons
     timeToPrepare text,
     timeToPrepareImage text,
     numberOfPeople text,
-    numberOfPeopleImage text
+    numberOfPeopleImage text,
+    date DATE NOT NULL DEFAULT CURRENT_DATE
 );
 create table tools
 (
@@ -41,6 +44,7 @@ create table tools
     toolId text,
     toolName text,
     toolImage text,
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
     foreign key(lessonId) references lessons(id)
 );
 create table ingredients
@@ -50,6 +54,7 @@ create table ingredients
     ingredientId text,
     ingredientName text,
     ingredientImage text,
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
     foreign key(lessonId) references lessons(id)
 );
 create table instructions
@@ -59,6 +64,7 @@ create table instructions
     instructionId text,
     instructionName text,
     instructionImage text,
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
     foreign key(lessonId) references lessons(id)
 );
 

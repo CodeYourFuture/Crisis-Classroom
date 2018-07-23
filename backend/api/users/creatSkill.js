@@ -3,9 +3,7 @@ const pg = require('pg');
 const connectionString = process.env.DATABASE_URL;
 
 const creatSkill = (req, res) => {
-  const date = Date.now().toString();
   const skill = req.body;
-
   saveSkill(skill)
     .then(() => res.json({ msg: 'Success! Your skill has been created.' }))
     .catch((err) =>

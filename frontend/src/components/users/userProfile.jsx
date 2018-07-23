@@ -75,8 +75,8 @@ export default class UserProfile extends React.Component {
     this.setState({ addSkill: e });
   };
   showHandler = (e) => {
-    console.log(e.target.value);
-    if (!e) {
+    // console.log(e.target.value);
+    if (e) {
       this.setState({ showSkills: true });
     } else this.setState({ showSkills: false });
   };
@@ -129,7 +129,7 @@ export default class UserProfile extends React.Component {
           <h5>{aboutUser}</h5>
         </div>
         <div>
-          <button name="showSkills" value={showSkills} onClick={this.showHandler}>
+          <button name="showSkills" value={showSkills} onClick={()=>this.showHandler(true)}>
             Skills
           </button>
           <button value={showExperience} onClick={this.showHandler}>

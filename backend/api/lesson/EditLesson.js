@@ -5,15 +5,15 @@ let db = new sqlite3.Database(filename);
 
 const EditLesson = (req, res) => {
   const lesson = req.body;
-  const { tools, ingredients, instructions, lessonId } = lesson;
+  const { tools, ingredients, instructions, lesson_id } = lesson;
   editLessons(lesson)
-    .then(() => tools.forEach((tool) => editTool(tool, lessonId)))
+    .then(() => tools.forEach((tool) => editTool(tool, lesson_id)))
     .then(() =>
-      ingredients.forEach((ingredient) => editIngredient(ingredient, lessonId))
+      ingredients.forEach((ingredient) => editIngredient(ingredient, lesson_id))
     )
     .then(() =>
       instructions.forEach((instruction) =>
-        editInstruction(instruction, lessonId)
+        editInstruction(instruction, lesson_id)
       )
     )
     .then(() => res.json(console.log(res)))
@@ -28,33 +28,33 @@ const EditLesson = (req, res) => {
 
 const editLessons = (lesson) => {
   const {
-    lessonId,
-    lessonTitle,
-    lessonTitleImage,
-    timeToPrepare,
-    timeToPrepareImage,
-    numberOfPeople,
-    numberOfPeopleImage,
+    lesson_id,
+    lesson_title,
+    lesson_title_image,
+    time_to_prepare,
+    time_to_prepare_image,
+    number_of_people,
+    number_of_people_image,
   } = lesson;
   return new Promise((resolve, reject) => {
     var sql = `UPDATE lessons SET
-      lessonTitle=? ,
-      lessonTitleImage=? ,
-      timeToPrepare=?,
-      timeToPrepareImage=?,
-      numberOfPeople=?,
-      numberOfPeopleImage=?
+      lesson_title=? ,
+      lesson_title_image=? ,
+      time_to_prepare=?,
+      time_to_prepare_image=?,
+      number_of_people=?,
+      number_of_people_image=?
       where id=?`;
     db.run(
       sql,
       [
-        lessonTitle,
-        lessonTitleImage,
-        timeToPrepare,
-        timeToPrepareImage,
-        numberOfPeople,
-        numberOfPeopleImage,
-        lessonId,
+        lesson_title,
+        lesson_title_image,
+        time_to_prepare,
+        time_to_prepare_image,
+        number_of_people,
+        number_of_people_image,
+        lesson_id,
       ],
       (err, data) => {
         if (err) return reject(err);
@@ -64,22 +64,22 @@ const editLessons = (lesson) => {
   });
 };
 
-const editTool = (tool, lessonId) => {
+const editTool = (tool, lesson_id) => {
   return new Promise((resolve, reject) => {
     if (tool.id) {
       var sql = `UPDATE tools set
-  toolName=?, toolImage=? where id=?`;
-      db.run(sql, [tool.toolName, tool.toolImage, tool.id], (err, data) => {
+  tool_name=?, tool_image=? where id=?`;
+      db.run(sql, [tool.tool_name, tool.tool_image, tool.id], (err, data) => {
         if (err) return reject(err);
         return resolve(data);
       });
     } else {
       var sql = `insert into tools
-      (lessonId,toolId, toolName, toolImage)
+      (lesson_id,tool_id, tool_name, tool_image)
       values (?, ?, ?, ?)`;
       db.run(
         sql,
-        [lessonId, tool.toolId, tool.toolName, tool.toolImage],
+        [lesson_id, tool.tool_id, tool.tool_name, tool.tool_image],
         (err, data) => {
           if (err) return reject(err);
           return resolve(data);
@@ -89,14 +89,14 @@ const editTool = (tool, lessonId) => {
   });
 };
 
-const editIngredient = (ingredient, lessonId) => {
+const editIngredient = (ingredient, lesson_id) => {
   return new Promise((resolve, reject) => {
     if (ingredient.id) {
       var sql = `UPDATE ingredients set
-            ingredientName=?, ingredientImage=? where id=?`;
+            ingredient_name=?, ingredient_image=? where id=?`;
       db.run(
         sql,
-        [ingredient.ingredientName, ingredient.ingredientImage, ingredient.id],
+        [ingredient.ingredient_name, ingredient.ingredient_image, ingredient.id],
         (err, data) => {
           if (err) return reject(err);
           return resolve(data);
@@ -104,15 +104,15 @@ const editIngredient = (ingredient, lessonId) => {
       );
     } else {
       var sql = `insert into ingredients
-      (lessonId, ingredientId, ingredientName, ingredientImage)
+      (lesson_id, ingredient_id, ingredient_name, ingredient_image)
       values (?, ?, ?, ?)`;
       db.run(
         sql,
         [
-          lessonId,
-          ingredient.ingredientId,
-          ingredient.ingredientName,
-          ingredient.ingredientImage,
+          lesson_id,
+          ingredient.ingredient_id,
+          ingredient.ingredient_name,
+          ingredient.ingredient_image,
         ],
         (err, data) => {
           if (err) return reject(err);
@@ -123,16 +123,16 @@ const editIngredient = (ingredient, lessonId) => {
   });
 };
 
-const editInstruction = (instruction, lessonId) => {
+const editInstruction = (instruction, lesson_id) => {
   return new Promise((resolve, reject) => {
     if (instruction.id) {
       var sql = `UPDATE instructions set
-             instructionName=?, instructionImage=? where id=?`;
+             instruction_name=?, instruction_image=? where id=?`;
       db.run(
         sql,
         [
-          instruction.instructionName,
-          instruction.instructionImage,
+          instruction.instruction_name,
+          instruction.instruction_image,
           instruction.id,
         ],
         (err, data) => {
@@ -142,15 +142,15 @@ const editInstruction = (instruction, lessonId) => {
       );
     } else {
       var sql = `insert into instructions
-      (lessonId,instructionId, instructionName, instructionImage)
+      (lesson_id,instruction_id, instruction_name, instruction_image)
       values (?, ?, ?, ?)`;
       db.run(
         sql,
         [
-          lessonId,
-          instruction.instructionId,
-          instruction.instructionName,
-          instruction.instructionImage,
+          lesson_id,
+          instruction.instruction_id,
+          instruction.instruction_name,
+          instruction.instruction_image,
         ],
         (err, data) => {
           if (err) return reject(err);

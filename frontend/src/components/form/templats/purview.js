@@ -44,28 +44,28 @@ export default class preview extends React.Component {
                   <Col className="box" lg={3} {...this.props}>
                     <div>
                       <div className="preview-title-items">
-                        <h2>{context.lessonTitle}</h2>
+                        <h2>{context.lesson_title}</h2>
                         <img
                           className="preview-title-image"
-                          src={context.lessonTitleImage}
-                          alt="lessonTitle"
+                          src={context.lesson_title_image}
+                          alt="lesson_title"
                         />
                       </div>
                       <div className="preview-items">
-                        <h6>{context.timeToPrepare}</h6>
+                        <h6>{context.time_to_prepare}</h6>
                         <img
                           className="preview-image"
                           width="50px"
-                          src={context.timeToPrepareImage}
+                          src={context.time_to_prepare_image}
                           alt="ingredient"
                         />
                       </div>
                       <div className="preview-items">
-                        <h6>{context.numberOfPeople}</h6>
+                        <h6>{context.number_of_people}</h6>
                         <img
                           className="preview-image"
                           width="50px"
-                          src={context.numberOfPeopleImage}
+                          src={context.number_of_people_image}
                           alt="ingredient"
                         />
                       </div>
@@ -74,11 +74,11 @@ export default class preview extends React.Component {
                     <h4>Tools</h4>
                     {context.tools.map((tool, i) => (
                       <div className="preview-items" key={i}>
-                        <h6>{tool.toolName}</h6>
+                        <h6>{tool.tool_name}</h6>
                         <img
                           className="preview-image"
                           width="50px"
-                          src={tool.toolImage}
+                          src={tool.tool_image}
                           alt="tool"
                         />
                       </div>
@@ -88,11 +88,11 @@ export default class preview extends React.Component {
                     <h4>Ingredients</h4>
                     {context.ingredients.map((ingredient, i) => (
                       <div className="preview-items" key={i}>
-                        <h6>{ingredient.ingredientName}</h6>
+                        <h6>{ingredient.ingredient_name}</h6>
                         <img
                           className="preview-image"
                           width="50px"
-                          src={ingredient.ingredientImage}
+                          src={ingredient.ingredient_image}
                           alt="ingredient"
                         />
                       </div>
@@ -103,11 +103,11 @@ export default class preview extends React.Component {
                     {context.instructions.map((instruction, i) => {
                       return (
                         <div className="preview-items" key={i}>
-                          <h6>{instruction.instructionName}</h6>
+                          <h6>{instruction.instruction_name}</h6>
                           <img
                             className="preview-image"
                             width="50px"
-                            src={instruction.instructionImage}
+                            src={instruction.instruction_image}
                             alt="instruction"
                           />
                         </div>
@@ -123,18 +123,18 @@ export default class preview extends React.Component {
         <Context.Consumer>
           {context => {
             const {
-              lessonTitle,
-              lessonTitleImage,
-              timeToPrepare,
-              timeToPrepareImage,
-              numberOfPeople,
-              numberOfPeopleImage,
+              lesson_title,
+              lesson_title_image,
+              time_to_prepare,
+              time_to_prepare_image,
+              number_of_people,
+              number_of_people_image,
               tools,
               ingredients,
               instructions,
               previousFormHandler
             } = context;
-            const lessonId = this.props.id;
+            const lesson_id = this.props.id;
             return (
               <div style={{ display: "flex" }}>
                 <Button
@@ -143,20 +143,20 @@ export default class preview extends React.Component {
                   onClick={previousFormHandler}
                 />
                 &nbsp;
-                {lessonId ? (
+                {lesson_id ? (
                   <div style={{ display: "flex" }}>
                     <Button
                       className="btn btn-outline-dark "
                       value="Edit"
                       onClick={() =>
                         this.EditHandler({
-                          lessonId,
-                          lessonTitle,
-                          lessonTitleImage,
-                          timeToPrepare,
-                          timeToPrepareImage,
-                          numberOfPeople,
-                          numberOfPeopleImage,
+                          lesson_id,
+                          lesson_title,
+                          lesson_title_image,
+                          time_to_prepare,
+                          time_to_prepare_image,
+                          number_of_people,
+                          number_of_people_image,
                           tools,
                           ingredients,
                           instructions
@@ -169,12 +169,12 @@ export default class preview extends React.Component {
                       value="Create New One"
                       onClick={() =>
                         this.CreatHandler({
-                          lessonTitle,
-                          lessonTitleImage,
-                          timeToPrepare,
-                          timeToPrepareImage,
-                          numberOfPeople,
-                          numberOfPeopleImage,
+                          lesson_title,
+                          lesson_title_image,
+                          time_to_prepare,
+                          time_to_prepare_image,
+                          number_of_people,
+                          number_of_people_image,
                           tools,
                           ingredients,
                           instructions
@@ -188,12 +188,12 @@ export default class preview extends React.Component {
                     value="Create Template"
                     onClick={() =>
                       this.CreatHandler({
-                        lessonTitle,
-                        lessonTitleImage,
-                        timeToPrepare,
-                        timeToPrepareImage,
-                        numberOfPeople,
-                        numberOfPeopleImage,
+                        lesson_title,
+                        lesson_title_image,
+                        time_to_prepare,
+                        time_to_prepare_image,
+                        number_of_people,
+                        number_of_people_image,
                         tools,
                         ingredients,
                         instructions

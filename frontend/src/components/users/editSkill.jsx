@@ -13,9 +13,9 @@ class editSkill extends React.Component {
     this.state = {
       err: null,
       msg: null,
-      skillName: '',
-      aboutSkill: '',
-      skillLevel: '',
+      skill_name: '',
+      about_skill: '',
+      skill_level: '',
     };
   }
   handleChange = (e) => {
@@ -25,13 +25,13 @@ class editSkill extends React.Component {
   };
   handleEdit = (e) => {
     e.preventDefault();
-    const { id, skillName, aboutSkill, skillLevel } = this.state;
+    const { id, skill_name, about_skill, skill_level } = this.state;
     axios
       .post(`${process.env.REACT_APP_DOMAIN}/edit-skill`, {
         id,
-        skillName,
-        aboutSkill,
-        skillLevel,
+        skill_name,
+        about_skill,
+        skill_level,
       })
       .then((result) => {
         if (result) {
@@ -82,8 +82,8 @@ class editSkill extends React.Component {
       .then((result) => {
         if (result) {
           if (result) {
-            const { id, skillName, aboutSkill, skillLevel } = result.data[0];
-            this.setState({ id, skillName, aboutSkill, skillLevel });
+            const { id, skill_name, about_skill, skill_level } = result.data[0];
+            this.setState({ id, skill_name, about_skill, skill_level });
           }
         }
       })
@@ -100,7 +100,7 @@ class editSkill extends React.Component {
   }
 
   render() {
-    const { msg, skillName, aboutSkill, skillLevel } = this.state;
+    const { msg, skill_name, about_skill, skill_level } = this.state;
     return (
       <div>
         {msg ? (
@@ -111,10 +111,10 @@ class editSkill extends React.Component {
               <Label value="Skill name" />
               <Input
                 className="form-control"
-                name="skillName"
+                name="skill_name"
                 type="text"
                 placeholder="Skill name"
-                value={skillName}
+                value={skill_name}
                 onChange={this.handleChange}
               />
             </div>
@@ -124,18 +124,18 @@ class editSkill extends React.Component {
                 className="form-control"
                 rows="4"
                 cols="50"
-                name="aboutSkill"
+                name="about_skill"
                 form="usrform"
                 placeholder="More About your skill..."
-                value={aboutSkill}
+                value={about_skill}
                 onChange={this.handleChange}
               />
             </div>
             <div className="form-group">
               <Label value="Skill level" />
               <select
-                name="skillLevel"
-                value={skillLevel}
+                name="skill_level"
+                value={skill_level}
                 onChange={this.handleChange}
                 className="form-control"
               >

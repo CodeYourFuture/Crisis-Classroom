@@ -10,17 +10,17 @@ class Registration extends Component {
     this.state = {
       avatar: null,
       title:'',
-      firstName: '',
-      surName: '',
-      userName: '',
+      first_name: '',
+      sur_name: '',
+      user_name: '',
       email: '',
       password: '',
       confirmPassword: '',
-      aboutUser: '',
+      about_user: '',
       uuid:'',
       formSubmitted: false,
       errors: [],
-      checkUserName: [],
+      checkuser_name: [],
       checkEmail: [],
     };
   }
@@ -54,13 +54,13 @@ class Registration extends Component {
       [e.target.name]: e.target.value,
     });
 
-    const { userName } = this.state;
+    const { user_name } = this.state;
     axios
       .post(`${process.env.REACT_APP_DOMAIN}/check-user-name`, {
-        userName,
+        user_name,
       })
       .then((res) => {
-        this.setState({ checkUserName: res.data.rows[0].userName });
+        this.setState({ checkuser_name: res.data.rows[0].user_name });
       })
       .catch((error) => {
         this.setState({

@@ -9,12 +9,12 @@ class Form extends React.Component {
   constructor (props) {
     super (props);
     this.state = {
-      lessonTitle: props.lessonTitle,
-      lessonTitleImage: props.lessonTitleImage,
-      timeToPrepare: props.timeToPrepare,
-      timeToPrepareImage: props.timeToPrepareImage,
-      numberOfPeople: props.numberOfPeople,
-      numberOfPeopleImage: props.numberOfPeopleImage,
+      lesson_title: props.lesson_title,
+      lesson_title_image: props.lesson_title_image,
+      time_to_prepare: props.time_to_prepare,
+      time_to_prepare_image: props.time_to_prepare_image,
+      number_of_people: props.number_of_people,
+      number_of_people_image: props.number_of_people_image,
     };
   }
 
@@ -58,25 +58,25 @@ class Form extends React.Component {
 
   removeImageHandler = e => {
     const file = e.target.name;
-    if ('lessonTitleImage' === file) {
-      this.setState ({lessonTitleImage: null});
+    if ('lesson_title_image' === file) {
+      this.setState ({lesson_title_image: null});
     }
-    if ('timeToPrepareImage' === file) {
-      this.setState ({timeToPrepareImage: null});
+    if ('time_to_prepare_image' === file) {
+      this.setState ({time_to_prepare_image: null});
     }
-    if ('numberOfPeopleImage' === file) {
-      this.setState ({numberOfPeopleImage: null});
+    if ('number_of_people_image' === file) {
+      this.setState ({number_of_people_image: null});
     }
   };
 
   render () {
     const {
-      lessonTitle,
-      lessonTitleImage,
-      timeToPrepare,
-      timeToPrepareImage,
-      numberOfPeople,
-      numberOfPeopleImage,
+      lesson_title,
+      lesson_title_image,
+      time_to_prepare,
+      time_to_prepare_image,
+      number_of_people,
+      number_of_people_image,
     } = this.state;
     return (
       <div>
@@ -88,19 +88,19 @@ class Form extends React.Component {
                 <Input
                   className="form-control"
                   type="text"
-                  name="lessonTitle"
+                  name="lesson_title"
                   onChange={this.onChange}
                   placeholder="Lesson Title"
-                  value={lessonTitle}
+                  value={lesson_title}
                 />
-                {!lessonTitleImage
+                {!lesson_title_image
                   ? <div>
                       <label className="btn btn-outline-dark">
                         Upload an image
                         <input
                           style={{display: 'none'}}
                           type="file"
-                          name="lessonTitleImage"
+                          name="lesson_title_image"
                           onChange={this.onChangeImageLessonhandler}
                           accept="image/*"
                         />
@@ -110,13 +110,13 @@ class Form extends React.Component {
                       <img
                         className="image"
                         width="100px"
-                        src={lessonTitleImage}
+                        src={lesson_title_image}
                         alt="lesson Title "
                       />
                       <div className="middle">
                         <button
                           className="text"
-                          name="lessonTitleImage"
+                          name="lesson_title_image"
                           onClick={this.removeImageHandler}
                         >
                           Remove
@@ -134,19 +134,19 @@ class Form extends React.Component {
               <Input
                 className="form-control"
                 type="text"
-                name="timeToPrepare"
+                name="time_to_prepare"
                 onChange={this.onChange}
                 placeholder="Time To Prepare"
-                value={timeToPrepare}
+                value={time_to_prepare}
               />
-              {!timeToPrepareImage
+              {!time_to_prepare_image
                 ? <div>
                     <label className="btn btn-outline-dark">
                       Upload an image
                       <input
                         style={{display: 'none'}}
                         type="file"
-                        name="timeToPrepareImage"
+                        name="time_to_prepare_image"
                         onChange={this.onChangeImageLessonhandler}
                         accept="image/*"
                       />
@@ -156,13 +156,13 @@ class Form extends React.Component {
                     <img
                       className="image"
                       width="100px"
-                      src={timeToPrepareImage}
+                      src={time_to_prepare_image}
                       alt="lesson Title "
                     />
                     <div className="middle">
                       <button
                         className="text"
-                        name="timeToPrepareImage"
+                        name="time_to_prepare_image"
                         onClick={this.removeImageHandler}
                       >
                         Remove
@@ -179,19 +179,19 @@ class Form extends React.Component {
               <Input
                 className="form-control"
                 type="text"
-                name="numberOfPeople"
+                name="number_of_people"
                 onChange={this.onChange}
                 placeholder="Number Of People"
-                value={numberOfPeople}
+                value={number_of_people}
               />
-              {!numberOfPeopleImage
+              {!number_of_people_image
                 ? <div>
                     <label className="btn btn-outline-dark">
                       Upload an image
                       <input
                         style={{display: 'none'}}
                         type="file"
-                        name="numberOfPeopleImage"
+                        name="number_of_people_image"
                         onChange={this.onChangeImageLessonhandler}
                         accept="image/*"
                       />
@@ -201,13 +201,13 @@ class Form extends React.Component {
                     <img
                       className="image"
                       width="100px"
-                      src={numberOfPeopleImage}
+                      src={number_of_people_image}
                       alt="number Of People"
                     />
                     <div className="middle">
                       <button
                         className="text"
-                        name="numberOfPeopleImage"
+                        name="number_of_people_image"
                         onClick={this.removeImageHandler}
                       >
                         Remove
@@ -234,20 +234,20 @@ export default class Lesson extends React.Component {
       <Context.Consumer>
         {({
           onAddLesson,
-          lessonTitle,
-          lessonTitleImage,
-          timeToPrepare,
-          timeToPrepareImage,
-          numberOfPeople,
-          numberOfPeopleImage,
+          lesson_title,
+          lesson_title_image,
+          time_to_prepare,
+          time_to_prepare_image,
+          number_of_people,
+          number_of_people_image,
         }) => (
           <Form
-            lessonTitle={lessonTitle}
-            lessonTitleImage={lessonTitleImage}
-            timeToPrepare={timeToPrepare}
-            timeToPrepareImage={timeToPrepareImage}
-            numberOfPeople={numberOfPeople}
-            numberOfPeopleImage={numberOfPeopleImage}
+            lesson_title={lesson_title}
+            lesson_title_image={lesson_title_image}
+            time_to_prepare={time_to_prepare}
+            time_to_prepare_image={time_to_prepare_image}
+            number_of_people={number_of_people}
+            number_of_people_image={number_of_people_image}
             onAddLesson={onAddLesson}
             {...this.props}
           />

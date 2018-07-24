@@ -22,12 +22,12 @@ const register = (req, res) => {
 };
 
 const security = (userInfo) => {
-  const { email, userName } = userInfo;
+  const { email, user_name } = userInfo;
   return Promise.all([
     creatToken(),
     createHash(userInfo),
     checkEmail(email),
-    checkUserName(userName),
+    checkuser_name(user_name),
   ]).then(([token, hash]) => {
     return {
       token,
@@ -76,7 +76,7 @@ const checkEmail = (email) => {
     });
   });
 };
-const checkUserName = (userName) => {
+const checkuser_name = (user_name) => {
   return new Promise((resolve, reject) => {
     pg.connect(connectionString, (err, client, done) => {
       if (err) {
@@ -84,7 +84,7 @@ const checkUserName = (userName) => {
         return reject(err);
       }
       query = client
-        .query('select userName from users where userName=$1', [userName])
+        .query('select user_name from users where user_name=$1', [user_name])
         .then((result) => {
           if (result.rowCount == 0) {
             return resolve();
@@ -100,12 +100,12 @@ const saveUserData = (data, userInfo) => {
   const { token, hash } = data;
   const {
     title,
-    firstName,
-    surName,
-    userName,
+    first_name,
+    sur_name,
+    user_name,
     email,
     avatar,
-    aboutUser,
+    about_user,
     uuid,
   } = userInfo;
 
@@ -119,18 +119,18 @@ const saveUserData = (data, userInfo) => {
       }
       client.query(
         `insert into users
-      (title, firstName, surName, userName, token, email, password, avatar, aboutUser, uuid)
+      (title, first_name, sur_name, user_name, token, email, password, avatar, about_user, uuid)
       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
         [
           title,
-          firstName,
-          surName,
-          userName,
+          first_name,
+          sur_name,
+          user_name,
           token,
           email,
           hash,
           avatar,
-          aboutUser,
+          about_user,
           uuid,
         ]
       );
@@ -142,7 +142,7 @@ const saveUserData = (data, userInfo) => {
 
 const sendEmail = (data, userInfo) => {
   const { token } = data;
-  const { title, firstName, surName, email, avatar, aboutUser } = userInfo;
+  const { title, first_name, sur_name, email, avatar, about_user } = userInfo;
   return new Promise((resolve, reject) => {
     var smtpTransport = nodemailer.createTransport({
       host: 'smtp.sendgrid.net',

@@ -5,7 +5,7 @@ const pg = require('pg');
 const connectionString = process.env.DATABASE_URL;
 
 const login = (req, res) => {
-  const { userName, password } = req.body;
+  const { user_name, password } = req.body;
   pg.connect(connectionString, (err, client, done) => {
     if (err) {
       return res.status(400).json({
@@ -17,8 +17,8 @@ const login = (req, res) => {
     }
     query = client
       .query(
-        `select id, title, userName, password, admin, teacher, avatar from users where userName=$1`,
-        [userName]
+        `select id, title, user_name, password, admin, teacher, avatar from users where user_name=$1`,
+        [user_name]
       )
       .then((result) => {
         const user = result.rows[0];
@@ -26,7 +26,7 @@ const login = (req, res) => {
           return res.status(400).json({
             sucess: false,
             token: null,
-            msg: 'username or password are wrong',
+            msg: 'user_name or password are wrong',
           });
         } else {
           const hash = user.password;
@@ -43,7 +43,7 @@ const login = (req, res) => {
               return res.status(400).json({
                 sucess: false,
                 token: null,
-                msg: 'username or password are wrong',
+                msg: 'user_name or password are wrong',
               });
             } else {
               if (user.teacher) {
@@ -51,7 +51,7 @@ const login = (req, res) => {
                   {
                     id: user.id,
                     title: user.title,
-                    userName: user.username,
+                    user_name: user.user_name,
                     admin: user.admin,
                     avatar: user.avatar,
                   },

@@ -14,12 +14,12 @@ export default class LessonForm extends React.Component {
     this.state = {
       activeForm: 0,
       id: "",
-      lessonTitle: "",
-      lessonTitleImage: "",
-      timeToPrepare: "",
-      timeToPrepareImage: "",
-      numberOfPeople: "",
-      numberOfPeopleImage: "",
+      lesson_title: "",
+      lesson_title_image: "",
+      time_to_prepare: "",
+      time_to_prepare_image: "",
+      number_of_people: "",
+      number_of_people_image: "",
       ingredients: [],
       instructions: [],
       tools: []
@@ -29,24 +29,24 @@ export default class LessonForm extends React.Component {
     if (this.props.location.state) {
       const {
         id,
-        lessonTitle,
-        lessonTitleImage,
-        timeToPrepare,
-        timeToPrepareImage,
-        numberOfPeople,
-        numberOfPeopleImage,
+        lesson_title,
+        lesson_title_image,
+        time_to_prepare,
+        time_to_prepare_image,
+        number_of_people,
+        number_of_people_image,
         tools,
         ingredients,
         instructions
       } = this.props.location.state.lesson;
       this.setState({
         id,
-        lessonTitle,
-        lessonTitleImage,
-        timeToPrepare,
-        timeToPrepareImage,
-        numberOfPeople,
-        numberOfPeopleImage,
+        lesson_title,
+        lesson_title_image,
+        time_to_prepare,
+        time_to_prepare_image,
+        number_of_people,
+        number_of_people_image,
         tools,
         ingredients,
         instructions
@@ -66,21 +66,21 @@ export default class LessonForm extends React.Component {
 
   onAddLesson = lesson => {
     const {
-      lessonTitle,
-      lessonTitleImage,
-      timeToPrepare,
-      timeToPrepareImage,
-      numberOfPeople,
-      numberOfPeopleImage
+      lesson_title,
+      lesson_title_image,
+      time_to_prepare,
+      time_to_prepare_image,
+      number_of_people,
+      number_of_people_image
     } = lesson;
 
     this.setState({
-      lessonTitle,
-      lessonTitleImage,
-      timeToPrepare,
-      timeToPrepareImage,
-      numberOfPeople,
-      numberOfPeopleImage
+      lesson_title,
+      lesson_title_image,
+      time_to_prepare,
+      time_to_prepare_image,
+      number_of_people,
+      number_of_people_image
     });
     this.nextFormHandler();
   };
@@ -108,12 +108,12 @@ export default class LessonForm extends React.Component {
 
   render() {
     const {
-      lessonTitle,
-      lessonTitleImage,
-      timeToPrepare,
-      timeToPrepareImage,
-      numberOfPeople,
-      numberOfPeopleImage,
+      lesson_title,
+      lesson_title_image,
+      time_to_prepare,
+      time_to_prepare_image,
+      number_of_people,
+      number_of_people_image,
       tools,
       ingredients,
       instructions
@@ -126,12 +126,12 @@ export default class LessonForm extends React.Component {
       <Purview history={this.props.history} id={this.state.id}/>
     ];
     const context = {
-      lessonTitle,
-      lessonTitleImage,
-      timeToPrepare,
-      timeToPrepareImage,
-      numberOfPeople,
-      numberOfPeopleImage,
+      lesson_title,
+      lesson_title_image,
+      time_to_prepare,
+      time_to_prepare_image,
+      number_of_people,
+      number_of_people_image,
       onAddLesson: this.onAddLesson,
       tools,
       onAddTools: this.onAddTools,

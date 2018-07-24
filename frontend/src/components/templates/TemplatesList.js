@@ -5,7 +5,7 @@ import PlusIcon from "../../image/icons/plus-icon-green-hi.png"
 
 function searchingFor(term) {
   return db => {
-    return !term || db.lessonTitle.toLowerCase().includes(term.toLowerCase());
+    return !term || db.lesson_title.toLowerCase().includes(term.toLowerCase());
   };
 }
 
@@ -44,11 +44,11 @@ export default class TemplatIndex extends Component {
           {searchResult.map((e, i) => (
             <div className="templetsItem" key={i}>
               <Link to={`/templates/${e.id}`}>
-                {e.lessonTitle || "[no description]"}
+                {e.lesson_title || "[no description]"}
                 <img
                   className="templetsItemImg"
-                  src={e.lessonTitleImage}
-                  alt={e.lessonTitle}
+                  src={e.lesson_title_image}
+                  alt={e.lesson_title}
                 />
               </Link>
             </div>

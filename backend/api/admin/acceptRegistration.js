@@ -1,28 +1,32 @@
-var async = require ('async');
-var nodemailer = require ('nodemailer');
+var async = require('async');
+var nodemailer = require('nodemailer');
 
-const sqlite3 = require ('sqlite3').verbose ();
+const pg = require('pg');
 
-const filename = './database/crisisdb.sqlit';
-let db = new sqlite3.Database (filename);
+const connectionString = process.env.DATABASE_URL;
 
 const AcceptRegistration = (req, res) => {
-    const {teacher, admin, userName} = req.body;
-  async.waterfall (
+  const { teacher, admin, user_name } = req.body;
+  async.waterfall(
     [
-      done => {
-        var sql = `UPDATE users set teacher=?, admin=? where userName=?`;
-        db.run (sql, [teacher, admin, userName], (err) => {
+      (done) => {
+        pg.connect(connectionString, (err, client, done) => {
           if (err) {
-            return res.status (400).json ({
-              msg: 'Ops! Sorry something happened on the server, please try again later.',
+            return res.status(400).json({
+              msg:
+                'Ops! Sorry something happened on the server, please try again later.',
             });
-          } 
-          done (err);
+          }
+          client.query(
+            `UPDATE users set teacher=$1, admin=$2 where user_name=$3`,
+            [teacher, admin, user_name]
+          );  
+
         });
+        done()
       },
       () => {
-        var smtpTransport = nodemailer.createTransport ({
+        var smtpTransport = nodemailer.createTransport({
           host: 'smtp.sendgrid.net',
           port: 465,
           secure: true, // true for 465, false for other ports,
@@ -35,25 +39,28 @@ const AcceptRegistration = (req, res) => {
           to: process.env.USER_GMAIL,
           from: process.env.USER_GMAIL,
           subject: 'User update it',
-          text: 'Hello,\n\n' +
-          'You have update this usre  ' +
-          userName +
-          ' if it was not you please check',
+          text:
+            'Hello,\n\n' +
+            'You have update this usre  ' +
+            user_name +
+            ' if it was not you please check',
         };
-        smtpTransport.sendMail (mailOptions, err => {
+        smtpTransport.sendMail(mailOptions, (err) => {
           if (err) {
-            return res.status (400).json ({
-              msg: 'Ops! Sorry something happened on the server, please try again later.',
+            return res.status(400).json({
+              msg:
+                'Ops! Sorry something happened on the server, please try again later.',
             });
           }
-          return res.send (`Success! Your changes has been saved.`);
+          return res.send(`Success! Your changes has been saved.`);
         });
       },
     ],
-    err => {
+    (err) => {
       if (err) {
-        return res.status (400).json ({
-          msg: 'Ops! Sorry something happened on the server, please try again later.',
+        return res.status(400).json({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
         });
       }
     }

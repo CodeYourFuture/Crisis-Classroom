@@ -17,11 +17,11 @@ export default class UserProfile extends React.Component {
       msg: null,
       title: '',
       email: '',
-      firstName: '',
-      surName: '',
-      userName: '',
+      first_name: '',
+      sur_name: '',
+      user_name: '',
       avatar: null,
-      aboutUser: '',
+      about_user: '',
       addSkill: false,
       showSkills: false,
       showExperience: false,
@@ -32,29 +32,29 @@ export default class UserProfile extends React.Component {
   UNSAFE_componentWillMount() {
     const token = localStorage.getItem('id_token');
     const decoded = decode(token);
-    const userName = decoded.userName;
+    const user_name = decoded.user_name;
     axios
-      .post(`${process.env.REACT_APP_DOMAIN}/user-profile`, { userName })
+      .post(`${process.env.REACT_APP_DOMAIN}/user-profile`, { user_name })
       .then((result) => {
         if (result) {
           const {
             title,
-            firstName,
-            surName,
-            userName,
+            first_name,
+            sur_name,
+            user_name,
             email,
             avatar,
-            aboutUser,
+            about_user,
           } = result.data[0];
           const { skills } = result.data;
           this.setState({
             title,
-            firstName,
-            surName,
-            userName,
+            first_name,
+            sur_name,
+            user_name,
             email,
             avatar,
-            aboutUser,
+            about_user,
             skills,
           });
         }
@@ -83,14 +83,14 @@ export default class UserProfile extends React.Component {
   render() {
     const {
       title,
-      firstName,
-      surName,
-      userName,
+      first_name,
+      sur_name,
+      user_name,
       email,
       err,
       msg,
       avatar,
-      aboutUser,
+      about_user,
       addSkill,
       skills,
       showSkills,
@@ -122,14 +122,18 @@ export default class UserProfile extends React.Component {
           )}
         </div>
         <div className="user-user-info">
-          <h5>{firstName}</h5>
-          <h5>{surName}</h5>
-          <h5>{userName}</h5>
+          <h5>{first_name}</h5>
+          <h5>{sur_name}</h5>
+          <h5>{user_name}</h5>
           <h5>{email}</h5>
-          <h5>{aboutUser}</h5>
+          <h5>{about_user}</h5>
         </div>
         <div>
-          <button name="showSkills" value={showSkills} onClick={()=>this.showHandler(true)}>
+          <button
+            name="showSkills"
+            value={showSkills}
+            onClick={() => this.showHandler(true)}
+          >
             Skills
           </button>
           <button value={showExperience} onClick={this.showHandler}>
@@ -142,9 +146,9 @@ export default class UserProfile extends React.Component {
                   return (
                     <Link to={`/edit-skill/${skill.id}`} key={i}>
                       <div className="skill">
-                        <h5>{skill.skillName}</h5>
-                        <h6>{skill.aboutSkill}</h6>
-                        <h6>{skill.skillLevel}</h6>
+                        <h5>{skill.skill_name}</h5>
+                        <h6>{skill.about_skill}</h6>
+                        <h6>{skill.skill_level}</h6>
                       </div>
                     </Link>
                   );

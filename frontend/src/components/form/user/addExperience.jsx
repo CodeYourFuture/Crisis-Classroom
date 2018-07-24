@@ -30,7 +30,7 @@ export default class AddExperience extends React.Component {
     e.preventDefault();
     const token = localStorage.getItem('id_token');
     const decoded = decode(token);
-    const userId = decoded.id;
+    const user_id = decoded.id;
     const {
       whatExperience,
       when,
@@ -41,7 +41,7 @@ export default class AddExperience extends React.Component {
     } = this.state;
     axios
       .post(`${process.env.REACT_APP_DOMAIN}/creat-experience`, {
-        userId,
+        user_id,
         whatExperience,
         when,
         where,

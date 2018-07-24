@@ -9,7 +9,7 @@ export default class NavbarFeatures extends Component {
   constructor (props) {
     super (props);
     this.state = {
-      userName: '',
+      user_name: '',
       avatar: '',
       title: null,
     };
@@ -18,8 +18,8 @@ export default class NavbarFeatures extends Component {
     const token = AuthService.getToken ();
     if (token) {
       const decoded = decode (token);
-      const {userName, avatar, title} = decoded;
-      this.setState ({userName, avatar, title});
+      const {user_name, avatar, title} = decoded;
+      this.setState ({user_name, avatar, title});
     }
   }
   onLogOut = () => {
@@ -28,7 +28,7 @@ export default class NavbarFeatures extends Component {
   };
 
   render () {
-    const {userName, avatar, title} = this.state;
+    const {user_name, avatar, title} = this.state;
     return (
       <Route>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -61,7 +61,7 @@ export default class NavbarFeatures extends Component {
               {AuthService.loggedIn ()
                 && <div>
                     <li className="nav-item user-info-items">
-                      <Link to="/user-profile" className="nav-link">{userName}</Link >
+                      <Link to="/user-profile" className="nav-link">{user_name}</Link >
                       <div className="nav-link">
                         <div className="user-avatar">
                           {!avatar

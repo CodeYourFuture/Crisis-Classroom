@@ -3,9 +3,9 @@ const sqlite3 = require('sqlite3').verbose();
 const filename = './database/crisisdb.sqlit';
 let db = new sqlite3.Database(filename);
 
-const checkUserName = (req, res) => {
-  var sql = 'select users.userName from users where  userName=?';
-  db.all(sql, [req.body.userName], (err, rows) => {
+const checkuser_name = (req, res) => {
+  var sql = 'select users.user_name from users where  user_name=?';
+  db.all(sql, [req.body.user_name], (err, rows) => {
     if (err) {
       return res.status(400).json({
         msg:
@@ -18,4 +18,4 @@ const checkUserName = (req, res) => {
     }
   });
 };
-module.exports = checkUserName;
+module.exports = checkuser_name;

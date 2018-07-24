@@ -19,10 +19,10 @@ const editSkill = (req, res) => {
 };
 
 const setSkill = (skill) => {
-  const { id, skillName, aboutSkill, skillLevel } = skill;
+  const { id, skill_name, about_skill, skill_level } = skill;
   return new Promise((resolve, reject) => {
-    var sql = `update skills set skillName=?, aboutSkill=?, skillLevel=? where id=?`;
-    db.run(sql, [skillName, aboutSkill, skillLevel, id], (err, data) => {
+    var sql = `update skills set skill_name=?, about_skill=?, skill_level=? where id=?`;
+    db.run(sql, [skill_name, about_skill, skill_level, id], (err, data) => {
       if (err) return reject(err);
       return resolve(data);
     });

@@ -13,7 +13,7 @@ const ResetPassword = (req, res) => {
       (done) => {
         const { token, password } = req.body;
         var sql =
-          'select email, token, tokenExpires from users where token=?';
+          'select email, token, token_expires from users where token=?';
         db.all(sql, [token], (err, rows) => {
           const [user] = rows;
           if (err) {
@@ -21,7 +21,7 @@ const ResetPassword = (req, res) => {
               msg:
                 'Ops! Sorry something happened on the server, please try again later.',
             });
-          } else if (Date.now() > user.tokenExpires) {
+          } else if (Date.now() > user.token_expires) {
             return res.send('Sorry this link is expired');
           } else {
             bcrypt.hash(password, 10, (err, hash) => {
@@ -31,7 +31,7 @@ const ResetPassword = (req, res) => {
                     'Ops! Sorry something happened on the server, please try again later.',
                 });
               }
-              var sql = `UPDATE users set password=?, tokenExpires=? where token=?`;
+              var sql = `UPDATE users set password=?, token_expires=? where token=?`;
               db.run(
                 sql,
                 [hash, Date.now(), user.token],

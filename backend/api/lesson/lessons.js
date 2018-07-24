@@ -44,30 +44,30 @@ const getLessons = () => {
   });
 };
 
-const getTools = (lessonId) => {
+const getTools = (lesson_id) => {
   return new Promise((resolve, reject) => {
-    var sql = `select * from tools where tools.lessonId= ?`;
-    db.all(sql, [lessonId], (err, data) => {
+    var sql = `select * from tools where tools.lesson_id= ?`;
+    db.all(sql, [lesson_id], (err, data) => {
       if (err) return reject(err);
       return resolve(data);
     });
   });
 };
 
-const getIngredients = (lessonId) => {
+const getIngredients = (lesson_id) => {
   return new Promise((resolve, reject) => {
-    var sql = `select * from ingredients where ingredients.lessonId=?`;
-    db.all(sql, [lessonId], (err, data) => {
+    var sql = `select * from ingredients where ingredients.lesson_id=?`;
+    db.all(sql, [lesson_id], (err, data) => {
       if (err) return reject(err);
       return resolve(data);
     });
   });
 };
 
-const getInstructions = (lessonId) => {
+const getInstructions = (lesson_id) => {
   return new Promise((resolve, reject) => {
-    var sql = `select * from instructions where instructions.lessonId=?`;
-    db.all(sql, [lessonId], (err, data) => {
+    var sql = `select * from instructions where instructions.lesson_id=?`;
+    db.all(sql, [lesson_id], (err, data) => {
       if (err) return reject(err);
       return resolve(data);
     });

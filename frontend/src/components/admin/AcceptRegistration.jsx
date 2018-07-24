@@ -14,9 +14,9 @@ class CheckRegistrationToken extends Component {
     super (props);
     this.state = {
       token: '',
-      userName: '',
-      firstName: '',
-      surName: '',
+      user_name: '',
+      first_name: '',
+      sur_name: '',
       email: '',
       err: '',
       teacher: false,
@@ -34,12 +34,12 @@ class CheckRegistrationToken extends Component {
   };
   onSubmit = e => {
     e.preventDefault()
-    const {teacher, admin, userName} = this.state;
+    const {teacher, admin, user_name} = this.state;
     axios
       .post (`${process.env.REACT_APP_DOMAIN}/accept-registration`, {
         teacher,
         admin,
-        userName,
+        user_name,
       })
       .then (result => {
         if (result) {
@@ -65,12 +65,12 @@ class CheckRegistrationToken extends Component {
         if (result.data.rows) {
           const {
             token,
-            firstName,
-            surName,
+            first_name,
+            sur_name,
             email,
-            userName,
+            user_name,
           } = result.data.rows[0];
-          this.setState ({token, userName, firstName, surName, email});
+          this.setState ({token, user_name, first_name, sur_name, email});
         }
       })
       .catch (err => {
@@ -85,17 +85,17 @@ class CheckRegistrationToken extends Component {
   };
 
   render () {
-    const {firstName, userName, surName, email, err, msg} = this.state;
+    const {first_name, user_name, sur_name, email, err, msg} = this.state;
     return (
       <div className="login-form">
         {msg
           ? <h5>{msg}</h5>
           : <div>
               <h5>{err}</h5>
-              <h6>First Name: {firstName}</h6>
-              <h6>Sure Name: {surName}</h6>
+              <h6>First Name: {first_name}</h6>
+              <h6>Sure Name: {sur_name}</h6>
               <h6>Email: {email}</h6>
-              <h6>User Name: {userName}</h6>
+              <h6>User Name: {user_name}</h6>
               <form onSubmit={this.onSubmit}>
                 <Label value="Teacher" />
                 &nbsp; &nbsp;

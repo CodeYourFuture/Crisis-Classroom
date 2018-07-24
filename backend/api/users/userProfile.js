@@ -1,13 +1,13 @@
-const sqlite3 = require('sqlite3').verbose();
+const pg = require('pg');
 
-const filename = './database/crisisdb.sqlit';
-let db = new sqlite3.Database(filename);
+const connectionString = process.env.DATABASE_URL;
+
 const getSkills = require('../../helpers/getSkills');
 
 const UserProfile = (req, res) => {
-  const { userName } = req.body;
+  const { user_name } = req.body;
 
-  getUser(userName)
+  getUser(user_name)
     .then((user) => getUserinfo(user))
     .then((userProfile) => res.json(userProfile))
     .catch((err) =>
@@ -18,20 +18,32 @@ const UserProfile = (req, res) => {
       })
     );
 };
-const getUser = (userName) => {
+const getUser = (user_name) => {
   return new Promise((resolve, reject) => {
-    var sql = `select id ,title, firstName, surName, email, userName, avatar, aboutUser from users where userName=?`;
-    db.all(sql, [userName], (err, user) => {
-      if (err) return reject(err);
-      if (user) {
-        return resolve(user);
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
       }
+      client
+        .query(
+          `select id ,title, first_name, sur_name, email, user_name, avatar, about_user, date from users where user_name=$1`,
+          [user_name]
+        )
+        .then((result) => {
+          if (result) {
+            const user = result.rows;
+            return resolve(user);
+          } else return reject(err);
+        });
     });
   });
 };
 getUserinfo = (user) => {
-  const userId = user[0].id;
-  return Promise.all([getSkills(userId)]).then(([skills]) => {
+  const user_id = user[0].id;
+  return Promise.all([getSkills(user_id)]).then(([skills]) => {
     return {
       ...user,
       skills,

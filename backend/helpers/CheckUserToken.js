@@ -6,7 +6,7 @@ let db = new sqlite3.Database(filename);
 const CheckUserToken = (req, res) => {
   const token = req.params.token;
   var sql =
-    'select token, tokenExpires, userName from users where token=?';
+    'select token, token_expires, user_name from users where token=?';
   db.all(sql, [token], (err, rows) => {
     const [user] = rows;
     if (!user) {
@@ -16,7 +16,7 @@ const CheckUserToken = (req, res) => {
         msg:
           'Ops! Sorry something happened on the server, please try again later.',
       });
-    } else if (Date.now() > user.tokenExpires) {
+    } else if (Date.now() > user.token_expires) {
       return res.status(400).json({ msg: 'Sorry this link is expired.' });
     } else {
       res.status(200).json({

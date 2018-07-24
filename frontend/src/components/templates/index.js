@@ -65,28 +65,28 @@ export default class Template extends React.Component {
             <Col className="box" lg={3}>
               <div>
                 <div className="preview-title-items">
-                  <h2>{lesson.lessonTitle}</h2>
+                  <h2>{lesson.lesson_title}</h2>
                   <img
                     className="preview-title-image"
-                    src={lesson.lessonTitleImage}
-                    alt="lessonTitle"
+                    src={lesson.lesson_title_image}
+                    alt="lesson_title"
                   />
                 </div>
                 <div className="preview-items">
-                  <h6>{lesson.timeToPrepare}</h6>
+                  <h6>{lesson.time_to_prepare}</h6>
                   <img
                     className="preview-image"
                     width="50px"
-                    src={lesson.timeToPrepareImage}
+                    src={lesson.time_to_prepare_image}
                     alt="ingredient"
                   />
                 </div>
                 <div className="preview-items">
-                  <h6>{lesson.numberOfPeople}</h6>
+                  <h6>{lesson.number_of_people}</h6>
                   <img
                     className="preview-image"
                     width="50px"
-                    src={lesson.numberOfPeopleImage}
+                    src={lesson.number_of_people_image}
                     alt="ingredient"
                   />
                 </div>
@@ -95,11 +95,11 @@ export default class Template extends React.Component {
               <h4>Tools</h4>
               {lesson.tools.map((tool, i) => (
                 <div className="preview-items" key={i}>
-                  <h6>{tool.toolName}</h6>
+                  <h6>{tool.tool_name}</h6>
                   <img
                     className="preview-image"
                     width="50px"
-                    src={tool.toolImage}
+                    src={tool.tool_image}
                     alt="tool"
                   />
                 </div>
@@ -109,11 +109,11 @@ export default class Template extends React.Component {
               <h4>Ingredients</h4>
               {lesson.ingredients.map((ingredient, i) => (
                 <div className="preview-items" key={i}>
-                  <h6>{ingredient.ingredientName}</h6>
+                  <h6>{ingredient.ingredient_name}</h6>
                   <img
                     className="preview-image"
                     width="50px"
-                    src={ingredient.ingredientImage}
+                    src={ingredient.ingredient_image}
                     alt="ingredient"
                   />
                 </div>
@@ -124,11 +124,11 @@ export default class Template extends React.Component {
               {lesson.instructions.map((instruction, i) => {
                 return (
                   <div className="preview-items" key={i}>
-                    <h6>{instruction.instructionName}</h6>
+                    <h6>{instruction.instruction_name}</h6>
                     <img
                       className="preview-image"
                       width="50px"
-                      src={instruction.instructionImage}
+                      src={instruction.instruction_image}
                       alt="instruction"
                     />
                   </div>

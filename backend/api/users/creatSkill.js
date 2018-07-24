@@ -16,7 +16,7 @@ const creatSkill = (req, res) => {
 };
 
 const saveSkill = (skill) => {
-  const { skillName, aboutSkill, skillLevel, userId } = skill;
+  const { skill_name, about_skill, skill_level, user_id } = skill;
   return new Promise((resolve, reject) => {
     pg.connect(connectionString, (err, client, done) => {
       if (err) {
@@ -28,9 +28,9 @@ const saveSkill = (skill) => {
       client
         .query(
           `insert into skills
-      ( userId, skillName, aboutSkill, skillLevel)
+      ( user_id, skill_name, about_skill, skill_level)
       values ($1, $2, $3, $4)`,
-          [userId, skillName, aboutSkill, skillLevel]
+          [user_id, skill_name, about_skill, skill_level]
         )
         .then((result) => {
           if (result.rowCount == 1) {

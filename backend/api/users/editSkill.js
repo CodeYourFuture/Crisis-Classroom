@@ -1,14 +1,11 @@
-const sqlite3 = require('sqlite3').verbose();
+const pg = require('pg');
 
-const filename = './database/crisisdb.sqlit';
-let db = new sqlite3.Database(filename);
+const connectionString = process.env.DATABASE_URL;
 
 const editSkill = (req, res) => {
-  const date = Date.now().toString();
   const skill = req.body;
-
   setSkill(skill)
-    .then((data) => res.json({ msg: 'Success! Your skill has been changed.' }))
+    .then(() => res.json({ msg: 'Success! Your skill has been changed.' }))
     .catch((err) =>
       res.status(400).json({
         err,
@@ -21,10 +18,28 @@ const editSkill = (req, res) => {
 const setSkill = (skill) => {
   const { id, skill_name, about_skill, skill_level } = skill;
   return new Promise((resolve, reject) => {
-    var sql = `update skills set skill_name=?, about_skill=?, skill_level=? where id=?`;
-    db.run(sql, [skill_name, about_skill, skill_level, id], (err, data) => {
-      if (err) return reject(err);
-      return resolve(data);
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
+      }
+      client
+        .query(
+          `update skills set skill_name=$1, about_skill=$2, skill_level=$3 where id=$4`,
+          [skill_name, about_skill, skill_level, id]
+        )
+        .then((result) => {
+          if (result.rowCount == 1) {
+            return resolve();
+          } else
+            return reject({
+              err,
+              msg:
+                'Ops! Sorry something happened on the server, please try again later.',
+            });
+        });
     });
   });
 };

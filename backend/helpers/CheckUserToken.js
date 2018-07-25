@@ -1,28 +1,39 @@
-const sqlite3 = require('sqlite3').verbose();
-
-const filename = './database/crisisdb.sqlit';
-let db = new sqlite3.Database(filename);
+const pg = require('pg');
+const connectionString = process.env.DATABASE_URL;
 
 const CheckUserToken = (req, res) => {
   const token = req.params.token;
-  var sql =
-    'select token, token_expires, user_name from users where token=?';
-  db.all(sql, [token], (err, rows) => {
-    const [user] = rows;
-    if (!user) {
-      return res.status(400).json({ msg: 'Sorry this link is Wrong.' });
-    } else if (err) {
+  pg.connect(connectionString, (err, client, done) => {
+    if (err) {
       return res.status(400).json({
         msg:
           'Ops! Sorry something happened on the server, please try again later.',
       });
-    } else if (Date.now() > user.token_expires) {
-      return res.status(400).json({ msg: 'Sorry this link is expired.' });
-    } else {
-      res.status(200).json({
-        rows,
-      });
     }
+    client
+      .query(
+        `select token, token_expires, user_name from users where token=$1`,
+        [token]
+      )
+      .then((result) => {
+        if (result) {
+          const { rows } = result;
+          if (result.rowCount == 0) {
+            return res.status(400).json({ msg: 'Sorry this link is Wrong.' });
+          } else if (err) {
+            return res.status(400).json({
+              msg:
+                'Ops! Sorry something happened on the server, please try again later.',
+            });
+          } else if (Date.now() > rows[0].token_expires) {
+            return res.status(400).json({ msg: 'Sorry this link is expired.' });
+          } else {
+            res.status(200).json({
+              rows,
+            });
+          }
+        }
+      });
   });
 };
 module.exports = CheckUserToken;

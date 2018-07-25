@@ -1,21 +1,25 @@
-const sqlite3 = require('sqlite3').verbose();
-
-const filename = './database/crisisdb.sqlit';
-let db = new sqlite3.Database(filename);
+const pg = require('pg');
+const connectionString = process.env.DATABASE_URL;
 
 const checkuser_name = (req, res) => {
-  var sql = 'select users.user_name from users where  user_name=?';
-  db.all(sql, [req.body.user_name], (err, rows) => {
+  pg.connect(connectionString, (err, client, done) => {
     if (err) {
       return res.status(400).json({
         msg:
           'Ops! Sorry something happened on the server, please try again later.',
       });
-    } else {
-      res.status(200).json({
-        rows,
-      });
     }
+    client
+      .query(`select user_name from users where user_name=$1`, [
+        req.body.user_name,
+      ])
+      .then((result) => {
+        if (result) {
+          console.log(result);
+          const { rows } = result;
+          res.status(200).json({ rows });
+        }
+      });
   });
 };
 module.exports = checkuser_name;

@@ -35,6 +35,7 @@ create table lessons
     time_to_prepare_image text,
     number_of_people text,
     number_of_people_image text,
+    date_id text,
     date DATE NOT NULL DEFAULT CURRENT_DATE
 );
 create table tools

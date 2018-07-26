@@ -10,5 +10,4 @@ app.use(bodyparser.urlencoded({ extended: false }));
 
 app.use('/', apiRouter());
 
-app.listen(process.env.PORT || 8080);
-console.log("app running on localhost:8080")
+app.listen(process.env.PORT);

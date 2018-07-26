@@ -3,4 +3,3 @@ node_modules/*
 *.exe
 .env
 gmail.json
-database/*

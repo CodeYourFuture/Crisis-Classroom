@@ -9,7 +9,7 @@ const DeleteLesson = (req, res) => {
     .then(() => deleteTool(lesson_id))
     .then(() => deleteIngredient(lesson_id))
     .then(() => deleteInstruction(lesson_id))
-    .then(() => res.json(console.log(res)))
+    .then(() => res.json({  msg: 'Success! Your lesson has been created.' }))
     .catch((err) =>
       res.status(400).json({
         err,

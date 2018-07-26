@@ -1,7 +1,6 @@
-const sqlite3 = require('sqlite3').verbose();
+const pg = require('pg');
 
-const filename = './database/crisisdb.sqlit';
-let db = new sqlite3.Database(filename);
+const connectionString = process.env.DATABASE_URL;
 
 const DeleteSkill = (req, res) => {
   const { id } = req.body;
@@ -18,10 +17,22 @@ const DeleteSkill = (req, res) => {
 
 const delelet = (id) => {
   return new Promise((resolve, reject) => {
-    var sql = `DELETE FROM skills where id=?`;
-    db.run(sql, [id], (err) => {
-      if (err) return reject(err);
-      return resolve();
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
+      }
+      client.query(`DELETE FROM skills where id=$1`, [id]).then((result) => {
+        if (result.rowCount == 1) {
+          return resolve();
+        } else
+          return reject({
+            msg:
+              'Ops! Sorry something happened on the server, please try again later.',
+          });
+      });
     });
   });
 };

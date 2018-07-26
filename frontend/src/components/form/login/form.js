@@ -10,7 +10,7 @@ class Login extends Component {
     super(props);
     this.state = {
       err: '',
-      userName: '',
+      user_name: '',
       password: '',
     };
     this.Auth = AuthService;
@@ -23,7 +23,7 @@ class Login extends Component {
     e.preventDefault();
 
     this.Auth
-      .login(this.state.userName, this.state.password)
+      .login(this.state.user_name, this.state.password)
       .then((res) => {
         if (this.Auth.loggedIn()) this.props.history.replace('/');
       })
@@ -52,13 +52,13 @@ class Login extends Component {
           <p>{this.state.err}</p>
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
-              <Label value="Username *" />
+              <Label value="user_name *" />
               <Input
                 className="form-control"
-                name="userName"
+                name="user_name"
                 type="text"
-                placeholder="Username"
-                value={this.state.userName}
+                placeholder="user_name"
+                value={this.state.user_name}
                 onChange={this.handleChange}
               />
             </div>

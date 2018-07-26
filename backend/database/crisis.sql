@@ -1,65 +1,71 @@
 create table users
 (
-    id integer primary key,
+    id serial PRIMARY KEY,
     title varchar,
-    firstName varchar,
-    surName varchar,
+    first_name varchar,
+    sur_name varchar,
     email varchar,
-    userName varchar,
+    user_name varchar,
     token varchar,
-    tokenExpires varchar,
+    token_expires varchar,
     password text not null,
     uuid text not null,
     teacher BOOLEAN,
     admin BOOLEAN,
     avatar varchar,
-    aboutUser varchar
+    about_user varchar,
+    date DATE NOT NULL DEFAULT CURRENT_DATE
 );
 create table skills
 (
-    id integer primary key,
-    userId integer,
-    skillName text,
-    aboutSkill text,
-    skillLevel text,
-    foreign key(userId) references users(id)
+    id serial primary key,
+    user_id integer,
+    skill_name text,
+    about_skill text,
+    skill_level text,
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
+    foreign key(user_id) references users(id)
 );
 create table lessons
 (
-    id integer primary key,
-    lessonTitle text,
-    lessonTitleImage text,
-    timeToPrepare text,
-    timeToPrepareImage text,
-    numberOfPeople text,
-    numberOfPeopleImage text
+    id serial primary key,
+    lesson_title text,
+    lesson_title_image text,
+    time_to_prepare text,
+    time_to_prepare_image text,
+    number_of_people text,
+    number_of_people_image text,
+    date DATE NOT NULL DEFAULT CURRENT_DATE
 );
 create table tools
 (
-    id integer primary key,
-    lessonId integer,
-    toolId text,
-    toolName text,
-    toolImage text,
-    foreign key(lessonId) references lessons(id)
+    id serial primary key,
+    lesson_id integer,
+    tool_id text,
+    tool_name text,
+    tool_image text,
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
+    foreign key(lesson_id) references lessons(id)
 );
 create table ingredients
 (
-    id integer primary key,
-    lessonId integer,
-    ingredientId text,
-    ingredientName text,
-    ingredientImage text,
-    foreign key(lessonId) references lessons(id)
+    id serial primary key,
+    lesson_id integer,
+    ingredient_id text,
+    ingredient_name text,
+    ingredient_image text,
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
+    foreign key(lesson_id) references lessons(id)
 );
 create table instructions
 (
-    id integer primary key,
-    lessonId integer,
-    instructionId text,
-    instructionName text,
-    instructionImage text,
-    foreign key(lessonId) references lessons(id)
+    id serial primary key,
+    lesson_id integer,
+    instruction_id text,
+    instruction_name text,
+    instruction_image text,
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
+    foreign key(lesson_id) references lessons(id)
 );
 
 

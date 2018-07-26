@@ -12,9 +12,9 @@ export default class Form extends React.Component {
     this.state = {
       error: null,
       errors: {
-        firstName: null,
-        surName: null,
-        userName: null,
+        first_name: null,
+        sur_name: null,
+        user_name: null,
         email: null,
         password: null,
         confirmPassword: null,
@@ -32,35 +32,35 @@ export default class Form extends React.Component {
 
   validate() {
     const {
-      firstName,
-      surName,
-      userName,
+      first_name,
+      sur_name,
+      user_name,
       email,
       password,
       confirmPassword,
-      checkUserName,
+      checkuser_name,
       checkEmail,
     } = this.props.userData;
 
     const errors = {
-      firstName: null,
-      surName: null,
-      userName: null,
+      first_name: null,
+      sur_name: null,
+      user_name: null,
       email: null,
       password: null,
       confirmPassword: null,
     };
 
-    if (userName === checkUserName) {
-      errors.userName = `This username already taken .`;
+    if (user_name === checkuser_name) {
+      errors.user_name = `This user_name already taken .`;
     } else if (email === checkEmail) {
       errors.email = `This email already exists .`;
-    } else if (firstName.length <= 0) {
-      errors.firstName = `First Name can't be empty. `;
-    } else if (surName.length <= 0) {
-      errors.surName = `Surname can't be empty. `;
-    } else if (userName.length <= 0) {
-      errors.userName = `username can't be empty .`;
+    } else if (first_name.length <= 0) {
+      errors.first_name = `First Name can't be empty. `;
+    } else if (sur_name.length <= 0) {
+      errors.sur_name = `sur_name can't be empty. `;
+    } else if (user_name.length <= 0) {
+      errors.user_name = `user_name can't be empty .`;
     } else if (email.length < 5) {
       errors.email = ` Email should be at least 5 charcters long .`;
     } else if (email.split('').filter((x) => x === '@').length !== 1) {
@@ -107,41 +107,41 @@ export default class Form extends React.Component {
             <div>
               <Input
                 className="form-control"
-                name="firstName"
+                name="first_name"
                 type="text"
                 placeholder="First name"
-                value={this.props.userData.firstName}
+                value={this.props.userData.first_name}
                 onChange={this.props.handleChange}
               />
-              {errors.firstName !== null && (
-                <span className="error">{errors.firstName}</span>
+              {errors.first_name !== null && (
+                <span className="error">{errors.first_name}</span>
               )}
               <br />
               <Input
                 className="form-control"
-                name="surName"
+                name="sur_name"
                 type="text"
                 placeholder="Last name"
-                value={this.props.userData.surName}
+                value={this.props.userData.sur_name}
                 onChange={this.props.handleChange}
               />
-              {errors.surName !== null && (
-                <span className="error">{errors.surName}</span>
+              {errors.sur_name !== null && (
+                <span className="error">{errors.sur_name}</span>
               )}
             </div>
           </div>
           <div className="form-group">
-            <Label value="Username *" />
+            <Label value="user_name *" />
             <Input
               className="form-control"
-              name="userName"
+              name="user_name"
               type="text"
-              placeholder="Username"
-              value={this.props.userData.userName}
+              placeholder="user_name"
+              value={this.props.userData.user_name}
               onChange={this.props.handleChange}
             />
-            {errors.userName !== null && (
-              <span className="error">{errors.userName}</span>
+            {errors.user_name !== null && (
+              <span className="error">{errors.user_name}</span>
             )}
           </div>
           <div className="form-group">
@@ -193,11 +193,11 @@ export default class Form extends React.Component {
             className="form-control"
               rows="4"
               cols="50"
-              name="aboutUser"
+              name="about_user"
               form="usrform"
               placeholder="About you..."
               onChange={this.props.handleChange}
-              value={this.props.userData.aboutUser}
+              value={this.props.userData.about_user}
             />
           </div>
           <div className="form-group">
@@ -210,8 +210,8 @@ export default class Form extends React.Component {
               value={this.props.userData.uuid}
               onChange={this.props.handleChange}
             />
-            {/* {errors.userName !== null && (
-              <span className="error">{errors.userName}</span>
+            {/* {errors.user_name !== null && (
+              <span className="error">{errors.user_name}</span>
             )} */}
           </div>
           <button

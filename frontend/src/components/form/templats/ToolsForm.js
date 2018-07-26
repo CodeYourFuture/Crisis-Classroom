@@ -15,10 +15,10 @@ class Form extends React.Component {
 
   onChangeToolshandler = (e, index) => {
     const tool = this.state.tools[index];
-    const newToolName = {...tool, [e.target.name]: e.target.value};
+    const newtool_name = {...tool, [e.target.name]: e.target.value};
     this.setState ({
       tools: this.state.tools.map (
-        (tool, i) => (i === index ? newToolName : tool)
+        (tool, i) => (i === index ? newtool_name : tool)
       ),
     });
   };
@@ -28,10 +28,10 @@ class Form extends React.Component {
     const data = new FormData ();
     data.append ('image', e.target.files[0]);
     axios.post (`${process.env.REACT_APP_DOMAIN}/files`, data).then (result => {
-      const newToolImage = {...tool, toolImage: result.data.image};
+      const new_tool_image = {...tool, tool_image: result.data.image};
       this.setState ({
         tools: this.state.tools.map (
-          (tool, i) => (i === index ? newToolImage : tool)
+          (tool, i) => (i === index ? new_tool_image : tool)
         ),
       });
     });
@@ -41,16 +41,16 @@ class Form extends React.Component {
     this.setState ({
       tools: [
         ...this.state.tools,
-        {toolId: this.state.tools.length + 1, toolName: '', toolImage: ''},
+        {tool_id: this.state.tools.length + 1, tool_name: '', tool_image: ''},
       ],
     });
   };
 
-  removeToolsImgHandler = toolId => {
+  removeToolsImgHandler = tool_id => {
     const {tools} = this.state;
     tools.forEach (tool => {
-      if (tool.toolId === toolId) {
-        tool.toolImage = null;
+      if (tool.tool_id === tool_id) {
+        tool.tool_image = null;
       }
     });
     this.setState ({
@@ -60,7 +60,7 @@ class Form extends React.Component {
 
   removeToolsHandler = i => {
     const {tools} = this.state;
-    let removeResult = tools.filter (tool => tool.toolId !== i);
+    let removeResult = tools.filter (tool => tool.tool_id !== i);
     this.setState ({
       tools: removeResult,
     });
@@ -74,7 +74,7 @@ class Form extends React.Component {
             ? <h2> Edit, Remove or add Tools </h2>
             : <h2> Add Tools </h2>}
           {this.state.tools &&
-            this.state.tools.map (({toolName, toolImage, toolId}, i) => {
+            this.state.tools.map (({tool_name, tool_image, tool_id}, i) => {
               return (
                 <div className="lessonForm" key={i}>
                   <div className="form-group">
@@ -83,19 +83,19 @@ class Form extends React.Component {
                       <Input
                         className="form-control"
                         type="text"
-                        name="toolName"
+                        name="tool_name"
                         onChange={e => this.onChangeToolshandler (e, i)}
                         placeholder="Tool"
-                        value={toolName}
+                        value={tool_name}
                       />
-                      {!toolImage
+                      {!tool_image
                         ? <div>
                             <label className="btn btn-outline-dark">
                               Upload an image
                               <input
                                 style={{display: 'none'}}
                                 type="file"
-                                name="toolImage"
+                                name="tool_image"
                                 onChange={e =>
                                   this.onChangeImageToolshandler (e, i)}
                                 accept="image/*"
@@ -104,12 +104,12 @@ class Form extends React.Component {
                           </div>
                         : <div
                             className="image-container"
-                            onClick={() => this.removeToolsImgHandler (toolId)}
+                            onClick={() => this.removeToolsImgHandler (tool_id)}
                           >
                             <img
                               className="image"
                               width="100px"
-                              src={toolImage}
+                              src={tool_image}
                               alt="tool"
                             />
                             <div className="middle">
@@ -120,7 +120,7 @@ class Form extends React.Component {
                       <Button
                         className="btn btn-outline-danger lessonBtn"
                         value="Remove"
-                        onClick={() => this.removeToolsHandler (toolId)}
+                        onClick={() => this.removeToolsHandler (tool_id)}
                       />
                     </div>
                   </div>

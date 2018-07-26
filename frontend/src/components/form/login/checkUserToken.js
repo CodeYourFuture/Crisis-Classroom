@@ -8,7 +8,7 @@ class CheckUserToken extends Component {
     super(props);
     this.state = {
       token: "",
-      userName: "",
+      user_name: "",
       err:""
     };
     if(this.state.token=== ""){
@@ -22,8 +22,8 @@ class CheckUserToken extends Component {
       .get(`${process.env.REACT_APP_DOMAIN}/reset-password/${token}`)
       .then(result => {
         if (result.data.rows) {
-          const { token, userName } = result.data.rows[0];
-          this.setState({ token, userName });
+          const { token, user_name } = result.data.rows[0];
+          this.setState({ token, user_name });
         }
       })
       .then(() => {

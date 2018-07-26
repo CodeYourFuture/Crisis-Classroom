@@ -15,13 +15,13 @@ class Form extends React.Component {
 
   onChangeIngredientshandler = (e, index) => {
     const ingredient = this.state.ingredients[index];
-    const newIngredientName = {
+    const newingredient_name = {
       ...ingredient,
       [e.target.name]: e.target.value,
     };
     this.setState ({
       ingredients: this.state.ingredients.map (
-        (ingredient, i) => (i === index ? newIngredientName : ingredient)
+        (ingredient, i) => (i === index ? newingredient_name : ingredient)
       ),
     });
   };
@@ -31,13 +31,13 @@ class Form extends React.Component {
     const data = new FormData ();
     data.append ('image', e.target.files[0]);
     axios.post (`${process.env.REACT_APP_DOMAIN}/files`, data).then (result => {
-      const newIngredientImage = {
+      const newingredient_image = {
         ...ingredient,
-        ingredientImage: result.data.image,
+        ingredient_image: result.data.image,
       };
       this.setState ({
         ingredients: this.state.ingredients.map (
-          (ingredient, i) => (i === index ? newIngredientImage : ingredient)
+          (ingredient, i) => (i === index ? newingredient_image : ingredient)
         ),
       });
     });
@@ -48,19 +48,19 @@ class Form extends React.Component {
       ingredients: [
         ...this.state.ingredients,
         {
-          ingredientId: this.state.ingredients.length + 1,
-          ingredientName: '',
-          ingredientImage: '',
+          ingredient_id: this.state.ingredients.length + 1,
+          ingredient_name: '',
+          ingredient_image: '',
         },
       ],
     });
   };
 
-  removeIngredientsImgHandler = ingredientId => {
+  removeIngredientsImgHandler = ingredient_id => {
     const {ingredients} = this.state;
     ingredients.forEach (ingredient => {
-      if (ingredient.ingredientId === ingredientId) {
-        ingredient.ingredientImage = null;
+      if (ingredient.ingredient_id === ingredient_id) {
+        ingredient.ingredient_image = null;
       }
     });
     this.setState ({
@@ -71,7 +71,7 @@ class Form extends React.Component {
   removeIngredientsHandler = i => {
     const {ingredients} = this.state;
     let removeResult = ingredients.filter (
-      ingredient => ingredient.ingredientId !== i
+      ingredient => ingredient.ingredient_id !== i
     );
     this.setState ({
       ingredients: removeResult,
@@ -87,7 +87,7 @@ class Form extends React.Component {
             : <h2> Add Ingredients </h2>}
           {this.state.ingredients &&
             this.state.ingredients.map (
-              ({ingredientName, ingredientImage, ingredientId}, i) => {
+              ({ingredient_name, ingredient_image, ingredient_id}, i) => {
                 return (
                   <div className="lessonForm" key={i}>
                     <div className="form-group">
@@ -96,19 +96,19 @@ class Form extends React.Component {
                         <Input
                           className="form-control"
                           type="text"
-                          name="ingredientName"
+                          name="ingredient_name"
                           onChange={e => this.onChangeIngredientshandler (e, i)}
                           placeholder="Ingredient"
-                          value={ingredientName}
+                          value={ingredient_name}
                         />
-                        {!ingredientImage
+                        {!ingredient_image
                           ? <div>
                               <label className="btn btn-outline-dark">
                                 Upload an image
                                 <input
                                   style={{display: 'none'}}
                                   type="file"
-                                  name="ingredientImage"
+                                  name="ingredient_image"
                                   onChange={e =>
                                     this.onChangeImageIngredientshandler (e, i)}
                                   accept="image/*"
@@ -118,12 +118,12 @@ class Form extends React.Component {
                           : <div
                               className="image-container"
                               onClick={() =>
-                                this.removeIngredientsImgHandler (ingredientId)}
+                                this.removeIngredientsImgHandler (ingredient_id)}
                             >
                               <img
                                 className="image"
                                 width="100px"
-                                src={ingredientImage}
+                                src={ingredient_image}
                                 alt="ingredient"
                               />
                               <div className="middle">
@@ -135,7 +135,7 @@ class Form extends React.Component {
                           className="btn btn-outline-danger lessonBtn"
                           value="Remove"
                           onClick={() =>
-                            this.removeIngredientsHandler (ingredientId)}
+                            this.removeIngredientsHandler (ingredient_id)}
                         />
                       </div>
                     </div>

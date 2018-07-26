@@ -11,12 +11,12 @@ class UserInfo extends React.Component {
       title: '',
       admin: 0,
       email: '',
-      firstName: '',
-      surName: '',
+      first_name: '',
+      sur_name: '',
       teacher: 0,
-      userName: '',
+      user_name: '',
       avatar: null,
-      aboutUser: '',
+      about_user: '',
       err: '',
       msg: '',
     };
@@ -24,32 +24,33 @@ class UserInfo extends React.Component {
   UNSAFE_componentWillMount() {
     const token = AuthService.getToken();
     const decoded = decode(token);
-    const userName = decoded.userName;
+    const user_name = decoded.user_name;
     axios
-      .post(`${process.env.REACT_APP_DOMAIN}/admin`, { userName })
+      .post(`${process.env.REACT_APP_DOMAIN}/admin`, { user_name })
       .then((result) => {
         if (result) {
+          console.log(result)
           const {
             title,
-            firstName,
-            surName,
-            userName,
+            first_name,
+            sur_name,
+            user_name,
             email,
             teacher,
             admin,
             avatar,
-            aboutUser,
+            about_user,
           } = result.data[0];
           this.setState({
             title,
-            firstName,
-            surName,
-            userName,
+            first_name,
+            sur_name,
+            user_name,
             email,
             teacher,
             admin,
             avatar,
-            aboutUser,
+            about_user,
           });
         }
       })
@@ -67,13 +68,13 @@ class UserInfo extends React.Component {
   render() {
     const {
       title,
-      firstName,
-      surName,
-      userName,
+      first_name,
+      sur_name,
+      user_name,
       email,
       admin,
       avatar,
-      aboutUser,
+      about_user,
       err,
       msg,
     } = this.state;
@@ -103,11 +104,11 @@ class UserInfo extends React.Component {
                   <img className="admin-image" src={avatar} alt="avatar" />
                 )}
               </div>
-              <h5>First Name: {firstName}</h5>
-              <h5>Sur Name: {surName}</h5>
-              <h5>User Name: {userName}</h5>
+              <h5>First Name: {first_name}</h5>
+              <h5>Sur Name: {sur_name}</h5>
+              <h5>User Name: {user_name}</h5>
               <h5>Email: {email}</h5>
-              <h5>{aboutUser}</h5>
+              <h5>{about_user}</h5>
             </div>
             <div className="admin-divs">
             <h4>Chose one of falowing things you want to do..</h4>

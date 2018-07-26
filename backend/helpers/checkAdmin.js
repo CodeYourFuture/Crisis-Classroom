@@ -1,19 +1,27 @@
-const sqlite3 = require('sqlite3').verbose();
+const pg = require('pg');
 
-const filename = './database/crisisdb.sqlit';
-let db = new sqlite3.Database(filename);
+const connectionString = process.env.DATABASE_URL;
 
 const checkAdmin = (data) => {
-  const userName = data;
+  const user_name = data;
   return new Promise((resolve, reject) => {
-    var sql = 'select admin from users where  userName=?';
-    db.get(sql, [userName], (err, user) => {
-      if (err) return reject(err);
-      if (!user) return reject('User does not exist');
-      if (user.admin === 1) {
-        return resolve(user.admin);
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
       }
-      return reject('You have to be an admin');
+      client
+        .query(`select admin from users where  user_name=$1`, [user_name])
+        .then((result) => {
+          if (result) {
+            if (result.rowCount == 0) return reject('User does not exist');
+            if (result.rows[0].admin) {
+              return resolve(result.rows[0].admin);
+            } else return reject('You have to be an admin');
+          } else return reject();
+        });
     });
   });
 };

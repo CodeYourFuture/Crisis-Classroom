@@ -15,13 +15,13 @@ class Form extends React.Component {
 
   onChangeInstructionshandler = (e, index) => {
     const instruction = this.state.instructions[index];
-    const newinstructionName = {
+    const newinstruction_name = {
       ...instruction,
       [e.target.name]: e.target.value,
     };
     this.setState ({
       instructions: this.state.instructions.map (
-        (instruction, i) => (i === index ? newinstructionName : instruction)
+        (instruction, i) => (i === index ? newinstruction_name : instruction)
       ),
     });
   };
@@ -31,13 +31,13 @@ class Form extends React.Component {
     const data = new FormData ();
     data.append ('image', e.target.files[0]);
     axios.post (`${process.env.REACT_APP_DOMAIN}/files`, data).then (result => {
-      const newinstructionImage = {
+      const newinstruction_image = {
         ...instruction,
-        instructionImage: result.data.image,
+        instruction_image: result.data.image,
       };
       this.setState ({
         instructions: this.state.instructions.map (
-          (instruction, i) => (i === index ? newinstructionImage : instruction)
+          (instruction, i) => (i === index ? newinstruction_image : instruction)
         ),
       });
     });
@@ -48,19 +48,19 @@ class Form extends React.Component {
       instructions: [
         ...this.state.instructions,
         {
-          instructionId: this.state.instructions.length + 1,
-          instructionName: '',
-          instructionImage: '',
+          instruction_id: this.state.instructions.length + 1,
+          instruction_name: '',
+          instruction_image: '',
         },
       ],
     });
   };
 
-  removeInstructionsImgHandler = instructionId => {
+  removeInstructionsImgHandler = instruction_id => {
     const {instructions} = this.state;
     instructions.forEach (instruction => {
-      if (instruction.instructionId === instructionId) {
-        instruction.instructionImage = null;
+      if (instruction.instruction_id === instruction_id) {
+        instruction.instruction_image = null;
       }
     });
     this.setState ({
@@ -71,7 +71,7 @@ class Form extends React.Component {
   removeInstructionsHandler = i => {
     const {instructions} = this.state;
     let removeResult = instructions.filter (
-      instruction => instruction.instructionId !== i
+      instruction => instruction.instruction_id !== i
     );
 
     this.setState ({
@@ -89,7 +89,7 @@ class Form extends React.Component {
           <div>
             {this.state.instructions &&
               this.state.instructions.map (
-                ({instructionName, instructionImage, instructionId}, i) => {
+                ({instruction_name, instruction_image, instruction_id}, i) => {
                   return (
                     <div className="lessonForm" key={i}>
                       <div className="form-group">
@@ -98,20 +98,20 @@ class Form extends React.Component {
                           <Input
                             className="form-control"
                             type="text"
-                            name="instructionName"
+                            name="instruction_name"
                             onChange={e =>
                               this.onChangeInstructionshandler (e, i)}
                             placeholder="instruction"
-                            value={instructionName}
+                            value={instruction_name}
                           />
-                          {!instructionImage
+                          {!instruction_image
                             ? <div>
                                 <label className="btn btn-outline-dark">
                                   Upload an image
                                   <input
                                     style={{display: 'none'}}
                                     type="file"
-                                    name="instructionImage"
+                                    name="instruction_image"
                                     onChange={e =>
                                       this.onChangeImageInstructionshandler (
                                         e,
@@ -125,13 +125,13 @@ class Form extends React.Component {
                                 className="image-container"
                                 onClick={() =>
                                   this.removeInstructionsImgHandler (
-                                    instructionId
+                                    instruction_id
                                   )}
                               >
                                 <img
                                   className="image"
                                   width="100px"
-                                  src={instructionImage}
+                                  src={instruction_image}
                                   alt="instruction"
                                 />
                                 <div className="middle">
@@ -143,7 +143,7 @@ class Form extends React.Component {
                             className="btn btn-outline-danger lessonBtn"
                             value="Remove"
                             onClick={() =>
-                              this.removeInstructionsHandler (instructionId)}
+                              this.removeInstructionsHandler (instruction_id)}
                           />
                         </div>
                       </div>

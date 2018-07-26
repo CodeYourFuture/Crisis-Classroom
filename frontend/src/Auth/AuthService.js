@@ -11,12 +11,12 @@ class AuthService {
     };
   }
 
-  login = (userName, password) => {
+  login = (user_name, password) => {
     // Get a token
     return this.fetch (`${this.domain}/login`, {
       method: 'POST',
       body: JSON.stringify ({
-        userName,
+        user_name,
         password,
       }),
     }).then (res => {

@@ -14,28 +14,28 @@ class ConfirmRegistration extends Component {
   onSubmit = () => {
     const {
       title,
-      firstName,
-      surName,
-      userName,
+      first_name,
+      sur_name,
+      user_name,
       email,
       password,
       confirmPassword,
       avatar,
-      aboutUser,
+      about_user,
       uuid,
     } = this.props.userData;
 
     axios
       .post(`${process.env.REACT_APP_DOMAIN}/register`, {
         title,
-        firstName,
-        surName,
-        userName,
+        first_name,
+        sur_name,
+        user_name,
         email,
         password,
         confirmPassword,
         avatar,
-        aboutUser,
+        about_user,
         uuid,
       })
       .then((result) => {
@@ -71,7 +71,7 @@ class ConfirmRegistration extends Component {
         ) : (
           <div>
             <h3>
-              Hi {state.title} {state.surName}, please check the below details
+              Hi {state.title} {state.sur_name}, please check the below details
               and click 'Looks fine'.
             </h3>
             <div>
@@ -127,11 +127,11 @@ class ConfirmRegistration extends Component {
               )}
             </div>
             <ul>
-              <li>First name: {state.firstName}</li>
-              <li>Last name: {state.surName}</li>
-              <li>User name: {state.userName}</li>
+              <li>First name: {state.first_name}</li>
+              <li>Last name: {state.sur_name}</li>
+              <li>User name: {state.user_name}</li>
               <li>Email: {state.email}</li>
-              <li>{state.aboutUser}</li>
+              <li>{state.about_user}</li>
             </ul>
             <div className="row container">
               <Button

@@ -1,26 +1,37 @@
-const sqlite3 = require('sqlite3').verbose();
+const pg = require('pg');
 
-const filename = './database/crisisdb.sqlit';
-let db = new sqlite3.Database(filename);
+const connectionString = process.env.DATABASE_URL;
 
 const CheckRegistrationToken = (req, res) => {
   const token = req.params.token;
-  var sql =
-    'select userName, token, firstName, surName, email from users where token=?';
-  db.all(sql, [token], (err, rows) => {
-    const [user] = rows;
-    if (!user) {
-      return res.status(400).json({ msg: 'Sorry this link is Wrong.' });
-    } else if (err) {
+  pg.connect(connectionString, (err, client, done) => {
+    if (err) {
       return res.status(400).json({
         msg:
           'Ops! Sorry something happened on the server, please try again later.',
       });
-    } else {
-      res.status(200).json({
-        rows,
-      });
     }
+    client
+      .query(
+        `select user_name, token, first_name, sur_name, email from users where token=$1`,
+        [token]
+      )
+      .then((result) => {
+        if (result) {
+          if (result.rowCount == 0) {
+            return res.status(400).json({ msg: 'Sorry this link is Wrong.' });
+          } else {
+            const rows = result.rows;
+            res.status(200).json({
+              rows,
+            });
+          }
+        } else
+          return res.status(400).json({
+            msg:
+              'Ops! Sorry something happened on the server, please try again later.',
+          });
+      });
   });
 };
 module.exports = CheckRegistrationToken;

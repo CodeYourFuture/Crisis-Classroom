@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import decode from 'jwt-decode';
 import AddSkill from '../form/user/addSkill';
+import AddExperience from '../form/user/addExperience';
+
 import { Link } from 'react-router-dom';
 // import Button from '../button';
 // import Label from '../label';
@@ -15,13 +17,14 @@ export default class UserProfile extends React.Component {
       msg: null,
       title: '',
       email: '',
-      firstName: '',
-      surName: '',
-      userName: '',
+      first_name: '',
+      sur_name: '',
+      user_name: '',
       avatar: null,
-      aboutUser: '',
+      about_user: '',
       addSkill: false,
       showSkills: false,
+      showExperience: false,
       skills: [],
     };
   }
@@ -29,29 +32,29 @@ export default class UserProfile extends React.Component {
   UNSAFE_componentWillMount() {
     const token = localStorage.getItem('id_token');
     const decoded = decode(token);
-    const userName = decoded.userName;
+    const user_name = decoded.user_name;
     axios
-      .post(`${process.env.REACT_APP_DOMAIN}/user-profile`, { userName })
+      .post(`${process.env.REACT_APP_DOMAIN}/user-profile`, { user_name })
       .then((result) => {
         if (result) {
           const {
             title,
-            firstName,
-            surName,
-            userName,
+            first_name,
+            sur_name,
+            user_name,
             email,
             avatar,
-            aboutUser,
+            about_user,
           } = result.data[0];
           const { skills } = result.data;
           this.setState({
             title,
-            firstName,
-            surName,
-            userName,
+            first_name,
+            sur_name,
+            user_name,
             email,
             avatar,
-            aboutUser,
+            about_user,
             skills,
           });
         }
@@ -71,25 +74,27 @@ export default class UserProfile extends React.Component {
   ShowAddSkill = (e) => {
     this.setState({ addSkill: e });
   };
-  showSkill=(e)=>{
-    if(!e){
+  showHandler = (e) => {
+    // console.log(e.target.value);
+    if (e) {
       this.setState({ showSkills: true });
-    }else this.setState({ showSkills: false });
-  }
+    } else this.setState({ showSkills: false });
+  };
   render() {
     const {
       title,
-      firstName,
-      surName,
-      userName,
+      first_name,
+      sur_name,
+      user_name,
       email,
       err,
       msg,
       avatar,
-      aboutUser,
+      about_user,
       addSkill,
       skills,
       showSkills,
+      showExperience,
     } = this.state;
     return (
       <div className="user">
@@ -117,14 +122,23 @@ export default class UserProfile extends React.Component {
           )}
         </div>
         <div className="user-user-info">
-          <h5>{firstName}</h5>
-          <h5>{surName}</h5>
-          <h5>{userName}</h5>
+          <h5>{first_name}</h5>
+          <h5>{sur_name}</h5>
+          <h5>{user_name}</h5>
           <h5>{email}</h5>
-          <h5>{aboutUser}</h5>
+          <h5>{about_user}</h5>
         </div>
         <div>
-          <button onClick={()=>this.showSkill(showSkills)}>Skills</button>
+          <button
+            name="showSkills"
+            value={showSkills}
+            onClick={() => this.showHandler(true)}
+          >
+            Skills
+          </button>
+          <button value={showExperience} onClick={this.showHandler}>
+            Experience
+          </button>
           {showSkills ? (
             <div>
               <div>
@@ -132,9 +146,9 @@ export default class UserProfile extends React.Component {
                   return (
                     <Link to={`/edit-skill/${skill.id}`} key={i}>
                       <div className="skill">
-                        <h5>{skill.skillName}</h5>
-                        <h6>{skill.aboutSkill}</h6>
-                        <h6>{skill.skillLevel}</h6>
+                        <h5>{skill.skill_name}</h5>
+                        <h6>{skill.about_skill}</h6>
+                        <h6>{skill.skill_level}</h6>
                       </div>
                     </Link>
                   );
@@ -143,9 +157,12 @@ export default class UserProfile extends React.Component {
               {addSkill ? (
                 <div>
                   <AddSkill />
+                  <AddExperience />
                 </div>
               ) : (
-                <button onClick={() => this.ShowAddSkill(true)}>Add Skills</button>
+                <button onClick={() => this.ShowAddSkill(true)}>
+                  Add Skills
+                </button>
               )}
             </div>
           ) : (

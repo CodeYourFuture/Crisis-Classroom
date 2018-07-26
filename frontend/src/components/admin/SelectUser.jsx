@@ -14,14 +14,14 @@ class SelectUser extends React.Component {
       title: '',
       admin: 0,
       email: '',
-      firstName: '',
-      surName: '',
+      first_name: '',
+      sur_name: '',
       teacher: 0,
-      userName: '',
+      user_name: '',
       avatar: null,
       err: '',
       msg: '',
-      aboutUser: '',
+      about_user: '',
     };
   }
   handleChange = (e) => {
@@ -31,12 +31,12 @@ class SelectUser extends React.Component {
   };
   onSubmit = (e) => {
     e.preventDefault();
-    const { teacher, admin, userName } = this.state;
+    const { teacher, admin, user_name } = this.state;
     axios
       .post(`${process.env.REACT_APP_DOMAIN}/accept-registration`, {
         teacher,
         admin,
-        userName,
+        user_name,
       })
       .then((result) => {
         if (result) {
@@ -59,32 +59,32 @@ class SelectUser extends React.Component {
     const id = this.props.match.params.id;
     const token = AuthService.getToken();
     const decoded = decode(token);
-    const userName = decoded.userName;
+    const user_name = decoded.user_name;
     axios
-      .post(`${process.env.REACT_APP_DOMAIN}${url}`, { userName, id })
+      .post(`${process.env.REACT_APP_DOMAIN}${url}`, { user_name, id })
       .then((result) => {
         if (result) {
           const {
             title,
-            firstName,
-            surName,
-            userName,
+            first_name,
+            sur_name,
+            user_name,
             email,
             teacher,
             admin,
             avatar,
-            aboutUser,
+            about_user,
           } = result.data[0];
           this.setState({
             title,
-            firstName,
-            surName,
-            userName,
+            first_name,
+            sur_name,
+            user_name,
             email,
             teacher,
             admin,
             avatar,
-            aboutUser,
+            about_user,
           });
         }
       })
@@ -103,16 +103,16 @@ class SelectUser extends React.Component {
   render() {
     const {
       title,
-      firstName,
-      surName,
-      userName,
+      first_name,
+      sur_name,
+      user_name,
       email,
       teacher,
       admin,
       err,
       msg,
       avatar,
-      aboutUser,
+      about_user,
     } = this.state;
     return (
       <div className="admin">
@@ -140,11 +140,11 @@ class SelectUser extends React.Component {
           )}
         </div>
         <div className="admin-user-info">
-          <h5>First Name: {firstName}</h5>
-          <h5>Sur Name: {surName}</h5>
-          <h5>User Name: {userName}</h5>
+          <h5>First Name: {first_name}</h5>
+          <h5>Sur Name: {sur_name}</h5>
+          <h5>User Name: {user_name}</h5>
           <h5>Email: {email}</h5>
-          <h5>{aboutUser}</h5>
+          <h5>{about_user}</h5>
             <form onSubmit={this.onSubmit}>
               <Label value="Teacher" />
               &nbsp; &nbsp;

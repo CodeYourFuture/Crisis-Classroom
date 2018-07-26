@@ -4,18 +4,18 @@ const filename = './database/crisisdb.sqlit';
 let db = new sqlite3.Database(filename);
 
 const creatLessons = (req, res) => {
-  const lessonId = Date.now().toString();
+  const lesson_id = Date.now().toString();
   const lesson = req.body;
 
   const { tools, ingredients, instructions } = lesson;
-  saveLessons(lesson, lessonId)
-    .then(() => tools.forEach((tool) => saveTool(tool, lessonId)))
+  saveLessons(lesson, lesson_id)
+    .then(() => tools.forEach((tool) => saveTool(tool, lesson_id)))
     .then(() =>
-      ingredients.forEach((ingredient) => saveIngredient(ingredient, lessonId))
+      ingredients.forEach((ingredient) => saveIngredient(ingredient, lesson_id))
     )
     .then(() =>
       instructions.forEach((instruction) =>
-        saveInstruction(instruction, lessonId)
+        saveInstruction(instruction, lesson_id)
       )
     )
     .then(() => res.json(console.log(res)))
@@ -28,35 +28,35 @@ const creatLessons = (req, res) => {
     );
 };
 
-const saveLessons = (lesson, lessonId) => {
+const saveLessons = (lesson, lesson_id) => {
   const {
-    lessonTitle,
-    lessonTitleImage,
-    timeToPrepare,
-    timeToPrepareImage,
-    numberOfPeople,
-    numberOfPeopleImage,
+    lesson_title,
+    lesson_title_image,
+    time_to_prepare,
+    time_to_prepare_image,
+    number_of_people,
+    number_of_people_image,
   } = lesson;
   return new Promise((resolve, reject) => {
     var sql = `insert into lessons
     (id,
-      lessonTitle,
-      lessonTitleImage,
-      timeToPrepare,
-      timeToPrepareImage,
-      numberOfPeople,
-      numberOfPeopleImage)
+      lesson_title,
+      lesson_title_image,
+      time_to_prepare,
+      time_to_prepare_image,
+      number_of_people,
+      number_of_people_image)
     values (?, ?, ?, ?, ?, ?, ?)`;
     db.run(
       sql,
       [
-        lessonId,
-        lessonTitle,
-        lessonTitleImage,
-        timeToPrepare,
-        timeToPrepareImage,
-        numberOfPeople,
-        numberOfPeopleImage,
+        lesson_id,
+        lesson_title,
+        lesson_title_image,
+        time_to_prepare,
+        time_to_prepare_image,
+        number_of_people,
+        number_of_people_image,
       ],
       (err, data) => {
         if (err) return reject(err);
@@ -66,14 +66,14 @@ const saveLessons = (lesson, lessonId) => {
   });
 };
 
-const saveTool = (tool, lessonId) => {
+const saveTool = (tool, lesson_id) => {
   return new Promise((resolve, reject) => {
     var sql = `insert into tools
-          (lessonId,toolId, toolName, toolImage)
+          (lesson_id,tool_id, tool_name, tool_image)
           values (?, ?, ?, ?)`;
     db.run(
       sql,
-      [lessonId, tool.toolId, tool.toolName, tool.toolImage],
+      [lesson_id, tool.tool_id, tool.tool_name, tool.tool_image],
       (err, data) => {
         if (err) return reject(err);
         return resolve(data);
@@ -82,18 +82,18 @@ const saveTool = (tool, lessonId) => {
   });
 };
 
-const saveIngredient = (ingredient, lessonId) => {
+const saveIngredient = (ingredient, lesson_id) => {
   return new Promise((resolve, reject) => {
     var sql = `insert into ingredients
-          (lessonId, ingredientId, ingredientName, ingredientImage)
+          (lesson_id, ingredient_id, ingredient_name, ingredient_image)
           values (?, ?, ?, ?)`;
     db.run(
       sql,
       [
-        lessonId,
-        ingredient.ingredientId,
-        ingredient.ingredientName,
-        ingredient.ingredientImage,
+        lesson_id,
+        ingredient.ingredient_id,
+        ingredient.ingredient_name,
+        ingredient.ingredient_image,
       ],
       (err, data) => {
         if (err) return reject(err);
@@ -103,18 +103,18 @@ const saveIngredient = (ingredient, lessonId) => {
   });
 };
 
-const saveInstruction = (instruction, lessonId) => {
+const saveInstruction = (instruction, lesson_id) => {
   return new Promise((resolve, reject) => {
     var sql = `insert into instructions
-          (lessonId,instructionId, instructionName, instructionImage)
+          (lesson_id,instruction_id, instruction_name, instruction_image)
           values (?, ?, ?, ?)`;
     db.run(
       sql,
       [
-        lessonId,
-        instruction.instructionId,
-        instruction.instructionName,
-        instruction.instructionImage,
+        lesson_id,
+        instruction.instruction_id,
+        instruction.instruction_name,
+        instruction.instruction_image,
       ],
       (err, data) => {
         if (err) return reject(err);

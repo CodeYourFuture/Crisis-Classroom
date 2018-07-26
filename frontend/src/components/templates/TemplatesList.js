@@ -25,6 +25,7 @@ export default class TemplatIndex extends Component {
   };
 
   render() {
+    console.log(this.props.lessons)
     let searchResult = this.props.lessons.filter(searchingFor(this.state.term));
     return (
       <div>

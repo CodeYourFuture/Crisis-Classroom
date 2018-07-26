@@ -1,8 +1,6 @@
-const sqlite3 = require('sqlite3').verbose();
+const pg = require('pg');
 
-const filename = './database/crisisdb.sqlit';
-
-let db = new sqlite3.Database(filename);
+const connectionString = process.env.DATABASE_URL;
 
 const lessonTitle = (req, res) => {
   getLessons()
@@ -10,13 +8,13 @@ const lessonTitle = (req, res) => {
       Promise.all(lessons.map((lesson) => getLessonData(lesson)))
     )
     .then((lessonsPlusData) => res.json(lessonsPlusData))
-    .catch((err) =>
+    .catch((err) => {
       res.status(400).json({
         err,
         msg:
           'Ops! Sorry something happened on the server, please try again later.',
-      })
-    );
+      });
+    });
 };
 
 const getLessonData = (lesson) => {
@@ -27,49 +25,82 @@ const getLessonData = (lesson) => {
   ]).then(([tools, ingredients, instructions]) => {
     return {
       ...lesson,
-      tools: tools,
-      ingredients: ingredients,
-      instructions: instructions,
+      tools,
+      ingredients,
+      instructions,
     };
   });
 };
-
 const getLessons = () => {
   return new Promise((resolve, reject) => {
-    var sql = `select * from lessons`;
-    db.all(sql, [], (err, data) => {
-      if (err) return reject(err);
-      return resolve(data);
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
+      }
+      client.query(`select * from lessons`).then((result) => {
+        const data = result.rows;
+        return resolve(data);
+      });
     });
   });
 };
 
 const getTools = (lesson_id) => {
   return new Promise((resolve, reject) => {
-    var sql = `select * from tools where tools.lesson_id= ?`;
-    db.all(sql, [lesson_id], (err, data) => {
-      if (err) return reject(err);
-      return resolve(data);
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
+      }
+      client
+        .query(`select * from tools where lesson_id=$1`, [lesson_id])
+        .then((result) => {
+          const data = result.rows;
+          return resolve(data);
+        });
     });
   });
 };
 
 const getIngredients = (lesson_id) => {
   return new Promise((resolve, reject) => {
-    var sql = `select * from ingredients where ingredients.lesson_id=?`;
-    db.all(sql, [lesson_id], (err, data) => {
-      if (err) return reject(err);
-      return resolve(data);
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
+      }
+      client
+        .query(`select * from ingredients where lesson_id=$1`, [lesson_id])
+        .then((result) => {
+          const data = result.rows;
+          return resolve(data);
+        });
     });
   });
 };
 
 const getInstructions = (lesson_id) => {
   return new Promise((resolve, reject) => {
-    var sql = `select * from instructions where instructions.lesson_id=?`;
-    db.all(sql, [lesson_id], (err, data) => {
-      if (err) return reject(err);
-      return resolve(data);
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
+      }
+      client
+        .query(`select * from instructions where lesson_id=$1`, [lesson_id])
+        .then((result) => {
+          const data = result.rows;
+          return resolve(data);
+        });
     });
   });
 };

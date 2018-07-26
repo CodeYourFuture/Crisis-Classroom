@@ -22,8 +22,8 @@ const creatLessons = (req, res) => {
         saveInstruction(instruction);
       })
     )
-    .then((data) =>
-      res.json({ data, msg: 'Success! Your lesson has been created.' })
+    .then(() =>
+      res.json({  msg: 'Success! Your lesson has been created.' })
     )
     .catch((err) =>
       res.status(400).json({

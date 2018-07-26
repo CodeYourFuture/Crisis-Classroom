@@ -1,7 +1,6 @@
-const sqlite3 = require('sqlite3').verbose();
+const pg = require('pg');
 
-const filename = './database/crisisdb.sqlit';
-let db = new sqlite3.Database(filename);
+const connectionString = process.env.DATABASE_URL;
 
 const DeleteLesson = (req, res) => {
   const lesson_id = req.body.id;
@@ -22,40 +21,70 @@ const DeleteLesson = (req, res) => {
 
 const deleteLessons = (lesson_id) => {
   return new Promise((resolve, reject) => {
-    var sql = `DELETE FROM lessons where id=?`;
-    db.run(sql, [lesson_id], (err, data) => {
-      if (err) return reject(err);
-      return resolve(data);
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
+      }
+      client.query(`DELETE FROM lessons where id=$1`, [lesson_id]).then(() => {
+        return resolve();
+      });
     });
   });
 };
 
 const deleteTool = (lesson_id) => {
   return new Promise((resolve, reject) => {
-    var sql = `DELETE FROM tools where lesson_id=?`;
-    db.run(sql, [lesson_id], (err, data) => {
-      if (err) return reject(err);
-      return resolve(data);
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
+      }
+      client
+        .query(`DELETE FROM tools where lesson_id=$1`, [lesson_id])
+        .then(() => {
+          return resolve();
+        });
     });
   });
 };
 
 const deleteIngredient = (lesson_id) => {
   return new Promise((resolve, reject) => {
-    var sql = `DELETE FROM ingredients where lesson_id=?`;
-    db.run(sql, [lesson_id], (err, data) => {
-      if (err) return reject(err);
-      return resolve(data);
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
+      }
+      client
+        .query(`DELETE FROM ingredients where lesson_id=$1`, [lesson_id])
+        .then(() => {
+          return resolve();
+        });
     });
   });
 };
 
 const deleteInstruction = (lesson_id) => {
   return new Promise((resolve, reject) => {
-    var sql = `DELETE FROM  instructions where lesson_id=?`;
-    db.run(sql, [lesson_id], (err, data) => {
-      if (err) return reject(err);
-      return resolve(data);
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
+      }
+      client
+        .query(`DELETE FROM  instructions where lesson_id=$1`, [lesson_id])
+        .then(() => {
+          return resolve();
+        });
     });
   });
 };

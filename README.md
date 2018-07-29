@@ -17,5 +17,5 @@ Davide Crestini
 
 
 In order to run you must do:
-npm install --save
+npm install
 npm start

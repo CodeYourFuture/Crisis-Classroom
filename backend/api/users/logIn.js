@@ -15,7 +15,7 @@ const login = (req, res) => {
           'Ops! Sorry something happened on the server, please try again later.',
       });
     }
-    query = client
+     client
       .query(
         `select id, title, user_name, password, admin, teacher, avatar from users where user_name=$1`,
         [user_name]
@@ -75,6 +75,7 @@ const login = (req, res) => {
           });
         }
       });
+      done()
   });
 };
 

@@ -75,7 +75,6 @@ export default class UserProfile extends React.Component {
     this.setState({ addSkill: e });
   };
   showHandler = (e) => {
-    // console.log(e.target.value);
     if (e) {
       this.setState({ showSkills: true });
     } else this.setState({ showSkills: false });

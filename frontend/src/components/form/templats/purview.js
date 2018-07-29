@@ -1,34 +1,43 @@
-import React from "react";
-import Context from "./context";
-import Button from "../../button";
-import { Grid, Row, Col } from "react-flexbox-grid/lib";
-import axios from "axios";
+import React from 'react';
+import Context from './context';
+import Button from '../../button';
+import { Grid, Row, Col } from 'react-flexbox-grid/lib';
+import axios from 'axios';
 
 export default class preview extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      msg: '',
+      err: '',
+    };
+  }
 
-  CreatHandler = lessonData => {
+  CreatHandler = (lessonData) => {
     axios
       .post(`${process.env.REACT_APP_DOMAIN}/creat-lessons`, lessonData)
-      .then(result => {
+      .then((result) => {
         if (result) {
-          this.props.history.replace("/template-created");
+          const { msg, err } = result.data;
+          this.setState({ msg, err });
         }
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        this.setState({ err });
       });
   };
 
-  EditHandler = lessonData => {
+  EditHandler = (lessonData) => {
     axios
       .post(`${process.env.REACT_APP_DOMAIN}/edit-lessons`, lessonData)
-      .then(result => {
+      .then((result) => {
         if (result) {
-          this.props.history.replace("/template-edited");
+          const { msg, err } = result.data;
+          this.setState({ msg, err });
         }
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        this.setState({err})
       });
   };
 
@@ -37,7 +46,7 @@ export default class preview extends React.Component {
       <div>
         <h2 className="Preview-h2">Preview</h2>
         <Context.Consumer>
-          {context => {
+          {(context) => {
             return (
               <Grid fluid className="grid-container">
                 <Row className="mian-row">
@@ -121,7 +130,7 @@ export default class preview extends React.Component {
           }}
         </Context.Consumer>
         <Context.Consumer>
-          {context => {
+          {(context) => {
             const {
               lesson_title,
               lesson_title_image,
@@ -132,11 +141,11 @@ export default class preview extends React.Component {
               tools,
               ingredients,
               instructions,
-              previousFormHandler
+              previousFormHandler,
             } = context;
             const lesson_id = this.props.id;
             return (
-              <div style={{ display: "flex" }}>
+              <div style={{ display: 'flex' }}>
                 <Button
                   className="btn btn-outline-dark "
                   value="previous"
@@ -144,7 +153,7 @@ export default class preview extends React.Component {
                 />
                 &nbsp;
                 {lesson_id ? (
-                  <div style={{ display: "flex" }}>
+                  <div style={{ display: 'flex' }}>
                     <Button
                       className="btn btn-outline-dark "
                       value="Edit"
@@ -159,11 +168,10 @@ export default class preview extends React.Component {
                           number_of_people_image,
                           tools,
                           ingredients,
-                          instructions
-                        })
-                      }
+                          instructions,
+                        })}
                     />
-                &nbsp;                    
+                    &nbsp;
                     <Button
                       className="btn btn-outline-dark "
                       value="Create New One"
@@ -177,9 +185,8 @@ export default class preview extends React.Component {
                           number_of_people_image,
                           tools,
                           ingredients,
-                          instructions
-                        })
-                      }
+                          instructions,
+                        })}
                     />
                   </div>
                 ) : (
@@ -196,9 +203,8 @@ export default class preview extends React.Component {
                         number_of_people_image,
                         tools,
                         ingredients,
-                        instructions
-                      })
-                    }
+                        instructions,
+                      })}
                   />
                 )}
               </div>

@@ -40,6 +40,7 @@ const getUser = (id) => {
             return resolve(data);
           } else return reject(err);
         });
+        done()
     });
   });
 };

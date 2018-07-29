@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Grid, Row, Col } from "react-flexbox-grid/lib";
 import axios from "axios";
 import Button from "../button";
-
+import "./style.css"
 
 export default class Template extends React.Component {
   constructor(props) {

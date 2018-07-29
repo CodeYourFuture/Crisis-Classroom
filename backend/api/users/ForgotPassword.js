@@ -37,7 +37,6 @@ const ForgotPassword = (req, res, next) => {
                   });
                 } else {
                   const token_expires = Date.now() + 60 * 60 * 1000; //one hour from now
-                  pg.connect(connectionString, (err, client, done) => {
                     if (err) {
                       return res.status(400).json({
                         msg:
@@ -85,10 +84,10 @@ const ForgotPassword = (req, res, next) => {
                               'Ops! Sorry something happened on the server, please try again later.',
                           });
                       });
-                  });
                 }
               }
             });
+            done()
         });
       },
     ],

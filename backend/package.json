@@ -20,27 +20,15 @@
     "cors-prefetch-middleware": "^1.0.0",
     "dotenv": "^6.0.0",
     "express": "^4.15.4",
-    "express-handlebars": "^3.0.0",
-    "express-jwt": "^5.3.1",
-    "express-validator": "^4.3.0",
     "fs": "0.0.1-security",
-    "handlebars": "^4.0.11",
-    "images-upload-middleware": "^1.1.1",
     "jsonwebtoken": "^8.2.1",
-    "knex": "0.13.0",
-    "mongodb": "^3.0.2",
     "multer": "^1.3.0",
     "multer-s3": "^2.7.0",
     "nodemailer": "^4.6.5",
-    "passport": "^0.4.0",
     "pg": "^6.1.0",
-    "pg-promise": "^8.4.4",
-    "sqlite3": "^4.0.1"
+    "pg-promise": "^8.4.4"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "faker": "^4.1.0",
-    "jsonfile": "^4.0.0",
     "nodemon": "1.11.0"
   }
 }

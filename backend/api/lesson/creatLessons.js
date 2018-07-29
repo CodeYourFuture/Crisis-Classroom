@@ -1,124 +1,219 @@
-const sqlite3 = require('sqlite3').verbose();
+const pg = require("pg");
 
-const filename = './database/crisisdb.sqlit';
-let db = new sqlite3.Database(filename);
-
+const connectionString = process.env.DATABASE_URL;
+let lesson_id = [];
 const creatLessons = (req, res) => {
-  const lesson_id = Date.now().toString();
+  const date_id = Date.now().toString();
   const lesson = req.body;
-
   const { tools, ingredients, instructions } = lesson;
-  saveLessons(lesson, lesson_id)
-    .then(() => tools.forEach((tool) => saveTool(tool, lesson_id)))
+  saveLessons(lesson, date_id)
     .then(() =>
-      ingredients.forEach((ingredient) => saveIngredient(ingredient, lesson_id))
+      tools.forEach(tool => {
+        saveTool(tool);
+      })
     )
     .then(() =>
-      instructions.forEach((instruction) =>
-        saveInstruction(instruction, lesson_id)
-      )
+      ingredients.forEach(ingredient => {
+        saveIngredient(ingredient);
+      })
     )
-    .then(() => res.json(console.log(res)))
-    .catch((err) =>
+    .then(() =>
+      instructions.forEach(instruction => {
+        saveInstruction(instruction);
+      })
+    )
+    .then(()=> lesson_id = [])
+    .then(() => {
+      res.json({ msg: "Success! Your lesson has been created." });
+    })
+    .catch(err =>
       res.status(400).json({
         err,
         msg:
-          'Ops! Sorry something happened on the server, please try again later.',
+          "Ops! Sorry something happened on the server, please try again later."
       })
     );
 };
 
-const saveLessons = (lesson, lesson_id) => {
+const saveLessons = (lesson, date_id) => {
   const {
     lesson_title,
     lesson_title_image,
     time_to_prepare,
     time_to_prepare_image,
     number_of_people,
-    number_of_people_image,
+    number_of_people_image
   } = lesson;
   return new Promise((resolve, reject) => {
-    var sql = `insert into lessons
-    (id,
-      lesson_title,
-      lesson_title_image,
-      time_to_prepare,
-      time_to_prepare_image,
-      number_of_people,
-      number_of_people_image)
-    values (?, ?, ?, ?, ?, ?, ?)`;
-    db.run(
-      sql,
-      [
-        lesson_id,
-        lesson_title,
-        lesson_title_image,
-        time_to_prepare,
-        time_to_prepare_image,
-        number_of_people,
-        number_of_people_image,
-      ],
-      (err, data) => {
-        if (err) return reject(err);
-        return resolve(data);
+    pg.connect(
+      connectionString,
+      (err, client, done) => {
+        if (err) {
+          return reject({
+            msg:
+              "Ops! Sorry something happened on the server, please try again later."
+          });
+        }
+        client
+          .query(
+            `insert into lessons
+        (
+          lesson_title,
+          lesson_title_image,
+          time_to_prepare,
+          time_to_prepare_image,
+          number_of_people,
+          number_of_people_image,
+        date_id)
+        values ($1, $2, $3, $4, $5, $6, $7)`,
+            [
+              lesson_title,
+              lesson_title_image,
+              time_to_prepare,
+              time_to_prepare_image,
+              number_of_people,
+              number_of_people_image,
+              date_id
+            ]
+          )
+          .then(result => {
+            if (result) {
+              if (err) {
+                return reject({
+                  msg:
+                    "Ops! Sorry something happened on the server, please try again later."
+                });
+              }
+              client
+                .query(`select id from lessons where date_id=$1`, [date_id])
+                .then(result => {
+                  if (result) {
+                    id = result.rows[0].id;
+                    lesson_id.push(id);
+                    return resolve();
+                  }
+                });
+            }
+          });
+        done();
       }
     );
   });
 };
 
-const saveTool = (tool, lesson_id) => {
+const saveTool = tool => {
+  const id = lesson_id[0];
   return new Promise((resolve, reject) => {
-    var sql = `insert into tools
+    pg.connect(
+      connectionString,
+      (err, client, done) => {
+        if (err) {
+          return reject({
+            msg:
+              "Ops! Sorry something happened on the server, please try again later."
+          });
+        }
+        client
+          .query(
+            `insert into tools
           (lesson_id,tool_id, tool_name, tool_image)
-          values (?, ?, ?, ?)`;
-    db.run(
-      sql,
-      [lesson_id, tool.tool_id, tool.tool_name, tool.tool_image],
-      (err, data) => {
-        if (err) return reject(err);
-        return resolve(data);
+          values ($1, $2, $3, $4)`,
+            [id, tool.tool_id, tool.tool_name, tool.tool_image]
+          )
+          .then(result => {
+            if (result) {
+              if (err) {
+                return reject({
+                  msg:
+                    "Ops! Sorry something happened on the server, please try again later."
+                });
+              }
+              return resolve();
+            }
+          });
+        done();
       }
     );
   });
 };
 
-const saveIngredient = (ingredient, lesson_id) => {
+const saveIngredient = ingredient => {
+  const id = lesson_id[0];
   return new Promise((resolve, reject) => {
-    var sql = `insert into ingredients
+    pg.connect(
+      connectionString,
+      (err, client, done) => {
+        if (err) {
+          return reject({
+            msg:
+              "Ops! Sorry something happened on the server, please try again later."
+          });
+        }
+        client
+          .query(
+            `insert into ingredients
           (lesson_id, ingredient_id, ingredient_name, ingredient_image)
-          values (?, ?, ?, ?)`;
-    db.run(
-      sql,
-      [
-        lesson_id,
-        ingredient.ingredient_id,
-        ingredient.ingredient_name,
-        ingredient.ingredient_image,
-      ],
-      (err, data) => {
-        if (err) return reject(err);
-        return resolve(data);
+          values ($1, $2, $3, $4)`,
+            [
+              id,
+              ingredient.ingredient_id,
+              ingredient.ingredient_name,
+              ingredient.ingredient_image
+            ]
+          )
+          .then(result => {
+            if (result) {
+              if (err) {
+                return reject({
+                  msg:
+                    "Ops! Sorry something happened on the server, please try again later."
+                });
+              }
+              return resolve();
+            }
+          });
+        done();
       }
     );
   });
 };
 
-const saveInstruction = (instruction, lesson_id) => {
+const saveInstruction = instruction => {
+  const id = lesson_id[0];
   return new Promise((resolve, reject) => {
-    var sql = `insert into instructions
+    pg.connect(
+      connectionString,
+      (err, client, done) => {
+        if (err) {
+          return reject({
+            msg:
+              "Ops! Sorry something happened on the server, please try again later."
+          });
+        }
+        client
+          .query(
+            `insert into instructions
           (lesson_id,instruction_id, instruction_name, instruction_image)
-          values (?, ?, ?, ?)`;
-    db.run(
-      sql,
-      [
-        lesson_id,
-        instruction.instruction_id,
-        instruction.instruction_name,
-        instruction.instruction_image,
-      ],
-      (err, data) => {
-        if (err) return reject(err);
-        return resolve(data);
+          values ($1, $2, $3, $4)`,
+            [
+              id,
+              instruction.instruction_id,
+              instruction.instruction_name,
+              instruction.instruction_image
+            ]
+          )
+          .then(result => {
+            if (result) {
+              if (err) {
+                return reject({
+                  msg:
+                    "Ops! Sorry something happened on the server, please try again later."
+                });
+              }
+              return resolve();
+            }
+          });
+        done();
       }
     );
   });

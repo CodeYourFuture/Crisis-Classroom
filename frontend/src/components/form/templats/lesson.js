@@ -41,7 +41,7 @@ class Form extends React.Component {
         }
       })
       .catch (error => {
-        console.log (error);
+        this.setState({error})
       });
   };
   // onChangeImageLessonhandler = e => {

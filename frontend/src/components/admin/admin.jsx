@@ -29,7 +29,6 @@ class UserInfo extends React.Component {
       .post(`${process.env.REACT_APP_DOMAIN}/admin`, { user_name })
       .then((result) => {
         if (result) {
-          console.log(result)
           const {
             title,
             first_name,

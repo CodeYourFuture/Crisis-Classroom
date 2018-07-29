@@ -36,6 +36,7 @@ const getAdmin = (user_name) => {
             return resolve(admin);
           } else return reject();
         });
+        done()
     });
   });
 };

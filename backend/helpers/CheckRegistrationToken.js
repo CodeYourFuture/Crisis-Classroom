@@ -32,6 +32,7 @@ const CheckRegistrationToken = (req, res) => {
               'Ops! Sorry something happened on the server, please try again later.',
           });
       });
+      done()
   });
 };
 module.exports = CheckRegistrationToken;

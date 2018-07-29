@@ -38,6 +38,7 @@ const getUser = (user_name) => {
             return resolve(user);
           } else return reject(err);
         });
+        done()
     });
   });
 };

@@ -73,6 +73,7 @@ const checkEmail = (email) => {
             return reject({ err, msg: 'You already registerd' });
           }
         });
+        done()
     });
   });
 };
@@ -92,6 +93,7 @@ const checkuser_name = (user_name) => {
             return reject({ err, msg: 'You already registerd' });
           }
         });
+        done()
     });
   });
 };
@@ -134,7 +136,7 @@ const saveUserData = (data, userInfo) => {
           uuid,
         ]
       );
-
+      done()
       return resolve(data, userInfo);
     });
   });

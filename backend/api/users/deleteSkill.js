@@ -33,6 +33,7 @@ const delelet = (id) => {
               'Ops! Sorry something happened on the server, please try again later.',
           });
       });
+      done()
     });
   });
 };

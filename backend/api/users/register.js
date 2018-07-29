@@ -159,7 +159,7 @@ const sendEmail = (data, userInfo) => {
       to: process.env.USER_GMAIL,
       from: email,
       subject: 'accept registration',
-      text: ` http://localhost:3000/accept-registration/${token}`,
+      text: ` https://crisis-classroom.codeyourfuture.io/accept-registration/${token}`,
     };
     smtpTransport.sendMail(mailOptions, (err) => {
       if (err)

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Input from "../input";
-import PlusIcon from "../../image/icons/plus-icon-green-hi.png"
+import PlusIcon from "../../image/icons/plus-icon-green-hi.png";
 
 function searchingFor(term) {
   return db => {
@@ -25,7 +25,8 @@ export default class TemplatIndex extends Component {
   };
 
   render() {
-    let searchResult = this.props.lessons.filter(searchingFor(this.state.term));
+    const lessons = this.props.lessons
+    let searchResult = lessons.filter(searchingFor(this.state.term))
     return (
       <div>
         <h1>Templates</h1>
@@ -39,7 +40,11 @@ export default class TemplatIndex extends Component {
         &nbsp; &nbsp;
         <div className="templets">
           <Link to="/add-new-template" className="add-templat">
-            <img src={PlusIcon} alt="plus icon green" className="add-templat-p"/>
+            <img
+              src={PlusIcon}
+              alt="plus icon green"
+              className="add-templat-p"
+            />
           </Link>
           {searchResult.map((e, i) => (
             <div className="templetsItem" key={i}>

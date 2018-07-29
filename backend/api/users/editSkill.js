@@ -40,6 +40,7 @@ const setSkill = (skill) => {
                 'Ops! Sorry something happened on the server, please try again later.',
             });
         });
+        done()
     });
   });
 };

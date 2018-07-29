@@ -19,6 +19,7 @@ const checkEmail = (req, res) => {
           res.status(200).json({ rows });
         }
       });
+      done()
   });
 };
 module.exports = checkEmail;

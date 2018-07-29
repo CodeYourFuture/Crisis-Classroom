@@ -68,6 +68,7 @@ const editLessons = (lesson) => {
         .then(() => {
           return resolve();
         });
+        done()
     });
   });
 };
@@ -91,6 +92,7 @@ const editTool = (tool, lesson_id) => {
           .then(() => {
             return resolve();
           });
+          done()
       });
     } else {
       pg.connect(connectionString, (err, client, done) => {
@@ -110,6 +112,7 @@ const editTool = (tool, lesson_id) => {
           .then(() => {
             return resolve();
           });
+          done()
       });
     }
   });
@@ -138,6 +141,7 @@ const editIngredient = (ingredient, lesson_id) => {
           .then(() => {
             return resolve();
           });
+          done()
       });
     } else {
       pg.connect(connectionString, (err, client, done) => {
@@ -162,6 +166,7 @@ const editIngredient = (ingredient, lesson_id) => {
           .then(() => {
             return resolve();
           });
+          done()
       });
     }
   });
@@ -190,6 +195,7 @@ const editInstruction = (instruction, lesson_id) => {
           .then(() => {
             return resolve();
           });
+          done()
       });
     } else {
       pg.connect(connectionString, (err, client, done) => {
@@ -214,6 +220,7 @@ const editInstruction = (instruction, lesson_id) => {
           .then(() => {
             return resolve();
           });
+          done()
       });
     }
   });

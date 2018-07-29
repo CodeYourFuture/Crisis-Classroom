@@ -34,6 +34,7 @@ const CheckUserToken = (req, res) => {
           }
         }
       });
+      done()
   });
 };
 module.exports = CheckUserToken;

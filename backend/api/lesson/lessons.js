@@ -44,6 +44,7 @@ const getLessons = () => {
         const data = result.rows;
         return resolve(data);
       });
+      done()
     });
   });
 };
@@ -63,6 +64,7 @@ const getTools = (lesson_id) => {
           const data = result.rows;
           return resolve(data);
         });
+        done()
     });
   });
 };
@@ -82,7 +84,9 @@ const getIngredients = (lesson_id) => {
           const data = result.rows;
           return resolve(data);
         });
+        done()
     });
+
   });
 };
 
@@ -101,6 +105,7 @@ const getInstructions = (lesson_id) => {
           const data = result.rows;
           return resolve(data);
         });
+        done()
     });
   });
 };

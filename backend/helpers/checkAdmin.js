@@ -22,6 +22,7 @@ const checkAdmin = (data) => {
             } else return reject('You have to be an admin');
           } else return reject();
         });
+        done()
     });
   });
 };

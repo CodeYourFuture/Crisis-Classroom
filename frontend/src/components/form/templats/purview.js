@@ -18,11 +18,12 @@ export default class preview extends React.Component {
       .post(`${process.env.REACT_APP_DOMAIN}/creat-lessons`, lessonData)
       .then((result) => {
         if (result) {
-          console.log(result);
+          const { msg, err } = result.data;
+          this.setState({ msg, err });
         }
       })
       .catch((err) => {
-        console.log(err);
+        this.setState({ err });
       });
   };
 
@@ -31,11 +32,12 @@ export default class preview extends React.Component {
       .post(`${process.env.REACT_APP_DOMAIN}/edit-lessons`, lessonData)
       .then((result) => {
         if (result) {
-          console.log(result);
+          const { msg, err } = result.data;
+          this.setState({ msg, err });
         }
       })
       .catch((err) => {
-        console.log(err);
+        this.setState({err})
       });
   };
 

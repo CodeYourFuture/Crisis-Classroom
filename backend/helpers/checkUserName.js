@@ -15,11 +15,11 @@ const checkuser_name = (req, res) => {
       ])
       .then((result) => {
         if (result) {
-          console.log(result);
           const { rows } = result;
           res.status(200).json({ rows });
         }
       });
+      done()
   });
 };
 module.exports = checkuser_name;

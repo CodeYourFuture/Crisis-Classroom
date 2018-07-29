@@ -21,7 +21,7 @@ const AcceptRegistration = (req, res) => {
             `UPDATE users set teacher=$1, admin=$2 where user_name=$3`,
             [teacher, admin, user_name]
           );  
-
+          done()
         });
         done()
       },

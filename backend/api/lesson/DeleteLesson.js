@@ -31,6 +31,7 @@ const deleteLessons = (lesson_id) => {
       client.query(`DELETE FROM lessons where id=$1`, [lesson_id]).then(() => {
         return resolve();
       });
+      done()
     });
   });
 };
@@ -49,6 +50,7 @@ const deleteTool = (lesson_id) => {
         .then(() => {
           return resolve();
         });
+        done()
     });
   });
 };
@@ -67,6 +69,7 @@ const deleteIngredient = (lesson_id) => {
         .then(() => {
           return resolve();
         });
+        done()
     });
   });
 };
@@ -85,6 +88,7 @@ const deleteInstruction = (lesson_id) => {
         .then(() => {
           return resolve();
         });
+        done()
     });
   });
 };

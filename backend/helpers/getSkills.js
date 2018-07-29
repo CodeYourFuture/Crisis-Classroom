@@ -19,6 +19,7 @@ getSkills = (id) => {
             return resolve(skills);
           } else return reject();
         });
+        done()
     });
   });
 };

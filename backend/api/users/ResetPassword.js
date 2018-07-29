@@ -36,14 +36,6 @@ const ResetPassword = (req, res) => {
                     'Ops! Sorry something happened on the server, please try again later.',
                 });
               }
-
-              pg.connect(connectionString, (err, client, done) => {
-                if (err) {
-                  return res.status(400).json({
-                    msg:
-                      'Ops! Sorry something happened on the server, please try again later.',
-                  });
-                }
                 client
                   .query(
                     `UPDATE users set password=$1, token_expires=$2 where token=$3`,
@@ -83,11 +75,11 @@ const ResetPassword = (req, res) => {
                       });
                     }
                   });
-              });
             });
           }
         }
       });
+      done()
   });
 };
 

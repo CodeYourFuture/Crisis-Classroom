@@ -64,7 +64,7 @@ const ForgotPassword = (req, res, next) => {
                             from: process.env.USER_GMAIL,
                             subject: 'Password Reset',
                             text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\nPlease click on the following link, or paste this into your browser to complete the process:\n
-                                http://localhost:3000/reset-password/${token}\nIf you did not request this, please ignore this email and your password will remain unchanged.`,
+                            https://crisis-classroom.codeyourfuture.io/reset-password/${token}\nIf you did not request this, please ignore this email and your password will remain unchanged.`,
                           };
                           smtpTransport.sendMail(mailOptions, (err) => {
                             if (err) {

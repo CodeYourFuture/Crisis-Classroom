@@ -1,13 +1,13 @@
-import React from 'react';
-import axios from 'axios';
-import decode from 'jwt-decode';
-import AddSkill from '../form/user/addSkill';
-import AddExperience from '../form/user/addExperience';
+import React from "react";
+import axios from "axios";
+import decode from "jwt-decode";
+import AddSkill from "../form/user/addSkill";
+import AddExperience from "../form/user/addExperience";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 // import Button from '../button';
 // import Label from '../label';
-import './style.css';
+import "./style.css";
 
 export default class UserProfile extends React.Component {
   constructor(props) {
@@ -15,27 +15,28 @@ export default class UserProfile extends React.Component {
     this.state = {
       err: null,
       msg: null,
-      title: '',
-      email: '',
-      first_name: '',
-      sur_name: '',
-      user_name: '',
+      title: "",
+      email: "",
+      first_name: "",
+      sur_name: "",
+      user_name: "",
       avatar: null,
-      about_user: '',
+      about_user: "",
       addSkill: false,
       showSkills: false,
       showExperience: false,
-      skills: [],
+      addExperience: false,
+      skills: []
     };
   }
 
   UNSAFE_componentWillMount() {
-    const token = localStorage.getItem('id_token');
+    const token = localStorage.getItem("id_token");
     const decoded = decode(token);
     const user_name = decoded.user_name;
     axios
       .post(`${process.env.REACT_APP_DOMAIN}/user-profile`, { user_name })
-      .then((result) => {
+      .then(result => {
         if (result) {
           const {
             title,
@@ -44,7 +45,7 @@ export default class UserProfile extends React.Component {
             user_name,
             email,
             avatar,
-            about_user,
+            about_user
           } = result.data[0];
           const { skills } = result.data;
           this.setState({
@@ -55,29 +56,44 @@ export default class UserProfile extends React.Component {
             email,
             avatar,
             about_user,
-            skills,
+            skills
           });
         }
       })
-      .catch((err) => {
+      .catch(err => {
         if (err.msg) {
           this.setState({ err: err.msg });
         } else {
           this.setState({
             err:
-              'Ops! Sorry something happened on the server, please try again later',
+              "Ops! Sorry something happened on the server, please try again later"
           });
         }
       });
   }
 
-  ShowAddSkill = (e) => {
+  ShowAddSkill = e => {
     this.setState({ addSkill: e });
   };
-  showHandler = (e) => {
-    if (e) {
-      this.setState({ showSkills: true });
-    } else this.setState({ showSkills: false });
+  ShowAddExperience = e => {
+    this.setState({ addExperience: e });
+  };
+
+  showHandler = e => {
+    if (e === "skills") {
+      this.setState({
+        showSkills: true,
+        showExperience: false,
+        addExperience: false
+      });
+    }
+    if (e === "experience") {
+      this.setState({
+        showSkills: false,
+        showExperience: true,
+        addSkill: false
+      });
+    }
   };
   render() {
     const {
@@ -94,6 +110,7 @@ export default class UserProfile extends React.Component {
       skills,
       showSkills,
       showExperience,
+      addExperience
     } = this.state;
     return (
       <div className="user">
@@ -102,16 +119,16 @@ export default class UserProfile extends React.Component {
         <div className="user-avatar">
           {!avatar ? (
             <div>
-              {title === 'Mr' ? (
+              {title === "Mr" ? (
                 <img
                   className="user-avatar"
-                  src={require('../../image/icons/man-avatar.jpg')}
+                  src={require("../../image/icons/man-avatar.jpg")}
                   alt="avatar"
                 />
               ) : (
                 <img
                   className="user-avatar"
-                  src={require('../../image/icons/women-avatar.jpg')}
+                  src={require("../../image/icons/women-avatar.jpg")}
                   alt="avatar"
                 />
               )}
@@ -131,14 +148,17 @@ export default class UserProfile extends React.Component {
           <button
             name="showSkills"
             value={showSkills}
-            onClick={() => this.showHandler(true)}
+            onClick={() => this.showHandler("skills")}
           >
             Skills
           </button>
-          <button value={showExperience} onClick={this.showHandler}>
+          <button
+            value={showExperience}
+            onClick={() => this.showHandler("experience")}
+          >
             Experience
           </button>
-          {showSkills ? (
+          {showSkills && (
             <div>
               <div>
                 {skills.map((skill, i) => {
@@ -156,7 +176,6 @@ export default class UserProfile extends React.Component {
               {addSkill ? (
                 <div>
                   <AddSkill />
-                  <AddExperience />
                 </div>
               ) : (
                 <button onClick={() => this.ShowAddSkill(true)}>
@@ -164,8 +183,20 @@ export default class UserProfile extends React.Component {
                 </button>
               )}
             </div>
-          ) : (
-            ''
+          )}
+          {showExperience && (
+            <div>
+              <div>Experience</div>
+              {addExperience ? (
+                <div>
+                  <AddExperience />
+                </div>
+              ) : (
+                <button onClick={() => this.ShowAddExperience(true)}>
+                  Add Experience
+                </button>
+              )}
+            </div>
           )}
         </div>
       </div>

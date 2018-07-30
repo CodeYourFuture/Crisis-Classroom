@@ -23,6 +23,7 @@ import SelectUser from "../components/admin/SelectUser";
 import Admin from "../components/admin/admin";
 import UserProfile from "../components/users/userProfile";
 import editSkill from "../components/users/editSkill";
+import editExperience from "../components/users/editExperience";
 
 
 class Routes extends Component {
@@ -44,6 +45,7 @@ class Routes extends Component {
         <PrivateRoute path="/templates" component={Templates} />
         <PrivateRoute path="/user-profile" component={UserProfile} />
         <PrivateRoute path="/edit-skill/:id" component={editSkill} />
+        <PrivateRoute path="/edit-experience/:id" component={editExperience} />
         <Adminpage exact path="/accept-registration/:token" component={AcceptRegistration} />
         <Adminpage exact path="/users-info" component={UsersInfo} />
         <Adminpage exact path="/users-info/:id" component={SelectUser} />

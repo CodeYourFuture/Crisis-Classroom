@@ -26,6 +26,19 @@ create table skills
     date DATE NOT NULL DEFAULT CURRENT_DATE,
     foreign key(user_id) references users(id)
 );
+create table experience
+(
+    id serial primary key,
+    user_id integer,
+    what_experience text,
+    what_date text,
+    what_place text,
+    with_whom_student text,
+    with_whom_teacher text,
+    about_experience text,
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
+    foreign key(user_id) references users(id)
+);
 create table lessons
 (
     id serial primary key,

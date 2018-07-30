@@ -14,9 +14,13 @@ const DeleteLesson = require('./lesson/DeleteLesson');
 const UserProfil = require('./users/userProfile');
 const CreatSkill = require('./users/creatSkill');
 const getSkill = require('./users/getSkill');
-const EditSkill=require('./users/editSkill')
-const DeleteSkill=require('./users/deleteSkill')
-//forgot password
+const EditSkill=require('./users/editSkill');
+const DeleteSkill=require('./users/deleteSkill');
+const CreatExperience=require('./users/creatExperience');
+const getExperience = require('./users/getExperience');
+const editExperience = require('./users/editExperience');
+const deleteExperience = require('./users/deleteExperience');
+//forgot password 
 const ForgotPassword = require('./users/ForgotPassword');
 const CheckUserToken = require('../helpers/CheckUserToken');
 const ResetPassword = require('./users/ResetPassword');
@@ -42,9 +46,13 @@ const api = () => {
   router.post('/edit-skill/:id', getSkill);
   router.post('/edit-skill', EditSkill);
   router.post('/delete-skill', DeleteSkill);
+  router.post('/creat-experience', CreatExperience);
+  router.post('/edit-experience/:id', getExperience);
+  router.post('/edit-experience', editExperience);
+  router.post('/delete-experience', deleteExperience);
   router.post('/files', upload.single('image'), files);
 
-  //forgot password
+  //forgot password 
   router.post('/forgot-password', ForgotPassword);
   router.get('/reset-password/:token', CheckUserToken);
   router.post('/reset-password', ResetPassword);

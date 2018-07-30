@@ -30,6 +30,9 @@ const AcceptRegistration = require('./admin/acceptRegistration');
 const UsersInfo = require('./admin/usersInfo');
 const Selectuser = require('./admin/SelectUser');
 const Admin = require('./admin/admin');
+//teachers
+const teachers = require('./teachers/teachers');
+
 
 const api = () => {
   const router = express.Router();
@@ -62,6 +65,8 @@ const api = () => {
   router.post('/users-info', UsersInfo);
   router.post('/users-info/:id', Selectuser);
   router.post('/admin', Admin);
+  //teachers
+  router.get('/teachers', teachers);
 
   return router;
 };

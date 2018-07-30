@@ -12,7 +12,6 @@ import NotFound from "../components/pages/notFound";
 import RegistrationDone from "../components/form/register/Registration-done";
 import TemplateCreated from "../components/form/templats/templateCreated";
 import TemplateEdited  from "../components/form/templats/templateEdited";
-import TemplateDeleted  from "../components/templates/templateDeleted";
 import ForgotPassword from "../components/form/login/ForgotPassword";
 import CheckUserToken from "../components/form/login/checkUserToken";
 import ResetPassword from "../components/form/login/ResetPassword";
@@ -24,6 +23,7 @@ import Admin from "../components/admin/admin";
 import UserProfile from "../components/users/userProfile";
 import editSkill from "../components/users/editSkill";
 import editExperience from "../components/users/editExperience";
+import Teachers from "../containers/Teachers";
 
 
 class Routes extends Component {
@@ -41,11 +41,11 @@ class Routes extends Component {
         <PrivateRoute exact path="/add-new-template" component={LessonForm} />
         <PrivateRoute exact path="/template-created" component={TemplateCreated} />
         <PrivateRoute exact path="/template-edited" component={TemplateEdited} />
-        <PrivateRoute exact path="/template-deleted" component={TemplateDeleted} />
         <PrivateRoute path="/templates" component={Templates} />
         <PrivateRoute path="/user-profile" component={UserProfile} />
         <PrivateRoute path="/edit-skill/:id" component={editSkill} />
         <PrivateRoute path="/edit-experience/:id" component={editExperience} />
+        <PrivateRoute path="/teacher" component={Teachers} />
         <Adminpage exact path="/accept-registration/:token" component={AcceptRegistration} />
         <Adminpage exact path="/users-info" component={UsersInfo} />
         <Adminpage exact path="/users-info/:id" component={SelectUser} />

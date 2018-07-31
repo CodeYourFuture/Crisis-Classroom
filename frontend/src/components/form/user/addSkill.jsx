@@ -48,7 +48,7 @@ export default class AddSkill extends React.Component {
         } else {
           this.setState({
             err:
-              'Ops! Sorry something happened on the server, please try again later',
+              ' Sorry something happened on the server, please try again later',
           });
         }
       });

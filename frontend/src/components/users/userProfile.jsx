@@ -26,11 +26,12 @@ export default class UserProfile extends React.Component {
       showSkills: false,
       showExperience: false,
       addExperience: false,
-      skills: []
+      skills: [],
+      experiences:[]
     };
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     const token = localStorage.getItem("id_token");
     const decoded = decode(token);
     const user_name = decoded.user_name;
@@ -47,7 +48,7 @@ export default class UserProfile extends React.Component {
             avatar,
             about_user
           } = result.data[0];
-          const { skills } = result.data;
+          const { skills, experiences } = result.data;
           this.setState({
             title,
             first_name,
@@ -56,7 +57,8 @@ export default class UserProfile extends React.Component {
             email,
             avatar,
             about_user,
-            skills
+            skills,
+            experiences
           });
         }
       })
@@ -108,6 +110,7 @@ export default class UserProfile extends React.Component {
       about_user,
       addSkill,
       skills,
+      experiences,
       showSkills,
       showExperience,
       addExperience
@@ -186,7 +189,22 @@ export default class UserProfile extends React.Component {
           )}
           {showExperience && (
             <div>
-              <div>Experience</div>
+              <div>
+              {experiences.map((experience, i) => {
+                  return (
+                    <Link to={`/edit-experience/${experience.id}`} key={i}>
+                      <div className="skill">
+                        <h5>{experience.what_experience}</h5>
+                        <h6>{experience.what_date}</h6>
+                        <h6>{experience.what_place}</h6>
+                        <h6>{experience.with_whom_teacher}</h6>
+                        <h6>{experience.with_whom_student}</h6>
+                        <h6>{experience.about_experience}</h6>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
               {addExperience ? (
                 <div>
                   <AddExperience />

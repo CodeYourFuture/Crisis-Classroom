@@ -1,17 +1,19 @@
 import React from "react";
-// import { Link } from 'react-router-dom';
-// import Button from '../../button';
-// import Label from '../../label';
-import Input from "../../input";
+import { withRouter } from "react-router";
 import axios from "axios";
-import decode from "jwt-decode";
+// import decode from 'jwt-decode';
+// import {Link} from 'react-router-dom';
+// import Button from '../button';
+// import Label from "../label";
+import Input from "../input";
 
-export default class AddExperience extends React.Component {
+class editSkill extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       err: null,
       msg: null,
+      id: null,
       what_experience: "",
       what_date: "",
       what_place: "",
@@ -25,13 +27,10 @@ export default class AddExperience extends React.Component {
       [e.target.name]: e.target.value
     });
   };
-
-  handleSubmit = e => {
+  handleEdit = e => {
     e.preventDefault();
-    const token = localStorage.getItem("id_token");
-    const decoded = decode(token);
-    const user_id = decoded.id;
     const {
+      id,
       what_experience,
       what_date,
       what_place,
@@ -40,8 +39,8 @@ export default class AddExperience extends React.Component {
       about_experience
     } = this.state;
     axios
-      .post(`${process.env.REACT_APP_DOMAIN}/creat-experience`, {
-        user_id,
+      .post(`${process.env.REACT_APP_DOMAIN}/edit-experience`, {
+        id,
         what_experience,
         what_date,
         what_place,
@@ -60,21 +59,98 @@ export default class AddExperience extends React.Component {
           this.setState({ err: err.msg });
         } else {
           this.setState({
-            err: 'Sorry something happened on the server, please try again later.'
+            err:
+              "Ops! Sorry something happened on the server, please try again later"
           });
         }
       });
   };
+  handleDelete = e => {
+    e.preventDefault();
+    const { id } = this.state;
+    axios
+      .post(`${process.env.REACT_APP_DOMAIN}/delete-experience`, {
+        id
+      })
+      .then(result => {
+        if (result) {
+          const { msg } = result.data;
+          this.setState({ msg });
+        }
+      })
+      .catch(err => {
+        if (err.msg) {
+          this.setState({ err: err.msg });
+        } else {
+          this.setState({
+            err:
+              "Ops! Sorry something happened on the server, please try again later"
+          });
+        }
+      });
+  };
+  UNSAFE_componentWillMount() {
+    const url = this.props.match.url;
+    const { id } = this.props.match.params;
+    axios
+      .post(`${process.env.REACT_APP_DOMAIN}${url}`, { id })
+      .then(result => {
+        if (result) {
+          if (result) {
+            const {
+              id,
+              what_experience,
+              what_date,
+              what_place,
+              with_whom_student,
+              with_whom_teacher,
+              about_experience
+            } = result.data[0];
+            this.setState({
+              id,
+              what_experience,
+              what_date,
+              what_place,
+              with_whom_student,
+              with_whom_teacher,
+              about_experience
+            });
+          }
+        }
+      })
+      .catch(err => {
+        if (err.msg) {
+          this.setState({ err: err.msg });
+        } else {
+          this.setState({
+            err:
+              "Ops! Sorry something happened on the server, please try again later"
+          });
+        }
+      });
+  }
+
   render() {
-    const { err, msg } = this.state;
+    const {
+      msg,
+      err,
+      what_experience,
+      what_date,
+      what_place,
+      with_whom_student,
+      with_whom_teacher,
+      about_experience
+    } = this.state;
     return (
       <div>
         {msg || err ? (
-          <p>
+          <div>
             {msg}
             {err}
-          </p>
+          </div>
         ) : (
+          <div>
+            <h5>Edit or delete your experience</h5>
           <form>
             <div className="form-group">
               <Input
@@ -82,7 +158,7 @@ export default class AddExperience extends React.Component {
                 name="what_experience"
                 type="text"
                 placeholder="what Experience"
-                value={this.state.what_experience}
+                value={what_experience}
                 onChange={this.handleChange}
               />
             </div>
@@ -92,7 +168,7 @@ export default class AddExperience extends React.Component {
                 name="what_date"
                 type="text"
                 placeholder="Insert the date"
-                value={this.state.what_date}
+                value={what_date}
                 onChange={this.handleChange}
               />
             </div>
@@ -102,7 +178,7 @@ export default class AddExperience extends React.Component {
                 name="what_place"
                 type="text"
                 placeholder="Insert the place"
-                value={this.state.what_place}
+                value={what_place}
                 onChange={this.handleChange}
               />
             </div>
@@ -112,7 +188,7 @@ export default class AddExperience extends React.Component {
                 name="with_whom_student"
                 type="text"
                 placeholder="Student you work with"
-                value={this.state.with_whom_student}
+                value={with_whom_student}
                 onChange={this.handleChange}
               />
             </div>
@@ -122,7 +198,7 @@ export default class AddExperience extends React.Component {
                 name="with_whom_teacher"
                 type="text"
                 placeholder="Teacher you work with"
-                value={this.state.with_whom_teacher}
+                value={with_whom_teacher}
                 onChange={this.handleChange}
               />
             </div>
@@ -134,19 +210,25 @@ export default class AddExperience extends React.Component {
                 name="about_experience"
                 form="usrform"
                 placeholder="More About your experience..> Cane be a short story"
-                value={this.state.about_experience}
+                value={about_experience}
                 onChange={this.handleChange}
               />
             </div>
+            <button className="btn btn-outline-dark" onClick={this.handleEdit}>
+              Edit
+            </button>
             <button
               className="btn btn-outline-dark"
-              onClick={this.handleSubmit}
+              onClick={this.handleDelete}
             >
-              Add
+              Delete
             </button>
           </form>
+          </div>
         )}
       </div>
     );
   }
 }
+
+export default withRouter(editSkill);

@@ -25,7 +25,7 @@ export default class TeacherslatesList extends Component {
 
   render() {
     const teachers = this.props.teachers;
-    let searchResult = teachers.filter(searchingFor(this.state.term));
+    const searchResult = teachers.filter(searchingFor(this.state.term));
     return (
       <div>
         <h1>Teachers</h1>

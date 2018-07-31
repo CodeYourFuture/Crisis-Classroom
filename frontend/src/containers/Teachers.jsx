@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import TeacherslatesList from "../components/teachers/teachersList.jsx";
+import TeachersList from "../components/teachers/teachersList.jsx";
 import Teacher from "../components/teachers/teacher.jsx";
 
 export default class Teachers extends Component {
@@ -50,14 +50,14 @@ export default class Teachers extends Component {
           <Switch>
             <Route
               exact
-              path="/teacher"
+              path="/teachers"
               render={props => (
-                <TeacherslatesList {...props} teachers={this.state.teachers} />
+                <TeachersList {...props} teachers={this.state.teachers} />
               )}
             />
             <Route
               exact
-              path="/teacher/:id"
+              path="/teachers/:id"
               render={props => (
                 <Teacher {...props} teachers={this.state.teachers} />
               )}

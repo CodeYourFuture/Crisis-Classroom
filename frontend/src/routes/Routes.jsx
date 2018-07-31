@@ -45,7 +45,7 @@ class Routes extends Component {
         <PrivateRoute path="/user-profile" component={UserProfile} />
         <PrivateRoute path="/edit-skill/:id" component={editSkill} />
         <PrivateRoute path="/edit-experience/:id" component={editExperience} />
-        <PrivateRoute path="/teacher" component={Teachers} />
+        <PrivateRoute path="/teachers" component={Teachers} />
         <Adminpage exact path="/accept-registration/:token" component={AcceptRegistration} />
         <Adminpage exact path="/users-info" component={UsersInfo} />
         <Adminpage exact path="/users-info/:id" component={SelectUser} />

@@ -167,7 +167,7 @@ class editSkill extends React.Component {
                 className="form-control"
                 name="what_date"
                 type="text"
-                placeholder="what_date"
+                placeholder="Insert the date"
                 value={what_date}
                 onChange={this.handleChange}
               />
@@ -177,7 +177,7 @@ class editSkill extends React.Component {
                 className="form-control"
                 name="what_place"
                 type="text"
-                placeholder="what_place"
+                placeholder="Insert the place"
                 value={what_place}
                 onChange={this.handleChange}
               />

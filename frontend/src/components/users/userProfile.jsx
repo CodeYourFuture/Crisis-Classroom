@@ -31,7 +31,7 @@ export default class UserProfile extends React.Component {
     };
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     const token = localStorage.getItem("id_token");
     const decoded = decode(token);
     const user_name = decoded.user_name;

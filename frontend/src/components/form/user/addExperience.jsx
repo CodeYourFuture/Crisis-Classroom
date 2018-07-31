@@ -91,7 +91,7 @@ export default class AddExperience extends React.Component {
                 className="form-control"
                 name="what_date"
                 type="text"
-                placeholder="what_date"
+                placeholder="Insert the date"
                 value={this.state.what_date}
                 onChange={this.handleChange}
               />
@@ -101,7 +101,7 @@ export default class AddExperience extends React.Component {
                 className="form-control"
                 name="what_place"
                 type="text"
-                placeholder="what_place"
+                placeholder="Insert the place"
                 value={this.state.what_place}
                 onChange={this.handleChange}
               />

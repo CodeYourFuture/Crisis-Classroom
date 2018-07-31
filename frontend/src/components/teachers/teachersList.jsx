@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Input from "../input";
+// import Input from "../input";
 function searchingFor(term) {
   return teachers => {
-    return (
-      !term || console.log(teachers.skills.map(skill => skill.skill_name.includes(term)))
-    )
+    const result = teachers.skills
+      .map(skill => skill.skill_name.includes(term))
+      .filter(index => index === true);
+    return !term || result[0];
   };
 }
 
@@ -30,20 +31,23 @@ export default class TeacherslatesList extends Component {
       <div>
         <h1>Teachers</h1>
         <div>
-           <select onChange={this.searchHandler} className="form-control">
+          <select onChange={this.searchHandler} className="form-control">
             <option>Skill</option>
             {teachers.map(teacher => {
               return teacher.skills.map((skill, i) => {
-              return  <option value={skill.skill_name} key={i}>{skill.skill_name}</option>;
+                return (
+                  <option value={skill.skill_name} key={i}>
+                    {skill.skill_name}
+                  </option>
+                );
               });
             })}
-          </select> 
-
-          <Input
+          </select>
+          {/* <Input
             onChange={this.searchHandler}
             type="text"
             placeholder="Search ...."
-          />
+          /> */}
         </div>
         &nbsp; &nbsp;
         <div>

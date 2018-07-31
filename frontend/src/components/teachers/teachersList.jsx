@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-// import Input from "../input";
+import Input from "../input";
 function searchingFor(term) {
   return teachers => {
     return (
-      !term || teachers.skills.forEach(skill => skill.skill_name.includes(term))
+      !term || console.log(teachers.skills.map(skill => skill.skill_name.includes(term)))
     )
   };
 }
@@ -39,11 +39,11 @@ export default class TeacherslatesList extends Component {
             })}
           </select> 
 
-          {/* <Input
+          <Input
             onChange={this.searchHandler}
             type="text"
             placeholder="Search ...."
-          /> */}
+          />
         </div>
         &nbsp; &nbsp;
         <div>

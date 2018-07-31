@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Input from "../input";
-
+// import Input from "../input";
 function searchingFor(term) {
   return teachers => {
-    return !term || teachers.first_name.toLowerCase().includes(term.toLowerCase());
+    return (
+      !term || teachers.skills.forEach(skill => skill.skill_name.includes(term))
+    )
   };
 }
 
@@ -15,7 +16,6 @@ export default class TeacherslatesList extends Component {
       term: null
     };
   }
-
   searchHandler = e => {
     this.setState({
       term: e.target.value,
@@ -30,18 +30,26 @@ export default class TeacherslatesList extends Component {
       <div>
         <h1>Teachers</h1>
         <div>
-          <Input
+           <select onChange={this.searchHandler} className="form-control">
+            <option>Skill</option>
+            {teachers.map(teacher => {
+              return teacher.skills.map((skill, i) => {
+              return  <option value={skill.skill_name} key={i}>{skill.skill_name}</option>;
+              });
+            })}
+          </select> 
+
+          {/* <Input
             onChange={this.searchHandler}
             type="text"
-            placeholder="Search for template"
-          />
+            placeholder="Search ...."
+          /> */}
         </div>
         &nbsp; &nbsp;
         <div>
           {searchResult.map((e, i) => (
             <div key={i}>
-              <Link to={`/teacher/${e.id}`}>
-                {e.first_name || "[no description]"}
+              <Link to={`/teachers/${e.id}`}>
                 {!e.avatar ? (
                   <div>
                     {e.title === "Mr" ? (
@@ -61,6 +69,9 @@ export default class TeacherslatesList extends Component {
                 ) : (
                   <img className="user-avatar" src={e.avatar} alt="avatar" />
                 )}
+                <h6>
+                  {e.title} {e.first_name} {e.sur_name}
+                </h6>
               </Link>
             </div>
           ))}

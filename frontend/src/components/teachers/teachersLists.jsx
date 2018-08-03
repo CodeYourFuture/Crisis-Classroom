@@ -30,9 +30,9 @@ export default class TeachersList extends Component {
       Whatplace,
       Collage
     } = this.state;
-    // const { teachers } = this.props;
+    const { teachers } = this.props;
     //search For Skill Name
-    const searchResultForSkillName = this.props.teachers.filter(
+    const searchResultForSkillName = teachers.filter(
       searchingForSkillName(skillName)
     );
     //search For Skill Level
@@ -56,13 +56,15 @@ export default class TeachersList extends Component {
 
     return (
       <div>
-        <TeachersListResult
-          {...this.props}
-          // teachers={this.props.teachers}
-          // props={this.props}
-          searchResultForCollages={searchResultForCollages}
-          searchHandler={this.searchHandler}
-        />
+        {teachers && (
+          <TeachersListResult
+            {...this.props}
+            // teachers={this.props.teachers}
+            // props={this.props}
+            searchResultForCollages={searchResultForCollages}
+            searchHandler={this.searchHandler}
+          />
+        )}
       </div>
     );
   }

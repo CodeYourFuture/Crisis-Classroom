@@ -43,7 +43,7 @@ const getTeachers = () => {
               "Ops! Sorry something happened on the server, please try again later."
           });
         }
-        client.query(`select title, first_name, sur_name, email, avatar, about_user from users`).then(result => {
+        client.query(`select id, title, first_name, sur_name, email, avatar, about_user from users`).then(result => {
           const data = result.rows;
           return resolve(data);
         });

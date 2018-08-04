@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import TeachersList from "../components/teachers/teachersList.jsx";
+import TeachersLists from "../components/teachers/teachersLists.jsx";
 import Teacher from "../components/teachers/teacher.jsx";
 
 export default class Teachers extends Component {
@@ -52,7 +52,7 @@ export default class Teachers extends Component {
               exact
               path="/teachers"
               render={props => (
-                <TeachersList {...props} teachers={this.state.teachers} />
+                <TeachersLists {...props} teachers={this.state.teachers} />
               )}
             />
             <Route

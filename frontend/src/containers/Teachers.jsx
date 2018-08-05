@@ -4,12 +4,17 @@ import TeachersLists from "../components/teachers/teachersLists.jsx";
 import Teacher from "../components/teachers/teacher.jsx";
 
 export default class Teachers extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       teachers: [],
       err: false,
-      msg: false
+      msg: false,
+      skillName: null,
+      skillLevel: null,
+      WhatExperience: null,
+      Whatplace: null,
+      Collage: null
     };
   }
 
@@ -36,9 +41,49 @@ export default class Teachers extends Component {
         }
       });
   }
+  searchHandler = e => {
+    this.refs.Route.refs.TeachersLists.removAndsetStateHandlr();
+    this.setState({
+      [e.target.name]: e.target.value,
+      result: e.target.value.length ? true : false
+    });
+  };
+
   render() {
     const { match } = this.props;
-    const { err, msg } = this.state;
+    const {
+      err,
+      msg,
+      skillName,
+      skillLevel,
+      WhatExperience,
+      Whatplace,
+      Collage,
+      teachers
+    } = this.state;
+    //search For Skill Name
+    const searchResultForSkillName = teachers.filter(
+      searchingForSkillName(skillName)
+    );
+    //search For Skill Level
+    const searchResultForSkillLevel = searchResultForSkillName.filter(
+      searchingForSkillLevel(skillLevel)
+    );
+    //search For Experiences
+    const searchResultForWhatExperience = searchResultForSkillLevel.filter(
+      searchingForWhatExperience(WhatExperience)
+    );
+
+    //search For places they work in
+    const searchResultForWhatplace = searchResultForWhatExperience.filter(
+      searchingForWhatplace(Whatplace)
+    );
+
+    //search For Collages
+    const searchResultForCollages = searchResultForWhatplace.filter(
+      searchingForCollages(Collage)
+    );
+
     return (
       <div>
         {msg || err ? (
@@ -49,10 +94,17 @@ export default class Teachers extends Component {
         ) : (
           <Switch>
             <Route
+              ref="Route"
               exact
               path="/teachers"
               render={props => (
-                <TeachersLists {...props} teachers={this.state.teachers} />
+                <TeachersLists
+                  ref="TeachersLists"
+                  {...props}
+                  teachers={this.state.teachers}
+                  searchResultForCollages={searchResultForCollages}
+                  searchHandler={this.searchHandler}
+                />
               )}
             />
             <Route
@@ -68,4 +120,50 @@ export default class Teachers extends Component {
       </div>
     );
   }
+}
+//search For Skill Name
+function searchingForSkillName(skillName) {
+  return teachers => {
+    const result = teachers.skills
+      .map(skill => skill.skill_name.includes(skillName))
+      .filter(index => index === true);
+    return !skillName || result[0];
+  };
+}
+
+//search For Skill Level
+function searchingForSkillLevel(skillLevel) {
+  return teachers => {
+    const result = teachers.skills
+      .map(skill => skill.skill_level.includes(skillLevel))
+      .filter(index => index === true);
+    return !skillLevel || result[0];
+  };
+}
+//search For Experiences
+function searchingForWhatExperience(WhatExperience) {
+  return teachers => {
+    const result = teachers.experiences
+      .map(experience => experience.what_experience.includes(WhatExperience))
+      .filter(index => index === true);
+    return !WhatExperience || result[0];
+  };
+}
+//search For places they work in
+function searchingForWhatplace(Whatplace) {
+  return teachers => {
+    const result = teachers.experiences
+      .map(experience => experience.what_place.includes(Whatplace))
+      .filter(index => index === true);
+    return !Whatplace || result[0];
+  };
+}
+//search For Collages
+function searchingForCollages(Collage) {
+  return teachers => {
+    const result = teachers.experiences
+      .map(experience => experience.with_whom_teacher.includes(Collage))
+      .filter(index => index === true);
+    return !Collage || result[0];
+  };
 }

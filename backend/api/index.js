@@ -32,6 +32,7 @@ const Selectuser = require('./admin/SelectUser');
 const Admin = require('./admin/admin');
 //teachers
 const teachers = require('./teachers/teachers');
+const TeachersCommunication = require('./teachers/TeachersCommunication')
 
 
 const api = () => {
@@ -67,6 +68,7 @@ const api = () => {
   router.post('/admin', Admin);
   //teachers
   router.get('/teachers', teachers);
+  router.post('/teachers-communication', TeachersCommunication)
 
   return router;
 };

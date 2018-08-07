@@ -5,98 +5,28 @@ export default class TeachersList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      skillNames: [],
-      experienceName: [],
-      industry: [],
-      collages: [],
       filters: false,
       err: null,
       msg: null
     };
   }
-  removAndsetStateHandlr() {
-    this.removState();
-    setTimeout(() => {
-
-
-    }, 100);
-    this.setCollagesDropdown();
-    this.setIndustryDropdown();
-    this.setExperienceNameDrupdown();
-    this.setSkillDrupdown();
-  }
-  removState() {
-    this.setState({
-      skillNames: [],
-      experienceName: [],
-      industry: [],
-      collages: []
-    });
-  }
-  setSkillDrupdown() {
-    const { searchResultForCollages } = this.props;
-    searchResultForCollages.map(teacher => {
-      return this.setState(prevState => {
-        return {
-          skillNames: prevState.skillNames.concat(
-            teacher.skills.map(skill => skill.skill_name)
-          )
-        };
-      });
-    });
-  }
-  setExperienceNameDrupdown() {
-    const { searchResultForCollages } = this.props;
-    searchResultForCollages.map(teacher => {
-      return this.setState(prevState => {
-        return {
-          experienceName: prevState.experienceName.concat(
-            teacher.experiences.map(experience => experience.what_experience)
-          )
-        };
-      });
-    });
-  }
-  setIndustryDropdown() {
-    const { searchResultForCollages } = this.props;
-    searchResultForCollages.map(teacher => {
-      return this.setState(prevState => {
-        return {
-          industry: prevState.industry.concat(
-            teacher.experiences.map(experience => experience.what_place)
-          )
-        };
-      });
-    });
-  }
-  setCollagesDropdown() {
-    const { searchResultForCollages } = this.props;
-    searchResultForCollages.map(teacher => {
-      return this.setState(prevState => {
-        return {
-          collages: prevState.collages.concat(
-            teacher.experiences.map(experience => experience.with_whom_teacher)
-          )
-        };
-      });
-    });
-  }
 
   showFilters = () => {
-    this.removAndsetStateHandlr();
     if (!this.state.filters) {
       this.setState({ filters: true });
     } else this.setState({ filters: false });
   };
   render() {
-    const { searchHandler, searchResultForCollages } = this.props;
     const {
-      filters,
-      skillNames,
-      experienceName,
-      collages,
-      industry
-    } = this.state;
+      searchHandler,
+      teachers,
+      searchResultForSkillName,
+      searchResultForSkillLevel,
+      searchResultForWhatExperience,
+      searchResultForWhatplace,
+      searchResultForCollages
+    } = this.props;
+    const { filters } = this.state;
 
     return (
       <div>
@@ -110,23 +40,43 @@ export default class TeachersList extends Component {
               className="form-control"
             >
               <option value="">Skills</option>
-              {Array.from(new Set(skillNames)).map((name, i) => {
+              {teachers.map(teacher => {
+                return teacher.skills.map((skill, i) => {
+                  return (
+                    <option value={skill.skill_name} key={i}>
+                      {skill.skill_name}
+                    </option>
+                  );
+                });
+              })}
+            </select>
+            {/* Array.from(new Set(skillNames)).map((name, i) => {
                 return (
                   <option value={name} key={i}>
                     {name}
                   </option>
                 );
-              })}
-            </select>
+              }) */}
             <select
               name="skillLevel"
               onChange={searchHandler}
               className="form-control"
             >
               <option value="">Skill level</option>
-              <option value="Beginner">Beginner</option>
-              <option value="Intermediate">Intermediate</option>
-              <option value="Advance">Advance</option>
+              {searchResultForSkillName.map(teacher => {
+                // return teacher.skills.map((skill, i) => {
+                    var seen = {}
+                    return teacher.skills.filter((skill)=> {
+                      var skill_level=skill.skill_level
+                      if (seen[skill_level])
+                      return seen[skill_level] = true
+
+                     return skill_level
+                    })
+                 
+                    (<option value={skill_level}>{skill_level} </option>)
+                // });
+              })}
             </select>
             <select
               onChange={searchHandler}
@@ -134,12 +84,14 @@ export default class TeachersList extends Component {
               className="form-control"
             >
               <option value="">Experiences</option>
-              {Array.from(new Set(experienceName)).map((name, i) => {
-                return (
-                  <option value={name} key={i}>
-                    {name}
-                  </option>
-                );
+              {searchResultForSkillLevel.map(teacher => {
+                return teacher.experiences.map((experience, i) => {
+                  return (
+                    <option value={experience.what_experience} key={i}>
+                      {experience.what_experience}
+                    </option>
+                  );
+                });
               })}
             </select>
             <select
@@ -148,12 +100,14 @@ export default class TeachersList extends Component {
               className="form-control"
             >
               <option value="">Industry</option>
-              {Array.from(new Set(industry)).map((name, i) => {
-                return (
-                  <option value={name} key={i}>
-                    {name}
-                  </option>
-                );
+              {searchResultForWhatExperience.map(teacher => {
+                return teacher.experiences.map((experience, i) => {
+                  return (
+                    <option value={experience.what_place} key={i}>
+                      {experience.what_place}
+                    </option>
+                  );
+                });
               })}
             </select>
             <select
@@ -162,12 +116,14 @@ export default class TeachersList extends Component {
               className="form-control"
             >
               <option value="">Collages</option>
-              {Array.from(new Set(collages)).map((name, i) => {
-                return (
-                  <option value={name} key={i}>
-                    {name}
-                  </option>
-                );
+              {searchResultForWhatplace.map(teacher => {
+                return teacher.experiences.map((experience, i) => {
+                  return (
+                    <option value={experience.with_whom_teacher} key={i}>
+                      {experience.with_whom_teacher}
+                    </option>
+                  );
+                });
               })}
             </select>
           </div>

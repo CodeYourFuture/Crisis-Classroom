@@ -42,7 +42,6 @@ export default class Teachers extends Component {
       });
   }
   searchHandler = e => {
-    this.refs.Route.refs.TeachersLists.removAndsetStateHandlr();
     this.setState({
       [e.target.name]: e.target.value,
       result: e.target.value.length ? true : false
@@ -102,6 +101,10 @@ export default class Teachers extends Component {
                   ref="TeachersLists"
                   {...props}
                   teachers={this.state.teachers}
+                  searchResultForSkillName={searchResultForSkillName}
+                  searchResultForSkillLevel={searchResultForSkillLevel}
+                  searchResultForWhatExperience={searchResultForWhatExperience}
+                  searchResultForWhatplace={searchResultForWhatplace}
                   searchResultForCollages={searchResultForCollages}
                   searchHandler={this.searchHandler}
                 />

@@ -11,12 +11,6 @@ export default class TeachersList extends Component {
     };
   }
 
-  showFilters = () => {
-    if (!this.state.filters) {
-      this.setState({ filters: true });
-    } else this.setState({ filters: false });
-  };
-
   getSkills = () => {
     const { teachers } = this.props;
     const uniqueSkills = skills => {
@@ -126,7 +120,6 @@ export default class TeachersList extends Component {
 
   render() {
     const { searchHandler, searchResultForCollages } = this.props;
-    const { filters } = this.state;
     return (
       <div>
         <h1>Teachers</h1>

@@ -14,7 +14,7 @@ export default class Teacher extends React.Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     axios
-      .post(`${process.env.REACT_APP_DOMAIN}/teachers`,{id})
+      .post(`${process.env.REACT_APP_DOMAIN}/teachers`, { id })
       .then(result => {
         if (result.msg) {
           this.setState({ msg: result.msg });
@@ -122,9 +122,7 @@ export default class Teacher extends React.Component {
                 </div>
               </div>
             </div>
-            <div>
-              <Messenger teacher={teacher} />
-            </div>
+            <Messenger teacher={teacher} />
           </div>
         )}
       </div>

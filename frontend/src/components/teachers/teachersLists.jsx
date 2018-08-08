@@ -166,9 +166,9 @@ export default class TeachersList extends Component {
             {this.getCollages()}
           </select>
         </div>
-        <div>
+        <div className="teschers-list-div">
           {searchResultForCollages.map((e, i) => (
-            <div key={i}>
+            <div className="teschers-list" key={i}>
               <div>
                 <Link to={`/teachers/${e.id}`}>
                   {!e.avatar ? (

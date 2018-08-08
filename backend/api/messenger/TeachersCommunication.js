@@ -7,7 +7,6 @@ const connectionString = process.env.DATABASE_URL;
 const TeachersCommunication = (req, res) => {
   const data = req.body;
   const { messege, send_to_email } = data;
-  console.log(req.body);
   getTeachers(data)
     .then(data => sendMessege(data, messege, send_to_email))
     .then(() => res.json({ msg: "Success!" }))

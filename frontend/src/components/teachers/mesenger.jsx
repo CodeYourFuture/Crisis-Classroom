@@ -53,36 +53,81 @@ export default class Messenger extends Component {
     };
   };
   messeges = () => {
-    const { teacher } = this.props;
+    
+    // const { teacher } = this.props;
     const token = localStorage.getItem("id_token");
     const decoded = decode(token);
     const id = decoded.id;
     const { senderMesseges, receiverMesseges } = this.state;
     const resultMesseges = senderMesseges
       .concat(receiverMesseges)
-      .sort(this.dynamicSort("id"));
+      .sort(this.dynamicSort("date_id"));
     return resultMesseges.map((messeges, i) => {
-      if (messeges.sender_id === id) {
-        return (
-          <h6 key={i} className="sender-messeges">
-            {messeges.messege} :you
+      const cls = messeges.sender_id === id ? "sender-messeges" : "receiver-messeges"
+      return (
+        <div className={`${cls}-div`}>
+          <h6 key={i} className={cls}>
+            {messeges.messege}
           </h6>
-        );
-      } else
-        return (
-          <h6 key={i} className="receiver-messeges">
-            {teacher.first_name}: {messeges.messege}
-          </h6>
-        );
+        </div>
+      );
+      
     });
+
   };
+
+  onMessageSend = (messege) => {
+    const date_id = Date.now().toString();
+    const firstMessage = this.state.senderMesseges[0]
+    const newMessage = {
+      sender_id: firstMessage.sender_id,
+      receiver_id: firstMessage.receiver_id,
+      date_id,
+      messege
+    }
+    const senderMesseges = [...this.state.senderMesseges, newMessage]
+    this.setState({senderMesseges})
+  }
+
   render() {
     const { teacher } = this.props;
     return (
-      <div>
-        <div>{this.messeges()}</div>
-        <div>
-          <TeachersCommunication receiverId={teacher.id} componentDidMount={this.componentDidMount}/>
+      <div className="container">
+        <button
+          type="button"
+          className="btn btn-info btn-lg"
+          data-toggle="modal"
+          data-target="#myModal"
+        >
+          Open Messenger
+        </button>
+        <div className="modal fade" id="myModal" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal">
+                  &times;
+                </button>
+                <h4 className="modal-title">Messenger</h4>
+              </div>
+              <div className="modal-body">
+                <div className="messenger-div">
+                  <div className="mesenger">
+                    <div id="message-content" >{this.messeges()}</div>
+                  </div>
+                </div>
+                <TeachersCommunication
+                  receiverId={teacher.id}
+                  componentDidMount={this.componentDidMount}
+                  // {...this.props}
+                  onMessageSend={this.onMessageSend}
+                />
+              </div>
+              <div className="messenger-form-container">
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

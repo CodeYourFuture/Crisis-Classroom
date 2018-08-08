@@ -22,7 +22,6 @@ const teachers = (req, res) => {
 };
 
 const getTeacherData = teacher => {
-  console.log(teacher);
   const user_id = teacher.id;
   return Promise.all([getSkills(user_id), getExperiences(user_id)]).then(
     ([skills, experiences]) => {

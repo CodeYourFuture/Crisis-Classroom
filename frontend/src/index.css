@@ -140,6 +140,14 @@ width: 30px
 .btn-submit:hover {
 opacity: 1;
 }
+
+/* messenger */
+.receiver-messeges{
+  background-color: #4CAF50;
+}
+.sender-messeges{
+  text-align: end
+}
 @media screen and (max-width: 991px) {
 .signin{
   max-width: 100% !important;

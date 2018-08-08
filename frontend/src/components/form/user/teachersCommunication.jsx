@@ -8,9 +8,15 @@ export default class AddExperience extends React.Component {
     this.state = {
       err: null,
       msg: null,
-      messege: ""
+      messege: "",
+      send_to_email: false
     };
   }
+  handleChangeCheckbox = e => {
+    this.setState({
+      [e.target.name]: e.target.checked
+    });
+  };
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -18,17 +24,19 @@ export default class AddExperience extends React.Component {
   };
 
   handleSubmit = e => {
+    this.props.getMesseges()
     e.preventDefault();
-    const { resiverId } = this.props;
+    const { receiverId } = this.props;
     const token = localStorage.getItem("id_token");
     const decoded = decode(token);
     const senderId = decoded.id;
-    const { messege } = this.state;
+    const { messege, send_to_email } = this.state;
     axios
-      .post(`${process.env.REACT_APP_DOMAIN}/teachers-communication`, {
+      .post(`${process.env.REACT_APP_DOMAIN}/messenger`, {
         senderId,
-        resiverId,
-        messege
+        receiverId,
+        messege,
+        send_to_email
       })
       .then(result => {
         if (result) {
@@ -51,33 +59,35 @@ export default class AddExperience extends React.Component {
     const { err, msg } = this.state;
     return (
       <div>
-        {msg || err ? (
-          <p>
-            {msg}
-            {err}
-          </p>
-        ) : (
-          <form>
-            <div className="form-group">
-              <textarea
-                className="form-control"
-                rows="2"
-                cols="10"
-                name="messege"
-                form="usrform"
-                placeholder="Send a quick messege ... "
-                value={this.state.messege}
-                onChange={this.handleChange}
-              />
-            </div>
-            <button
-              className="btn btn-outline-dark"
-              onClick={this.handleSubmit}
-            >
-              Send
-            </button>
-          </form>
-        )}
+        <p>
+          {msg}
+          {err}
+        </p>
+        <form>
+          <div className="form-group">
+            <textarea
+              className="form-control"
+              rows="2"
+              cols="10"
+              name="messege"
+              form="usrform"
+              placeholder="Write a messege ... "
+              value={this.state.messege}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label>Send it to email as well</label>
+            <input
+              type="checkbox"
+              name="send_to_email"
+              onChange={this.handleChangeCheckbox}
+            />
+          </div>
+          <button className="btn btn-outline-dark" onClick={this.handleSubmit}>
+            Send
+          </button>
+        </form>
       </div>
     );
   }

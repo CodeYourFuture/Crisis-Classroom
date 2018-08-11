@@ -90,6 +90,7 @@ create table crisis_messenger
     to_user_id integer,
     message text,
     date_id text,
+    time text,
     date DATE NOT NULL DEFAULT CURRENT_DATE
 );
 

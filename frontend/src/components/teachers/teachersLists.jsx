@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import TeachersCommunication from "../form/user/teachersCommunication";
+// import TeachersCommunication from "../form/user/teachersCommunication";
 
 export default class TeachersList extends Component {
   constructor(props) {
@@ -196,7 +196,7 @@ export default class TeachersList extends Component {
                 </Link>
               </div>
               <div>
-                <TeachersCommunication toUserId={e.id} />
+                {/* <TeachersCommunication toUserId={e.id} /> */}
               </div>
             </div>
           ))}

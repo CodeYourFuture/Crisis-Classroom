@@ -123,9 +123,8 @@ sendEmail = (data, messageData) => {
   });
 };
 sendToMessenger = (data, messageData) => {
-  const date_id = Date.now().toString();
-  const to_user = data.to_user;
-  const user = data.user;
+  const { user, to_user } = data;
+  const { time, message, date_id } = messageData;
   return new Promise((resolve, reject) => {
     pg.connect(
       connectionString,
@@ -141,13 +140,7 @@ sendToMessenger = (data, messageData) => {
             `insert into crisis_messenger
         (user_id, to_user_id, message, date_id, time)
         values ($1, $2, $3, $4, $5)`,
-            [
-              user.id,
-              to_user.id,
-              messageData.message,
-              date_id,
-              messageData.time
-            ]
+            [user.id, to_user.id, message, date_id, time]
           )
           .then(() => {
             return resolve();

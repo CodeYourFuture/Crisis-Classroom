@@ -82,7 +82,8 @@ export default class TeachersCommunication extends React.Component {
         userId,
         toUserId,
         message,
-        send_to_email
+        send_to_email,
+        date_id
       })
       .then(result => {
         if (result) {

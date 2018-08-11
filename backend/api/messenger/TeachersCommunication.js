@@ -5,11 +5,10 @@ const pg = require("pg");
 const connectionString = process.env.DATABASE_URL;
 
 const TeachersCommunication = (req, res) => {
-  const data = req.body;
-  const { messege, send_to_email } = data;
-  getTeachers(data)
-    .then(data => sendMessege(data, messege, send_to_email))
-    .then(() => res.json({ msg: "Success!" }))
+  const messageData = req.body;
+  getTeachers(messageData)
+    .then(data => sendMessage(data, messageData))
+    .then(() => res.json({ msg: "Success!", messageSent: true }))
     .catch(err => {
       res.status(400).json({
         err,
@@ -19,18 +18,18 @@ const TeachersCommunication = (req, res) => {
     });
 };
 
-const getTeachers = data => {
-  const { senderId, receiverId } = data;
-  return Promise.all([getSender(senderId), getReceiver(receiverId)]).then(
-    ([sender, receiver]) => {
+const getTeachers = messageData => {
+  const { userId, toUserId } = messageData;
+  return Promise.all([getUser(userId), getToUser(toUserId)]).then(
+    ([user, to_user]) => {
       return {
-        sender,
-        receiver
+        user,
+        to_user
       };
     }
   );
 };
-getSender = senderId => {
+getUser = userId => {
   return new Promise((resolve, reject) => {
     pg.connect(
       connectionString,
@@ -44,7 +43,7 @@ getSender = senderId => {
         client
           .query(
             `select id, title, first_name, sur_name, email from users where id=$1 `,
-            [senderId]
+            [userId]
           )
           .then(result => {
             if (result) {
@@ -56,7 +55,7 @@ getSender = senderId => {
     );
   });
 };
-getReceiver = receiverId => {
+getToUser = toUserId => {
   return new Promise((resolve, reject) => {
     pg.connect(
       connectionString,
@@ -70,7 +69,7 @@ getReceiver = receiverId => {
         client
           .query(
             `select id, title, first_name, sur_name, email from users where id=$1 `,
-            [receiverId]
+            [toUserId]
           )
           .then(result => {
             if (result) {
@@ -83,18 +82,19 @@ getReceiver = receiverId => {
   });
 };
 
-const sendMessege = (data, messege, send_to_email) => {
+const sendMessage = (data, messageData) => {
   return Promise.all([
-    sendEmail(data, messege, send_to_email),
-    sendToMessenger(data, messege)
+    sendEmail(data, messageData),
+    sendToMessenger(data, messageData)
   ]).then(() => {
     return;
   });
 };
 
-sendEmail = (data, messege, send_to_email) => {
-  const receiver = data.receiver;
-  const sender = data.sender;
+sendEmail = (data, messageData) => {
+  const { message, send_to_email } = messageData;
+  const to_user = data.to_user;
+  const user = data.user;
   return new Promise((resolve, reject) => {
     if (send_to_email) {
       var smtpTransport = nodemailer.createTransport({
@@ -107,11 +107,11 @@ sendEmail = (data, messege, send_to_email) => {
         }
       });
       var mailOptions = {
-        to: receiver.email,
+        to: to_user.email,
         from: process.env.USER_GMAIL,
         subject: `Crisis ClassRoom Communication`,
-        text: ` Messege from ${sender.title} ${sender.sur_name}\n\n\n
-      Messege: ${messege}`
+        text: ` Message from ${user.title} ${user.sur_name}\n\n\n
+      Message: ${message}`
       };
       smtpTransport.sendMail(mailOptions, err => {
         if (err) {
@@ -122,10 +122,10 @@ sendEmail = (data, messege, send_to_email) => {
     } else return resolve();
   });
 };
-sendToMessenger = (data, messege) => {
+sendToMessenger = (data, messageData) => {
   const date_id = Date.now().toString();
-  const receiver = data.receiver;
-  const sender = data.sender;
+  const to_user = data.to_user;
+  const user = data.user;
   return new Promise((resolve, reject) => {
     pg.connect(
       connectionString,
@@ -138,13 +138,19 @@ sendToMessenger = (data, messege) => {
         }
         client
           .query(
-            `insert into crisi_messenger
-        (sender_id, receiver_id, messege, date_id)
-        values ($1, $2, $3, $4)`,
-            [sender.id, receiver.id, messege, date_id]
+            `insert into crisis_messenger
+        (user_id, to_user_id, message, date_id, time)
+        values ($1, $2, $3, $4, $5)`,
+            [
+              user.id,
+              to_user.id,
+              messageData.message,
+              date_id,
+              messageData.time
+            ]
           )
           .then(() => {
-              return resolve();
+            return resolve();
           });
         done();
       }

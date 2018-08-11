@@ -1,15 +1,23 @@
 import React from "react";
 import Messenger from "./mesenger";
 import axios from "axios";
+import io from "socket.io-client";
+
 export default class Teacher extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       teacher: null,
       err: null,
-      msg: null
+      msg: null,
+      socket:null
     };
   }
+  UNSAFE_componentWillMount() {
+    var socket = io(process.env.REACT_APP_DOMAIN);
+    this.setState({ socket });
+  }
+  
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -122,7 +130,7 @@ export default class Teacher extends React.Component {
                 </div>
               </div>
             </div>
-            <Messenger teacher={teacher} />
+            <Messenger teacher={teacher} socket={this.state.socket} />
           </div>
         )}
       </div>

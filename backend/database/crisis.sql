@@ -86,9 +86,9 @@ create table instructions
 create table crisis_messenger
 (
     id serial primary key,
-    sender_id integer,
-    receiver_id integer,
-    messege text,
+    user_id integer,
+    to_user_id integer,
+    message text,
     date_id text,
     date DATE NOT NULL DEFAULT CURRENT_DATE
 );

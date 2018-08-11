@@ -196,7 +196,7 @@ export default class TeachersList extends Component {
                 </Link>
               </div>
               <div>
-                <TeachersCommunication receiverId={e.id} />
+                <TeachersCommunication toUserId={e.id} />
               </div>
             </div>
           ))}

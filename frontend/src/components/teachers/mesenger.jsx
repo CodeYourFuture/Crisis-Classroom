@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import decode from "jwt-decode";
+// import ScrollArea from "react-scrollbar";
+
 import TeachersCommunication from "../form/user/teachersCommunication";
 
 export default class Messenger extends Component {
@@ -9,24 +11,71 @@ export default class Messenger extends Component {
     this.state = {
       err: null,
       msg: null,
-      senderMesseges: [],
-      receiverMesseges: []
+      userMessages: [],
+      toUserMessages: []
     };
+    this.socketEvents = []
   }
+
   UNSAFE_componentWillMount() {
+    const { socket } = this.props;
+    this.getMessages();
+    socket.on("RECEIVE_MESSAGE", message => {
+      this.addMessage(message);
+    });
+  }
+
+  componentWillUnmount() {
+		this.deinitialize()
+	}
+
+
+	deinitialize(){
+		const { socket } = this.props
+		this.removeSocketEvents(socket, this.socketEvents)
+	}
+
+	removeSocketEvents(socket, events){
+		if(events.length > 0){
+			socket.off(events[0])
+			this.removeSocketEvents(socket, events.slice(1))
+		}
+  }
+  
+
+  addMessage = message => {
     const token = localStorage.getItem("id_token");
     const decoded = decode(token);
-    const senderId = decoded.id;
-    const receiverId = this.props.teacher.id;
+    const userId = decoded.id;
+    // const toUserId = this.props.teacher.id;
+    if (userId === message.user_id) {
+      console.log("save user message");
+      const userMessages = [...this.state.userMessages, message];
+      this.setState({ userMessages });
+    }
+    if (userId === message.to_user_id) {
+      console.log("save resiver message");
+      const userMessages = [...this.state.userMessages, message];
+      this.setState({ userMessages });
+    }
+    this.socketEvents.push(message)
+    // console.log(message);
+  };
+
+  getMessages() {
+    const token = localStorage.getItem("id_token");
+    const decoded = decode(token);
+    const userId = decoded.id;
+    const toUserId = this.props.teacher.id;
     axios
-      .post(`${process.env.REACT_APP_DOMAIN}/get-messeges`, {
-        senderId,
-        receiverId
+      .post(`${process.env.REACT_APP_DOMAIN}/get-messages`, {
+        userId,
+        toUserId
       })
       .then(result => {
         if (result) {
-          const { senderMesseges, receiverMesseges } = result.data;
-          this.setState({ senderMesseges, receiverMesseges });
+          const { userMessages, toUserMessages } = result.data;
+          this.setState({ userMessages, toUserMessages });
         }
       })
       .catch(err => {
@@ -52,45 +101,47 @@ export default class Messenger extends Component {
       return result * sortOrder;
     };
   };
-  messeges = () => {
-    
+
+  messages = () => {
     // const { teacher } = this.props;
+    const { userMessages, toUserMessages } = this.state;
     const token = localStorage.getItem("id_token");
     const decoded = decode(token);
-    const id = decoded.id;
-    const { senderMesseges, receiverMesseges } = this.state;
-    const resultMesseges = senderMesseges
-      .concat(receiverMesseges)
+    const userId = decoded.id;
+    const resultMessages = userMessages
+      .concat(toUserMessages)
       .sort(this.dynamicSort("date_id"));
-    return resultMesseges.map((messeges, i) => {
-      const cls = messeges.sender_id === id ? "sender-messeges" : "receiver-messeges"
+    return resultMessages.map((messages, i) => {
+      const cls =
+        messages.user_id === userId ? "user-messages" : "to-user-messages";
       return (
-        <div className={`${cls}-div`}>
-          <h6 key={i} className={cls}>
-            {messeges.messege}
+        <div className={`${cls}-div`} key={i}>
+          <h6 className={cls}>
+            <p>{messages.time}</p>
+            <p>{messages.message}</p>
           </h6>
         </div>
       );
-      
     });
-
+    // return resultMessages.map((messages, i) => {
+    //   if (messages.user_id === userId) {
+    //     return (
+    //       <div key={i} className={`user-messages-div`}>
+    //         <h6 className="user-messages">{messages.message}</h6>
+    //       </div>
+    //     );
+    //   } else
+    //     return (
+    //       <div key={i} className={`to_user-messages-div`}>
+    //         <h6 className="to-user-messages">{messages.message}</h6>
+    //       </div>
+    //     );
+    // });
   };
-
-  onMessageSend = (messege) => {
-    const date_id = Date.now().toString();
-    const firstMessage = this.state.senderMesseges[0]
-    const newMessage = {
-      sender_id: firstMessage.sender_id,
-      receiver_id: firstMessage.receiver_id,
-      date_id,
-      messege
-    }
-    const senderMesseges = [...this.state.senderMesseges, newMessage]
-    this.setState({senderMesseges})
-  }
 
   render() {
     const { teacher } = this.props;
+    console.log(teacher);
     return (
       <div className="container">
         <button
@@ -108,24 +159,20 @@ export default class Messenger extends Component {
                 <button type="button" className="close" data-dismiss="modal">
                   &times;
                 </button>
-                <h4 className="modal-title">Messenger</h4>
+                <h4 className="modal-title">{teacher.sur_name}</h4>
               </div>
               <div className="modal-body">
                 <div className="messenger-div">
-                  <div className="mesenger">
-                    <div id="message-content" >{this.messeges()}</div>
+                  <div ref={`thing`} id="messenger" className="mesenger">
+                    <div id="message-content">{this.messages()}</div>
                   </div>
                 </div>
                 <TeachersCommunication
-                  receiverId={teacher.id}
-                  componentDidMount={this.componentDidMount}
-                  // {...this.props}
-                  onMessageSend={this.onMessageSend}
+                  toUserId={teacher.id}
+                  socket={this.props.socket}
                 />
               </div>
-              <div className="messenger-form-container">
-
-              </div>
+              <div className="messenger-form-container" />
             </div>
           </div>
         </div>

@@ -2,9 +2,9 @@ const pg = require("pg");
 
 const connectionString = process.env.DATABASE_URL;
 
-const Messeges = (req, res) => {
-  getMesseges(req.body)
-    .then(messeges => res.json(messeges))
+const Messages = (req, res) => {
+  getMessages(req.body)
+    .then(messages => res.json(messages))
     .catch(err => {
       res.status(400).json({
         err,
@@ -14,20 +14,20 @@ const Messeges = (req, res) => {
     });
 };
 
-const getMesseges = userIds => {
+const getMessages = userIds => {
   return Promise.all([
-    getSenderMesseges(userIds),
-    getReceiverMesseges(userIds)
-  ]).then(([senderMesseges, receiverMesseges]) => {
+    getUserMessages(userIds),
+    getToUserMessages(userIds)
+  ]).then(([userMessages, toUserMessages]) => {
     return {
-      senderMesseges,
-      receiverMesseges
+      userMessages,
+      toUserMessages
     };
   });
 };
 
-const getSenderMesseges = userIds => {
-  const { senderId, receiverId } = userIds;
+const getUserMessages = userIds => {
+  const { userId, toUserId } = userIds;
   return new Promise((resolve, reject) => {
     pg.connect(
       connectionString,
@@ -40,8 +40,8 @@ const getSenderMesseges = userIds => {
         }
         client
           .query(
-            `select * from crisi_messenger where sender_id=$1 and receiver_id=$2`,
-            [senderId, receiverId]
+            `select * from crisis_messenger where user_id=$1 and to_user_id=$2`,
+            [userId, toUserId]
           )
           .then(result => {
             const data = result.rows;
@@ -52,8 +52,8 @@ const getSenderMesseges = userIds => {
     );
   });
 };
-const getReceiverMesseges = userIds => {
-  const { senderId, receiverId } = userIds;
+const getToUserMessages = userIds => {
+  const { userId, toUserId } = userIds;
   return new Promise((resolve, reject) => {
     pg.connect(
       connectionString,
@@ -66,8 +66,8 @@ const getReceiverMesseges = userIds => {
         }
         client
           .query(
-            `select * from crisi_messenger where sender_id=$1 and receiver_id=$2`,
-            [receiverId, senderId]
+            `select * from crisis_messenger where user_id=$1 and to_user_id=$2`,
+            [toUserId, userId]
           )
           .then(result => {
             const data = result.rows;
@@ -79,4 +79,4 @@ const getReceiverMesseges = userIds => {
   });
 };
 
-module.exports = Messeges;
+module.exports = Messages;

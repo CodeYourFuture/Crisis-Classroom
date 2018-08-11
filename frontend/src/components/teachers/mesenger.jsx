@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import decode from "jwt-decode";
-
-// import ScrollArea from "react-scrollbar";
+import * as ReactDOM from "react-dom";
 
 import TeachersCommunication from "../form/user/teachersCommunication";
 
@@ -16,9 +15,10 @@ export default class Messenger extends Component {
       toUserMessages: [],
       isTyping: false
     };
-    this.socketEvents = [];
+    this.socketEvents = []; //soket events
   }
 
+  //get data from soket in backend
   UNSAFE_componentWillMount() {
     const { socket, teacher } = this.props;
     const token = localStorage.getItem("id_token");
@@ -38,7 +38,7 @@ export default class Messenger extends Component {
       this.setState({ isTyping });
     });
   }
-
+  //send typing event
   sendTyping = isTyping => {
     const { socket, teacher } = this.props;
     const token = localStorage.getItem("id_token");
@@ -48,6 +48,7 @@ export default class Messenger extends Component {
     socket.emit("TYPING", { userId, toUserId, isTyping });
   };
 
+  //clear socket events
   componentWillUnmount() {
     this.deinitialize();
   }
@@ -64,6 +65,7 @@ export default class Messenger extends Component {
     }
   }
 
+  //add messages to state
   addMessage = message => {
     const token = localStorage.getItem("id_token");
     const decoded = decode(token);
@@ -79,6 +81,7 @@ export default class Messenger extends Component {
     this.socketEvents.push(message);
   };
 
+  //get messages from db
   getMessages() {
     const token = localStorage.getItem("id_token");
     const decoded = decode(token);
@@ -106,6 +109,8 @@ export default class Messenger extends Component {
         }
       });
   }
+
+  //sort messages
   dynamicSort = property => {
     var sortOrder = 1;
     if (property[0] === "-") {
@@ -118,7 +123,7 @@ export default class Messenger extends Component {
       return result * sortOrder;
     };
   };
-
+  //order and return messages
   messages = () => {
     const { userMessages, toUserMessages } = this.state;
     const token = localStorage.getItem("id_token");
@@ -141,6 +146,20 @@ export default class Messenger extends Component {
     });
   };
 
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+  //scroll messages to bottom
+  scrollToBottom = () => {
+    setTimeout(() => {
+      const { messageList } = this.refs;
+      const scrollHeight = messageList.scrollHeight;
+      const height = messageList.clientHeight;
+      const maxScrollTop = scrollHeight - height;
+      ReactDOM.findDOMNode(messageList).scrollTop =
+        maxScrollTop > 0 ? maxScrollTop : 0;
+    }, 300);
+  };
   render() {
     const { teacher } = this.props;
     const { isTyping } = this.state;
@@ -151,8 +170,9 @@ export default class Messenger extends Component {
           className="btn btn-info btn-lg"
           data-toggle="modal"
           data-target="#myModal"
+          onClick={this.scrollToBottom}
         >
-          Open Messenger
+          Messenger
         </button>
         <div className="modal fade" id="myModal" role="dialog">
           <div className="modal-dialog">
@@ -165,11 +185,14 @@ export default class Messenger extends Component {
               </div>
               <div className="modal-body">
                 <div className="messenger-div">
-                  <div ref={`thing`} id="messenger" className="mesenger">
-                    <div id="message-content">{this.messages()}</div>
-                    {isTyping && <p>Typing...</p>}
+                  <div id="messenger" className="mesenger">
+                    <div ref={`messageList`} id="message-content">
+                      {this.messages()}
+                      {isTyping && <p>{teacher.sur_name} is typing...</p>}
+                    </div>
                   </div>
                 </div>
+
                 <TeachersCommunication
                   toUserId={teacher.id}
                   socket={this.props.socket}

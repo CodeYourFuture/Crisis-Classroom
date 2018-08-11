@@ -17,7 +17,6 @@ server = app.listen(process.env.PORT);
 io = socket(server);
 
 io.on("connection", socket => {
-  console.log(socket.id);
   socket.on("SEND_MESSAGE", message => {
     const { user_id, to_user_id } = message;
     io.emit(`RECEIVE_MESSAGE${user_id}${to_user_id}`, message);

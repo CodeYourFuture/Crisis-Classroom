@@ -19,9 +19,10 @@ io = socket(server);
 io.on("connection", socket => {
   console.log(socket.id);
   socket.on("SEND_MESSAGE", message => {
-    io.emit("RECEIVE_MESSAGE", message)
+    const { user_id, to_user_id } = message;
+    io.emit(`RECEIVE_MESSAGE${user_id}${to_user_id}`, message);
   });
-  socket.on("SEND_MESSAGE", message => {
-    console.log(message)
+  socket.on("TYPING", ({ userId, toUserId, isTyping }) => {
+    io.emit(`TYPING${userId}${toUserId}`, isTyping);
   });
 });

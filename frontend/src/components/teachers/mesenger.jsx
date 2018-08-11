@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import decode from "jwt-decode";
+
 // import ScrollArea from "react-scrollbar";
 
 import TeachersCommunication from "../form/user/teachersCommunication";
@@ -12,54 +13,70 @@ export default class Messenger extends Component {
       err: null,
       msg: null,
       userMessages: [],
-      toUserMessages: []
+      toUserMessages: [],
+      isTyping: false
     };
-    this.socketEvents = []
+    this.socketEvents = [];
   }
 
   UNSAFE_componentWillMount() {
-    const { socket } = this.props;
+    const { socket, teacher } = this.props;
+    const token = localStorage.getItem("id_token");
+    const decoded = decode(token);
+    const userId = decoded.id;
+    const toUserId = teacher.id;
     this.getMessages();
-    socket.on("RECEIVE_MESSAGE", message => {
+
+    socket.on(`RECEIVE_MESSAGE${userId}${toUserId}`, message => {
       this.addMessage(message);
+    });
+
+    socket.on(`RECEIVE_MESSAGE${toUserId}${userId}`, message => {
+      this.addMessage(message);
+    });
+    socket.on(`TYPING${toUserId}${userId}`, isTyping => {
+      this.setState({ isTyping });
     });
   }
 
+  sendTyping = isTyping => {
+    const { socket, teacher } = this.props;
+    const token = localStorage.getItem("id_token");
+    const decoded = decode(token);
+    const userId = decoded.id;
+    const toUserId = teacher.id;
+    socket.emit("TYPING", { userId, toUserId, isTyping });
+  };
+
   componentWillUnmount() {
-		this.deinitialize()
-	}
-
-
-	deinitialize(){
-		const { socket } = this.props
-		this.removeSocketEvents(socket, this.socketEvents)
-	}
-
-	removeSocketEvents(socket, events){
-		if(events.length > 0){
-			socket.off(events[0])
-			this.removeSocketEvents(socket, events.slice(1))
-		}
+    this.deinitialize();
   }
-  
+
+  deinitialize() {
+    const { socket } = this.props;
+    this.removeSocketEvents(socket, this.socketEvents);
+  }
+
+  removeSocketEvents(socket, events) {
+    if (events.length > 0) {
+      socket.off(events[0]);
+      this.removeSocketEvents(socket, events.slice(1));
+    }
+  }
 
   addMessage = message => {
     const token = localStorage.getItem("id_token");
     const decoded = decode(token);
     const userId = decoded.id;
-    // const toUserId = this.props.teacher.id;
     if (userId === message.user_id) {
-      console.log("save user message");
       const userMessages = [...this.state.userMessages, message];
       this.setState({ userMessages });
     }
     if (userId === message.to_user_id) {
-      console.log("save resiver message");
       const userMessages = [...this.state.userMessages, message];
       this.setState({ userMessages });
     }
-    this.socketEvents.push(message)
-    // console.log(message);
+    this.socketEvents.push(message);
   };
 
   getMessages() {
@@ -103,7 +120,6 @@ export default class Messenger extends Component {
   };
 
   messages = () => {
-    // const { teacher } = this.props;
     const { userMessages, toUserMessages } = this.state;
     const token = localStorage.getItem("id_token");
     const decoded = decode(token);
@@ -116,32 +132,18 @@ export default class Messenger extends Component {
         messages.user_id === userId ? "user-messages" : "to-user-messages";
       return (
         <div className={`${cls}-div`} key={i}>
-          <h6 className={cls}>
-            <p>{messages.time}</p>
-            <p>{messages.message}</p>
-          </h6>
+          <div className={cls}>
+            <p className="message-text">{messages.message}</p>
+            <p className="message-time">{messages.time}</p>
+          </div>
         </div>
       );
     });
-    // return resultMessages.map((messages, i) => {
-    //   if (messages.user_id === userId) {
-    //     return (
-    //       <div key={i} className={`user-messages-div`}>
-    //         <h6 className="user-messages">{messages.message}</h6>
-    //       </div>
-    //     );
-    //   } else
-    //     return (
-    //       <div key={i} className={`to_user-messages-div`}>
-    //         <h6 className="to-user-messages">{messages.message}</h6>
-    //       </div>
-    //     );
-    // });
   };
 
   render() {
     const { teacher } = this.props;
-    console.log(teacher);
+    const { isTyping } = this.state;
     return (
       <div className="container">
         <button
@@ -157,7 +159,7 @@ export default class Messenger extends Component {
             <div className="modal-content">
               <div className="modal-header">
                 <button type="button" className="close" data-dismiss="modal">
-                  &times;
+                  Close
                 </button>
                 <h4 className="modal-title">{teacher.sur_name}</h4>
               </div>
@@ -165,11 +167,13 @@ export default class Messenger extends Component {
                 <div className="messenger-div">
                   <div ref={`thing`} id="messenger" className="mesenger">
                     <div id="message-content">{this.messages()}</div>
+                    {isTyping && <p>Typing...</p>}
                   </div>
                 </div>
                 <TeachersCommunication
                   toUserId={teacher.id}
                   socket={this.props.socket}
+                  sendTyping={this.sendTyping}
                 />
               </div>
               <div className="messenger-form-container" />

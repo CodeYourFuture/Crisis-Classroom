@@ -10,7 +10,8 @@ export default class TeachersCommunication extends React.Component {
       msg: null,
       message: "",
       send_to_email: false,
-      messageSent: null
+      messageSent: null,
+      isTyping:false
     };
   }
 
@@ -19,6 +20,33 @@ export default class TeachersCommunication extends React.Component {
       [e.target.name]: e.target.checked
     });
   };
+//send typing
+  sendTyping() {
+    this.lastUpdateTime = Date.now();
+    if (!this.state.isTyping) {
+      this.setState({ isTyping: true });
+      this.props.sendTyping(true);
+      this.startCheckingTyping();
+    }
+  }
+  startCheckingTyping() {
+    this.typingInterval = setInterval(() => {
+      if (Date.now() - this.lastUpdateTime > 300) {
+        this.setState({ isTyping: false });
+        this.stopCheckingTyping();
+      }
+    }, 300);
+  }
+  stopCheckingTyping() {
+    if (this.typingInterval) {
+      clearInterval(this.typingInterval);
+      this.props.sendTyping(false);
+    }
+  }
+  componentWillUnmount() {
+    this.stopCheckingTyping();
+  }
+
 
   handleChange = e => {
     this.setState({
@@ -60,9 +88,6 @@ export default class TeachersCommunication extends React.Component {
         if (result) {
           const { msg, messageSent } = result.data;
           this.setState({ msg, messageSent });
-          if (messageSent) {
-            this.props.componentDidMount();
-          }
         }
       })
       .catch(err => {
@@ -83,13 +108,18 @@ export default class TeachersCommunication extends React.Component {
       <div>
         <form>
           <div className="form-group">
-            <input
+            <textarea
+              rows="2"
+              cols="50"
               className="form-control messenger-input"
               name="message"
               form="usrform"
               placeholder="Write a message ... "
               value={this.state.message}
               onChange={this.handleChange}
+              onKeyUp={e => {
+                e.keyCode !== 13 && this.sendTyping(e.keyCode);
+              }}
             />
           </div>
           <div className="messenger-send-btn-checkbox">

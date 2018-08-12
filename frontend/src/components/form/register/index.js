@@ -97,13 +97,8 @@ class Registration extends Component {
   render() {
     return (
       <div>
-      <div className=" row registration">
-        {/* <div className="col-3">
-        </div> */}
+      <div className="registration">
         <div className="signin col-">
-
-        {/* <div className="col-md-3 col-md-offset-5"> */}
-        <h3>Registration</h3>
         {!this.state.formSubmitted ? (
           <Form
             onFormSubmit={this.onFormSubmit}

@@ -116,8 +116,8 @@ class SelectUser extends React.Component {
     } = this.state;
     return (
       <div className="admin">
-        <h5>{msg}</h5>
-        <h5>{err}</h5>
+        {msg && <p>{msg}</p>}
+        {err &&<p className="error">{err}</p>}
         <div className="admin-avatar">
           {!avatar ? (
             <div>
@@ -140,11 +140,11 @@ class SelectUser extends React.Component {
           )}
         </div>
         <div className="admin-user-info">
-          <h5>First Name: {first_name}</h5>
-          <h5>Sur Name: {sur_name}</h5>
-          <h5>User Name: {user_name}</h5>
-          <h5>Email: {email}</h5>
-          <h5>{about_user}</h5>
+          <p>First Name: {first_name}</p>
+          <p>Sur Name: {sur_name}</p>
+          <p>User Name: {user_name}</p>
+          <p>Email: {email}</p>
+          <p>{about_user}</p>
             <form onSubmit={this.onSubmit}>
               <Label value="Teacher" />
               &nbsp; &nbsp;

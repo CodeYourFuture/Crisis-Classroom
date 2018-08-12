@@ -52,7 +52,7 @@ class Login extends Component {
       <div>
         <div className="login-form">
           <div>
-            <p className="error">{err}</p>
+           {err && <p className="error">{err}</p>}
           </div>
           <div>
             <form onSubmit={this.onSubmit}>

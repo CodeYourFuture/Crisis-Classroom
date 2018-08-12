@@ -63,12 +63,8 @@ export default class AddSkill extends React.Component {
     return (
       <div>
         {success && this.props.showBackData(success)}
-        {msg || err ? (
-          <p>
-            {msg}
-            {err}
-          </p>
-        ) : (
+        {msg && <p>{msg}</p>}
+        {err && <p className="error">{err}</p>}
           <form>
             <div className="form-group">
               <Input
@@ -114,7 +110,6 @@ export default class AddSkill extends React.Component {
               Add
             </button>
           </form>
-        )}
       </div>
     );
   }

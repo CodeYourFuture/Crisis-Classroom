@@ -29,8 +29,10 @@ text-align: center;
 }
 
 
-
-
+/* admin */
+.admin-user-info-container{
+background-color: #dadada
+}
 
 
 /* teahers */
@@ -125,7 +127,7 @@ h3 {
 }
 .error {
   color: red;
-  padding: 0px;
+  padding: 10%;
 }
 
 /* .container {

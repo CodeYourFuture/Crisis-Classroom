@@ -51,43 +51,40 @@ class Login extends Component {
     return (
       <div>
         <div className="login-form">
-          {err ? (
-            <div>
-              <p>{err}</p>
-            </div>
-          ) : (
-            <div>
-              <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <Label value="user_name *" />
-                  <Input
-                    className="form-control"
-                    name="user_name"
-                    type="text"
-                    placeholder="user_name"
-                    value={this.state.user_name}
-                    onChange={this.handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <Label value="Password *" />
-                  <Input
-                    className="form-control"
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <Link to="/forgot-password">Forgotten password?</Link>
-                  &nbsp; &nbsp;
-                  <Button className="btn btn-info btn-block" value="Login" />
-                </div>
-              </form>
-            </div>
-          )}
+          <div>
+            <p className="error">{err}</p>
+          </div>
+          <div>
+            <form onSubmit={this.onSubmit}>
+              <div className="form-group">
+                <Label value="User name *" />
+                <Input
+                  className="form-control"
+                  name="user_name"
+                  type="text"
+                  placeholder="User name"
+                  value={this.state.user_name}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <Label value="Password *" />
+                <Input
+                  className="form-control"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <Link to="/forgot-password">Forgotten password?</Link>
+                &nbsp; &nbsp;
+                <Button className="btn btn-info btn-block" value="Login" />
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     );

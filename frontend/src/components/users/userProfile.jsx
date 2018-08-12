@@ -27,16 +27,16 @@ export default class UserProfile extends React.Component {
       showExperience: false,
       addExperience: false,
       skills: [],
-      experiences:[]
+      experiences: []
     };
   }
 
   componentDidMount() {
     const token = localStorage.getItem("id_token");
     const decoded = decode(token);
-    const user_name = decoded.user_name;
+    const id = decoded.id;
     axios
-      .post(`${process.env.REACT_APP_DOMAIN}/user-profile`, { user_name })
+      .post(`${process.env.REACT_APP_DOMAIN}/user-profile`, { id })
       .then(result => {
         if (result) {
           const {
@@ -68,7 +68,7 @@ export default class UserProfile extends React.Component {
         } else {
           this.setState({
             err:
-              "Ops! Sorry something happened on the server, please try again later"
+              "Sorry something happened on the server, please try again later"
           });
         }
       });
@@ -97,6 +97,14 @@ export default class UserProfile extends React.Component {
       });
     }
   };
+
+  showBackData = success => {
+    setTimeout(() => {
+      success && this.componentDidMount();
+      this.setState({ addSkill: false, addExperience: false });
+    }, 1500);
+  };
+
   render() {
     const {
       title,
@@ -178,7 +186,7 @@ export default class UserProfile extends React.Component {
               </div>
               {addSkill ? (
                 <div>
-                  <AddSkill />
+                  <AddSkill showBackData={this.showBackData} />
                 </div>
               ) : (
                 <button onClick={() => this.ShowAddSkill(true)}>
@@ -190,7 +198,7 @@ export default class UserProfile extends React.Component {
           {showExperience && (
             <div>
               <div>
-              {experiences.map((experience, i) => {
+                {experiences.map((experience, i) => {
                   return (
                     <Link to={`/edit-experience/${experience.id}`} key={i}>
                       <div className="skill">
@@ -207,7 +215,7 @@ export default class UserProfile extends React.Component {
               </div>
               {addExperience ? (
                 <div>
-                  <AddExperience />
+                  <AddExperience showBackData={this.showBackData} />
                 </div>
               ) : (
                 <button onClick={() => this.ShowAddExperience(true)}>

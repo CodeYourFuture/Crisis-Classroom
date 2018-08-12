@@ -15,8 +15,11 @@ export default class AddSkill extends React.Component {
       skill_name: '',
       about_skill: '',
       skill_level: '',
+      success:false
     };
   }
+
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
@@ -38,8 +41,8 @@ export default class AddSkill extends React.Component {
       })
       .then((result) => {
         if (result) {
-          const { msg } = result.data;
-          this.setState({ msg });
+          const { msg, success } = result.data;
+          this.setState({ msg, success });
         }
       })
       .catch((err) => {
@@ -53,10 +56,13 @@ export default class AddSkill extends React.Component {
         }
       });
   };
+
+
   render() {
-    const { msg, err } = this.state;
+    const { msg, err, success } = this.state;
     return (
       <div>
+        {success && this.props.showBackData(success)}
         {msg || err ? (
           <p>
             {msg}

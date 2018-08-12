@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Button from "../../button";
 import axios from "axios";
 
 class ConfirmRegistration extends Component {
@@ -63,16 +62,18 @@ class ConfirmRegistration extends Component {
       <div>
         {msg || err ? (
           <div>
-            <p>
               <p className="error">{err}</p>
-              {msg}
-            </p>
+              <p>{msg}</p>
           </div>
         ) : (
           <div>
+            <br/>
+            <br/>
             <p>
-              Hi {state.title} {state.sur_name}, please check the below details
-              and clicks `Looks fine`.
+            <strong> Cool ! {state.title} {state.sur_name}</strong>,
+            <br/>
+               Please check the below details
+              and click <strong>Looks fine</strong> to get registration done.
             </p>
             <div>
               {!state.avatar ? (

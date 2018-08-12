@@ -12,7 +12,7 @@ const register = (req, res) => {
     .then((data) => sendEmail(data, userInfo))
     .then(() => {
       res.status(200).json({
-        msg: `Success! Thank you for your registrating.`,
+        msg: `Success! Thank you for your patience.`,
       });
     })
     .catch((data) => {

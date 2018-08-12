@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import axios from "axios";
 // import decode from 'jwt-decode';
-// import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 // import Button from '../button';
 import Label from "../label";
 import Input from "../input";
@@ -100,12 +100,17 @@ class editSkill extends React.Component {
   }
 
   render() {
-    const { msg, skill_name, about_skill, skill_level } = this.state;
+    const { msg, err, skill_name, about_skill, skill_level } = this.state;
     return (
       <div>
-        {msg ? (
-          <div>{msg}</div>
+        {msg || err ? (
+          <div>{msg ? <div>
+            <p>{msg}</p>
+            <Link to="/user-profile">Your Profile</Link>
+          
+          </div> : <p>{err}</p>}</div>
         ) : (
+
           <div>
             <h5>Edit or delete your skill</h5>
             <form>

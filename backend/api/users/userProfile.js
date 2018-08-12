@@ -2,13 +2,11 @@ const pg = require("pg");
 
 const connectionString = process.env.DATABASE_URL;
 
-const getSkills = require("../../helpers/getSkills");
-const getExperiences = require('../../helpers/getExperiences');
 
 const UserProfile = (req, res) => {
-  const { user_name } = req.body;
+  const { id } = req.body;
 
-  getUser(user_name)
+  getUser(id)
     .then(user => getUserinfo(user))
     .then(userProfile => res.json(userProfile))
     .catch(err =>
@@ -19,7 +17,7 @@ const UserProfile = (req, res) => {
       })
     );
 };
-const getUser = user_name => {
+const getUser = id => {
   return new Promise((resolve, reject) => {
     pg.connect(
       connectionString,
@@ -32,8 +30,8 @@ const getUser = user_name => {
         }
         client
           .query(
-            `select id ,title, first_name, sur_name, email, user_name, avatar, about_user, date from users where user_name=$1`,
-            [user_name]
+            `select id ,title, first_name, sur_name, email, user_name, avatar, about_user, date from users where id=$1`,
+            [id]
           )
           .then(result => {
             if (result) {
@@ -57,6 +55,49 @@ getUserinfo = user => {
       };
     }
   );
+};
+
+getSkills = (id) => {
+  return new Promise((resolve, reject) => {
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
+      }
+      client
+        .query(`select * from skills where user_id=$1`, [id])
+        .then((result) => {
+          if (result) {
+            const skills = result.rows;
+            return resolve(skills);
+          } else return reject();
+        });
+        done()
+    });
+  });
+};
+getExperiences = (id) => {
+  return new Promise((resolve, reject) => {
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) {
+        return reject({
+          msg:
+            'Ops! Sorry something happened on the server, please try again later.',
+        });
+      }
+      client
+        .query(`select * from experience where user_id=$1`, [id])
+        .then((result) => {
+          if (result) {
+            const experiences = result.rows;
+            return resolve(experiences);
+          } else return reject();
+        });
+        done()
+    });
+  });
 };
 
 module.exports = UserProfile;

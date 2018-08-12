@@ -12,7 +12,7 @@ getExperiences = (id) => {
         });
       }
       client
-        .query(`select * from experience where user_id=$1 or id=$2`, [id, id])
+        .query(`select * from experience where id=$1`, [id])
         .then((result) => {
           if (result) {
             const experiences = result.rows;

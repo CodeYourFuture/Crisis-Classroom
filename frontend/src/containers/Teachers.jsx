@@ -23,6 +23,7 @@ export default class Teachers extends Component {
       axios
       .post(`${process.env.REACT_APP_DOMAIN}/teachers`)
       .then(result => {
+        console.log(result)
         if (result.msg) {
           this.setState({ msg: result.msg });
         } else if (result) {

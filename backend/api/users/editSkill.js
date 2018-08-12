@@ -5,7 +5,7 @@ const connectionString = process.env.DATABASE_URL;
 const editSkill = (req, res) => {
   const skill = req.body;
   setSkill(skill)
-    .then(() => res.json({ msg: 'Success! Your skill has been changed.' }))
+    .then(() => res.json({ msg: 'Success! Your skill has been changed.'}))
     .catch((err) =>
       res.status(400).json({
         err,

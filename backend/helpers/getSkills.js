@@ -12,7 +12,7 @@ getSkills = (id) => {
         });
       }
       client
-        .query(`select * from skills where user_id=$1 or id=$2`, [id, id])
+        .query(`select * from skills where id=$1`, [id])
         .then((result) => {
           if (result) {
             const skills = result.rows;

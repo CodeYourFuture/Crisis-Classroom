@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { Switch, Route, Redirect } from "react-router-dom";
 import TeachersLists from "../components/teachers/teachersLists.jsx";
 import Teacher from "../components/teachers/teacher.jsx";
@@ -19,13 +20,13 @@ export default class Teachers extends Component {
   }
 
   componentDidMount() {
-    fetch(`${process.env.REACT_APP_DOMAIN}/teachers`)
-      .then(res => res.json())
+      axios
+      .post(`${process.env.REACT_APP_DOMAIN}/teachers`)
       .then(result => {
         if (result.msg) {
           this.setState({ msg: result.msg });
         } else if (result) {
-          this.setState({ teachers: result });
+          this.setState({ teachers: result.data });
         } else
           this.setState({
             err:

@@ -4,7 +4,6 @@ const connectionString = process.env.DATABASE_URL;
 
 const creatExperience = (req, res) => {
   const experience = req.body;
-  console.log(experience);
   saveExperience(experience)
     .then(() => res.json({ msg: "Success! Your experience has been saved." }))
     .catch(err =>

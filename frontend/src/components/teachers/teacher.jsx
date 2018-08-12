@@ -1,8 +1,7 @@
 import React from "react";
-// import { Link } from "react-router-dom";
-// import { Grid, Row, Col } from "react-flexbox-grid/lib";
-// import axios from "axios";
-// import Button from "../button";
+import Messenger from "./mesenger";
+import axios from "axios";
+import io from "socket.io-client";
 
 export default class Teacher extends React.Component {
   constructor(props) {
@@ -10,19 +9,39 @@ export default class Teacher extends React.Component {
     this.state = {
       teacher: null,
       err: null,
-      msg: null
+      msg: null,
+      socket:null
     };
   }
+  UNSAFE_componentWillMount() {
+    var socket = io(process.env.REACT_APP_DOMAIN);
+    this.setState({ socket });
+  }
+  
 
   componentDidMount() {
-    //i need to get teacher from backend
     const { id } = this.props.match.params;
-    const teacher = this.props.teachers.find(g => g.id === parseInt(id, 10));
-    if (teacher) {
-      this.setState({ teacher: teacher });
-    } else {
-      this.setState({ err: "teacher not found" });
-    }
+    axios
+      .post(`${process.env.REACT_APP_DOMAIN}/teachers`, { id })
+      .then(result => {
+        if (result.msg) {
+          this.setState({ msg: result.msg });
+        } else if (result) {
+          this.setState({ teacher: result.data[0] });
+        } else
+          this.setState({
+            err:
+              "Sorry something happened on the server, please try again later."
+          });
+      })
+      .catch(error => {
+        if (error) {
+          this.setState({
+            err:
+              "Sorry something happened on the server, please try again later."
+          });
+        }
+      });
   }
 
   render() {
@@ -111,6 +130,7 @@ export default class Teacher extends React.Component {
                 </div>
               </div>
             </div>
+            <Messenger teacher={teacher} socket={this.state.socket} />
           </div>
         )}
       </div>

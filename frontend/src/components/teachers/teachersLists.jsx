@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+// import TeachersCommunication from "../form/user/teachersCommunication";
 
 export default class TeachersList extends Component {
   constructor(props) {
@@ -123,75 +124,80 @@ export default class TeachersList extends Component {
     return (
       <div>
         <h1>Teachers</h1>
-          <div>
-            <select
-              onChange={searchHandler}
-              name="skillName"
-              className="form-control"
-            >
-              <option value="">Skills</option>
-              {this.getSkills()}
-            </select>
-            <select
-              name="skillLevel"
-              onChange={searchHandler}
-              className="form-control"
-            >
-              <option value="">Skill level</option>
-              {this.gitSkillLevel()}
-            </select>
-            <select
-              onChange={searchHandler}
-              name="WhatExperience"
-              className="form-control"
-            >
-              <option value="">Experiences</option>
-              {this.getExperiences()}
-            </select>
-            <select
-              onChange={searchHandler}
-              name="Whatplace"
-              className="form-control"
-            >
-              <option value="">Industry</option>
-              {this.getIndustrys()}
-            </select>
-            <select
-              onChange={searchHandler}
-              name="Collage"
-              className="form-control"
-            >
-              <option value="">Collages</option>
-              {this.getCollages()}
-            </select>
-          </div>
         <div>
+          <select
+            onChange={searchHandler}
+            name="skillName"
+            className="form-control"
+          >
+            <option value="">Skills</option>
+            {this.getSkills()}
+          </select>
+          <select
+            name="skillLevel"
+            onChange={searchHandler}
+            className="form-control"
+          >
+            <option value="">Skill level</option>
+            {this.gitSkillLevel()}
+          </select>
+          <select
+            onChange={searchHandler}
+            name="WhatExperience"
+            className="form-control"
+          >
+            <option value="">Experiences</option>
+            {this.getExperiences()}
+          </select>
+          <select
+            onChange={searchHandler}
+            name="Whatplace"
+            className="form-control"
+          >
+            <option value="">Industry</option>
+            {this.getIndustrys()}
+          </select>
+          <select
+            onChange={searchHandler}
+            name="Collage"
+            className="form-control"
+          >
+            <option value="">Collages</option>
+            {this.getCollages()}
+          </select>
+        </div>
+        <div className="teschers-list-div">
           {searchResultForCollages.map((e, i) => (
-            <div key={i}>
-              <Link to={`/teachers/${e.id}`}>
-                {!e.avatar ? (
-                  <div>
-                    {e.title === "Mr" ? (
-                      <img
-                        className="user-avatar"
-                        src={require("../../image/icons/man-avatar.jpg")}
-                        alt="avatar"
-                      />
-                    ) : (
-                      <img
-                        className="user-avatar"
-                        src={require("../../image/icons/women-avatar.jpg")}
-                        alt="avatar"
-                      />
-                    )}
-                  </div>
-                ) : (
-                  <img className="user-avatar" src={e.avatar} alt="avatar" />
-                )}
-                <h6>
-                  {e.title} {e.first_name} {e.sur_name}
-                </h6>
-              </Link>
+            <div className="teschers-list" key={i}>
+              <div>
+                <Link to={`/teachers/${e.id}`}>
+                  {!e.avatar ? (
+                    <div>
+                      {e.title === "Mr" ? (
+                        <img
+                          className="user-avatar"
+                          src={require("../../image/icons/man-avatar.jpg")}
+                          alt="avatar"
+                        />
+                      ) : (
+                        <img
+                          className="user-avatar"
+                          src={require("../../image/icons/women-avatar.jpg")}
+                          alt="avatar"
+                        />
+                      )}
+                    </div>
+                  ) : (
+                    <img className="user-avatar" src={e.avatar} alt="avatar" />
+                  )}
+                  <h6>
+                    {e.title} {e.first_name} {e.sur_name}
+                  </h6>
+                </Link>
+              </div>
+              <div>
+                {/* <TeachersCommunication toUserId={e.id} /> */}
+              </div>
             </div>
           ))}
         </div>

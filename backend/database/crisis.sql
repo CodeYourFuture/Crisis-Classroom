@@ -83,5 +83,15 @@ create table instructions
     date DATE NOT NULL DEFAULT CURRENT_DATE,
     foreign key(lesson_id) references lessons(id)
 );
+create table crisis_messenger
+(
+    id serial primary key,
+    user_id integer,
+    to_user_id integer,
+    message text,
+    date_id text,
+    time text,
+    date DATE NOT NULL DEFAULT CURRENT_DATE
+);
 
 

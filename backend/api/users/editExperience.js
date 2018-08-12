@@ -16,7 +16,6 @@ const editExperience = (req, res) => {
 };
 
 const setExperience = experiance => {
-    console.log(experiance)
   const {
     id,
     what_experience,

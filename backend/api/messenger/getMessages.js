@@ -2,16 +2,9 @@ const pg = require("pg");
 
 const connectionString = process.env.DATABASE_URL;
 
-const getSkills = require("../../helpers/getSkills");
-const getExperiences = require("../../helpers/getExperiences");
-
-const teachers = (req, res) => {
-  const { id } = req.body;
-  getAllTeachers(id)
-    .then(teachers =>
-      Promise.all(teachers.data.map(teacher => getTeacherData(teacher)))
-    )
-    .then(teachersPlusData => res.json(teachersPlusData))
+const Messages = (req, res) => {
+  getMessages(req.body)
+    .then(messages => res.json(messages))
     .catch(err => {
       res.status(400).json({
         err,
@@ -21,37 +14,20 @@ const teachers = (req, res) => {
     });
 };
 
-const getTeacherData = teacher => {
-  const user_id = teacher.id;
-  return Promise.all([getSkills(user_id), getExperiences(user_id)]).then(
-    ([skills, experiences]) => {
-      return {
-        ...teacher,
-        skills,
-        experiences
-      };
-    }
-  );
+const getMessages = userIds => {
+  return Promise.all([
+    getUserMessages(userIds),
+    getToUserMessages(userIds)
+  ]).then(([userMessages, toUserMessages]) => {
+    return {
+      userMessages,
+      toUserMessages
+    };
+  });
 };
 
-const getAllTeachers = id => {
-  if (id) {
-    return Promise.all([getTeacher(id)]).then(([data]) => {
-      return {
-        data
-      };
-    });
-  }
-  if (!id) {
-    return Promise.all([getTeachers()]).then(([data]) => {
-      return {
-        data
-      };
-    });
-  }
-};
-
-const getTeachers = () => {
+const getUserMessages = userIds => {
+  const { userId, toUserId } = userIds;
   return new Promise((resolve, reject) => {
     pg.connect(
       connectionString,
@@ -64,7 +40,8 @@ const getTeachers = () => {
         }
         client
           .query(
-            `select id, title, first_name, sur_name, email, avatar, about_user from users`
+            `select * from crisis_messenger where user_id=$1 and to_user_id=$2`,
+            [userId, toUserId]
           )
           .then(result => {
             const data = result.rows;
@@ -75,7 +52,8 @@ const getTeachers = () => {
     );
   });
 };
-const getTeacher = id => {
+const getToUserMessages = userIds => {
+  const { userId, toUserId } = userIds;
   return new Promise((resolve, reject) => {
     pg.connect(
       connectionString,
@@ -88,8 +66,8 @@ const getTeacher = id => {
         }
         client
           .query(
-            `select id, title, first_name, sur_name, email, avatar, about_user from users where id=$1`,
-            [id]
+            `select * from crisis_messenger where user_id=$1 and to_user_id=$2`,
+            [toUserId, userId]
           )
           .then(result => {
             const data = result.rows;
@@ -101,4 +79,4 @@ const getTeacher = id => {
   });
 };
 
-module.exports = teachers;
+module.exports = Messages;

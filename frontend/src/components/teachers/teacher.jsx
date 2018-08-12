@@ -13,14 +13,17 @@ export default class Teacher extends React.Component {
       socket:null
     };
   }
-  UNSAFE_componentWillMount() {
-    var socket = io(process.env.REACT_APP_DOMAIN);
-    this.setState({ socket });
-  }
+  // UNSAFE_componentWillMount() {
+  //   var socket = io(process.env.REACT_APP_DOMAIN);
+  //   this.setState({ socket });
+  // }
   
 
   componentDidMount() {
     const { id } = this.props.match.params;
+    var socket = io(process.env.REACT_APP_DOMAIN);
+    this.setState({ socket });
+    
     axios
       .post(`${process.env.REACT_APP_DOMAIN}/teachers`, { id })
       .then(result => {

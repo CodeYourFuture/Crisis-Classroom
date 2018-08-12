@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import Button from '../../button';
-import axios from 'axios';
+import React, { Component } from "react";
+import Button from "../../button";
+import axios from "axios";
 
 class ConfirmRegistration extends Component {
   constructor(props) {
     super(props);
     this.state = {
       err: null,
-      msg: null,
+      msg: null
     };
   }
 
@@ -22,7 +22,7 @@ class ConfirmRegistration extends Component {
       confirmPassword,
       avatar,
       about_user,
-      uuid,
+      uuid
     } = this.props.userData;
 
     axios
@@ -36,21 +36,21 @@ class ConfirmRegistration extends Component {
         confirmPassword,
         avatar,
         about_user,
-        uuid,
+        uuid
       })
-      .then((result) => {
+      .then(result => {
         if (result) {
           const { msg, err } = result.data;
           this.setState({ msg, err });
         }
       })
-      .catch((err) => {
+      .catch(err => {
         if (err.msg) {
           this.setState({ err: err.msg });
         } else {
           this.setState({
             err:
-              'Ops! Sorry something happened on the server, please try again later',
+              "Ops! Sorry something happened on the server, please try again later"
           });
         }
       });
@@ -60,30 +60,30 @@ class ConfirmRegistration extends Component {
     const state = this.props.userData;
     const { msg, err } = this.state;
     return (
-      <div className="lesson-form">
+      <div>
         {msg || err ? (
           <div>
             <p>
-              {err}
+              <p className="error">{err}</p>
               {msg}
             </p>
           </div>
         ) : (
           <div>
-            <h3>
+            <p>
               Hi {state.title} {state.sur_name}, please check the below details
-              and click 'Looks fine'.
-            </h3>
+              and clicks `Looks fine`.
+            </p>
             <div>
               {!state.avatar ? (
                 <div>
                   <label className="btn btn-outline-dark">
-                    {state.title === 'Mr' ? (
+                    {state.title === "Mr" ? (
                       <div className="image-container">
                         <img
                           className="image"
                           width="100px"
-                          src={require('../../../image/icons/man-avatar.jpg')}
+                          src={require("../../../image/icons/man-avatar.jpg")}
                           alt="avatar"
                         />
                       </div>
@@ -92,13 +92,13 @@ class ConfirmRegistration extends Component {
                         <img
                           className="image"
                           width="100px"
-                          src={require('../../../image/icons/women-avatar.jpg')}
+                          src={require("../../../image/icons/women-avatar.jpg")}
                           alt="avatar"
                         />
                       </div>
                     )}
                     <input
-                      style={{ display: 'none' }}
+                      style={{ display: "none" }}
                       type="file"
                       name="avatar"
                       onChange={this.props.onChangeImageHandler}
@@ -126,25 +126,23 @@ class ConfirmRegistration extends Component {
                 </div>
               )}
             </div>
-            <ul>
-              <li>First name: {state.first_name}</li>
-              <li>Last name: {state.sur_name}</li>
-              <li>User name: {state.user_name}</li>
-              <li>Email: {state.email}</li>
-              <li>{state.about_user}</li>
-            </ul>
-            <div className="row container">
-              <Button
-                className="btn btn-outline-dark"
-                value="Back"
+            <div>
+              <p>First name: {state.first_name}</p>
+              <p>Last name: {state.sur_name}</p>
+              <p>User name: {state.user_name}</p>
+              <p>Email: {state.email}</p>
+              <p>{state.about_user}</p>
+            </div>
+            <div>
+              <button
+                className="btn btn-info btnblock"
                 onClick={this.props.onConfirmSubmit}
-              />
-              &nbsp; &nbsp;
-              <Button
-                className="btn btn-outline-dark"
-                value="Looks fine"
-                onClick={this.onSubmit}
-              />
+              >
+                Back
+              </button>
+              <button className="btn btn-info btnblock" onClick={this.onSubmit}>
+                Looks fine
+              </button>
             </div>
           </div>
         )}

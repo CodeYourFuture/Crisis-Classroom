@@ -9,7 +9,6 @@ import Login from "../components/form/login/form";
 import LessonForm from "../components/form/templats/index";
 import PrivateRoute from "../layout/PrivateRoute";
 import NotFound from "../components/pages/notFound";
-import RegistrationDone from "../components/form/register/Registration-done";
 import TemplateCreated from "../components/form/templats/templateCreated";
 import TemplateEdited  from "../components/form/templats/templateEdited";
 import ForgotPassword from "../components/form/login/ForgotPassword";
@@ -34,7 +33,6 @@ class Routes extends Component {
         <Layout exact path="/login" component={Login} />
         <Layout path="/register" component={Register} />
         <Layout exact path="/notfound" component={NotFound} />
-        <Layout exact path="/registration-done" component={RegistrationDone} />
         <Layout exact path="/forgot-password" component={ForgotPassword} />
         <Layout exact path="/reset-password/:token" component={CheckUserToken} />
         <Layout exact path="/reset-password" component={ResetPassword} />

@@ -1,61 +1,62 @@
-import React, {Component} from 'react';
-// import {Link} from 'react-router-dom';
-import HomePageText from '../components/pages/Home';
-import CrisisLogo from '../image/icons/crisis-logo.svg';
-import Login from '../components/form/login/form';
-import Registration from '../components/form/register/index';
-import AuthService from '../Auth/AuthService';
+import React, { Component } from "react";
+import HomePageText from "../components/pages/Home";
+import CrisisLogo from "../image/icons/crisis-logo.svg";
+import Enrollment from "../components/pages/Enrollment";
+import AuthService from "../Auth/AuthService";
 
 class Home extends Component {
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
     this.state = {
-      login: true,
+      login: true
     };
   }
-  onClick = e => {
-    this.setState ({login: e});
-  };
-  render () {
-    const {login} = this.state;
+
+  render() {
     return (
-      <div className="home-page">
-        <img
-          className="logo-crisis-classroom text-center"
-          alt="Logo crisis classroom"
-          src={CrisisLogo}
-        />
-        <h1 className="welcome text-center">Welcome to Crisis Classroom</h1>
-        <br />
-        <br />
-
-        <div className='row'>
-        <div className="col-md-6">
-        <HomePageText />
-
+      <div className="home-container">
+        <div className="home-itmes">
+          <img
+            className="logo-crisis-classroom text-center"
+            alt="Logo crisis classroom"
+            src={CrisisLogo}
+          />
+          <h1 className="welcome text-center">Welcome to Crisis Classroom</h1>
+          <div>
+            <HomePageText />
+          </div>
         </div>
-        <div className="col-md-6">
-
-        {!AuthService.loggedIn ()
-          ? <div>
-              <div>
-                <button
-                  onClick={() => this.onClick (true)}
-                  className="btn btn-outline-dark"
-                >
-                  Login
-                </button>
-                <button
-                  onClick={() => this.onClick (false)}
-                  className="btn btn-outline-dark"
-                >
-                  Register
-                </button>
+        <div>
+          {!AuthService.loggedIn() && (
+            <div>
+              <button
+                type="button"
+                className="btn btn-info btn-block"
+                data-toggle="modal"
+                data-target="#myModal"
+              >
+                Get start with Crisis Classroom
+              </button>
+              <div className="modal fade" id="myModal" role="dialog">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-body">
+                      <Enrollment history={this.props.history} />
+                    </div>
+                    <div className="modal-header">
+                      <button
+                        type="button"
+                        className="close"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              {login ? <Login history={this.props.history}/> : <Registration history={this.props.history}/>}
             </div>
-          : ''}
-        </div>
+          )}
         </div>
       </div>
     );

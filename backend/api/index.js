@@ -44,7 +44,7 @@ const api = () => {
   router.post('/login', logIn.login);
   router.post('/check-email', checkEmail);
   router.post('/check-user-name', checkUserName);
-  router.post('/creat-lessons', creatLessons);
+  router.post('/add-new-applicant', creatLessons);
   router.post('/edit-lessons', EditLesson);
   router.post('/delete-lessons', DeleteLesson);
   router.post('/user-profile', UserProfil);

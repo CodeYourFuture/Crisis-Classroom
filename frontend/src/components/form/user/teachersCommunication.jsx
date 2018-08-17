@@ -130,7 +130,6 @@ export default class TeachersCommunication extends React.Component {
                 name="send_to_email"
                 onChange={this.handleChangeCheckbox}
               />
-              {"  "}
               <label>Send as a email </label>
             </div>
             <div className="messenger-btn-div">

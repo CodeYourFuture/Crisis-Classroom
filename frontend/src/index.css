@@ -28,12 +28,247 @@ text-align: center;
   width: 50%
 }
 
+/* templaate */
+.lesson-form {
+  flex-wrap: wrap;
+  overflow: hidden;
+  display: inherit;
+  border-style: inset;
+  width: 80%;
+  margin: auto;
+  padding: 5px;
+}
+.lessonForm {
+  padding: 5px;
+  width: 90%;
+}
 
+.lessonInput {
+  display: flex;
+}
+
+.label-form {
+  font-size: 20px;
+}
+.image-container {
+  position: relative;
+  width: 100px;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  display: flex;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container:hover .image {
+  opacity: 0.3;
+}
+
+.image-container:hover .middle {
+  opacity: 0.8;
+}
+
+.text {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  font-size: 14px;
+  padding: 5px;
+}
+.Preview-h2{
+  text-align: center;
+}
+.grid-container {
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+
+.mian-row {
+  background: #b8b8b8;
+  margin-bottom: 0.01rem;
+  border: 1px solid #fff;
+  padding: 5px;
+}
+.box {
+  box-sizing: border-box;
+  height: 650px;
+  margin-bottom: 0;
+  background: #fff;
+  border: 1px solid;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  padding: 1%;
+}
+.preview-title-image {
+  width: 100%;
+  border-radius: 10px;
+}
+.preview-items{
+  display: flex;
+  flex-wrap: wrap;
+  border: 3px;
+  padding-top: 6px;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+}
+
+.preview-image {
+  max-height: 40px;
+  border-radius: 6px;
+  margin-left: auto;  
+  
+}
+
+.preview-hr {
+  width: 80%;
+  background-color: #fff;
+  border-top: 1px dashed #8c8b8b;
+}
+
+
+.templets{
+  display: flex;
+  flex-wrap: wrap;
+}
+.templetsItem{
+   width: 20%; 
+   margin: auto; 
+   box-sizing: border-box;
+   margin-bottom: 0;
+   background: rgb(248, 233, 230);
+   border: 1px solid ;
+   border-radius: 10px;
+   padding: .3%;
+}
+.templetsItemImg {
+  max-height: 120px;
+  width: 100%;
+  padding: .3%;
+  border-radius: 10px;
+}
+.add-templat{
+  width: 18%;   
+  display: flex;
+  align-items: center;    
+  justify-content: center;
+}
+.add-templat-p{
+   width: 80%;
+}
+.container {
+  padding: 1rem;
+}
+
+.box1 {
+  box-sizing: border-box;
+  min-height: 44rem;
+  margin-bottom: 0;
+  background: #fff;
+  border: 1px solid;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  padding: 1.3%;
+}
+.lessonImg {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.row {
+  margin-bottom: 0.01rem;
+}
+.minrow {
+  background: #00f7ff;
+  margin-bottom: 0.01rem;
+  border: 1px solid #fff;
+  padding: 5px;
+}
+.timeToPrepair {
+  padding: 5px;
+  align-items: center;
+}
+.number_of_people {
+  padding: 5px;
+  align-items: center;
+}
+.tools {
+  display: flex;
+  border: 1px;
+  align-items: center;
+  position: relative;
+  margin-left: auto;  
+  
+}
+.colSymbole {
+  width: 25%;
+  align-items: end;
+  margin-left: auto;  
+  
+}
+.Symbole {
+  width: 100%;
+  border-radius: 10px;
+
+}
+
+.hr {
+  width: 80%;
+  background-color: #fff;
+  border-top: 2px dashed #8c8b8b;
+}
+.not-found-templates {
+  display: flex;
+  padding: 5%;
+}
 /* admin */
 .admin-user-info-container{
 background-color: #dadada
 }
+.admin{
+  display: flex;
+  border: 1px solid  ;
+  padding: 1%;
+  background-color: #dadada;
 
+}
+.admin-avatar{
+  display: block;
+  width: 100px;
+}
+.admin-image{
+  width: 90%
+}
+
+.admin-divs{
+width: 50%;
+}
+.admin-users{
+  display: flex;
+  border: 1px solid  ;
+  padding: 1%;
+  
+}
+.admin-user-info{
+  padding-left: 2%;
+}
 
 /* teahers */
 .teschers-list-div {
@@ -206,7 +441,6 @@ input[type="password"]:focus {
 .messenger-div {
   background-color: #f1f0f0;
   width: 100%;
-
   border: 1px solid #000;
   padding: 0.5%;
   display: inline-block;

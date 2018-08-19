@@ -47,7 +47,7 @@ jobs:
           command: sudo apt-get -y install gnupg
       - run:
           name: Get kubeconfig
-          command: aws s3 cp s3://$SECRETS_BUCKET/kubectl/config.gpg .
+          command: aws s3 cp s3://$SECRETS_BUCKET/kubectl/config_cyfbot.gpg ./config.gpg
       - run:
           name: Decrypt kubeconfig and set KUBECONFIG
           command: gpg --yes --passphrase="$GPG_KEY" config.gpg

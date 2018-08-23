@@ -7,7 +7,6 @@ import AddExperience from "../form/user/addExperience";
 import { Link } from "react-router-dom";
 // import Button from '../button';
 // import Label from '../label';
-import "./style.css";
 
 export default class UserProfile extends React.Component {
   constructor(props) {

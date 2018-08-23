@@ -197,7 +197,6 @@ export default class Messenger extends Component {
                           </div>
                         </div>
                       </div>
-
                       <TeachersCommunication
                         toUserId={teacher.id}
                         socket={this.props.socket}

@@ -58,6 +58,13 @@ export default class NavbarFeatures extends Component {
                   Templates
                 </Link>
               </li>
+              {AuthService.isAdmin() &&
+                <li className="nav-item">
+                <Link to="/admin" className="nav-link">
+                  Admin
+                </Link>
+              </li>
+              }
               {AuthService.loggedIn ()
                 && <div>
                     <li className="nav-item user-info-items">

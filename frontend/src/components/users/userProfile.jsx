@@ -27,16 +27,16 @@ export default class UserProfile extends React.Component {
       showExperience: false,
       addExperience: false,
       skills: [],
-      experiences:[]
+      experiences: []
     };
   }
 
   componentDidMount() {
     const token = localStorage.getItem("id_token");
     const decoded = decode(token);
-    const user_name = decoded.user_name;
+    const id = decoded.id;
     axios
-      .post(`${process.env.REACT_APP_DOMAIN}/user-profile`, { user_name })
+      .post(`${process.env.REACT_APP_DOMAIN}/user-profile`, { id })
       .then(result => {
         if (result) {
           const {
@@ -68,7 +68,7 @@ export default class UserProfile extends React.Component {
         } else {
           this.setState({
             err:
-              "Ops! Sorry something happened on the server, please try again later"
+              "Sorry something happened on the server, please try again later"
           });
         }
       });
@@ -97,6 +97,14 @@ export default class UserProfile extends React.Component {
       });
     }
   };
+
+  showBackData = success => {
+    setTimeout(() => {
+      success && this.componentDidMount();
+      this.setState({ addSkill: false, addExperience: false });
+    }, 1500);
+  };
+
   render() {
     const {
       title,
@@ -116,107 +124,114 @@ export default class UserProfile extends React.Component {
       addExperience
     } = this.state;
     return (
-      <div className="user">
-        <h5>{msg}</h5>
-        <h5>{err}</h5>
-        <div className="user-avatar">
-          {!avatar ? (
-            <div>
-              {title === "Mr" ? (
-                <img
-                  className="user-avatar"
-                  src={require("../../image/icons/man-avatar.jpg")}
-                  alt="avatar"
-                />
-              ) : (
-                <img
-                  className="user-avatar"
-                  src={require("../../image/icons/women-avatar.jpg")}
-                  alt="avatar"
-                />
-              )}
-            </div>
-          ) : (
-            <img className="user-avatar" src={avatar} alt="avatar" />
-          )}
-        </div>
-        <div className="user-user-info">
-          <h5>{first_name}</h5>
-          <h5>{sur_name}</h5>
-          <h5>{user_name}</h5>
-          <h5>{email}</h5>
-          <h5>{about_user}</h5>
-        </div>
-        <div>
-          <button
-            name="showSkills"
-            value={showSkills}
-            onClick={() => this.showHandler("skills")}
-          >
-            Skills
-          </button>
-          <button
-            value={showExperience}
-            onClick={() => this.showHandler("experience")}
-          >
-            Experience
-          </button>
-          {showSkills && (
-            <div>
-              <div>
-                {skills.map((skill, i) => {
-                  return (
-                    <Link to={`/edit-skill/${skill.id}`} key={i}>
-                      <div className="skill">
-                        <h5>{skill.skill_name}</h5>
-                        <h6>{skill.about_skill}</h6>
-                        <h6>{skill.skill_level}</h6>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-              {addSkill ? (
+      <div >
+        {err || msg ? (
+          <div>
+            {msg && <p>{msg}</p>}
+            {err && <p className="error">{err}</p>}
+          </div>
+        ) : (
+          <div className="user">
+            <div className="user-avatar">
+              {!avatar ? (
                 <div>
-                  <AddSkill />
+                  {title === "Mr" ? (
+                    <img
+                      className="user-avatar"
+                      src={require("../../image/icons/man-avatar.jpg")}
+                      alt="avatar"
+                    />
+                  ) : (
+                    <img
+                      className="user-avatar"
+                      src={require("../../image/icons/women-avatar.jpg")}
+                      alt="avatar"
+                    />
+                  )}
                 </div>
               ) : (
-                <button onClick={() => this.ShowAddSkill(true)}>
-                  Add Skills
-                </button>
+                <img className="user-avatar" src={avatar} alt="avatar" />
               )}
             </div>
-          )}
-          {showExperience && (
+            <div className="user-user-info">
+              <p>{first_name}</p>
+              <p>{sur_name}</p>
+              <p>{user_name}</p>
+              <p>{email}</p>
+              <p>{about_user}</p>
+            </div>
             <div>
-              <div>
-              {experiences.map((experience, i) => {
-                  return (
-                    <Link to={`/edit-experience/${experience.id}`} key={i}>
-                      <div className="skill">
-                        <h5>{experience.what_experience}</h5>
-                        <h6>{experience.what_date}</h6>
-                        <h6>{experience.what_place}</h6>
-                        <h6>{experience.with_whom_teacher}</h6>
-                        <h6>{experience.with_whom_student}</h6>
-                        <h6>{experience.about_experience}</h6>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-              {addExperience ? (
+              <button
+                name="showSkills"
+                value={showSkills}
+                onClick={() => this.showHandler("skills")}
+              >
+                Skills
+              </button>
+              <button
+                value={showExperience}
+                onClick={() => this.showHandler("experience")}
+              >
+                Experience
+              </button>
+              {showSkills && (
                 <div>
-                  <AddExperience />
+                  <div>
+                    {skills.map((skill, i) => {
+                      return (
+                        <Link to={`/edit-skill/${skill.id}`} key={i}>
+                          <div className="skill">
+                            <p>{skill.skill_name}</p>
+                            <h6>{skill.about_skill}</h6>
+                            <h6>{skill.skill_level}</h6>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                  {addSkill ? (
+                    <div>
+                      <AddSkill showBackData={this.showBackData} />
+                    </div>
+                  ) : (
+                    <button onClick={() => this.ShowAddSkill(true)}>
+                      Add Skills
+                    </button>
+                  )}
                 </div>
-              ) : (
-                <button onClick={() => this.ShowAddExperience(true)}>
-                  Add Experience
-                </button>
+              )}
+              {showExperience && (
+                <div>
+                  <div>
+                    {experiences.map((experience, i) => {
+                      return (
+                        <Link to={`/edit-experience/${experience.id}`} key={i}>
+                          <div className="skill">
+                            <p>{experience.what_experience}</p>
+                            <h6>{experience.what_date}</h6>
+                            <h6>{experience.what_place}</h6>
+                            <h6>{experience.with_whom_teacher}</h6>
+                            <h6>{experience.with_whom_student}</h6>
+                            <h6>{experience.about_experience}</h6>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                  {addExperience ? (
+                    <div>
+                      <AddExperience showBackData={this.showBackData} />
+                    </div>
+                  ) : (
+                    <button onClick={() => this.ShowAddExperience(true)}>
+                      Add Experience
+                    </button>
+                  )}
+                </div>
               )}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     );
   }

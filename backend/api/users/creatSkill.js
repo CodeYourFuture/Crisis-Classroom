@@ -5,7 +5,7 @@ const connectionString = process.env.DATABASE_URL;
 const creatSkill = (req, res) => {
   const skill = req.body;
   saveSkill(skill)
-    .then(() => res.json({ msg: 'Success! Your skill has been created.' }))
+    .then(() => res.json({success:true , msg: 'Success! Your skill has been created.' }))
     .catch((err) =>
       res.status(400).json({
         err,

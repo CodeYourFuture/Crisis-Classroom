@@ -102,8 +102,8 @@ class ResetPassword extends Component {
     switch (pageStatus) {
       case PAGESTATUS.err:
         return (
-          <div>
-            <p>{err}</p>
+          <div className="error">
+            <p >{err}</p>
             <Link to="/login">Go to login page</Link>
           </div>
         );

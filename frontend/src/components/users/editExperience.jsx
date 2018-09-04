@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import axios from "axios";
 // import decode from 'jwt-decode';
-// import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 // import Button from '../button';
 // import Label from "../label";
 import Input from "../input";
@@ -145,85 +145,94 @@ class editSkill extends React.Component {
       <div>
         {msg || err ? (
           <div>
-            {msg}
-            {err}
+            {msg ? (
+              <div>
+                <p>{msg}</p>
+                <Link to="/user-profile">Your Profile</Link>
+              </div>
+            ) : (
+              <p className="error">{err}</p>
+            )}
           </div>
         ) : (
           <div>
             <h5>Edit or delete your experience</h5>
-          <form>
-            <div className="form-group">
-              <Input
-                className="form-control"
-                name="what_experience"
-                type="text"
-                placeholder="what Experience"
-                value={what_experience}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <Input
-                className="form-control"
-                name="what_date"
-                type="text"
-                placeholder="Insert the date"
-                value={what_date}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <Input
-                className="form-control"
-                name="what_place"
-                type="text"
-                placeholder="Insert the place"
-                value={what_place}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <Input
-                className="form-control"
-                name="with_whom_student"
-                type="text"
-                placeholder="Student you work with"
-                value={with_whom_student}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <Input
-                className="form-control"
-                name="with_whom_teacher"
-                type="text"
-                placeholder="Teacher you work with"
-                value={with_whom_teacher}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <textarea
-                className="form-control"
-                rows="4"
-                cols="50"
-                name="about_experience"
-                form="usrform"
-                placeholder="More About your experience..> Cane be a short story"
-                value={about_experience}
-                onChange={this.handleChange}
-              />
-            </div>
-            <button className="btn btn-outline-dark" onClick={this.handleEdit}>
-              Edit
-            </button>
-            <button
-              className="btn btn-outline-dark"
-              onClick={this.handleDelete}
-            >
-              Delete
-            </button>
-          </form>
+            <form>
+              <div className="form-group">
+                <Input
+                  className="form-control"
+                  name="what_experience"
+                  type="text"
+                  placeholder="what Experience"
+                  value={what_experience}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <Input
+                  className="form-control"
+                  name="what_date"
+                  type="text"
+                  placeholder="Insert the date"
+                  value={what_date}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <Input
+                  className="form-control"
+                  name="what_place"
+                  type="text"
+                  placeholder="Insert the place"
+                  value={what_place}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <Input
+                  className="form-control"
+                  name="with_whom_student"
+                  type="text"
+                  placeholder="Student you work with"
+                  value={with_whom_student}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <Input
+                  className="form-control"
+                  name="with_whom_teacher"
+                  type="text"
+                  placeholder="Teacher you work with"
+                  value={with_whom_teacher}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <textarea
+                  className="form-control"
+                  rows="4"
+                  cols="50"
+                  name="about_experience"
+                  form="usrform"
+                  placeholder="More About your experience..> Cane be a short story"
+                  value={about_experience}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <button
+                className="btn btn-outline-dark"
+                onClick={this.handleEdit}
+              >
+                Edit
+              </button>
+              <button
+                className="btn btn-outline-dark"
+                onClick={this.handleDelete}
+              >
+                Delete
+              </button>
+            </form>
           </div>
         )}
       </div>

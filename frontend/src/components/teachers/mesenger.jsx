@@ -186,7 +186,7 @@ export default class Messenger extends Component {
                 </div>
                 <div className="modal-body">
                   {!socket ? (
-                    <div>Loding...🤔</div>
+                    <div>Loding...</div>
                   ) : (
                     <div>
                       <div className="messenger-div">
@@ -197,7 +197,6 @@ export default class Messenger extends Component {
                           </div>
                         </div>
                       </div>
-
                       <TeachersCommunication
                         toUserId={teacher.id}
                         socket={this.props.socket}

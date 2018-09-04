@@ -12,7 +12,7 @@ const login = (req, res) => {
         sucess: false,
         token: null,
         msg:
-          'Ops! Sorry something happened on the server, please try again later.',
+          'Sorry something happened on the server, please try again later.',
       });
     }
      client
@@ -26,7 +26,7 @@ const login = (req, res) => {
           return res.status(400).json({
             sucess: false,
             token: null,
-            msg: 'user_name or password are wrong',
+            msg: 'User name or password are wrong',
           });
         } else {
           const hash = user.password;
@@ -36,14 +36,14 @@ const login = (req, res) => {
                 sucess: false,
                 token: null,
                 msg:
-                  'Ops! Sorry something happened on the server, please try again later.',
+                  'Sorry something happened on the server, please try again later.',
               });
             }
             if (!respons) {
               return res.status(400).json({
                 sucess: false,
                 token: null,
-                msg: 'user_name or password are wrong',
+                msg: 'User name or password are wrong',
               });
             } else {
               if (user.teacher) {

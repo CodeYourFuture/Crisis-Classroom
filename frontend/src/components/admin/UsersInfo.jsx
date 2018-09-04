@@ -39,7 +39,7 @@ class UserInfo extends React.Component {
   render() {
     const users = this.state.users;
     return (
-      <div style={{"background-color": "#dadada"}}>
+      <div className="admin-user-info-container">
         <h3>Users</h3>
         {users.map((user, i) => {
           const { id, title, first_name, sur_name, avatar, about_user } = user;

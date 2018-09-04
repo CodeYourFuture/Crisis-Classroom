@@ -17,7 +17,8 @@ export default class AddExperience extends React.Component {
       what_place: "",
       with_whom_student: "",
       with_whom_teacher: "",
-      about_experience: ""
+      about_experience: "",
+      success: false
     };
   }
   handleChange = e => {
@@ -51,8 +52,8 @@ export default class AddExperience extends React.Component {
       })
       .then(result => {
         if (result) {
-          const { msg } = result.data;
-          this.setState({ msg });
+          const { msg, success } = result.data;
+          this.setState({ msg, success });
         }
       })
       .catch(err => {
@@ -60,92 +61,86 @@ export default class AddExperience extends React.Component {
           this.setState({ err: err.msg });
         } else {
           this.setState({
-            err: 'Sorry something happened on the server, please try again later.'
+            err:
+              "Sorry something happened on the server, please try again later."
           });
         }
       });
   };
   render() {
-    const { err, msg } = this.state;
+    const { err, msg, success } = this.state;
     return (
       <div>
-        {msg || err ? (
-          <p>
-            {msg}
-            {err}
-          </p>
-        ) : (
-          <form>
-            <div className="form-group">
-              <Input
-                className="form-control"
-                name="what_experience"
-                type="text"
-                placeholder="what Experience"
-                value={this.state.what_experience}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <Input
-                className="form-control"
-                name="what_date"
-                type="text"
-                placeholder="Insert the date"
-                value={this.state.what_date}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <Input
-                className="form-control"
-                name="what_place"
-                type="text"
-                placeholder="Insert the place"
-                value={this.state.what_place}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <Input
-                className="form-control"
-                name="with_whom_student"
-                type="text"
-                placeholder="Student you work with"
-                value={this.state.with_whom_student}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <Input
-                className="form-control"
-                name="with_whom_teacher"
-                type="text"
-                placeholder="Teacher you work with"
-                value={this.state.with_whom_teacher}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <textarea
-                className="form-control"
-                rows="4"
-                cols="50"
-                name="about_experience"
-                form="usrform"
-                placeholder="More About your experience..> Cane be a short story"
-                value={this.state.about_experience}
-                onChange={this.handleChange}
-              />
-            </div>
-            <button
-              className="btn btn-outline-dark"
-              onClick={this.handleSubmit}
-            >
-              Add
-            </button>
-          </form>
-        )}
+        {success && this.props.showBackData(success)}
+        {msg && <p>{msg}</p>}
+        {err && <p className="error">{err}</p>}
+        <form>
+          <div className="form-group">
+            <Input
+              className="form-control"
+              name="what_experience"
+              type="text"
+              placeholder="what Experience"
+              value={this.state.what_experience}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <Input
+              className="form-control"
+              name="what_date"
+              type="text"
+              placeholder="Insert the date"
+              value={this.state.what_date}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <Input
+              className="form-control"
+              name="what_place"
+              type="text"
+              placeholder="Insert the place"
+              value={this.state.what_place}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <Input
+              className="form-control"
+              name="with_whom_student"
+              type="text"
+              placeholder="Student you work with"
+              value={this.state.with_whom_student}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <Input
+              className="form-control"
+              name="with_whom_teacher"
+              type="text"
+              placeholder="Teacher you work with"
+              value={this.state.with_whom_teacher}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <textarea
+              className="form-control"
+              rows="4"
+              cols="50"
+              name="about_experience"
+              form="usrform"
+              placeholder="More About your experience..> Cane be a short story"
+              value={this.state.about_experience}
+              onChange={this.handleChange}
+            />
+          </div>
+          <button className="btn btn-outline-dark" onClick={this.handleSubmit}>
+            Add
+          </button>
+        </form>
       </div>
     );
   }

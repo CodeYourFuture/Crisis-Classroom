@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Route, Link} from 'react-router-dom';
-import './Style.css';
 import AuthService from '../../Auth/AuthService';
 import Button from '../button';
 import decode from 'jwt-decode';
@@ -58,6 +57,13 @@ export default class NavbarFeatures extends Component {
                   Templates
                 </Link>
               </li>
+              {AuthService.isAdmin() &&
+                <li className="nav-item">
+                <Link to="/admin" className="nav-link">
+                  Admin
+                </Link>
+              </li>
+              }
               {AuthService.loggedIn ()
                 && <div>
                     <li className="nav-item user-info-items">

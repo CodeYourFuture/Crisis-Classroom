@@ -89,9 +89,9 @@ class CheckRegistrationToken extends Component {
     return (
       <div className="login-form">
         {msg
-          ? <h5>{msg}</h5>
+          ? <p>{msg}</p>
           : <div>
-              <h5>{err}</h5>
+              <p className="error">{err}</p>
               <h6>First Name: {first_name}</h6>
               <h6>Sure Name: {sur_name}</h6>
               <h6>Email: {email}</h6>

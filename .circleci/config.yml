@@ -4,7 +4,6 @@ jobs:
     docker:
       - image: circleci/node:8
 
-    working_directory: ~/repo
     steps:
       - checkout
       - setup_remote_docker
@@ -30,7 +29,6 @@ jobs:
   deploy:
     docker:
       - image: circleci/python:2.7-jessie
-    working_directory: ~/repo
     steps:
       - setup_remote_docker
       - run:

@@ -3,13 +3,11 @@ import React, { Component } from "react";
 class Footer extends Component {
   render() {
     return (
-      <div className="footer sub-footer ">
-        <footer className="container page-footer font-small blue pt-4 mt-4">
-          <div className="footer-copyright py-3 text-center">
+        <footer className="page-footer font-small blue">
+          <div className="footer-copyright text-center py-3"  >
             © 2018 Copyright:
           </div>
         </footer>
-      </div>
     );
   }
 }

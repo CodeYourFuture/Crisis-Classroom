@@ -22,7 +22,7 @@ class Home extends Component {
             src={CrisisLogo}
           />
           <h1 className="welcome text-center">Welcome to Crisis Classroom</h1>
-          <div>
+          <div className="home-page-text">
             <HomePageText />
           </div>
         </div>

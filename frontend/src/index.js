@@ -8,12 +8,8 @@ import Routes from "./routes/Routes";
 import "./index.css";
 
 ReactDOM.render(
-  <Router>
-    <div className="container">
-      <div className="mainIndex">
-        <Routes />
-      </div>
-    </div>
+  <Router className="mainIndex">
+    <Routes />
   </Router>,
   document.getElementById("root")
 );

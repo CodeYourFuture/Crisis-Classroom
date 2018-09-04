@@ -20,7 +20,7 @@ const AdminPage = ({ component: Component, ...rest }) => {
             ) : (
               <div>
                 <Header {...props} />
-                <h1 className="error">You don't have permission to access to this page</h1>
+                <h1 className="error">You don't have permission to access to this page.</h1>
                 <Footer />
               </div>
             )}

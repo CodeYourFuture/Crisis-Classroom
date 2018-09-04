@@ -1,133 +1,123 @@
-import React, {Component} from 'react';
-import {Route, Link} from 'react-router-dom';
-import AuthService from '../../Auth/AuthService';
-import Button from '../button';
-import decode from 'jwt-decode';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import AuthService from "../../Auth/AuthService";
+import Button from "../button";
+import decode from "jwt-decode";
+import Logo from "./Logo";
 
 export default class NavbarFeatures extends Component {
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
     this.state = {
-      user_name: '',
-      avatar: '',
-      title: null,
+      user_name: "",
+      avatar: "",
+      title: null
     };
   }
-  UNSAFE_componentWillMount () {
-    const token = AuthService.getToken ();
+  UNSAFE_componentWillMount() {
+    const token = AuthService.getToken();
     if (token) {
-      const decoded = decode (token);
-      const {user_name, avatar, title} = decoded;
-      this.setState ({user_name, avatar, title});
+      const decoded = decode(token);
+      const { user_name, avatar, title } = decoded;
+      this.setState({ user_name, avatar, title });
     }
   }
   onLogOut = () => {
-    AuthService.logout ();
-    this.props.history.replace ('/');
+    AuthService.logout();
+    this.props.history.replace("/");
   };
 
-  render () {
-    const {user_name, avatar, title} = this.state;
+  render() {
+    const { user_name, avatar, title } = this.state;
     return (
-      <Route>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <Link className="navbar-brand" to="/">
-            <div>Home</div>
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <Link className="nav-link" to="/teachers">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+          <Logo />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon" />
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <Link class="nav-link" to="/">
+                Home
+              </Link>
+              <span class="sr-only">(current)</span>
+            </li>
+            <li class="nav-item">
+              {AuthService.loggedIn() && (
+                <Link class="nav-link" to="/teachers">
                   Teachers
                 </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/templates" className="nav-link">
+              )}
+            </li>
+            <li class="nav-item">
+              {AuthService.loggedIn() && (
+                <Link class="nav-link" to="/templates">
                   Templates
                 </Link>
-              </li>
-              {AuthService.isAdmin() &&
-                <li className="nav-item">
-                <Link to="/admin" className="nav-link">
+              )}
+            </li>
+            <li class="nav-item">
+              {AuthService.isAdmin() && (
+                <Link class="nav-link" to="/admin">
                   Admin
                 </Link>
-              </li>
-              }
-              {AuthService.loggedIn ()
-                && <div>
-                    <li className="nav-item user-info-items">
-                      <Link to="/user-profile" className="nav-link">{user_name}</Link >
-                      <div className="nav-link">
-                        <div className="user-avatar">
-                          {!avatar
-                            ? <div>
-                                {title === 'Mr'
-                                  ? <img
-                                      className="nav-image"
-                                      src={require ('../../image/icons/man-avatar.jpg')}
-                                      alt="avatar"
-                                    />
-                                  : <img
-                                      className="nav-image"
-                                      src={require ('../../image/icons/women-avatar.jpg')}
-                                      alt="avatar"
-                                    />}
-                              </div>
-                            : <img
-                                className="nav-image"
-                                src={avatar}
-                                alt="avatar"
-                              />}
-                        </div>
-                      </div>
-                      &nbsp;
-                      <Button
-                        className="log-out nav-link"
-                        value="Log Out"
-                        onClick={this.onLogOut}
-                      />
-                    </li>
-                  </div>
-                
-                  // <li className="nav-item user-info-items">
-                  //   <Link to="/login" className="nav-link">
-                  //     LogIn
-                  //   </Link>
-                  //   &nbsp;
-                  //   <Link to="/register" className="nav-link">
-                  //     Register
-                  //   </Link>
-                  // </li>
-              }
-            </ul>
-            {/* <form className="form-inline my-2 my-lg-0 form">
-              <input
-                className="form-control mr-sm-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
+              )}
+            </li>
+            <li class="nav-item">
+              {AuthService.loggedIn() && (
+                <Link class="nav-link" to="/user-profile">
+                  {user_name}
+                </Link>
+              )}
+            </li>
+            <li class="nav-item">
+              {AuthService.loggedIn() && (
+                <div className="user-avatar-nav">
+                  {!avatar ? (
+                    <div>
+                      {title === "Mr" ? (
+                        <img
+                          className="nav-image"
+                          src={require("../../image/icons/man-avatar.jpg")}
+                          alt="avatar"
+                        />
+                      ) : (
+                        <img
+                          className="nav-image"
+                          src={require("../../image/icons/women-avatar.jpg")}
+                          alt="avatar"
+                        />
+                      )}
+                    </div>
+                  ) : (
+                    <img className="nav-image" src={avatar} alt="avatar" />
+                  )}
+                </div>
+              )}
+            </li>
+          </ul>
+          <span class="navbar-text">
+            {AuthService.loggedIn() && (
+              <Button
+                className="btn-link"
+                value="Log Out"
+                onClick={this.onLogOut}
               />
-              <button
-                className="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
-                Search
-              </button>
-            </form> */}
-          </div>
-        </nav>
-      </Route>
+            )}
+          </span>
+        </div>
+      </nav>
     );
   }
 }

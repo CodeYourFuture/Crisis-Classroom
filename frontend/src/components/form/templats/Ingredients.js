@@ -149,7 +149,7 @@ class Form extends React.Component {
           value="Add"
           onClick={this.addIngredientsHandler}
         />
-        
+        <hr/>
         <div className="template-form-btn">
         <div>
           <Button

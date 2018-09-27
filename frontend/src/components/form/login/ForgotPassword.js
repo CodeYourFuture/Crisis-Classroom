@@ -3,7 +3,6 @@ import Input from "../../input";
 import Button from "../../button";
 import Label from "../../label";
 import axios from "axios";
-const PAGESTATUS = { none: 0, err: 1, success: 2 };
 class ForgotPassword extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +10,6 @@ class ForgotPassword extends Component {
       email: "",
       msg: null,
       err: "",
-      pageStatus: PAGESTATUS.none,
       errors: {
         email: null
       }
@@ -31,17 +29,16 @@ class ForgotPassword extends Component {
         email
       })
       .then(result => {
-        const msg = result.data;
-        if (msg) {
-          this.setState({ msg, pageStatus: PAGESTATUS.success });
+        if (result.data) {
+          const msg = result.data;
+          this.setState({ msg });
         }
       })
       .catch(err => {
         if (err) {
           this.setState({
             err:
-              "Sorry something happened on the server, please try again later",
-            pageStatus: PAGESTATUS.err
+              "Sorry something happened on the server, please try again later"
           });
         }
       });
@@ -72,14 +69,13 @@ class ForgotPassword extends Component {
     return errors;
   }
   renderByStatus() {
-    const { errors, err, msg, pageStatus, email } = this.state;
-    switch (pageStatus) {
-      case PAGESTATUS.err:
-        return <p className="errors">{err}</p>;
-      case PAGESTATUS.success:
-        return <p className="success">{msg}</p>;
-      default:
-        return (
+    const { errors, err, msg, email } = this.state;
+    return (
+      <div>
+        {err && <p className="errors">{err}</p>}
+        {msg ? (
+          <p className="success">{msg}</p>
+        ) : (
           <div>
             <h3>Enter your email</h3>
             <div className="form-group">
@@ -102,8 +98,9 @@ class ForgotPassword extends Component {
               onClick={this.onSubmit}
             />
           </div>
-        );
-    }
+        )}
+      </div>
+    );
   }
   render() {
     return <div className="login-form">{this.renderByStatus()}</div>;

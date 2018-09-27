@@ -135,6 +135,7 @@ class Form extends React.Component {
           onClick={this.addToolsHandler}
         />
         </div>
+        <hr/>
         <div  className="template-form-btn">
         <div>
           <Button

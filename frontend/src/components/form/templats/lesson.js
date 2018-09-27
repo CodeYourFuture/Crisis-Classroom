@@ -225,6 +225,7 @@ class Form extends React.Component {
             </div>
           </div>
         </div>
+        <hr/>
         <div className="template-form-btn">
           <div className="btn-right">
           <Button

@@ -3,15 +3,15 @@ import { Switch } from "react-router-dom";
 
 import Layout from "../layout";
 import Home from "../containers/Home";
-import Register from "../components/form/register/index";
+// import Register from "../components/form/register/index";
 import Templates from "../containers/Templates.jsx";
-import Login from "../components/form/login/form";
+// import Login from "../components/form/login/form";
 import LessonForm from "../components/form/templats/index";
 import PrivateRoute from "../layout/PrivateRoute";
 import NotFound from "../components/pages/notFound";
 import TemplateCreated from "../components/form/templats/templateCreated";
 import TemplateEdited  from "../components/form/templats/templateEdited";
-import ForgotPassword from "../components/form/login/ForgotPassword";
+// import ForgotPassword from "../components/form/login/ForgotPassword";
 import CheckUserToken from "../components/form/login/checkUserToken";
 import ResetPassword from "../components/form/login/ResetPassword";
 import Adminpage from "../layout/adminPage";
@@ -30,10 +30,10 @@ class Routes extends Component {
     return (
       <Switch>
         <Layout exact path="/" component={Home} />
-        <Layout exact path="/login" component={Login} />
-        <Layout path="/register" component={Register} />
+        {/* <Layout exact path="/login" component={Login} /> */}
+        {/* <Layout path="/register" component={Register} /> */}
         <Layout exact path="/notfound" component={NotFound} />
-        <Layout exact path="/forgot-password" component={ForgotPassword} />
+        {/* <Layout exact path="/forgot-password" component={ForgotPassword} /> */}
         <Layout exact path="/reset-password/:token" component={CheckUserToken} />
         <Layout exact path="/reset-password" component={ResetPassword} />
         <PrivateRoute exact path="/add-new-template" component={LessonForm} />

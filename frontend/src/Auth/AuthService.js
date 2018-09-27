@@ -43,7 +43,6 @@ class AuthService {
     }
   };
 
-
   loggedIn = () => {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken();
@@ -54,6 +53,7 @@ class AuthService {
     try {
       const decoded = decode(token);
       if (decoded.exp < Date.now() / 1000) {
+        this.logout();
         return true;
       } else return false;
     } catch (err) {

@@ -23,7 +23,12 @@ export default class preview extends React.Component {
         }
       })
       .catch(err => {
-        this.setState({ err });
+        if (err) {
+          this.setState({
+            err:
+              "Sorry something happened on the server, please try again later"
+          });
+        }
       });
   };
 
@@ -37,7 +42,12 @@ export default class preview extends React.Component {
         }
       })
       .catch(err => {
-        this.setState({ err });
+        if (err) {
+          this.setState({
+            err:
+              "Sorry something happened on the server, please try again later"
+          });
+        }
       });
   };
 
@@ -46,13 +56,12 @@ export default class preview extends React.Component {
     return (
       <div>
         {err || msg ? (
-          <h5 className="error">
-            {err}
-            {msg}
-          </h5>
+          <div>
+            {err && <h5 className="error">{err}</h5>}
+            {msg && <h5>{msg}</h5>}
+          </div>
         ) : (
           <div>
-            <h2 className="Preview-h2">Preview</h2>
             <Context.Consumer>
               {context => {
                 return (
@@ -153,15 +162,17 @@ export default class preview extends React.Component {
                 } = context;
                 const lesson_id = this.props.id;
                 return (
-                  <div style={{ display: "flex" }}>
-                    <Button
-                      className="btn btn-outline-dark "
-                      value="previous"
-                      onClick={previousFormHandler}
-                    />
-                    &nbsp;
-                    {lesson_id ? (
-                      <div style={{ display: "flex" }}>
+                  <div  className="template-form">
+                  <div className="template-form-btn">
+                    <div>
+                      <Button
+                        className="btn btn-outline-dark "
+                        value="previous"
+                        onClick={previousFormHandler}
+                      />
+                    </div>
+                    {lesson_id && (
+                      <div>
                         <Button
                           className="btn btn-outline-dark "
                           value="Edit"
@@ -180,10 +191,13 @@ export default class preview extends React.Component {
                             })
                           }
                         />
-                        &nbsp;
+                      </div>
+                    )}
+                    {lesson_id && (
+                      <div>
                         <Button
-                          className="btn btn-outline-dark "
-                          value="Create New One"
+                          className="btn btn-outline-dark"
+                          value="Create A New One"
                           onClick={() =>
                             this.CreatHandler({
                               lesson_title,
@@ -199,25 +213,29 @@ export default class preview extends React.Component {
                           }
                         />
                       </div>
-                    ) : (
-                      <Button
-                        className="btn btn-outline-dark "
-                        value="Create Template"
-                        onClick={() =>
-                          this.CreatHandler({
-                            lesson_title,
-                            lesson_title_image,
-                            time_to_prepare,
-                            time_to_prepare_image,
-                            number_of_people,
-                            number_of_people_image,
-                            tools,
-                            ingredients,
-                            instructions
-                          })
-                        }
-                      />
                     )}
+                    {!lesson_id && (
+                      <div>
+                        <Button
+                          className="btn btn-outline-dark "
+                          value="Create Template"
+                          onClick={() =>
+                            this.CreatHandler({
+                              lesson_title,
+                              lesson_title_image,
+                              time_to_prepare,
+                              time_to_prepare_image,
+                              number_of_people,
+                              number_of_people_image,
+                              tools,
+                              ingredients,
+                              instructions
+                            })
+                          }
+                        />
+                      </div>
+                    )}
+                  </div>
                   </div>
                 );
               }}

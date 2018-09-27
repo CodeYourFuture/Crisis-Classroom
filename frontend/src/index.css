@@ -3,43 +3,50 @@ body {
   background-repeat: no-repeat, repeat;
   font-family: sans-serif;
   position: relative;
-  margin: 0.5%
+  margin: 0.5%;
 }
 
 /* header */
-.user-avatar-nav{
+.user-avatar-nav {
   position: relative;
   width: 30px;
 }
 
 /* home page */
-.home-itmes{
-text-align: center;
-
+.home-itmes {
+  text-align: center;
 }
-.btnblock{
-  width: 50%
+.btnblock {
+  width: 50%;
 }
-.home-page-text{
+.home-page-text {
   padding-left: 5%;
   padding-right: 5%;
 }
-
+.Forgotten-password:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+.Forgotten-password:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
 /* templaate */
-.lesson-form {
-  flex-wrap: wrap;
-  /* overflow: hidden; */
-  display: inherit;
-  border-style: inset;
-  width: 80%;
-  margin: auto;
-  padding: 5px;
+.template-form {
+  border: 1px solid rgb(0, 0, 0);
+  margin: 0 20%;
+  padding: 1%;
 }
-.lessonForm {
-  padding: 5px;
-  width: 90%;
+.template-form-btn {
+  display: flex;
+  justify-content: space-between;
+  padding: 2% 0;
+} 
+.btn-right{
+  margin-left: auto;
 }
-
 .lessonInput {
   display: flex;
 }
@@ -87,7 +94,7 @@ text-align: center;
   font-size: 14px;
   padding: 5px;
 }
-.Preview-h2{
+.Preview-h2 {
   text-align: center;
 }
 .grid-container {
@@ -116,7 +123,7 @@ text-align: center;
   width: 100%;
   border-radius: 10px;
 }
-.preview-items{
+.preview-items {
   display: flex;
   flex-wrap: wrap;
   border: 3px;
@@ -129,8 +136,7 @@ text-align: center;
 .preview-image {
   max-height: 40px;
   border-radius: 6px;
-  margin-left: auto;  
-  
+  margin-left: auto;
 }
 
 .preview-hr {
@@ -139,35 +145,34 @@ text-align: center;
   border-top: 1px dashed #8c8b8b;
 }
 
-
-.templets{
+.templets {
   display: flex;
   flex-wrap: wrap;
 }
-.templetsItem{
-   width: 20%; 
-   margin: auto; 
-   box-sizing: border-box;
-   margin-bottom: 0;
-   background: rgb(248, 233, 230);
-   border: 1px solid ;
-   border-radius: 10px;
-   padding: .3%;
+.templetsItem {
+  width: 20%;
+  margin: auto;
+  box-sizing: border-box;
+  margin-bottom: 0;
+  background: rgb(248, 233, 230);
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 0.3%;
 }
 .templetsItemImg {
   max-height: 120px;
   width: 100%;
-  padding: .3%;
+  padding: 0.3%;
   border-radius: 10px;
 }
-.add-templat{
-  width: 18%;   
+.add-templat {
+  width: 18%;
   display: flex;
-  align-items: center;    
+  align-items: center;
   justify-content: center;
 }
-.add-templat-p{
-   width: 80%;
+.add-templat-p {
+  width: 80%;
 }
 
 .box1 {
@@ -208,19 +213,16 @@ text-align: center;
   border: 1px;
   align-items: center;
   position: relative;
-  margin-left: auto;  
-  
+  margin-left: auto;
 }
 .colSymbole {
   width: 25%;
   align-items: end;
-  margin-left: auto;  
-  
+  margin-left: auto;
 }
 .Symbole {
   width: 100%;
   border-radius: 10px;
-
 }
 
 .hr {
@@ -234,34 +236,32 @@ text-align: center;
 }
 
 /* admin */
-.admin-user-info-container{
-background-color: #dadada
+.admin-user-info-container {
+  background-color: #dadada;
 }
-.admin{
+.admin {
   display: flex;
-  border: 1px solid  ;
+  border: 1px solid;
   padding: 1%;
   background-color: #dadada;
-
 }
-.admin-avatar{
+.admin-avatar {
   display: block;
   width: 100px;
 }
-.admin-image{
-  width: 90%
+.admin-image {
+  width: 90%;
 }
 
-.admin-divs{
-width: 50%;
+.admin-divs {
+  width: 50%;
 }
-.admin-users{
+.admin-users {
   display: flex;
-  border: 1px solid  ;
+  border: 1px solid;
   padding: 1%;
-  
 }
-.admin-user-info{
+.admin-user-info {
   padding-left: 2%;
 }
 
@@ -290,7 +290,7 @@ width: 50%;
   width: 100%;
 }
 .logo-crisis-classroom {
- width: 58%
+  width: 58%;
 }
 .admin {
   display: flex;
@@ -381,8 +381,6 @@ input[type="password"]:focus {
   opacity: 1;
 }
 
-
-
 /* crisis messenger */
 .messenger-form-container {
   padding: 10px;
@@ -454,13 +452,16 @@ input[type="password"]:focus {
   min-height: 100px;
 }
 
-
-
 /* footer */
 
 @media screen and (max-width: 991px) {
   .signin {
     max-width: 100% !important;
     flex: none;
+  }
+  .template-form {
+    border: 1px solid rgb(0, 0, 0);
+    margin: 0 0.5%;
+    padding: 1%;
   }
 }

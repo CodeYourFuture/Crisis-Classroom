@@ -150,7 +150,7 @@ export default class LessonForm extends React.Component {
           ) : (
             <h2 className="text-center">Create A New Template</h2>
           )}
-          <div className="lesson-form">{forms[this.state.activeForm]}</div>
+          <div>{forms[this.state.activeForm]}</div>
         </Context.Provider>
       </div>
     );

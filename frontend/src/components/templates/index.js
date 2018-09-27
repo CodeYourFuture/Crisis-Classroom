@@ -149,13 +149,12 @@ export default class Template extends React.Component {
                 <Col className="box" lg={3} />
               </Row>
             </Grid>
-            <div style={{ display: "flex" }}>
+            <div className="template-form-btn">
               <Button
                 className="btn btn-outline-dark "
                 value="Edit"
                 onClick={() => this.editHandler(lesson)}
               />
-              &nbsp;
               <Button
                 className="btn btn-outline-danger"
                 value="Delete"

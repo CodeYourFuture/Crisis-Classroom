@@ -68,6 +68,7 @@ class Form extends React.Component {
 
   render () {
     return (
+      <div className="template-form">
       <div>
         <div>
           {this.props.id
@@ -76,7 +77,7 @@ class Form extends React.Component {
           {this.state.tools &&
             this.state.tools.map (({tool_name, tool_image, tool_id}, i) => {
               return (
-                <div className="lessonForm" key={i}>
+                <div key={i}>
                   <div className="form-group">
                     <Label value="Tool Name" />
                     <div className="lessonInput">
@@ -133,19 +134,22 @@ class Form extends React.Component {
           value="Add"
           onClick={this.addToolsHandler}
         />
-        &nbsp;
-        <div style={{display: 'flex'}}>
+        </div>
+        <div  className="template-form-btn">
+        <div>
           <Button
             className="btn btn-outline-dark"
             value="previous"
             onClick={this.props.previousFormHandler}
           />
-          &nbsp;
+          </div>
+          <div className="btn-right">
           <Button
-            className="btn btn-outline-dark"
+            className="btn btn-outline-dark "
             value="Next"
             onClick={() => this.props.onAddTools (this.state.tools)}
           />
+          </div>
         </div>
       </div>
     );

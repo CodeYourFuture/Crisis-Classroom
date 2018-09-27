@@ -30,12 +30,12 @@ export default class NavbarFeatures extends Component {
   render() {
     const { user_name, avatar, title } = this.state;
     return (
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <a className="navbar-brand" href="/">
           <Logo />
         </a>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarText"
@@ -43,45 +43,45 @@ export default class NavbarFeatures extends Component {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon" />
+          <span className="navbar-toggler-icon" />
         </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <Link class="nav-link" to="/">
+        <div className="collapse navbar-collapse" id="navbarText">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item active">
+              <Link className="nav-link" to="/">
                 Home
               </Link>
-              <span class="sr-only">(current)</span>
+              <span className="sr-only">(current)</span>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {AuthService.loggedIn() && (
-                <Link class="nav-link" to="/teachers">
+                <Link className="nav-link" to="/teachers">
                   Teachers
                 </Link>
               )}
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {AuthService.loggedIn() && (
-                <Link class="nav-link" to="/templates">
+                <Link className="nav-link" to="/templates">
                   Templates
                 </Link>
               )}
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {AuthService.isAdmin() && (
-                <Link class="nav-link" to="/admin">
+                <Link className="nav-link" to="/admin">
                   Admin
                 </Link>
               )}
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {AuthService.loggedIn() && (
-                <Link class="nav-link" to="/user-profile">
+                <Link className="nav-link" to="/user-profile">
                   {user_name}
                 </Link>
               )}
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {AuthService.loggedIn() && (
                 <div className="user-avatar-nav">
                   {!avatar ? (
@@ -107,7 +107,7 @@ export default class NavbarFeatures extends Component {
               )}
             </li>
           </ul>
-          <span class="navbar-text">
+          <span className="navbar-text">
             {AuthService.loggedIn() && (
               <Button
                 className="btn-link"

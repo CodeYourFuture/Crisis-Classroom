@@ -11,7 +11,9 @@ const DefaultLayout = ({ component: Component, ...rest }) => (
       return (
         <div>
           <Header {...props} />
-          <Component {...props} />
+          <div className="container">
+            <Component {...props} />
+          </div>
           <Footer />
         </div>
       );

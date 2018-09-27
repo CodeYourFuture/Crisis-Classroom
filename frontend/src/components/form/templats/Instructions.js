@@ -165,6 +165,7 @@ class Form extends React.Component {
             value="Add"
             onClick={this.addInstructionsHandler}
           />
+          <hr/>
           <div className="template-form-btn">
             <div>
               <Button

@@ -35,14 +35,19 @@ body {
 }
 /* templaate */
 .template-form {
-  border: 1px solid rgb(0, 0, 0);
+  /* border: 1px solid rgb(0, 0, 0); */
   margin: 0 20%;
   padding: 1%;
+}
+.template-preview{
+  /* border: 1px solid rgb(0, 0, 0); */
+}
+.template-preview-btn{
+  padding: 2% 2%;
 }
 .template-form-btn {
   display: flex;
   justify-content: space-between;
-  padding: 2% 0;
 } 
 .btn-right{
   margin-left: auto;
@@ -98,24 +103,17 @@ body {
   text-align: center;
 }
 .grid-container {
-  padding: 1rem;
+  padding-top: 1rem;
   flex-wrap: wrap;
 }
 
-.mian-row {
-  background: #b8b8b8;
-  margin-bottom: 0.01rem;
-  border: 1px solid #fff;
-  padding: 5px;
-}
+
 .box {
   box-sizing: border-box;
   height: 650px;
   margin-bottom: 0;
   background: #fff;
   border: 1px solid;
-  border-radius: 10px;
-  /* overflow: hidden; */
   text-align: center;
   padding: 1%;
 }
@@ -173,18 +171,6 @@ body {
 }
 .add-templat-p {
   width: 80%;
-}
-
-.box1 {
-  box-sizing: border-box;
-  min-height: 44rem;
-  margin-bottom: 0;
-  background: #fff;
-  border: 1px solid;
-  border-radius: 10px;
-  /* overflow: hidden; */
-  text-align: center;
-  padding: 1.3%;
 }
 .lessonImg {
   width: 100%;

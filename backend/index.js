@@ -12,7 +12,7 @@ app.use(bodyparser.urlencoded({ extended: false }));
 
 app.use("/", apiRouter());
 
-server = app.listen(process.env.PORT);
+server = app.listen(process.env.PORT || 8080);
 
 io = socket(server);
 

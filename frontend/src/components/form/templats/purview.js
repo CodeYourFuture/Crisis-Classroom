@@ -54,7 +54,7 @@ export default class preview extends React.Component {
   render() {
     const { err, msg } = this.state;
     return (
-      <div>
+      <div className="template-preview">
         {err || msg ? (
           <div>
             {err && <h5 className="error">{err}</h5>}
@@ -162,7 +162,8 @@ export default class preview extends React.Component {
                 } = context;
                 const lesson_id = this.props.id;
                 return (
-                  <div  className="template-form">
+                  <div className="template-preview-btn">
+                  <hr/>
                   <div className="template-form-btn">
                     <div>
                       <Button

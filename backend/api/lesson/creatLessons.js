@@ -22,15 +22,14 @@ const creatLessons = (req, res) => {
         saveInstruction(instruction);
       })
     )
-    .then(()=> lesson_id = [])
+    .then(() => (lesson_id = []))
     .then(() => {
       res.json({ msg: "Success! Your lesson has been created." });
     })
     .catch(err =>
       res.status(400).json({
         err,
-        msg:
-          "Sorry something happened on the server, please try again later."
+        msg: "Sorry something happened on the server, please try again later."
       })
     );
 };

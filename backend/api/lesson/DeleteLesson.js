@@ -13,8 +13,7 @@ const DeleteLesson = (req, res) => {
     .catch(err =>
       res.status(400).json({
         err,
-        msg:
-          "Ops! Sorry something happened on the server, please try again later."
+        msg: "Sorry something happened on the server, please try again later."
       })
     );
 };
@@ -27,7 +26,7 @@ const deleteLessons = lesson_id => {
         if (err) {
           return reject({
             msg:
-              "Ops! Sorry something happened on the server, please try again later."
+              "Sorry something happened on the server, please try again later."
           });
         }
         client
@@ -49,7 +48,7 @@ const deleteTool = lesson_id => {
         if (err) {
           return reject({
             msg:
-              "Ops! Sorry something happened on the server, please try again later."
+              "Sorry something happened on the server, please try again later."
           });
         }
         client
@@ -71,7 +70,7 @@ const deleteIngredient = lesson_id => {
         if (err) {
           return reject({
             msg:
-              "Ops! Sorry something happened on the server, please try again later."
+              "Sorry something happened on the server, please try again later."
           });
         }
         client
@@ -93,7 +92,7 @@ const deleteInstruction = lesson_id => {
         if (err) {
           return reject({
             msg:
-              "Ops! Sorry something happened on the server, please try again later."
+              "Sorry something happened on the server, please try again later."
           });
         }
         client

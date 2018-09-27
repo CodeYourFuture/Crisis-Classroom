@@ -10,13 +10,14 @@ class ForgotPassword extends Component {
     this.state = {
       email: "",
       msg: null,
-      err:"",
+      err: "",
       pageStatus: PAGESTATUS.none,
       errors: {
         email: null
       }
     };
   }
+
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -36,15 +37,10 @@ class ForgotPassword extends Component {
         }
       })
       .catch(err => {
-        if (err.response) {
-          this.setState({
-            err: err.response.data.msg,
-            pageStatus: PAGESTATUS.err
-          });
-        } else {
+        if (err) {
           this.setState({
             err:
-              "Ops! Sorry something happened on the server, please try again later",
+              "Sorry something happened on the server, please try again later",
             pageStatus: PAGESTATUS.err
           });
         }
@@ -61,7 +57,6 @@ class ForgotPassword extends Component {
 
   validate() {
     const { email } = this.state;
-
     const errors = {
       email: null
     };
@@ -102,7 +97,7 @@ class ForgotPassword extends Component {
               )}
             </div>
             <Button
-              className="btn btn-outline-dark"
+              className="btn btn-info btn-block"
               value="Submit"
               onClick={this.onSubmit}
             />
@@ -111,9 +106,7 @@ class ForgotPassword extends Component {
     }
   }
   render() {
-    return (
-        <div className="login-form">{this.renderByStatus()}</div>
-    );
+    return <div className="login-form">{this.renderByStatus()}</div>;
   }
 }
 

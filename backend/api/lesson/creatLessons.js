@@ -22,15 +22,14 @@ const creatLessons = (req, res) => {
         saveInstruction(instruction);
       })
     )
-    .then(()=> lesson_id = [])
+    .then(() => (lesson_id = []))
     .then(() => {
       res.json({ msg: "Success! Your lesson has been created." });
     })
     .catch(err =>
       res.status(400).json({
         err,
-        msg:
-          "Ops! Sorry something happened on the server, please try again later."
+        msg: "Sorry something happened on the server, please try again later."
       })
     );
 };
@@ -51,7 +50,7 @@ const saveLessons = (lesson, date_id) => {
         if (err) {
           return reject({
             msg:
-              "Ops! Sorry something happened on the server, please try again later."
+              "Sorry something happened on the server, please try again later."
           });
         }
         client
@@ -81,7 +80,7 @@ const saveLessons = (lesson, date_id) => {
               if (err) {
                 return reject({
                   msg:
-                    "Ops! Sorry something happened on the server, please try again later."
+                    "Sorry something happened on the server, please try again later."
                 });
               }
               client
@@ -110,7 +109,7 @@ const saveTool = tool => {
         if (err) {
           return reject({
             msg:
-              "Ops! Sorry something happened on the server, please try again later."
+              "Sorry something happened on the server, please try again later."
           });
         }
         client
@@ -125,7 +124,7 @@ const saveTool = tool => {
               if (err) {
                 return reject({
                   msg:
-                    "Ops! Sorry something happened on the server, please try again later."
+                    "Sorry something happened on the server, please try again later."
                 });
               }
               return resolve();
@@ -146,7 +145,7 @@ const saveIngredient = ingredient => {
         if (err) {
           return reject({
             msg:
-              "Ops! Sorry something happened on the server, please try again later."
+              "Sorry something happened on the server, please try again later."
           });
         }
         client
@@ -166,7 +165,7 @@ const saveIngredient = ingredient => {
               if (err) {
                 return reject({
                   msg:
-                    "Ops! Sorry something happened on the server, please try again later."
+                    "Sorry something happened on the server, please try again later."
                 });
               }
               return resolve();
@@ -187,7 +186,7 @@ const saveInstruction = instruction => {
         if (err) {
           return reject({
             msg:
-              "Ops! Sorry something happened on the server, please try again later."
+              "Sorry something happened on the server, please try again later."
           });
         }
         client
@@ -207,7 +206,7 @@ const saveInstruction = instruction => {
               if (err) {
                 return reject({
                   msg:
-                    "Ops! Sorry something happened on the server, please try again later."
+                    "Sorry something happened on the server, please try again later."
                 });
               }
               return resolve();

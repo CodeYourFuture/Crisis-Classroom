@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Input from "../../input";
 import Button from "../../button";
 import Label from "../../label";
@@ -78,9 +78,9 @@ class Login extends Component {
                   onChange={this.handleChange}
                 />
               </div>
+              <div className="Forgotten-password" onClick={() => this.props.onClick("Forgotten-password")}>Forgotten password?</div>
               <div className="form-group">
-                <Link to="/forgot-password">Forgotten password?</Link>
-                &nbsp; &nbsp;
+                &nbsp;
                 <Button className="btn btn-info btn-block" value="Login" />
               </div>
             </form>

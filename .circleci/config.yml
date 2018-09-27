@@ -18,7 +18,7 @@ jobs:
           command: docker build -t codeyourfuture/crisis-classroom-be:$VERSION --build-arg version=$VERSION ./backend && docker tag codeyourfuture/crisis-classroom-be:$VERSION codeyourfuture/crisis-classroom-be:latest
       - run:
           name: Docker login
-          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+          command: echo "$DOCKER_PASS" | docker login -u $DOCKER_USER --password-stdin
       - run:
           name: Docker push frontend
           command: docker push codeyourfuture/crisis-classroom-fe

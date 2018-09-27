@@ -14,13 +14,17 @@ const AdminPage = ({ component: Component, ...rest }) => {
             {AuthService.isAdmin() ? (
               <div>
                 <Header {...props} />
-                <Component {...props} />
+                <div className="container">
+                  <Component {...props} />
+                </div>
                 <Footer />
               </div>
             ) : (
               <div>
                 <Header {...props} />
-                <h1 className="error">You don't have permission to access to this page.</h1>
+                <h1 className="error">
+                  You don't have permission to access to this page.
+                </h1>
                 <Footer />
               </div>
             )}

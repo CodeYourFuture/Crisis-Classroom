@@ -35,21 +35,17 @@ body {
 }
 /* templaate */
 .template-form {
-  /* border: 1px solid rgb(0, 0, 0); */
   margin: 0 20%;
   padding: 1%;
 }
-.template-preview{
-  /* border: 1px solid rgb(0, 0, 0); */
-}
-.template-preview-btn{
+.template-preview-btn {
   padding: 2% 2%;
 }
 .template-form-btn {
   display: flex;
   justify-content: space-between;
-} 
-.btn-right{
+}
+.btn-right {
   margin-left: auto;
 }
 .lessonInput {
@@ -106,7 +102,6 @@ body {
   padding-top: 1rem;
   flex-wrap: wrap;
 }
-
 
 .box {
   box-sizing: border-box;
@@ -252,15 +247,28 @@ body {
 }
 
 /* teahers */
-.teschers-list-div {
+.teachers-filters {
   display: flex;
   flex-wrap: wrap;
 }
+.teachers-filter {
+  max-width: 19%;
+  margin: 2px;
+}
+.teschers-list-div {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  text-align: center
+}
 .teschers-list {
-  margin: 1%;
-  max-width: 40%;
-  padding: 1%;
-  border: 0.01px solid;
+  margin: 2px;
+  width: 150px;
+  height: 150px;
+}
+.teachers-list-avatar {
+  width: 130px;
+  height: 130px;
 }
 .user-avatar {
   position: relative;
@@ -328,19 +336,13 @@ h3 {
   padding: 10%;
 }
 
-/* .container {
-padding: 16px;
-background-color: white;
-} */
-
 input[type="text"],
 input[type="password"],
 .form-control {
   width: 100%;
   padding: 9px;
-  /* margin: 5px 0 22px 0; */
-  /* display: inline-block; */
-  border: none;
+  max-height: 38px;
+  border: 1px solid;
   background: #f1f1f1;
 }
 
@@ -449,5 +451,9 @@ input[type="password"]:focus {
     border: 1px solid rgb(0, 0, 0);
     margin: 0 0.5%;
     padding: 1%;
+  }
+  .teachers-filter {
+    max-width: 100%;
+    margin: 2px;
   }
 }

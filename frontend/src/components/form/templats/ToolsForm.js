@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from '../../input';
-import Label from '../../label';
+// import Label from '../../label';
 import Button from '../../button';
 import Context from './context';
 import axios from 'axios';
@@ -73,22 +73,21 @@ class Form extends React.Component {
         <div>
           {this.props.id
             ? <h2> Edit, Remove or add Tools </h2>
-            : <h2> Add Tools </h2>}
+            : <h2> Tools </h2>}
           {this.state.tools &&
             this.state.tools.map (({tool_name, tool_image, tool_id}, i) => {
               return (
                 <div key={i}>
                   <div className="form-group">
-                    <Label value="Tool Name" />
                     <div className="lessonInput">
                       <Input
                         className="form-control"
                         type="text"
                         name="tool_name"
                         onChange={e => this.onChangeToolshandler (e, i)}
-                        placeholder="Tool"
+                        placeholder="Tool Name..."
                         value={tool_name}
-                      />
+                      />&nbsp;
                       {!tool_image
                         ? <div>
                             <label className="btn btn-outline-dark">
@@ -135,7 +134,7 @@ class Form extends React.Component {
           onClick={this.addToolsHandler}
         />
         </div>
-        <hr/>
+        <hr/><hr/>
         <div  className="template-form-btn">
         <div>
           <Button

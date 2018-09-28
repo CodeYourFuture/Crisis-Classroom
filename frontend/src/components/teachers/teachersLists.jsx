@@ -124,11 +124,11 @@ export default class TeachersList extends Component {
     return (
       <div>
         <h1>Teachers</h1>
-        <div>
+        <div className="teachers-filters">
           <select
             onChange={searchHandler}
             name="skillName"
-            className="form-control"
+            className="form-control teachers-filter"
           >
             <option value="">Skills</option>
             {this.getSkills()}
@@ -136,7 +136,7 @@ export default class TeachersList extends Component {
           <select
             name="skillLevel"
             onChange={searchHandler}
-            className="form-control"
+            className="form-control teachers-filter"
           >
             <option value="">Skill level</option>
             {this.gitSkillLevel()}
@@ -144,7 +144,7 @@ export default class TeachersList extends Component {
           <select
             onChange={searchHandler}
             name="WhatExperience"
-            className="form-control"
+            className="form-control teachers-filter"
           >
             <option value="">Experiences</option>
             {this.getExperiences()}
@@ -152,7 +152,7 @@ export default class TeachersList extends Component {
           <select
             onChange={searchHandler}
             name="Whatplace"
-            className="form-control"
+            className="form-control teachers-filter"
           >
             <option value="">Industry</option>
             {this.getIndustrys()}
@@ -160,12 +160,14 @@ export default class TeachersList extends Component {
           <select
             onChange={searchHandler}
             name="Collage"
-            className="form-control"
+            className="form-control teachers-filter"
           >
             <option value="">Collages</option>
             {this.getCollages()}
           </select>
         </div>
+        <hr/>
+        <hr/>
         <div className="teschers-list-div">
           {searchResultForCollages.map((e, i) => (
             <div className="teschers-list" key={i}>
@@ -175,20 +177,20 @@ export default class TeachersList extends Component {
                     <div>
                       {e.title === "Mr" ? (
                         <img
-                          className="user-avatar"
+                          className="teachers-list-avatar"
                           src={require("../../image/icons/man-avatar.jpg")}
                           alt="avatar"
                         />
                       ) : (
                         <img
-                          className="user-avatar"
+                          className="teachers-list-avatar"
                           src={require("../../image/icons/women-avatar.jpg")}
                           alt="avatar"
                         />
                       )}
                     </div>
                   ) : (
-                    <img className="user-avatar" src={e.avatar} alt="avatar" />
+                    <img className="teachers-list-avatar" src={e.avatar} alt="avatar" />
                   )}
                   <h6>
                     {e.title} {e.first_name} {e.sur_name}

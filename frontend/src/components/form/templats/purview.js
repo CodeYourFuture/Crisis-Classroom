@@ -58,7 +58,7 @@ export default class preview extends React.Component {
         {err || msg ? (
           <div>
             {err && <h5 className="error">{err}</h5>}
-            {msg && <h5>{msg}</h5>}
+            {msg && <h5 className="secess">{msg}</h5>}
           </div>
         ) : (
           <div>
@@ -103,7 +103,7 @@ export default class preview extends React.Component {
                             <h6>{tool.tool_name}</h6>
                             <img
                               className="preview-image"
-                              width="50px"
+                              width="70px"
                               src={tool.tool_image}
                               alt="tool"
                             />

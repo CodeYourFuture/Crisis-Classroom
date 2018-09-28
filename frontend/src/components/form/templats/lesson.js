@@ -83,17 +83,18 @@ class Form extends React.Component {
         <div>
           <div>
             <div>
-              <div className="form-group">
+              <div>
                 <Label value="Lesson Title" />
                 <div className="lessonInput">
                   <Input
-                    className="form-control"
+                    className=" form-control "
                     type="text"
                     name="lesson_title"
                     onChange={this.onChange}
                     placeholder="Lesson Title"
                     value={lesson_title}
                   />
+                  &nbsp;
                   {!lesson_title_image ? (
                     <div>
                       <label className="btn btn-outline-dark">
@@ -131,17 +132,19 @@ class Form extends React.Component {
             </div>
           </div>
           <div>
-            <div className="form-group">
+            <hr />
+            <div>
               <Label value="Time To Prepare" />
               <div className="lessonInput">
                 <Input
-                  className="form-control"
+                  className=" form-control "
                   type="text"
                   name="time_to_prepare"
                   onChange={this.onChange}
                   placeholder="Time To Prepare"
                   value={time_to_prepare}
                 />
+                &nbsp;
                 {!time_to_prepare_image ? (
                   <div>
                     <label className="btn btn-outline-dark">
@@ -178,7 +181,8 @@ class Form extends React.Component {
             </div>
           </div>
           <div>
-            <div className="form-group">
+            <hr />
+            <div>
               <Label value="Number Of People" />
               <div className="lessonInput">
                 <Input
@@ -189,6 +193,7 @@ class Form extends React.Component {
                   placeholder="Number Of People"
                   value={number_of_people}
                 />
+                &nbsp;
                 {!number_of_people_image ? (
                   <div>
                     <label className="btn btn-outline-dark">
@@ -225,14 +230,15 @@ class Form extends React.Component {
             </div>
           </div>
         </div>
-        <hr/>
+        <hr />
+        <hr />
         <div className="template-form-btn">
           <div className="btn-right">
-          <Button
-            className="btn btn-outline-dark"
-            value="Next"
-            onClick={() => this.props.onAddLesson(this.state)}
-          />
+            <Button
+              className="btn btn-outline-dark"
+              value="Next"
+              onClick={() => this.props.onAddLesson(this.state)}
+            />
           </div>
         </div>
       </div>

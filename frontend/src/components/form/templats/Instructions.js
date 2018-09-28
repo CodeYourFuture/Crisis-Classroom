@@ -1,6 +1,6 @@
 import React from "react";
 import Input from "../../input";
-import Label from "../../label";
+// import Label from "../../label";
 import Button from "../../button";
 import Context from "./context";
 import axios from "axios";
@@ -86,7 +86,7 @@ class Form extends React.Component {
           {this.props.id ? (
             <h2> Edit, Remove or add instructions </h2>
           ) : (
-            <h2> Add instructions </h2>
+            <h2> Instructions </h2>
           )}
           <div>
             {this.state.instructions &&
@@ -98,7 +98,6 @@ class Form extends React.Component {
                   return (
                     <div key={i}>
                       <div className="form-group">
-                        <Label value="instruction Name" />
                         <div className="lessonInput">
                           <Input
                             className="form-control"
@@ -107,9 +106,9 @@ class Form extends React.Component {
                             onChange={e =>
                               this.onChangeInstructionshandler(e, i)
                             }
-                            placeholder="instruction"
+                            placeholder="instruction Name..."
                             value={instruction_name}
-                          />
+                          />&nbsp;
                           {!instruction_image ? (
                             <div>
                               <label className="btn btn-outline-dark">
@@ -165,7 +164,7 @@ class Form extends React.Component {
             value="Add"
             onClick={this.addInstructionsHandler}
           />
-          <hr/>
+          <hr/><hr/>
           <div className="template-form-btn">
             <div>
               <Button

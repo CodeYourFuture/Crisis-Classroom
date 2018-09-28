@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from '../../input';
-import Label from '../../label';
+// import Label from '../../label';
 import Button from '../../button';
 import Context from './context';
 import axios from 'axios';
@@ -84,23 +84,22 @@ class Form extends React.Component {
         <div>
           {this.props.id
             ? <h2> Edit, Remove or add Ingredients </h2>
-            : <h2> Add Ingredients </h2>}
+            : <h2> Ingredients </h2>}
           {this.state.ingredients &&
             this.state.ingredients.map (
               ({ingredient_name, ingredient_image, ingredient_id}, i) => {
                 return (
                   <div key={i}>
                     <div className="form-group">
-                      <Label value="Ingredient Name" />
                       <div className="lessonInput">
                         <Input
                           className="form-control"
                           type="text"
                           name="ingredient_name"
                           onChange={e => this.onChangeIngredientshandler (e, i)}
-                          placeholder="Ingredient"
+                          placeholder="Ingredient Name..."
                           value={ingredient_name}
-                        />
+                        />&nbsp;
                         {!ingredient_image
                           ? <div>
                               <label className="btn btn-outline-dark">
@@ -108,7 +107,7 @@ class Form extends React.Component {
                                 <input
                                   style={{display: 'none'}}
                                   type="file"
-                                  name="ingredient_image"
+                                  name="Ingredient_image"
                                   onChange={e =>
                                     this.onChangeImageIngredientshandler (e, i)}
                                   accept="image/*"
@@ -149,7 +148,7 @@ class Form extends React.Component {
           value="Add"
           onClick={this.addIngredientsHandler}
         />
-        <hr/>
+        <hr/><hr/>
         <div className="template-form-btn">
         <div>
           <Button

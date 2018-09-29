@@ -166,49 +166,45 @@ export default class Messenger extends Component {
     const { teacher, socket } = this.props;
     const { isTyping } = this.state;
     return (
-      <div className="container">
-        <div>
-          <button
-            type="button"
-            className="btn btn-info btn-lg"
-            data-toggle="modal"
-            data-target="#myModal"
-            onClick={this.scrollToBottom}
-          >
-            Messenger
-          </button>
-          <div className="modal fade" id="myModal" role="dialog">
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <button type="button" className="close" data-dismiss="modal">
-                    Close
-                  </button>
-                  <h4 className="modal-title">{teacher.sur_name}</h4>
-                </div>
-                <div className="modal-body">
-                  {!socket ? (
-                    <div>Loding...</div>
-                  ) : (
-                    <div>
-                      <div className="messenger-div">
-                        <div id="messenger" className="mesenger">
-                          <div ref={`messageList`} id="message-content">
-                            {this.messages()}
-                            {isTyping && <p>{teacher.sur_name} is typing...</p>}
-                          </div>
+      <div>
+        <button
+          type="button"
+          className="btn btn-info btn-lg w-100"
+          data-toggle="modal"
+          data-target="#myModal"
+          onClick={this.scrollToBottom}
+        >
+          Send a quick message
+        </button>
+        <div className="modal fade" id="myModal" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal">
+                  Close
+                </button>
+                <h4 className="modal-title">{teacher.sur_name}</h4>
+              </div>
+              <div className="modal-body">
+                {!socket ? (
+                  <div>Loding...</div>
+                ) : (
+                  <div>
+                    <div className="messenger-div">
+                      <div id="messenger" className="mesenger">
+                        <div ref={`messageList`} id="message-content">
+                          {this.messages()}
+                          {isTyping && <p>{teacher.sur_name} is typing...</p>}
                         </div>
                       </div>
-                      <TeachersCommunication
-                        toUserId={teacher.id}
-                        socket={this.props.socket}
-                        sendTyping={this.sendTyping}
-                      />
                     </div>
-                  )}
-                </div>
-
-                <div className="messenger-form-container" />
+                    <TeachersCommunication
+                      toUserId={teacher.id}
+                      socket={this.props.socket}
+                      sendTyping={this.sendTyping}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>

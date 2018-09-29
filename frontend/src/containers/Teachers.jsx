@@ -11,6 +11,7 @@ export default class Teachers extends Component {
       teachers: [],
       err: false,
       msg: false,
+      teacherName:null,
       skillName: null,
       skillLevel: null,
       WhatExperience: null,
@@ -54,6 +55,7 @@ export default class Teachers extends Component {
     const {
       err,
       msg,
+      teacherName,
       skillName,
       skillLevel,
       WhatExperience,
@@ -61,8 +63,10 @@ export default class Teachers extends Component {
       Collage,
       teachers
     } = this.state;
+    //search For teacher Name
+    const searchResultForTeacherName = teachers.filter(searchingForTeacherName(teacherName));
     //search For Skill Name
-    const searchResultForSkillName = teachers.filter(
+    const searchResultForSkillName = searchResultForTeacherName.filter(
       searchingForSkillName(skillName)
     );
     //search For Skill Level
@@ -124,6 +128,12 @@ export default class Teachers extends Component {
       </div>
     );
   }
+}
+//search for teacher name
+function searchingForTeacherName(teacherName) {
+  return teachers => {
+    return !teacherName || teachers.first_name.toLowerCase().includes(teacherName.toLowerCase());
+  };
 }
 //search For Skill Name
 function searchingForSkillName(skillName) {

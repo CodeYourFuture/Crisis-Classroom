@@ -252,8 +252,8 @@ body {
   flex-wrap: wrap;
 }
 .teachers-filter {
-  max-width: 19%;
-  margin: 2px;
+  max-width: 20%;
+  /* margin: 2px; */
 }
 .teschers-list-div {
   display: flex;

@@ -253,7 +253,6 @@ body {
 }
 .teachers-filter {
   max-width: 20%;
-  /* margin: 2px; */
 }
 .teschers-list-div {
   display: flex;
@@ -266,14 +265,38 @@ body {
   width: 150px;
   height: 150px;
 }
+.teacher-detailes{
+  display: flex;
+  flex-wrap: wrap;
+}
 .teachers-list-avatar {
   width: 130px;
   height: 130px;
+}
+.teacher-avatar-div{
+  width: 30%;
+}
+.teacher-avatar{
+  width: 100%;
+}
+.about-teacher{
+  padding-left: 10px;
+  width: 70%;
 }
 .user-avatar {
   position: relative;
   width: 30px;
 }
+.teacher-skill{
+  padding: 0 10px;
+  width: 50%;
+}
+.teacher-experience{
+  border-left: 0.1px solid #8c8b8b;
+  padding: 0 10px;
+  width: 50%
+}
+
 .crisis-image {
   max-width: 500px;
   width: 80%;
@@ -327,10 +350,10 @@ body {
 text-align: center;
 } */
 
-h3 {
+/* h3 {
   padding-top: 20px;
   text-align: center;
-}
+} */
 .error {
   color: red;
   padding: 10%;
@@ -455,5 +478,18 @@ input[type="password"]:focus {
   .teachers-filter {
     max-width: 100%;
     margin: 2px;
+  }
+  .teacher-avatar-div{
+    width: 100%;
+  }
+  .about-teacher{
+    padding-left: 10px;
+    width: 100%;
+  }
+  .teacher-skill{
+    width: 100%;
+  }
+  .teacher-experience{
+    width: 100%
   }
 }

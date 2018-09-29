@@ -107,7 +107,6 @@ class editSkill extends React.Component {
           <div>{msg ? <div>
             <p>{msg}</p>
             <Link to="/user-profile">Your Profile</Link>
-          
           </div> : <p className="error">{err}</p>}</div>
         ) : (
 

@@ -3,7 +3,9 @@ import axios from "axios";
 import decode from "jwt-decode";
 import UpdateProfile from "../form/user/updatProfile";
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import EditSkill from "./editSkill";
+import EditExperience from "./editExperience";
 // import Button from '../button';
 // import Label from '../label';
 
@@ -22,10 +24,17 @@ export default class UserProfile extends React.Component {
       about_user: "",
       skills: [],
       experiences: [],
-      user: false
+      user: false,
+      edit_skill: 0,
+      edit_experience: 0
     };
   }
-
+  EditSkillhandler = id => {
+    this.setState({ edit_skill: id });
+  };
+  EditExperiencehandler = id => {
+    this.setState({ edit_experience: id });
+  };
   componentDidMount() {
     const token = localStorage.getItem("id_token");
     const decoded = decode(token);
@@ -71,16 +80,10 @@ export default class UserProfile extends React.Component {
       });
   }
 
-  ShowAddSkill = e => {
-    this.setState({ addSkill: e });
-  };
-  ShowAddExperience = e => {
-    this.setState({ addExperience: e });
-  };
-
-  showBackData = success => {
+  showBackData = () => {
     setTimeout(() => {
-      window.location.reload(true);
+      this.componentDidMount();
+      this.setState({ edit_skill: 0, edit_experience: 0 });
     }, 1500);
   };
 
@@ -90,14 +93,15 @@ export default class UserProfile extends React.Component {
       first_name,
       sur_name,
       user_name,
-      // email,
       err,
       msg,
       avatar,
       about_user,
       skills,
       experiences,
-      user
+      user,
+      edit_skill,
+      edit_experience
     } = this.state;
     if (user === false) {
       return <h1>Loading....</h1>;
@@ -147,37 +151,63 @@ export default class UserProfile extends React.Component {
             <hr />
             <div className="user-info-div">
               <div className="user-skills">
-                <div>
-                  {skills.map((skill, i) => {
-                    return (
-                      <Link to={`/edit-skill/${skill.id}`} key={i}>
-                        <div className="skill">
+                <h5>Skills</h5>
+                {skills.map((skill, i) => {
+                  return (
+                    <div className="user-skill" key={i}>
+                      {edit_skill === skill.id ? (
+                        <EditSkill
+                          skill_id={skill.id}
+                          showBackData={this.showBackData}
+                        />
+                      ) : (
+                        <div>
                           <p>{skill.skill_name}</p>
                           <h6>{skill.about_skill}</h6>
                           <h6>{skill.skill_level}</h6>
-                          <hr />
+                          <button
+                            className="btn btn-outline-dark"
+                            onClick={() => this.EditSkillhandler(skill.id)}
+                          >
+                            Edit
+                          </button>
                         </div>
-                      </Link>
-                    );
-                  })}
-                </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
 
               <div className="user-experiences">
                 <div>
+                <h5>Experiences</h5>
                   {experiences.map((experience, i) => {
                     return (
-                      <Link to={`/edit-experience/${experience.id}`} key={i}>
-                        <div className="skill">
-                          <p>{experience.what_experience}</p>
-                          <h6>{experience.what_date}</h6>
-                          <h6>{experience.what_place}</h6>
-                          <h6>{experience.with_whom_teacher}</h6>
-                          <h6>{experience.with_whom_student}</h6>
-                          <h6>{experience.about_experience}</h6>
-                          <hr />
-                        </div>
-                      </Link>
+                      <div className="user-experience" key={i}>
+                        {edit_experience === experience.id ? (
+                          <EditExperience
+                            experience_id={experience.id}
+                            showBackData={this.showBackData}
+                          />
+                        ) : (
+                          <div>
+                            <p>{experience.what_experience}</p>
+                            <h6>{experience.what_date}</h6>
+                            <h6>{experience.what_place}</h6>
+                            <h6>{experience.with_whom_teacher}</h6>
+                            <h6>{experience.with_whom_student}</h6>
+                            <h6>{experience.about_experience}</h6>
+                            <button
+                              className="btn btn-outline-dark"
+                              onClick={() =>
+                                this.EditExperiencehandler(experience.id)
+                              }
+                            >
+                              Edit
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     );
                   })}
                 </div>

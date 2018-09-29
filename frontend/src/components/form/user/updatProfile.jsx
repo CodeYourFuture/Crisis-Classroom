@@ -18,7 +18,7 @@ class Enrollment extends Component {
       <div>
         <button
           type="button"
-          className="btn btn-info btn-block"
+          className="btn btn-outline-dark w-100"
           data-toggle="modal"
           data-target="#myModal"
         >

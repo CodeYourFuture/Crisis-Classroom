@@ -160,7 +160,6 @@ body {
 }
 .add-templat {
   width: 18%;
-  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -255,14 +254,14 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-content: center;
-  text-align: center
+  text-align: center;
 }
 .teschers-list {
   margin: 2px;
   width: 150px;
   height: 150px;
 }
-.teacher-detailes{
+.teacher-detailes {
   display: flex;
   flex-wrap: wrap;
 }
@@ -270,24 +269,24 @@ body {
   width: 130px;
   height: 130px;
 }
-.teacher-avatar-div{
+.teacher-avatar-div {
   width: 30%;
 }
-.teacher-avatar{
+.teacher-avatar {
   width: 100%;
 }
-.about-teacher{
+.about-teacher {
   padding-left: 10px;
   width: 70%;
 }
-.teacher-skill{
+.teacher-skill {
   padding: 0 10px;
   width: 50%;
 }
-.teacher-experience{
+.teacher-experience {
   border-left: 0.1px solid #8c8b8b;
   padding: 0 10px;
-  width: 50%
+  width: 50%;
 }
 
 .crisis-image {
@@ -350,14 +349,15 @@ input[type="password"],
   width: 100%;
   padding: 9px;
   max-height: 38px;
-  border: 1px solid;
+  border: 1px solid #8c8b8b;
   background: #f1f1f1;
 }
-.form-control-textarea{
+.form-control-textarea {
   width: 100%;
   padding: 9px;
-  border: 1px solid;
-  background: #f1f1f1; 
+  border: 1px solid #8c8b8b;
+  border-radius: 4px;
+  background: #f1f1f1;
 }
 input[type="text"]:focus,
 input[type="password"]:focus {
@@ -382,30 +382,44 @@ input[type="password"]:focus {
   opacity: 1;
 }
 /* user */
-.user-info-div{
+.user-info-div {
   display: flex;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
-.user-avatar-div{
+.user-avatar-div {
   width: 20%;
-  padding: 0 10px
+  padding: 0 10px;
 }
 .user-avatar {
   width: 100%;
 }
-.user-info{
+.user-info {
   width: 80%;
   border-left: 1px solid #8c8b8b;
-  padding: 0 10px
+  padding: 0 10px;
 }
-.user-skills{
+.user-skills {
   width: 50%;
-  padding: 0 10px 
-
+  padding: 0 10px;
 }
-.user-experiences{
+.user-skill{
+  border: 1px solid #8c8b8b;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
+}
+.user-experiences {
   width: 50%;
   border-left: 1px solid #8c8b8b;
-  padding: 0 10px 
+  padding: 0 10px;
+}
+.user-experience{
+  border: 1px solid #8c8b8b;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
 }
 /* crisis messenger */
 .messenger-form-container {
@@ -490,21 +504,57 @@ input[type="password"]:focus {
     margin: 0 0.5%;
     padding: 1%;
   }
+  .add-templat {
+    width: 100%
+  }
+  .add-templat-p {
+    width: 100%;
+  }
+  .templets {
+    display: block;
+  }
+  .templetsItem {
+    width: 100%;
+  }
   .teachers-filter {
     max-width: 100%;
     margin: 2px;
   }
-  .teacher-avatar-div{
+  .teacher-avatar-div {
     width: 100%;
   }
-  .about-teacher{
+  .about-teacher {
     padding-left: 10px;
     width: 100%;
   }
-  .teacher-skill{
+  .teacher-skill {
     width: 100%;
   }
-  .teacher-experience{
-    width: 100%
+  .teacher-experience {
+    width: 100%;
+  }
+  .user-info-div {
+    display: block;
+  }
+  .user-avatar-div {
+    width: 100%;
+    padding: 0 10px;
+  }
+  .user-avatar {
+    width: 100%;
+  }
+  .user-info {
+    width: 100%;
+    padding: 10px;
+    border-left: none;
+  }
+  .user-skills {
+    width: 100%;
+    padding: 0 10px;
+  }
+  .user-experiences {
+    width: 100%;
+    padding: 0 10px;
+    border-left: none;
   }
 }

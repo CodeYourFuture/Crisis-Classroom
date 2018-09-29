@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import axios from "axios";
 // import decode from 'jwt-decode';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 // import Button from '../button';
 // import Label from "../label";
 import Input from "../input";
@@ -52,6 +52,7 @@ class editSkill extends React.Component {
         if (result) {
           const { msg } = result.data;
           this.setState({ msg });
+          this.props.showBackData();
         }
       })
       .catch(err => {
@@ -60,7 +61,7 @@ class editSkill extends React.Component {
         } else {
           this.setState({
             err:
-              "Ops! Sorry something happened on the server, please try again later"
+              "Sorry something happened on the server, please try again later"
           });
         }
       });
@@ -76,6 +77,7 @@ class editSkill extends React.Component {
         if (result) {
           const { msg } = result.data;
           this.setState({ msg });
+          this.props.showBackData();
         }
       })
       .catch(err => {
@@ -84,16 +86,15 @@ class editSkill extends React.Component {
         } else {
           this.setState({
             err:
-              "Ops! Sorry something happened on the server, please try again later"
+              "Sorry something happened on the server, please try again later"
           });
         }
       });
   };
   UNSAFE_componentWillMount() {
-    const url = this.props.match.url;
-    const { id } = this.props.match.params;
+    const  id  = this.props.experience_id;
     axios
-      .post(`${process.env.REACT_APP_DOMAIN}${url}`, { id })
+      .post(`${process.env.REACT_APP_DOMAIN}/edit-experience/${id}`, { id })
       .then(result => {
         if (result) {
           if (result) {
@@ -124,7 +125,7 @@ class editSkill extends React.Component {
         } else {
           this.setState({
             err:
-              "Ops! Sorry something happened on the server, please try again later"
+              "Sorry something happened on the server, please try again later"
           });
         }
       });
@@ -148,7 +149,6 @@ class editSkill extends React.Component {
             {msg ? (
               <div>
                 <p>{msg}</p>
-                <Link to="/user-profile">Your Profile</Link>
               </div>
             ) : (
               <p className="error">{err}</p>
@@ -210,7 +210,7 @@ class editSkill extends React.Component {
               </div>
               <div className="form-group">
                 <textarea
-                  className="form-control"
+                  className="form-control-textarea"
                   rows="4"
                   cols="50"
                   name="about_experience"
@@ -221,13 +221,13 @@ class editSkill extends React.Component {
                 />
               </div>
               <button
-                className="btn btn-outline-dark"
+                className="btn btn-outline-dark w-50"
                 onClick={this.handleEdit}
               >
-                Edit
+                Save
               </button>
               <button
-                className="btn btn-outline-dark"
+                className="btn btn-outline-dark w-50"
                 onClick={this.handleDelete}
               >
                 Delete

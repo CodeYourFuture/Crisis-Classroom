@@ -10,7 +10,7 @@ const creatExperience = (req, res) => {
       res.status(400).json({
         err,
         msg:
-          "Ops! Sorry something happened on the server, please try again later."
+          "Sorry something happened on the server, please try again later."
       })
     );
 };
@@ -32,7 +32,7 @@ const saveExperience = experience => {
         if (err) {
           return reject({
             msg:
-              "Ops! Sorry something happened on the server, please try again later."
+              "Sorry something happened on the server, please try again later."
           });
         }
         client
@@ -64,7 +64,7 @@ const saveExperience = experience => {
             } else
               return reject({
                 msg:
-                  "Ops! Sorry something happened on the server, please try again later."
+                  "Sorry something happened on the server, please try again later."
               });
           });
         done();

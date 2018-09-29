@@ -124,6 +124,17 @@ export default class TeachersList extends Component {
     return (
       <div>
         <h1>Teachers</h1>
+        <div>
+          <input
+            className="form-control"
+            onChange={searchHandler}
+            name="teacherName"
+            type="text"
+            placeholder="Search by teachers name..."
+          />
+        </div>
+        <hr />
+        <h4>Find teachers by their details</h4>
         <div className="teachers-filters">
           <select
             onChange={searchHandler}
@@ -166,8 +177,8 @@ export default class TeachersList extends Component {
             {this.getCollages()}
           </select>
         </div>
-        <hr/>
-        <hr/>
+        <hr />
+        <hr />
         <div className="teschers-list-div">
           {searchResultForCollages.map((e, i) => (
             <div className="teschers-list" key={i}>
@@ -190,16 +201,18 @@ export default class TeachersList extends Component {
                       )}
                     </div>
                   ) : (
-                    <img className="teachers-list-avatar" src={e.avatar} alt="avatar" />
+                    <img
+                      className="teachers-list-avatar"
+                      src={e.avatar}
+                      alt="avatar"
+                    />
                   )}
                   <h6>
                     {e.title} {e.first_name} {e.sur_name}
                   </h6>
                 </Link>
               </div>
-              <div>
-                {/* <TeachersCommunication toUserId={e.id} /> */}
-              </div>
+              <div>{/* <TeachersCommunication toUserId={e.id} /> */}</div>
             </div>
           ))}
         </div>

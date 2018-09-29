@@ -29,7 +29,8 @@ export default class Teacher extends React.Component {
       .then(result => {
         if (result.msg) {
           this.setState({ msg: result.msg });
-        } else if (result) {
+        } else if (result.data) {
+          console.log(result.data)
           this.setState({ teacher: result.data[0] });
         } else
           this.setState({

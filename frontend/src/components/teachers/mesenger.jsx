@@ -153,11 +153,13 @@ export default class Messenger extends Component {
   scrollToBottom = () => {
     setTimeout(() => {
       const { messageList } = this.refs;
-      const scrollHeight = messageList.scrollHeight;
-      const height = messageList.clientHeight;
-      const maxScrollTop = scrollHeight - height;
-      ReactDOM.findDOMNode(messageList).scrollTop =
-        maxScrollTop > 0 ? maxScrollTop : 0;
+      if (messageList) {
+        const scrollHeight = messageList.scrollHeight;
+        const height = messageList.clientHeight;
+        const maxScrollTop = scrollHeight - height;
+        ReactDOM.findDOMNode(messageList).scrollTop =
+          maxScrollTop > 0 ? maxScrollTop : 0;
+      }
     }, 300);
   };
   render() {

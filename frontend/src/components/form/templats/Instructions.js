@@ -68,7 +68,7 @@ class Form extends React.Component {
     });
   };
 
-  removeInstructionsHandler = i => {
+  removeInstructionsHandler = (i, id) => {
     const { instructions } = this.state;
     let removeResult = instructions.filter(
       instruction => instruction.instruction_id !== i
@@ -77,6 +77,19 @@ class Form extends React.Component {
     this.setState({
       instructions: removeResult
     });
+    axios
+      .post(`${process.env.REACT_APP_DOMAIN}/remove-instruction`, { id: id })
+      .then(result => {
+        if (result) {
+          const { msg } = result.data;
+          this.setState({ msg });
+        }
+      })
+      .catch(err => {
+        this.setState({
+          err: "Sorry something happened on the server, please try again later"
+        });
+      });
   };
 
   render() {
@@ -92,7 +105,7 @@ class Form extends React.Component {
             {this.state.instructions &&
               this.state.instructions.map(
                 (
-                  { instruction_name, instruction_image, instruction_id },
+                  { id, instruction_name, instruction_image, instruction_id },
                   i
                 ) => {
                   return (
@@ -108,7 +121,8 @@ class Form extends React.Component {
                             }
                             placeholder="instruction Name..."
                             value={instruction_name}
-                          />&nbsp;
+                          />
+                          &nbsp;
                           {!instruction_image ? (
                             <div>
                               <label className="btn btn-outline-dark">
@@ -149,7 +163,7 @@ class Form extends React.Component {
                             className="btn btn-outline-danger lessonBtn"
                             value="Remove"
                             onClick={() =>
-                              this.removeInstructionsHandler(instruction_id)
+                              this.removeInstructionsHandler(instruction_id, id)
                             }
                           />
                         </div>
@@ -164,7 +178,8 @@ class Form extends React.Component {
             value="Add"
             onClick={this.addInstructionsHandler}
           />
-          <hr/><hr/>
+          <hr />
+          <hr />
           <div className="template-form-btn">
             <div>
               <Button

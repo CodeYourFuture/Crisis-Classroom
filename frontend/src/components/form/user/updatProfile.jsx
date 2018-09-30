@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AddSkill from "./addSkill";
+import SkillForm from "./skillForm";
 import AddExperieance from "./addExperience";
 
 class Enrollment extends Component {
@@ -46,7 +46,7 @@ class Enrollment extends Component {
                     </div>
                     <hr />
                     {toShow === "AddSkill" && (
-                      <AddSkill showBackData={this.props.showBackData} />
+                      <SkillForm showBackData={this.props.showBackData} />
                     )}
                     {toShow === "AddExperieance" && (
                       <AddExperieance showBackData={this.props.showBackData} />

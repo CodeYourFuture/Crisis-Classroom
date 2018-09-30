@@ -342,6 +342,11 @@ body {
   color: red;
   padding: 10%;
 }
+.success{
+  font-size: 20px;
+  color: rgb(18, 211, 0);
+  padding: 5%;
+}
 
 input[type="text"],
 input[type="password"],

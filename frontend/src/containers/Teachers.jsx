@@ -11,7 +11,7 @@ export default class Teachers extends Component {
       teachers: [],
       err: false,
       msg: false,
-      teacherName:null,
+      teacherName: null,
       skillName: null,
       skillLevel: null,
       WhatExperience: null,
@@ -21,15 +21,15 @@ export default class Teachers extends Component {
   }
 
   componentDidMount() {
-      axios
+    axios
       .post(`${process.env.REACT_APP_DOMAIN}/teachers`)
       .then(result => {
         if (result.msg) {
-          this.setState({ msg: result.msg });
+          return this.setState({ msg: result.msg });
         } else if (result) {
-          this.setState({ teachers: result.data });
+          return this.setState({ teachers: result.data });
         } else
-          this.setState({
+          return this.setState({
             err:
               "Sorry something happened on the server, please try again later."
           });
@@ -64,7 +64,9 @@ export default class Teachers extends Component {
       teachers
     } = this.state;
     //search For teacher Name
-    const searchResultForTeacherName = teachers.filter(searchingForTeacherName(teacherName));
+    const searchResultForTeacherName = teachers.filter(
+      searchingForTeacherName(teacherName)
+    );
     //search For Skill Name
     const searchResultForSkillName = searchResultForTeacherName.filter(
       searchingForSkillName(skillName)
@@ -132,7 +134,10 @@ export default class Teachers extends Component {
 //search for teacher name
 function searchingForTeacherName(teacherName) {
   return teachers => {
-    return !teacherName || teachers.first_name.toLowerCase().includes(teacherName.toLowerCase());
+    return (
+      !teacherName ||
+      teachers.first_name.toLowerCase().includes(teacherName.toLowerCase())
+    );
   };
 }
 //search For Skill Name

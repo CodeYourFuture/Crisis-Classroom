@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-// import TeachersCommunication from "../form/user/teachersCommunication";
+import decode from "jwt-decode";
 
 export default class TeachersList extends Component {
   constructor(props) {
@@ -121,6 +121,9 @@ export default class TeachersList extends Component {
 
   render() {
     const { searchHandler, searchResultForCollages } = this.props;
+    const token = localStorage.getItem("id_token");
+    const decoded = decode(token);
+    const userId = decoded.id;
     return (
       <div>
         <h1>Teachers</h1>
@@ -183,36 +186,66 @@ export default class TeachersList extends Component {
           {searchResultForCollages.map((e, i) => (
             <div className="teschers-list" key={i}>
               <div>
-                <Link to={`/teachers/${e.id}`}>
-                  {!e.avatar ? (
-                    <div>
-                      {e.title === "Mr" ? (
-                        <img
-                          className="teachers-list-avatar"
-                          src={require("../../image/icons/man-avatar.jpg")}
-                          alt="avatar"
-                        />
-                      ) : (
-                        <img
-                          className="teachers-list-avatar"
-                          src={require("../../image/icons/women-avatar.jpg")}
-                          alt="avatar"
-                        />
-                      )}
-                    </div>
-                  ) : (
-                    <img
-                      className="teachers-list-avatar"
-                      src={e.avatar}
-                      alt="avatar"
-                    />
-                  )}
-                  <h6>
-                    {e.title} {e.first_name} {e.sur_name}
-                  </h6>
-                </Link>
+                {e.id === userId ? (
+                  <Link to={`/user-profile`}>
+                    {!e.avatar ? (
+                      <div>
+                        {e.title === "Mr" ? (
+                          <img
+                            className="teachers-list-avatar"
+                            src={require("../../image/icons/man-avatar.jpg")}
+                            alt="avatar"
+                          />
+                        ) : (
+                          <img
+                            className="teachers-list-avatar"
+                            src={require("../../image/icons/women-avatar.jpg")}
+                            alt="avatar"
+                          />
+                        )}
+                      </div>
+                    ) : (
+                      <img
+                        className="teachers-list-avatar"
+                        src={e.avatar}
+                        alt="avatar"
+                      />
+                    )}
+                    <h6>
+                      {e.title} {e.first_name} {e.sur_name}
+                    </h6>
+                  </Link>
+                ) : (
+                  <Link to={`/teachers/${e.id}`}>
+                    {!e.avatar ? (
+                      <div>
+                        {e.title === "Mr" ? (
+                          <img
+                            className="teachers-list-avatar"
+                            src={require("../../image/icons/man-avatar.jpg")}
+                            alt="avatar"
+                          />
+                        ) : (
+                          <img
+                            className="teachers-list-avatar"
+                            src={require("../../image/icons/women-avatar.jpg")}
+                            alt="avatar"
+                          />
+                        )}
+                      </div>
+                    ) : (
+                      <img
+                        className="teachers-list-avatar"
+                        src={e.avatar}
+                        alt="avatar"
+                      />
+                    )}
+                    <h6>
+                      {e.title} {e.first_name} {e.sur_name}
+                    </h6>
+                  </Link>
+                )}
               </div>
-              <div>{/* <TeachersCommunication toUserId={e.id} /> */}</div>
             </div>
           ))}
         </div>

@@ -62,18 +62,20 @@ class ConfirmRegistration extends Component {
       <div>
         {msg || err ? (
           <div>
-              <p className="error">{err}</p>
-              <p>{msg}</p>
+            {err && <p className="error">{err}</p>}
+            {msg && <p className="success">{msg}</p>}
           </div>
         ) : (
           <div>
-            <br/>
-            <br/>
+            <br />
+            <br />
             <p>
-            <strong> Cool ! {state.title} {state.sur_name}</strong>,
-            <br/>
-               Please check the below details
-              and click <strong>Looks fine</strong> to get registration done.
+              <strong>
+                Cool! {state.title} {state.sur_name}
+              </strong>
+              ,<br />
+              Please check the below details and click
+              <strong>Looks fine</strong> to get registration done.
             </p>
             <div>
               {!state.avatar ? (
@@ -113,7 +115,7 @@ class ConfirmRegistration extends Component {
                     className="image"
                     width="100px"
                     src={state.avatar}
-                    alt="lesson Title "
+                    alt="lesson Title"
                   />
                   <div className="middle">
                     <button
